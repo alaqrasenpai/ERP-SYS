@@ -1,0 +1,36 @@
+export default defineNuxtPlugin((nuxtApp) => {
+  const auth = useAuth()
+
+  // Create a custom fetch instance with pre-configured interceptors
+  const api = $fetch.create({
+    baseURL: 'http://localhost:5000/api',
+    onRequest({ request, options }) {
+      const headers = new Headers(options.headers || {})
+      
+      // Dynamically inject the tenant ID
+      if (auth.tenantId.value) {
+        headers.set('x-tenant-id', auth.tenantId.value)
+      }
+      
+      // Dynamically inject the JWT token
+      if (auth.token.value) {
+        headers.set('Authorization', `Bearer ${auth.token.value}`)
+      }
+      
+      options.headers = headers
+    },
+    onResponseError({ response }) {
+      if (response.status === 401) {
+        console.warn('API returned 401 Unauthorized');
+        // Temporarily disabled auth.logout() to debug redirects
+      }
+    }
+  })
+
+  // Provide it globally so it can be used as $api in components
+  return {
+    provide: {
+      api
+    }
+  }
+})
