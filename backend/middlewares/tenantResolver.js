@@ -18,7 +18,7 @@ const tenantResolver = async (req, res, next) => {
         }
 
         if (tenant.status !== 'active') {
-            return res.status(403).json({ message: 'Tenant account is suspended' });
+            return res.status(403).json({ message: '403 Forbidden: Store Account Suspended' });
         }
 
         // Retrieve or create the correct connection object for this tenant

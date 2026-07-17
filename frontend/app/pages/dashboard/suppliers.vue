@@ -173,9 +173,10 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-definePageMeta({
+definePageMeta({ 
   layout: 'dashboard',
-  middleware: ['auth']
+  middleware: ['auth', 'module-guard'],
+  requiredModule: 'inventory'
 })
 
 const { $api } = useNuxtApp()

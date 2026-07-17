@@ -177,9 +177,10 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-definePageMeta({
+definePageMeta({ 
   layout: 'dashboard',
-  middleware: ['auth']
+  middleware: ['auth', 'module-guard'],
+  requiredModule: 'inventory'
 })
 
 const route = useRoute()

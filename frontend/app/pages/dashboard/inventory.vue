@@ -8,14 +8,16 @@
         </div>
         <div class="flex space-x-3 mt-4 sm:mt-0">
           <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">Dashboard</NuxtLink>
-          <button @click="showCategoryModal = true" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
-            Categories
-          </button>
-          <button @click="openAddModal" class="px-5 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm transition-colors flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            Add Product
-          </button>
+          <div class="flex items-center space-x-3" v-if="hasPermission('inventory:write')">
+            <button @click="showCategoryModal = true" class="px-4 py-2 bg-white border border-gray-200 hover:border-gray-300 text-gray-700 rounded-xl font-bold shadow-sm transition-all flex items-center">
+              <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+              Categories
+            </button>
+            <button @click="openAddModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+              Add Product
+            </button>
+          </div>
         </div>
       </div>
 
@@ -112,13 +114,10 @@
                     </span>
                   </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <NuxtLink v-if="product.stockQuantity === 0" :to="`/dashboard/stock-movements?restockProductId=${product._id}`" class="text-emerald-700 hover:text-emerald-900 bg-emerald-100 px-3 py-1.5 rounded-md hover:bg-emerald-200 transition-colors mr-2 font-bold inline-flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Quick Restock
-                  </NuxtLink>
-                  <button @click="openEditModal(product)" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1.5 rounded-md hover:bg-indigo-100 transition-colors">Edit</button>
-                  <button @click="deleteProduct(product._id)" class="text-red-600 hover:text-red-900 bg-red-50 px-3 py-1.5 rounded-md hover:bg-red-100 transition-colors ml-2">Delete</button>
-                </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                    <button v-if="hasPermission('inventory:write')" @click="openEditModal(product)" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1.5 rounded-lg font-bold transition-colors">Edit</button>
+                    <button v-if="hasPermission('inventory:write')" @click="deleteProduct(product._id)" class="text-red-600 hover:text-red-900 bg-red-50 px-3 py-1.5 rounded-lg font-bold transition-colors">Delete</button>
+                  </td>
               </tr>
               <tr v-if="filteredProducts.length === 0 && !loading">
                 <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">
@@ -270,13 +269,16 @@
 
 <script setup>
 import { computed, ref, onMounted } from 'vue'
+import { usePermissions } from '../../composables/usePermissions'
 
 definePageMeta({ 
   layout: 'dashboard',
-  middleware: ['auth'] 
+  middleware: ['auth', 'module-guard'],
+  requiredModule: 'inventory'
 })
 
 const { $api } = useNuxtApp()
+const { hasPermission } = usePermissions()
 const products = ref([])
 const categories = ref([])
 const loading = ref(true)

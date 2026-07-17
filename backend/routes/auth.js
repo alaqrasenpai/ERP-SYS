@@ -57,8 +57,12 @@ router.post('/register', async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
-                role: role.name
+                role: {
+                    name: role.name,
+                    permissions: role.permissions
+                }
             },
+            enabledModules: tenantConfig.enabledModules,
             token: generateToken(user._id, user.email, role.name, tenantConfig.tenantId)
         });
     } catch (error) {
@@ -95,7 +99,10 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
-        const roleName = user.role ? user.role.name : 'No Role';
+        const roleData = user.role ? {
+            name: user.role.name,
+            permissions: user.role.permissions || []
+        } : { name: 'No Role', permissions: [] };
 
         res.json({
             message: 'Login successful',
@@ -103,9 +110,10 @@ router.post('/login', async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
-                role: roleName
+                role: roleData
             },
-            token: generateToken(user._id, user.email, roleName, tenantConfig.tenantId)
+            enabledModules: tenantConfig.enabledModules,
+            token: generateToken(user._id, user.email, roleData.name, tenantConfig.tenantId)
         });
     } catch (error) {
         console.error('Error during login:', error);

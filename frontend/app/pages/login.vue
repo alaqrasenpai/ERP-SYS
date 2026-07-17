@@ -77,7 +77,7 @@ const handleLogin = async () => {
     })
     
     // Save to cookies via composable
-    setAuth(response.token, form.value.tenantId, response.user)
+    setAuth(response.token, form.value.tenantId, response.user, response.enabledModules)
     
     // Redirect to dashboard
     navigateTo('/')

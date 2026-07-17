@@ -13,10 +13,30 @@
             </NuxtLink>
             
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center ml-4 lg:ml-8 space-x-1 overflow-x-auto no-scrollbar">
-              <NuxtLink v-for="link in links" :key="link.path" :to="link.path" class="px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors" active-class="bg-indigo-800 text-white" :class="$route.path === link.path ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white'">
-                {{ link.name }}
-              </NuxtLink>
+            <div class="hidden md:flex items-center ml-4 lg:ml-8 space-x-1">
+              <template v-for="group in navGroups" :key="group.name">
+                <!-- Single Link -->
+                <NuxtLink v-if="group.visible && !group.children" :to="group.path" class="px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors" active-class="bg-indigo-800 text-white" :class="$route.path === group.path ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-800 hover:text-white'">
+                  {{ group.name }}
+                </NuxtLink>
+
+                <!-- Dropdown -->
+                <div v-else-if="group.visible && group.children && group.children.some(c => c.visible)" class="relative group">
+                  <button class="px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white flex items-center">
+                    {{ group.name }}
+                    <svg class="w-4 h-4 ml-1 opacity-70 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  </button>
+                  <div class="absolute left-0 top-full mt-1 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 transform origin-top scale-95 group-hover:scale-100">
+                    <div class="py-2">
+                      <template v-for="child in group.children" :key="child.path">
+                        <NuxtLink v-if="child.visible" :to="child.path" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 font-medium transition-colors">
+                          {{ child.name }}
+                        </NuxtLink>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
           <div class="flex items-center space-x-4">
@@ -27,7 +47,7 @@
              </div>
              <div class="flex flex-col text-right">
                <span class="text-sm font-bold leading-none">{{ user?.name || 'User' }}</span>
-               <span class="text-xs text-indigo-300 mt-1">{{ user?.role || 'Staff' }}</span>
+               <span class="text-xs text-indigo-300 mt-1">{{ user?.role?.name || user?.role || 'Staff' }}</span>
              </div>
              <button @click="logout" class="p-2 text-indigo-200 hover:text-white hover:bg-indigo-800 rounded-full transition-colors" title="Logout">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -38,9 +58,18 @@
       <!-- Mobile Navigation (scrollable) -->
       <div class="md:hidden border-t border-indigo-800 bg-indigo-800/50">
         <div class="flex overflow-x-auto no-scrollbar px-4 py-2 space-x-2">
-          <NuxtLink v-for="link in links" :key="link.path" :to="link.path" class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors" active-class="bg-indigo-700 text-white" :class="$route.path === link.path ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:bg-indigo-700 hover:text-white'">
-            {{ link.name }}
-          </NuxtLink>
+          <template v-for="group in navGroups" :key="'mob-'+group.name">
+            <NuxtLink v-if="group.visible && !group.children" :to="group.path" class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors" active-class="bg-indigo-700 text-white" :class="$route.path === group.path ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:bg-indigo-700 hover:text-white'">
+              {{ group.name }}
+            </NuxtLink>
+            <template v-if="group.visible && group.children">
+              <template v-for="child in group.children" :key="'mob-'+child.path">
+                <NuxtLink v-if="child.visible" :to="child.path" class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors" active-class="bg-indigo-700 text-white" :class="$route.path === child.path ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:bg-indigo-700 hover:text-white'">
+                  {{ child.name }}
+                </NuxtLink>
+              </template>
+            </template>
+          </template>
         </div>
       </div>
     </nav>
@@ -53,19 +82,63 @@
 </template>
 
 <script setup>
-const { user, tenantId, logout } = useAuth()
+import { useAuth } from '#imports'
+import { usePermissions } from '../composables/usePermissions'
 
-const links = [
-  { name: 'Dashboard', path: '/' },
-  { name: 'POS', path: '/dashboard/pos' },
-  { name: 'Inventory', path: '/dashboard/inventory' },
-  { name: 'Stock Audit', path: '/dashboard/stock-movements' },
-  { name: 'Suppliers', path: '/dashboard/suppliers' },
-  { name: 'Customers', path: '/dashboard/customers' },
-  { name: 'Accounting', path: '/dashboard/accounting' },
-  { name: 'HR', path: '/dashboard/employees' },
-  { name: 'Archive', path: '/dashboard/archive' }
-]
+const { user, tenantId, enabledModules, logout } = useAuth()
+const { hasPermission } = usePermissions()
+
+const navGroups = computed(() => {
+  return [
+    {
+      name: 'Dashboard',
+      path: '/',
+      visible: true
+    },
+    {
+      name: 'Sales & CRM',
+      visible: true, 
+      children: [
+        { name: 'POS Terminal', path: '/dashboard/pos', visible: enabledModules.value?.includes('pos') },
+        { name: 'Customers', path: '/dashboard/customers', visible: true }
+      ]
+    },
+    {
+      name: 'Inventory',
+      visible: enabledModules.value?.includes('inventory'),
+      children: [
+        { name: 'Products Overview', path: '/dashboard/inventory', visible: true },
+        { name: 'Stock Audit', path: '/dashboard/stock-movements', visible: true },
+        { name: 'Suppliers', path: '/dashboard/suppliers', visible: true }
+      ]
+    },
+    {
+      name: 'Finance',
+      visible: true, 
+      children: [
+        { name: 'Accounting Ledger', path: '/dashboard/accounting', visible: enabledModules.value?.includes('accounting') },
+        { name: 'Reports', path: '/dashboard/reports', visible: true }
+      ]
+    },
+    {
+      name: 'Operations',
+      visible: true,
+      children: [
+        { name: 'HR & Payroll', path: '/dashboard/employees', visible: enabledModules.value?.includes('hr') },
+        { name: 'Digital Archive', path: '/dashboard/archive', visible: enabledModules.value?.includes('archive') },
+        { name: 'Settings', path: '/dashboard/settings', visible: true }
+      ]
+    },
+    {
+      name: 'Team Access',
+      visible: hasPermission('team:manage'),
+      children: [
+        { name: 'Staff Members', path: '/dashboard/team/users', visible: true },
+        { name: 'Access Roles', path: '/dashboard/team/roles', visible: true }
+      ]
+    }
+  ]
+})
 </script>
 
 <style scoped>

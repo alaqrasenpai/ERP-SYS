@@ -42,7 +42,7 @@
                 <p class="text-xs text-gray-500">{{ product.barcode || product.sku }}</p>
               </div>
               <div class="mt-3 flex justify-between items-end">
-                <span class="text-lg font-black text-gray-900">${{ product.unitPrice.toFixed(2) }}</span>
+                <span class="text-lg font-black text-gray-900">{{ currency }}{{ product.unitPrice.toFixed(2) }}</span>
                 <span class="text-xs font-bold px-2 py-1 rounded-md" :class="product.stockQuantity > 0 ? 'bg-indigo-50 text-indigo-700' : 'bg-red-50 text-red-700'">
                   {{ product.stockQuantity > 0 ? product.stockQuantity + ' in stock' : 'Out of Stock' }}
                 </span>
@@ -68,7 +68,7 @@
             <li v-for="(item, index) in cart" :key="item.productId" class="py-3 flex justify-between">
               <div class="flex-1">
                 <h4 class="text-sm font-bold text-gray-900">{{ item.name }}</h4>
-                <div class="text-xs text-gray-500 mt-1">${{ item.unitPrice.toFixed(2) }}</div>
+                <div class="text-xs text-gray-500 mt-1">{{ currency }}{{ item.unitPrice.toFixed(2) }}</div>
               </div>
               <div class="flex items-center space-x-3">
                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
@@ -77,7 +77,7 @@
                   <button @click="updateQuantity(index, 1)" class="px-2 py-1 bg-gray-50 hover:bg-gray-100 text-gray-600 font-bold">+</button>
                 </div>
                 <div class="w-16 text-right font-bold text-gray-900">
-                  ${{ item.totalPrice.toFixed(2) }}
+                  {{ currency }}{{ item.totalPrice.toFixed(2) }}
                 </div>
                 <button @click="removeFromCart(index)" class="text-red-400 hover:text-red-600">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -91,16 +91,16 @@
           <div class="space-y-4">
             <div class="flex justify-between items-center text-sm">
               <span class="text-gray-500">Subtotal</span>
-              <span class="font-bold text-gray-900">${{ subTotal.toFixed(2) }}</span>
+              <span class="font-bold text-gray-900">{{ currency }}{{ subTotal.toFixed(2) }}</span>
             </div>
             <div class="flex justify-between items-center text-sm">
-              <span class="text-gray-500">Tax (15%)</span>
-              <span class="font-bold text-gray-900">${{ taxAmount.toFixed(2) }}</span>
+              <span class="text-gray-500">Tax ({{ taxRate }}%)</span>
+              <span class="font-bold text-gray-900">{{ currency }}{{ taxAmount.toFixed(2) }}</span>
             </div>
             
             <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
               <span class="text-lg font-black text-gray-900">Total</span>
-              <span class="text-2xl font-black text-indigo-600">${{ grandTotal.toFixed(2) }}</span>
+              <span class="text-2xl font-black text-indigo-600">{{ currency }}{{ grandTotal.toFixed(2) }}</span>
             </div>
 
             <!-- Customer Selection -->
@@ -139,7 +139,7 @@
             <!-- Conditional Details: Installment -->
             <div v-if="paymentMethod === 'Installment'" class="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2 mt-2">
               <div>
-                <label class="text-xs font-bold text-gray-500">Down Payment ($)</label>
+                <label class="text-xs font-bold text-gray-500">Down Payment ({{ currency }})</label>
                 <input v-model="installmentDetails.downPayment" type="number" min="0" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
               </div>
               <div>
@@ -147,7 +147,7 @@
                 <input v-model="installmentDetails.months" type="number" min="1" max="60" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
               </div>
               <div v-if="installmentDetails.months > 0" class="text-xs text-indigo-600 font-bold mt-1 text-center">
-                {{ installmentDetails.months }} payments of ${{ ((grandTotal - installmentDetails.downPayment) / installmentDetails.months).toFixed(2) }}/month
+                {{ installmentDetails.months }} payments of {{ currency }}{{ ((grandTotal - installmentDetails.downPayment) / installmentDetails.months).toFixed(2) }}/month
               </div>
             </div>
 
@@ -165,9 +165,10 @@
     <!-- Hidden Receipt for Printing -->
     <div id="receipt-area" class="hidden print:block w-80 mx-auto font-mono text-sm text-black">
       <div class="text-center mb-4">
-        <h2 class="text-xl font-bold">STORE NAME</h2>
-        <p>123 Business Road, City</p>
-        <p>Tel: +1 234 567 890</p>
+        <h2 class="text-xl font-bold">{{ storeName }}</h2>
+        <p v-if="address">{{ address }}</p>
+        <p v-if="phone">Tel: {{ phone }}</p>
+        <p v-if="receiptHeader" class="mt-2 whitespace-pre-line">{{ receiptHeader }}</p>
       </div>
       
       <div v-if="lastOrder" class="border-t border-b border-dashed border-black py-2 mb-2">
@@ -194,17 +195,16 @@
       </table>
 
       <div v-if="lastOrder" class="border-t border-dashed border-black pt-2 space-y-1">
-        <div class="flex justify-between"><span>Subtotal:</span> <span>${{ lastOrder.subTotal.toFixed(2) }}</span></div>
-        <div v-if="lastOrder.discount > 0" class="flex justify-between"><span>Discount:</span> <span>-${{ lastOrder.discount.toFixed(2) }}</span></div>
-        <div class="flex justify-between"><span>Tax:</span> <span>${{ lastOrder.tax.toFixed(2) }}</span></div>
+        <div class="flex justify-between"><span>Subtotal:</span> <span>{{ currency }}{{ lastOrder.subTotal.toFixed(2) }}</span></div>
+        <div v-if="lastOrder.discount > 0" class="flex justify-between"><span>Discount:</span> <span>-{{ currency }}{{ lastOrder.discount.toFixed(2) }}</span></div>
+        <div class="flex justify-between"><span>Tax ({{ taxRate }}%):</span> <span>{{ currency }}{{ lastOrder.tax.toFixed(2) }}</span></div>
         <div class="flex justify-between font-bold text-lg mt-2 pt-2 border-t border-dashed border-black">
-          <span>TOTAL:</span> <span>${{ lastOrder.grandTotal.toFixed(2) }}</span>
+          <span>TOTAL:</span> <span>{{ currency }}{{ lastOrder.grandTotal.toFixed(2) }}</span>
         </div>
       </div>
       
-      <div class="text-center mt-6 text-xs">
-        <p>Thank you for your purchase!</p>
-        <p>Please come again.</p>
+      <div class="text-center mt-6 text-xs whitespace-pre-line">
+        <p>{{ receiptFooter }}</p>
       </div>
     </div>
 
@@ -249,7 +249,8 @@
 import { ref, computed, onMounted } from 'vue'
 
 definePageMeta({ 
-  middleware: ['auth'],
+  middleware: ['auth', 'module-guard'],
+  requiredModule: 'pos',
   layout: false // Hide default layout to make POS full screen
 })
 
@@ -262,7 +263,13 @@ const shiftOpen = ref(false)
 const currentShiftId = ref(null)
 
 const cart = ref([])
-const taxRate = ref(15) // Example 15% VAT
+const taxRate = ref(15)
+const currency = ref('$')
+const storeName = ref('STORE NAME')
+const address = ref('')
+const phone = ref('')
+const receiptHeader = ref('')
+const receiptFooter = ref('Thank you for your purchase!')
 const paymentMethod = ref('Cash')
 
 const subTotal = ref(0)
@@ -295,10 +302,20 @@ const filteredProducts = computed(() => {
 
 const fetchProducts = async () => {
   try {
+    const settings = await $api('/settings')
+    if (settings) {
+      taxRate.value = settings.taxRate !== undefined ? settings.taxRate : 15
+      currency.value = settings.currency || '$'
+      storeName.value = settings.storeName || 'STORE NAME'
+      address.value = settings.address || ''
+      phone.value = settings.phone || ''
+      receiptHeader.value = settings.receiptHeader || ''
+      receiptFooter.value = settings.receiptFooter || 'Thank you for your purchase!'
+    }
     products.value = await $api('/inventory/products')
     customers.value = await $api('/customers')
   } catch (error) {
-    console.error('Failed to fetch products', error)
+    console.error('Failed to fetch data', error)
   }
 }
 

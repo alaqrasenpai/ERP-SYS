@@ -20,6 +20,7 @@ const installmentPlanSchema = require('../models/InstallmentPlan');
 const checkPaymentSchema = require('../models/CheckPayment');
 const accountSchema = require('../models/Account');
 const journalEntrySchema = require('../models/JournalEntry');
+const settingSchema = require('../models/Setting');
 
 // Cache to store the existing tenant database connections
 const connectionCache = new Map();
@@ -70,6 +71,7 @@ const getTenantConnection = (dbName) => {
     connection.model('CheckPayment', checkPaymentSchema);
     connection.model('Account', accountSchema);
     connection.model('JournalEntry', journalEntrySchema);
+    connection.model('Setting', settingSchema);
 
     // Cache the active connection for future requests
     connectionCache.set(dbName, connection);

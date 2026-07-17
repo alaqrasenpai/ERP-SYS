@@ -92,7 +92,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-definePageMeta({ middleware: ['auth'] })
+definePageMeta({ 
+  layout: 'dashboard',
+  middleware: ['auth', 'module-guard'],
+  requiredModule: 'hr'
+})
 
 const { $api } = useNuxtApp()
 const employees = ref([])
