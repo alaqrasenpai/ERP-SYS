@@ -87,6 +87,8 @@
 </template>
 
 <script setup>
+useHead({ title: 'Users' })
+
 definePageMeta({ middleware: ['auth'] })
 
 const { $api } = useNuxtApp()

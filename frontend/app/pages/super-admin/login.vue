@@ -34,6 +34,8 @@
 </template>
 
 <script setup>
+useHead({ title: 'Login' })
+
 import { ref } from 'vue'
 
 definePageMeta({

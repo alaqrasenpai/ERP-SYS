@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="min-h-[100dvh] bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tight">
-        Tenant Portal
+        {{ $t('login.tenant_portal') }}
       </h2>
       <p class="mt-2 text-center text-sm text-gray-600">
-        Sign in to access your company workspace
+        {{ $t('login.sign_in_message') }}
       </p>
     </div>
 
@@ -13,43 +13,45 @@
       <div class="bg-white py-8 px-4 shadow-xl shadow-gray-200/50 sm:rounded-xl sm:px-10 border border-gray-100">
         <form @submit.prevent="handleLogin" class="space-y-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700">Workspace ID <span class="text-gray-400 font-normal">(x-tenant-id)</span></label>
-            <input v-model="form.tenantId" type="text" required placeholder="e.g. acme" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
+            <label class="block text-sm font-medium text-gray-700">{{ $t('login.workspace_id') }} <span class="text-gray-400 font-normal">(x-tenant-id)</span></label>
+            <input v-model="form.tenantId" type="text" required :placeholder="$t('login.workspace_placeholder')" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700">Email address</label>
-            <input v-model="form.email" type="email" required placeholder="admin@company.com" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
+            <label class="block text-sm font-medium text-gray-700">{{ $t('login.email') }}</label>
+            <input v-model="form.email" type="email" required :placeholder="$t('login.email_placeholder')" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700">Password</label>
+            <label class="block text-sm font-medium text-gray-700">{{ $t('login.password') }}</label>
             <input v-model="form.password" type="password" required placeholder="••••••••" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
           </div>
 
           <button type="submit" :disabled="loading" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
-            <svg v-if="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg v-if="loading" class="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            {{ loading ? 'Signing in...' : 'Sign In' }}
+            {{ loading ? $t('login.signing_in') : $t('login.sign_in') }}
           </button>
         </form>
 
         <div v-if="error" class="mt-5 p-4 rounded-lg bg-red-50 text-red-700 border border-red-200 text-sm flex items-center">
-          <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+          <svg class="w-5 h-5 me-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
           {{ error }}
         </div>
       </div>
       
       <div class="mt-6 text-center">
-        <p class="text-sm text-gray-600">Need to create a tenant? <NuxtLink to="/super" class="font-medium text-indigo-600 hover:text-indigo-500">Go to Super Admin</NuxtLink></p>
+        <p class="text-sm text-gray-600">{{ $t('login.need_tenant') }} <NuxtLink to="/super" class="font-medium text-indigo-600 hover:text-indigo-500">{{ $t('login.go_super') }}</NuxtLink></p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+useHead({ title: 'Login' })
+
 const { setAuth } = useAuth()
 const loading = ref(false)
 const error = ref('')
@@ -65,24 +67,10 @@ const handleLogin = async () => {
   error.value = ''
   
   try {
-    const response = await $fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'x-tenant-id': form.value.tenantId
-      },
-      body: {
-        email: form.value.email,
-        password: form.value.password
-      }
-    })
-    
-    // Save to cookies via composable
-    setAuth(response.token, form.value.tenantId, response.user, response.enabledModules)
-    
-    // Redirect to dashboard
-    navigateTo('/')
+    const { login } = useAuth()
+    await login(form.value.email, form.value.password, form.value.tenantId)
   } catch (err) {
-    error.value = err.data?.message || 'Invalid credentials or connection error'
+    error.value = err.response?.data?.message || err.message || 'Invalid credentials or connection error'
   } finally {
     loading.value = false
   }

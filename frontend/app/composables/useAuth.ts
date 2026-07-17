@@ -14,11 +14,42 @@ export const useAuth = () => {
     enabledModules.value = newModules || []
   }
 
+  const login = async (email, password, tenant) => {
+    const { $api } = useNuxtApp()
+    // For login, we need to manually pass the tenant since it might not be in the cookie yet
+    const data = await $api('/auth/login', {
+      method: 'POST',
+      headers: { 'x-tenant-id': tenant },
+      body: { email, password }
+    })
+    setAuth(data.token, tenant, data.user, data.enabledModules)
+    return navigateTo('/')
+  }
+
+  const fetchUser = async () => {
+    if (!token.value) return
+    try {
+      const { $api } = useNuxtApp()
+      const data = await $api('/auth/me')
+      user.value = data.user
+      enabledModules.value = data.enabledModules
+      // data.employee holds the employee profile if needed
+    } catch (error) {
+      console.error('Failed to fetch user:', error)
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        logout()
+      }
+    }
+  }
+
   const logout = () => {
     token.value = null
     tenantId.value = null
     user.value = null
     enabledModules.value = []
+    if (process.client) {
+      alert('Session ended. You have been logged out.')
+    }
     return navigateTo('/login')
   }
 
@@ -32,7 +63,9 @@ export const useAuth = () => {
     user,
     enabledModules,
     setAuth,
+    login,
     logout,
+    fetchUser,
     isLoggedIn
   }
 }

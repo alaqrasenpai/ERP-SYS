@@ -9,7 +9,9 @@ const settingSchema = new mongoose.Schema({
     receiptFooter: { type: String, default: 'Thank you for your purchase. Please visit again.' },
     address: { type: String, default: '' },
     phone: { type: String, default: '' },
-    fiscalYearStart: { type: String, default: '01-01' } // MM-DD format
+    fiscalYearStart: { type: String, default: '01-01' }, // MM-DD format
+    allowedLanguages: { type: [String], default: ['ar', 'en'] },
+    defaultLanguage: { type: String, default: 'ar' }
 }, { timestamps: true });
 
 module.exports = settingSchema;

@@ -182,6 +182,8 @@
 </template>
 
 <script setup>
+useHead({ title: 'Super Admin' })
+
 import { ref, onMounted } from 'vue'
 
 definePageMeta({

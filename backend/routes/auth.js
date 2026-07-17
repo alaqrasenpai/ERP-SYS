@@ -3,11 +3,11 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 // Helper to generate JWT Token
-const generateToken = (userId, email, role, tenantId) => {
+const generateToken = (userId, email, role, permissions, tenantId) => {
     return jwt.sign(
-        { id: userId, email, role, tenantId },
+        { id: userId, email, role, permissions, tenantId },
         process.env.JWT_SECRET,
-        { expiresIn: '30d' }
+        { expiresIn: '24h' } // Strict 24-hour expiration
     );
 };
 
@@ -63,7 +63,7 @@ router.post('/register', async (req, res) => {
                 }
             },
             enabledModules: tenantConfig.enabledModules,
-            token: generateToken(user._id, user.email, role.name, tenantConfig.tenantId)
+            token: generateToken(user._id, user.email, role.name, role.permissions, tenantConfig.tenantId)
         });
     } catch (error) {
         console.error('Error registering user:', error);
@@ -110,14 +110,57 @@ router.post('/login', async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
-                role: roleData
+                role: roleData,
+                employeeId: user.employeeId
             },
             enabledModules: tenantConfig.enabledModules,
-            token: generateToken(user._id, user.email, roleData.name, tenantConfig.tenantId)
+            token: generateToken(user._id, user.email, roleData.name, roleData.permissions, tenantConfig.tenantId)
         });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'Server error during login' });
+    }
+});
+
+// @desc    Get current user profile
+// @route   GET /api/auth/me
+// @access  Private
+const { verifyToken } = require('../middlewares/authMiddleware');
+router.get('/me', verifyToken, async (req, res) => {
+    try {
+        const tenantConnection = req.tenantConnection;
+        const User = tenantConnection.model('User');
+        const Employee = tenantConnection.model('Employee');
+        
+        const user = await User.findById(req.user.id).populate('role').select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        
+        let employee = null;
+        if (user.employeeId) {
+            employee = await Employee.findById(user.employeeId);
+        }
+
+        const roleData = user.role ? {
+            name: user.role.name,
+            permissions: user.role.permissions || []
+        } : { name: 'No Role', permissions: [] };
+
+        res.json({
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: roleData,
+                employeeId: user.employeeId
+            },
+            employee: employee,
+            enabledModules: req.tenantConfig.enabledModules
+        });
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).json({ message: 'Server error fetching user profile' });
     }
 });
 

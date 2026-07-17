@@ -1,38 +1,38 @@
 <template>
-  <div class="h-screen bg-gray-100 flex flex-col">
+  <div class="h-[100dvh] bg-gray-100 flex flex-col">
     <!-- Top Nav -->
     <div class="bg-indigo-700 text-white shadow-md flex justify-between items-center px-6 py-3 print:hidden">
       <div class="flex items-center space-x-4">
         <NuxtLink to="/" class="hover:bg-indigo-600 p-2 rounded-lg transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
         </NuxtLink>
-        <h1 class="text-2xl font-black tracking-tight">POS Terminal</h1>
+        <h1 class="text-2xl font-black tracking-tight">{{ $t('pos.terminal') }}</h1>
       </div>
       <div class="flex items-center space-x-4">
-        <button v-if="!shiftOpen" @click="openShift" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-lg transition-colors">Open Shift</button>
-        <button v-if="shiftOpen" @click="closeShift" class="px-4 py-2 bg-rose-500 hover:bg-rose-400 text-white font-bold rounded-lg transition-colors">Close Shift</button>
-        <div class="text-sm font-medium opacity-80">{{ currentDate }}</div>
+        <button v-if="!shiftOpen" @click="openShift" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-lg transition-colors">{{ $t('pos.open_shift') }}</button>
+        <button v-if="shiftOpen" @click="closeShift" class="px-4 py-2 bg-rose-500 hover:bg-rose-400 text-white font-bold rounded-lg transition-colors">{{ $t('pos.close_shift') }}</button>
+        <div class="text-sm font-medium opacity-80 hidden sm:block">{{ currentDate }}</div>
       </div>
     </div>
 
     <!-- Main Content Layout -->
-    <div class="flex-1 flex overflow-hidden print:hidden">
+    <div class="flex-1 flex flex-col lg:flex-row overflow-hidden print:hidden">
       
       <!-- Left Pane: Products -->
-      <div class="w-2/3 flex flex-col bg-gray-50 border-r border-gray-200">
+      <div class="w-full lg:w-2/3 flex flex-col flex-1 lg:flex-none lg:h-full bg-gray-50 border-b lg:border-b-0 lg:border-r border-gray-200 overflow-hidden">
         <div class="p-4 bg-white border-b border-gray-200 flex space-x-3">
           <div class="relative flex-1">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             </div>
-            <input v-model="searchQuery" type="text" placeholder="Scan Barcode or Search by Name/SKU..." class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow">
+            <input v-model="searchQuery" type="text" :placeholder="$t('pos.search_placeholder')" class="block w-full ps-10 pe-3 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow">
           </div>
         </div>
 
         <div class="flex-1 overflow-y-auto p-4">
           <div v-if="!shiftOpen" class="h-full flex flex-col items-center justify-center text-gray-400">
             <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            <p class="text-xl font-bold">Please open a shift to start selling</p>
+            <p class="text-xl font-bold">{{ $t('pos.open_shift_prompt') }}</p>
           </div>
           
           <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -44,7 +44,7 @@
               <div class="mt-3 flex justify-between items-end">
                 <span class="text-lg font-black text-gray-900">{{ currency }}{{ product.unitPrice.toFixed(2) }}</span>
                 <span class="text-xs font-bold px-2 py-1 rounded-md" :class="product.stockQuantity > 0 ? 'bg-indigo-50 text-indigo-700' : 'bg-red-50 text-red-700'">
-                  {{ product.stockQuantity > 0 ? product.stockQuantity + ' in stock' : 'Out of Stock' }}
+                  {{ product.stockQuantity > 0 ? product.stockQuantity + ' ' + $t('pos.in_stock') : $t('pos.out_of_stock') }}
                 </span>
               </div>
             </div>
@@ -53,15 +53,22 @@
       </div>
 
       <!-- Right Pane: Cart -->
-      <div class="w-1/3 flex flex-col bg-white">
-        <div class="p-4 bg-gray-50 border-b border-gray-200">
-          <h2 class="text-lg font-bold text-gray-900">Current Order</h2>
+      <div class="w-full lg:w-1/3 flex flex-col h-[45%] lg:h-full bg-white overflow-hidden shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] lg:shadow-none z-10">
+        <!-- Header -->
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50 shrink-0">
+          <h2 class="font-black text-gray-900 tracking-tight flex items-center">
+            <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            {{ $t('pos.current_order') }}
+          </h2>
+          <span v-if="shiftOpen" class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full border border-emerald-200">
+            {{ $t('pos.shift_active') }}
+          </span>
         </div>
         
         <div class="flex-1 overflow-y-auto p-4">
           <div v-if="cart.length === 0" class="h-full flex flex-col items-center justify-center text-gray-400">
             <svg class="w-16 h-16 mb-4 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-            <p>Cart is empty</p>
+            <p>{{ $t('pos.cart_empty') }}</p>
           </div>
           
           <ul v-else class="divide-y divide-gray-100">
@@ -90,60 +97,60 @@
         <div class="bg-gray-50 p-4 border-t border-gray-200">
           <div class="space-y-4">
             <div class="flex justify-between items-center text-sm">
-              <span class="text-gray-500">Subtotal</span>
+              <span class="text-gray-500">{{ $t('pos.subtotal') }}</span>
               <span class="font-bold text-gray-900">{{ currency }}{{ subTotal.toFixed(2) }}</span>
             </div>
             <div class="flex justify-between items-center text-sm">
-              <span class="text-gray-500">Tax ({{ taxRate }}%)</span>
+              <span class="text-gray-500">{{ $t('pos.tax') }} ({{ taxRate }}%)</span>
               <span class="font-bold text-gray-900">{{ currency }}{{ taxAmount.toFixed(2) }}</span>
             </div>
             
             <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
-              <span class="text-lg font-black text-gray-900">Total</span>
+              <span class="text-lg font-black text-gray-900">{{ $t('pos.total') }}</span>
               <span class="text-2xl font-black text-indigo-600">{{ currency }}{{ grandTotal.toFixed(2) }}</span>
             </div>
 
             <!-- Customer Selection -->
             <div class="pt-4 border-t border-gray-100">
               <div class="flex justify-between items-center mb-2">
-                <label class="block text-xs font-bold text-gray-500 uppercase">Customer</label>
+                <label class="block text-xs font-bold text-gray-500 uppercase">{{ $t('pos.customer') }}</label>
                 <button @click="showAddCustomerModal = true" class="text-xs text-indigo-600 font-bold hover:text-indigo-800 flex items-center">
-                  <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Add New
+                  <svg class="w-3 h-3 me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> {{ $t('pos.add_new') }}
                 </button>
               </div>
               <select v-model="selectedCustomer" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 text-sm">
-                <option :value="null">Walk-in Customer</option>
+                <option :value="null">{{ $t('pos.walk_in_customer') }}</option>
                 <option v-for="c in customers" :key="c._id" :value="c._id">{{ c.name }}</option>
               </select>
             </div>
 
             <!-- Payment Methods -->
             <div class="pt-4 border-t border-gray-100">
-              <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Payment Method</label>
+              <label class="block text-xs font-bold text-gray-500 uppercase mb-2">{{ $t('pos.payment_method') }}</label>
               <div class="grid grid-cols-2 gap-2">
-                <button @click="paymentMethod = 'Cash'" :class="paymentMethod === 'Cash' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="px-3 py-2 rounded-xl text-sm font-bold transition-colors">Cash</button>
-                <button @click="paymentMethod = 'Card'" :class="paymentMethod === 'Card' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="px-3 py-2 rounded-xl text-sm font-bold transition-colors">Card</button>
-                <button @click="paymentMethod = 'Debt'" :class="paymentMethod === 'Debt' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="px-3 py-2 rounded-xl text-sm font-bold transition-colors">On Credit</button>
-                <button @click="paymentMethod = 'Installment'" :class="paymentMethod === 'Installment' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="px-3 py-2 rounded-xl text-sm font-bold transition-colors">Installments</button>
-                <button @click="paymentMethod = 'Check'" :class="paymentMethod === 'Check' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="col-span-2 px-3 py-2 rounded-xl text-sm font-bold transition-colors">Post-Dated Check</button>
+                <button @click="paymentMethod = 'Cash'" :class="paymentMethod === 'Cash' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="px-3 py-2 rounded-xl text-sm font-bold transition-colors">{{ $t('pos.cash') }}</button>
+                <button @click="paymentMethod = 'Card'" :class="paymentMethod === 'Card' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="px-3 py-2 rounded-xl text-sm font-bold transition-colors">{{ $t('pos.card') }}</button>
+                <button @click="paymentMethod = 'Debt'" :class="paymentMethod === 'Debt' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="px-3 py-2 rounded-xl text-sm font-bold transition-colors">{{ $t('pos.on_credit') }}</button>
+                <button @click="paymentMethod = 'Installment'" :class="paymentMethod === 'Installment' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="px-3 py-2 rounded-xl text-sm font-bold transition-colors">{{ $t('pos.installments') }}</button>
+                <button @click="paymentMethod = 'Check'" :class="paymentMethod === 'Check' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700'" class="col-span-2 px-3 py-2 rounded-xl text-sm font-bold transition-colors">{{ $t('pos.check') }}</button>
               </div>
             </div>
 
             <!-- Conditional Details: Check -->
             <div v-if="paymentMethod === 'Check'" class="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2 mt-2">
-              <input v-model="checkDetails.checkNumber" type="text" placeholder="Check Number" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
-              <input v-model="checkDetails.bankName" type="text" placeholder="Bank Name" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
+              <input v-model="checkDetails.checkNumber" type="text" :placeholder="$t('pos.check_number')" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
+              <input v-model="checkDetails.bankName" type="text" :placeholder="$t('pos.bank_name')" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
               <input v-model="checkDetails.dueDate" type="date" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
             </div>
 
             <!-- Conditional Details: Installment -->
             <div v-if="paymentMethod === 'Installment'" class="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2 mt-2">
               <div>
-                <label class="text-xs font-bold text-gray-500">Down Payment ({{ currency }})</label>
+                <label class="text-xs font-bold text-gray-500">{{ $t('pos.down_payment') }} ({{ currency }})</label>
                 <input v-model="installmentDetails.downPayment" type="number" min="0" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
               </div>
               <div>
-                <label class="text-xs font-bold text-gray-500">Number of Months</label>
+                <label class="text-xs font-bold text-gray-500">{{ $t('pos.number_of_months') }}</label>
                 <input v-model="installmentDetails.months" type="number" min="1" max="60" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
               </div>
               <div v-if="installmentDetails.months > 0" class="text-xs text-indigo-600 font-bold mt-1 text-center">
@@ -154,9 +161,9 @@
           </div>
 
           <button @click="checkout" :disabled="cart.length === 0 || !shiftOpen || loading" class="w-full mt-6 py-4 bg-indigo-600 disabled:bg-gray-400 text-white rounded-xl text-lg font-black tracking-wide shadow-lg hover:bg-indigo-700 transition-colors flex justify-center items-center">
-            <svg v-if="!loading" class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-            <svg v-else class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            {{ loading ? 'Processing...' : 'Pay & Checkout' }}
+            <svg v-if="!loading" class="w-6 h-6 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <svg v-else class="animate-spin -ms-1 me-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            {{ loading ? $t('pos.processing') : $t('pos.pay_checkout') }}
           </button>
         </div>
       </div>
@@ -212,7 +219,7 @@
     <div v-if="showAddCustomerModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 print:hidden">
       <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-          <h3 class="text-lg font-bold text-gray-900">Add Quick Customer</h3>
+          <h3 class="text-lg font-bold text-gray-900">{{ $t('pos.add_customer') }}</h3>
           <button @click="showAddCustomerModal = false" class="text-gray-400 hover:text-gray-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
@@ -220,22 +227,22 @@
         <div class="p-6">
           <form @submit.prevent="quickAddCustomer" class="space-y-4">
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">Full Name *</label>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('pos.full_name') }}</label>
               <input v-model="customerForm.name" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Phone</label>
+                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('pos.phone') }}</label>
                 <input v-model="customerForm.phone" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Email</label>
+                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('pos.email') }}</label>
                 <input v-model="customerForm.email" type="email" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
             </div>
-            <div class="flex justify-end space-x-3 pt-4 border-t">
-              <button type="button" @click="showAddCustomerModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">Cancel</button>
-              <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">Save Customer</button>
+            <div class="flex justify-end space-x-3 space-x-reverse pt-4 border-t">
+              <button type="button" @click="showAddCustomerModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">{{ $t('pos.cancel') }}</button>
+              <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">{{ $t('pos.save_customer') }}</button>
             </div>
           </form>
         </div>
@@ -246,6 +253,8 @@
 </template>
 
 <script setup>
+useHead({ title: 'Pos' })
+
 import { ref, computed, onMounted } from 'vue'
 
 definePageMeta({ 

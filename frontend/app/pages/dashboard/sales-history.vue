@@ -3,11 +3,11 @@
     <div class="max-w-7xl mx-auto">
       <div class="flex justify-between items-center mb-8">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Sales History</h1>
-          <p class="text-sm text-gray-500 mt-1">Review past POS orders, receipts, and cash shifts.</p>
+          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('sales_history.title') }}</h1>
+          <p class="text-sm text-gray-500 mt-1">{{ $t('sales_history.subtitle') }}</p>
         </div>
-        <div class="flex space-x-3">
-          <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">Dashboard</NuxtLink>
+        <div class="flex space-x-3 space-x-reverse">
+          <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('sales_history.dashboard') }}</NuxtLink>
         </div>
       </div>
 
@@ -16,7 +16,7 @@
         <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">Total Sales (Cash)</p>
+                 <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_cash') }}</p>
                  <p class="text-2xl font-bold text-emerald-600">${{ totalCash.toFixed(2) }}</p>
               </div>
               <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg">
@@ -27,7 +27,7 @@
         <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">Total Sales (Card)</p>
+                 <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_card') }}</p>
                  <p class="text-2xl font-bold text-blue-600">${{ totalCard.toFixed(2) }}</p>
               </div>
               <div class="p-3 bg-blue-50 text-blue-600 rounded-lg">
@@ -38,7 +38,7 @@
         <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">Total Orders</p>
+                 <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_orders') }}</p>
                  <p class="text-2xl font-bold text-gray-900">{{ orders.length }}</p>
               </div>
               <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg">
@@ -54,11 +54,11 @@
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Date</th>
-                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Order No</th>
-                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Items Count</th>
-                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Payment Method</th>
-                <th class="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Total</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.date') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.order_no') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.items_count') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.payment_method') }}</th>
+                <th class="px-6 py-4 text-end text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.total') }}</th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-100">
@@ -70,7 +70,7 @@
                   {{ order.orderNumber }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ order.items.length }} items
+                  {{ order.items.length }} {{ $t('sales_history.items') }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                   <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full"
@@ -78,12 +78,12 @@
                     {{ order.paymentMethod }}
                   </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-black text-right text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-black text-end text-gray-900">
                   ${{ order.grandTotal.toFixed(2) }}
                 </td>
               </tr>
               <tr v-if="orders.length === 0">
-                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">No sales history found.</td>
+                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">{{ $t('sales_history.no_history') }}</td>
               </tr>
             </tbody>
           </table>
@@ -95,6 +95,8 @@
 </template>
 
 <script setup>
+useHead({ title: 'Sales History' })
+
 import { ref, computed, onMounted } from 'vue'
 
 definePageMeta({ middleware: ['auth'] })

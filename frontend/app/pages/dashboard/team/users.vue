@@ -1,13 +1,14 @@
 <template>
-  <div class="space-y-6">
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-2xl font-black text-gray-900 tracking-tight">Staff Management</h2>
-        <p class="text-sm text-gray-500 mt-1">Manage team members, roles, and access status.</p>
+  <div class="min-h-screen bg-gray-50 sm:bg-gray-100 p-4 sm:p-8">
+    <div class="max-w-6xl mx-auto space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+        <div>
+        <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('users.title') }}</h2>
+        <p class="text-sm text-gray-500 mt-1">{{ $t('users.description') }}</p>
       </div>
       <button @click="openCreateModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-        New Staff
+        <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+        {{ $t('users.new_staff') }}
       </button>
     </div>
 
@@ -16,51 +17,53 @@
     </div>
 
     <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th scope="col" class="px-6 py-4 text-left text-xs font-black text-gray-500 uppercase tracking-wider">Staff Details</th>
-            <th scope="col" class="px-6 py-4 text-left text-xs font-black text-gray-500 uppercase tracking-wider">Assigned Role</th>
-            <th scope="col" class="px-6 py-4 text-left text-xs font-black text-gray-500 uppercase tracking-wider">Status</th>
-            <th scope="col" class="px-6 py-4 text-right text-xs font-black text-gray-500 uppercase tracking-wider">Actions</th>
-          </tr>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('users.staff_details') }}</th>
+              <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('users.assigned_role') }}</th>
+              <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('users.status') }}</th>
+              <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('users.actions') }}</th>
+            </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-100">
           <tr v-for="user in users" :key="user._id" class="hover:bg-gray-50 transition-colors">
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
               <div class="text-sm font-bold text-gray-900">{{ user.name }}</div>
               <div class="text-xs text-gray-500 mt-1">{{ user.email }}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
               <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-100 uppercase">
-                {{ user.role?.name || 'No Role' }}
+                {{ user.role?.name || $t('users.no_role') }}
               </span>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span v-if="user.isActive" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Active</span>
-              <span v-else class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-200">Suspended</span>
+            <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
+              <span v-if="user.isActive" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">{{ $t('users.active') }}</span>
+              <span v-else class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-200">{{ $t('users.suspended') }}</span>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+            <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-end text-sm font-medium space-x-2 space-x-reverse">
               <button @click="openEditModal(user)" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors">
-                Edit
+                {{ $t('users.edit') }}
               </button>
               <button @click="toggleStatus(user)" class="px-3 py-1.5 rounded-lg font-bold text-xs transition-colors" :class="user.isActive ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'">
-                {{ user.isActive ? 'Suspend' : 'Activate' }}
+                {{ user.isActive ? $t('users.suspend') : $t('users.activate') }}
               </button>
             </td>
           </tr>
           <tr v-if="users.length === 0">
-            <td colspan="4" class="px-6 py-12 text-center text-gray-500 text-sm font-bold">No staff members found.</td>
+            <td colspan="4" class="px-6 py-12 text-center text-gray-500 text-sm font-bold">{{ $t('users.no_staff_found') }}</td>
           </tr>
         </tbody>
-      </table>
+        </table>
+      </div>
     </div>
 
     <!-- Create/Edit Staff Modal -->
     <div v-if="showModal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center p-4 z-50">
       <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col">
         <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-          <h3 class="text-lg font-bold text-gray-900">{{ editingUser ? 'Edit Staff Member' : 'Add New Staff Member' }}</h3>
+          <h3 class="text-lg font-bold text-gray-900">{{ editingUser ? $t('users.edit_staff') : $t('users.add_staff') }}</h3>
           <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
@@ -69,41 +72,44 @@
         <form @submit.prevent="saveUser" class="flex flex-col">
           <div class="p-6 space-y-4">
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('users.full_name') }}</label>
               <input v-model="form.name" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
             </div>
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">Email Address</label>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('users.email_address') }}</label>
               <input v-model="form.email" type="email" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">
-                Password <span v-if="editingUser" class="text-xs text-gray-400 font-normal">(leave blank to keep current)</span>
+                {{ $t('users.password') }} <span v-if="editingUser" class="text-xs text-gray-400 font-normal">{{ $t('users.leave_blank') }}</span>
               </label>
               <input v-model="form.password" type="password" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" :required="!editingUser">
             </div>
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">Assigned Role</label>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('users.assigned_role') }}</label>
               <select v-model="form.roleId" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-                <option value="" disabled>Select a role...</option>
+                <option value="" disabled>{{ $t('users.select_role') }}</option>
                 <option v-for="role in roles" :key="role._id" :value="role._id">{{ role.name }}</option>
               </select>
             </div>
           </div>
           
-          <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end space-x-3">
-            <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors">Cancel</button>
+          <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end space-x-3 space-x-reverse">
+            <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors">{{ $t('users.cancel') }}</button>
             <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50 transition-colors">
-              {{ saving ? 'Saving...' : 'Save Staff' }}
+              {{ saving ? $t('users.saving') : $t('users.save_staff') }}
             </button>
           </div>
         </form>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+useHead({ title: 'Users' })
+
 import { ref, onMounted } from 'vue'
 
 definePageMeta({
@@ -174,7 +180,7 @@ const saveUser = async () => {
     await fetchData()
     showModal.value = false
   } catch (error) {
-    alert('Failed to save staff member: ' + (error.response?.data?.message || error.message))
+    alert(useNuxtApp().$i18n.t('users.failed_save') + ' ' + (error.response?.data?.message || error.message))
   } finally {
     saving.value = false
   }
@@ -182,7 +188,7 @@ const saveUser = async () => {
 
 const toggleStatus = async (user) => {
   const newStatus = !user.isActive
-  const msg = newStatus ? `Activate ${user.name}?` : `Suspend ${user.name}? They will not be able to log in.`
+  const msg = newStatus ? useNuxtApp().$i18n.t('users.activate_prompt', { name: user.name }) : useNuxtApp().$i18n.t('users.suspend_prompt', { name: user.name })
   if (!confirm(msg)) return
   
   try {
@@ -192,7 +198,7 @@ const toggleStatus = async (user) => {
     })
     user.isActive = newStatus
   } catch (error) {
-    alert('Failed to update status')
+    alert(useNuxtApp().$i18n.t('users.failed_status'))
   }
 }
 

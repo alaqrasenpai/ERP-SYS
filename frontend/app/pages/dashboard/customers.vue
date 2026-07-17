@@ -2,15 +2,15 @@
   <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
     <div class="max-w-7xl mx-auto space-y-6">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-      <h2 class="text-2xl font-black text-gray-900 tracking-tight">Customer Relationship Management (CRM)</h2>
-      <div class="flex space-x-3 mt-4 sm:mt-0">
+      <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('crm.title') }}</h2>
+      <div class="flex space-x-3 space-x-reverse mt-4 sm:mt-0">
         <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          Dashboard
+          <svg class="w-4 h-4 me-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          {{ $t('crm.dashboard') }}
         </NuxtLink>
         <button @click="openAddModal" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-sm flex items-center text-sm">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-          Add Customer
+          <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          {{ $t('crm.add_customer') }}
         </button>
       </div>
     </div>
@@ -21,7 +21,7 @@
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
-        <input v-model="searchQuery" type="text" class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-xl leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all" placeholder="Search customers by name, phone, or email...">
+        <input v-model="searchQuery" type="text" class="block w-full ps-10 pe-3 py-2.5 border border-gray-300 rounded-xl leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all" :placeholder="$t('crm.search_placeholder')">
       </div>
     </div>
 
@@ -39,7 +39,7 @@
             </div>
             <div>
               <h3 class="font-bold text-gray-900 text-lg leading-tight">{{ customer.name }}</h3>
-              <p class="text-sm text-gray-500">{{ customer.phone || 'No Phone' }}</p>
+              <p class="text-sm text-gray-500">{{ customer.phone || $t('crm.no_phone') }}</p>
             </div>
           </div>
           <button @click="openEditModal(customer)" class="text-gray-400 hover:text-indigo-600 transition-colors">
@@ -48,17 +48,17 @@
         </div>
         
         <div class="space-y-2 mb-6">
-          <p class="text-sm text-gray-600 flex items-center"><svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> {{ customer.email || 'No Email' }}</p>
-          <p class="text-sm text-gray-600 flex items-start"><svg class="w-4 h-4 mr-2 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> <span class="truncate">{{ customer.address || 'No Address' }}</span></p>
+          <p class="text-sm text-gray-600 flex items-center"><svg class="w-4 h-4 me-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> {{ customer.email || $t('crm.no_email') }}</p>
+          <p class="text-sm text-gray-600 flex items-start"><svg class="w-4 h-4 me-2 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> <span class="truncate">{{ customer.address || $t('crm.no_address') }}</span></p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 flex justify-between items-center">
           <div>
-            <p class="text-xs font-bold text-gray-500 uppercase">Outstanding Debt</p>
+            <p class="text-xs font-bold text-gray-500 uppercase">{{ $t('crm.outstanding_debt') }}</p>
             <p class="text-xl font-black" :class="customer.totalDebt > 0 ? 'text-red-600' : 'text-emerald-600'">${{ customer.totalDebt.toFixed(2) }}</p>
           </div>
           <button @click="openDebtModal(customer)" class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
-            Settle
+            {{ $t('crm.settle') }}
           </button>
         </div>
       </div>
@@ -66,36 +66,36 @@
 
     <!-- Customer Add/Edit Modal -->
     <div v-if="showModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-          <h3 class="text-lg font-bold text-gray-900">{{ isEditing ? 'Edit Customer' : 'Add Customer' }}</h3>
+      <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 flex-shrink-0">
+          <h3 class="text-lg font-bold text-gray-900">{{ isEditing ? $t('crm.edit_customer') : $t('crm.add_customer') }}</h3>
           <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
-        <div class="p-6">
+        <div class="p-6 overflow-y-auto flex-1">
           <form @submit.prevent="saveCustomer" class="space-y-4">
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.full_name') }}</label>
               <input v-model="form.name" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Phone</label>
+                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.phone') }}</label>
                 <input v-model="form.phone" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Email</label>
+                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.email') }}</label>
                 <input v-model="form.email" type="email" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
             </div>
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">Address</label>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.address') }}</label>
               <textarea v-model="form.address" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500"></textarea>
             </div>
-            <div class="flex justify-end space-x-3 pt-4 border-t">
-              <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">Cancel</button>
-              <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">Save Customer</button>
+            <div class="flex justify-end space-x-3 space-x-reverse pt-4 border-t">
+              <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">{{ $t('crm.cancel') }}</button>
+              <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">{{ $t('crm.save_customer') }}</button>
             </div>
           </form>
         </div>
@@ -107,8 +107,8 @@
       <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
         <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
           <div>
-            <h3 class="text-lg font-bold text-gray-900">Manage Debt: {{ activeCustomer?.name }}</h3>
-            <p class="text-sm text-gray-500 mt-0.5">Current Balance: <span class="font-bold text-red-600">${{ activeCustomer?.totalDebt.toFixed(2) }}</span></p>
+            <h3 class="text-lg font-bold text-gray-900">{{ $t('crm.manage_debt') }} {{ activeCustomer?.name }}</h3>
+            <p class="text-sm text-gray-500 mt-0.5">{{ $t('crm.current_balance') }} <span class="font-bold text-red-600">${{ activeCustomer?.totalDebt.toFixed(2) }}</span></p>
           </div>
           <button @click="showDebtModal = false" class="text-gray-400 hover:text-gray-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -116,18 +116,18 @@
         </div>
         
         <div class="flex-1 overflow-y-auto p-6 bg-gray-50">
-          <h4 class="text-sm font-bold text-gray-700 uppercase mb-3">Debt Ledger History</h4>
-          <div v-if="debtLogs.length === 0" class="text-center p-4 text-gray-500 text-sm">No debt records found.</div>
+          <h4 class="text-sm font-bold text-gray-700 uppercase mb-3">{{ $t('crm.ledger_history') }}</h4>
+          <div v-if="debtLogs.length === 0" class="text-center p-4 text-gray-500 text-sm">{{ $t('crm.no_debt_records') }}</div>
           <div class="space-y-3">
             <div v-for="log in debtLogs" :key="log._id" class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
               <div>
                 <p class="font-bold text-gray-900 text-sm flex items-center">
-                  <span v-if="log.type === 'charge'" class="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
-                  <span v-else class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
-                  {{ log.type === 'charge' ? 'Debt Added' : 'Payment Received' }}
+                  <span v-if="log.type === 'charge'" class="w-2 h-2 rounded-full bg-red-500 me-2"></span>
+                  <span v-else class="w-2 h-2 rounded-full bg-emerald-500 me-2"></span>
+                  {{ log.type === 'charge' ? $t('crm.debt_added') : $t('crm.payment_received') }}
                 </p>
-                <p class="text-xs text-gray-500 mt-1">{{ new Date(log.date).toLocaleString() }} &bull; {{ log.notes || (log.orderId ? `Order ${log.orderId.orderNumber}` : 'Manual Entry') }}</p>
-                <p class="text-xs font-medium text-gray-500 mt-0.5">Method: {{ log.paymentMethod }}</p>
+                <p class="text-xs text-gray-500 mt-1">{{ new Date(log.date).toLocaleString() }} &bull; {{ log.notes || (log.orderId ? `Order ${log.orderId.orderNumber}` : $t('crm.manual_entry')) }}</p>
+                <p class="text-xs font-medium text-gray-500 mt-0.5">{{ $t('crm.method') }} {{ log.paymentMethod }}</p>
               </div>
               <div class="text-right">
                 <span class="font-black text-lg" :class="log.type === 'charge' ? 'text-red-600' : 'text-emerald-600'">
@@ -142,34 +142,34 @@
           <form @submit.prevent="submitDebtAdjustment" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Transaction Type</label>
+                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.transaction_type') }}</label>
                 <select v-model="debtForm.type" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
-                  <option value="payment">Receive Payment (Decrease Debt)</option>
-                  <option value="charge">Manual Charge (Increase Debt)</option>
+                  <option value="payment">{{ $t('crm.receive_payment') }}</option>
+                  <option value="charge">{{ $t('crm.manual_charge') }}</option>
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Amount ($)</label>
+                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.amount') }}</label>
                 <input v-model="debtForm.amount" type="number" step="0.01" min="0.01" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
                <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Payment Method</label>
+                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.payment_method') }}</label>
                 <select v-model="debtForm.paymentMethod" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
-                  <option value="Cash">Cash</option>
-                  <option value="Card">Bank Transfer / Card</option>
+                  <option value="Cash">{{ $t('crm.cash') }}</option>
+                  <option value="Card">{{ $t('crm.bank_transfer') }}</option>
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Notes</label>
-                <input v-model="debtForm.notes" type="text" placeholder="e.g. Paid in full via bank transfer" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.notes') }}</label>
+                <input v-model="debtForm.notes" type="text" :placeholder="$t('crm.notes_placeholder')" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
             </div>
             
             <div class="flex justify-end space-x-3 pt-2">
               <button type="submit" class="px-5 py-2.5 text-white rounded-xl font-bold w-full" :class="debtForm.type === 'payment' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-red-600 hover:bg-red-700'">
-                {{ debtForm.type === 'payment' ? 'Process Payment & Update Accounting' : 'Add Debt Charge' }}
+                {{ debtForm.type === 'payment' ? $t('crm.process_payment') : $t('crm.add_debt_charge') }}
               </button>
             </div>
           </form>
@@ -181,6 +181,8 @@
 </template>
 
 <script setup>
+useHead({ title: 'Customers' })
+
 import { ref, computed, onMounted } from 'vue'
 
 definePageMeta({

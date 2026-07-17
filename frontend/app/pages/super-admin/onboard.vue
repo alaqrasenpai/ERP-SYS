@@ -80,6 +80,8 @@
 </template>
 
 <script setup>
+useHead({ title: 'Onboard' })
+
 import { ref } from 'vue'
 
 definePageMeta({

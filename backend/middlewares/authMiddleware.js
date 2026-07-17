@@ -1,19 +1,28 @@
 const jwt = require('jsonwebtoken');
 
-const authMiddleware = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     let token = req.headers.authorization;
 
     if (token && token.startsWith('Bearer')) {
         try {
             token = token.split(' ')[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            
+            // Strict Multi-Tenant Check
+            // Super Admins (role: '*') bypass this check. Others must strictly match.
+            const reqTenantId = req.headers['x-tenant-id'] || (req.tenantConfig && req.tenantConfig.tenantId);
+            
+            if (decoded.tenantId !== reqTenantId && !(decoded.permissions && decoded.permissions.includes('*'))) {
+                return res.status(403).json({ message: 'Forbidden: Security Breach - Tenant ID mismatch' });
+            }
+
             req.user = decoded;
             next();
         } catch (error) {
-            res.status(401).json({ message: 'Not authorized, token failed' });
+            return res.status(401).json({ message: 'Unauthorized: Token expired or invalid' });
         }
     } else {
-        res.status(401).json({ message: 'Not authorized, no token' });
+        return res.status(401).json({ message: 'Unauthorized: No token provided' });
     }
 };
 
@@ -35,4 +44,4 @@ const rbacMiddleware = (requiredPermissions) => {
     };
 };
 
-module.exports = { authMiddleware, rbacMiddleware };
+module.exports = { authMiddleware: verifyToken, verifyToken, rbacMiddleware };

@@ -5,7 +5,7 @@ const requirePermission = (requiredPermission) => {
             return res.status(401).json({ message: 'Not authenticated or no role assigned' });
         }
 
-        const userPermissions = req.user.role.permissions || [];
+        const userPermissions = req.user.permissions || [];
 
         // Check if user has the global wildcard permission OR the specific required permission
         if (userPermissions.includes('*') || userPermissions.includes(requiredPermission)) {

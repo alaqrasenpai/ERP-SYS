@@ -68,6 +68,8 @@
 </template>
 
 <script setup>
+useHead({ title: 'Super' })
+
 import { ref } from 'vue'
 
 const form = ref({

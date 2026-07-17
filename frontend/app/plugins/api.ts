@@ -20,9 +20,11 @@ export default defineNuxtPlugin((nuxtApp) => {
       options.headers = headers
     },
     onResponseError({ response }) {
-      if (response.status === 401) {
-        console.warn('API returned 401 Unauthorized');
-        // Temporarily disabled auth.logout() to debug redirects
+      if (response.status === 401 || response.status === 403) {
+        console.warn('API returned 401/403 Unauthorized. Logging out...')
+        if (process.client) {
+           auth.logout()
+        }
       }
     }
   })

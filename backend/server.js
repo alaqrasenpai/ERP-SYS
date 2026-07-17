@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 // Import Middlewares
 const tenantResolver = require('./middlewares/tenantResolver');
-const { authMiddleware } = require('./middlewares/authMiddleware');
+const { verifyToken } = require('./middlewares/authMiddleware');
 const { requireModule } = require('./middlewares/moduleGuard');
 
 // Import Routes
@@ -23,6 +23,8 @@ const suppliersRoutes = require('./routes/suppliers');
 const settingsRoutes = require('./routes/settings');
 const reportsRoutes = require('./routes/reports');
 const teamRoutes = require('./routes/team');
+const zktecoRoutes = require('./routes/zkteco');
+const essRoutes = require('./routes/ess');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -49,26 +51,29 @@ mongoose.connect(centralDbUri).then(() => {
 // No tenant resolver is required here because these interact with the master DB
 app.use('/api/super', superAdminRoutes);
 
+// Global Hardware Webhooks
+app.use('/api/zkteco', zktecoRoutes);
+
 // 2. Tenant-Specific Routes
 // The tenantResolver middleware MUST be used for these routes.
 // It will determine the tenant from 'x-tenant-id', locate the specific database,
 // and attach the connection object to `req.tenantConnection`.
 app.use('/api/auth', tenantResolver, authRoutes);
-app.use('/api/dashboard', authMiddleware, tenantResolver, dashboardRoutes);
-app.use('/api/settings', authMiddleware, tenantResolver, settingsRoutes);
-app.use('/api/reports', authMiddleware, tenantResolver, reportsRoutes);
-app.use('/api/customers', authMiddleware, tenantResolver, customersRoutes);
-app.use('/api/suppliers', authMiddleware, tenantResolver, suppliersRoutes);
+app.use('/api/dashboard', verifyToken, tenantResolver, dashboardRoutes);
+app.use('/api/settings', verifyToken, tenantResolver, settingsRoutes);
+app.use('/api/reports', verifyToken, tenantResolver, reportsRoutes);
+app.use('/api/customers', verifyToken, tenantResolver, customersRoutes);
+app.use('/api/suppliers', verifyToken, tenantResolver, suppliersRoutes);
+app.use('/api/ess', verifyToken, tenantResolver, essRoutes);
 
 // Protected Core Modules
-app.use('/api/inventory', authMiddleware, tenantResolver, requireModule('inventory'), inventoryRoutes);
-app.use('/api/archive', authMiddleware, tenantResolver, requireModule('archive'), archiveRoutes);
-app.use('/api/users', authMiddleware, tenantResolver, usersRoutes); // Global users fallback if needed
-app.use('/api/team', authMiddleware, tenantResolver, teamRoutes);
-app.use('/api/hr', authMiddleware, tenantResolver, requireModule('hr'), hrRoutes);
-app.use('/api/pos', authMiddleware, tenantResolver, requireModule('pos'), posRoutes);
-app.use('/api/finance', authMiddleware, tenantResolver, requireModule('accounting'), financeRoutes);
-app.use('/api/reports', authMiddleware, tenantResolver, reportsRoutes);
+app.use('/api/inventory', verifyToken, tenantResolver, requireModule('inventory'), inventoryRoutes);
+app.use('/api/archive', verifyToken, tenantResolver, requireModule('archive'), archiveRoutes);
+app.use('/api/users', verifyToken, tenantResolver, usersRoutes); // Global users fallback if needed
+app.use('/api/team', verifyToken, tenantResolver, teamRoutes);
+app.use('/api/hr', verifyToken, tenantResolver, requireModule('hr'), hrRoutes);
+app.use('/api/pos', verifyToken, tenantResolver, requireModule('pos'), posRoutes);
+app.use('/api/finance', verifyToken, tenantResolver, requireModule('accounting'), financeRoutes);
 
 // Future tenant routes can be mounted securely here:
 // app.use('/api/inventory', tenantResolver, inventoryRoutes);

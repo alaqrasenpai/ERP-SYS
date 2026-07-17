@@ -11,7 +11,12 @@ const stockAdjustmentSchema = require('../models/StockAdjustment');
 const categorySchema = require('../models/Category');
 const employeeSchema = require('../models/Employee');
 const attendanceSchema = require('../models/Attendance');
+const attendanceAuditSchema = require('../models/AttendanceAudit');
 const payrollRunSchema = require('../models/PayrollRun');
+const departmentSchema = require('../models/Department');
+const shiftSchema = require('../models/Shift');
+const holidaySchema = require('../models/Holiday');
+const leaveRequestSchema = require('../models/LeaveRequest');
 const orderSchema = require('../models/Order');
 const shiftLogSchema = require('../models/ShiftLog');
 const customerSchema = require('../models/Customer');
@@ -60,7 +65,12 @@ const getTenantConnection = (dbName) => {
     // HR & Payroll
     connection.model('Employee', employeeSchema);
     connection.model('Attendance', attendanceSchema);
+    connection.model('AttendanceAudit', attendanceAuditSchema);
     connection.model('PayrollRun', payrollRunSchema);
+    connection.model('Department', departmentSchema);
+    connection.model('Shift', shiftSchema);
+    connection.model('Holiday', holidaySchema);
+    connection.model('LeaveRequest', leaveRequestSchema);
 
     // POS
     connection.model('Order', orderSchema);
