@@ -19,7 +19,7 @@
         
         <!-- Balances Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center space-x-6">
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-6">
             <div class="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             </div>
@@ -29,7 +29,7 @@
             </div>
           </div>
           
-          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center space-x-6">
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-6">
             <div class="w-16 h-16 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
             </div>
@@ -41,7 +41,7 @@
         </div>
 
         <!-- Personal Info Card -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <div class="px-6 py-4 border-b border-gray-100 bg-gray-50">
             <h3 class="text-lg font-bold text-gray-900">{{ $t('my_profile.personnel_information') }}</h3>
           </div>

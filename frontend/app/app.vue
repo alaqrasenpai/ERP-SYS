@@ -9,7 +9,14 @@
 
 <script setup>
 const auth = useAuth()
-const { initLanguage } = useLanguage()
+const { initLanguage, currentLanguage } = useLanguage()
+
+useHead({
+  htmlAttrs: {
+    dir: computed(() => currentLanguage.value === 'ar' ? 'rtl' : 'ltr'),
+    lang: computed(() => currentLanguage.value)
+  }
+})
 
 onMounted(async () => {
   await initLanguage()

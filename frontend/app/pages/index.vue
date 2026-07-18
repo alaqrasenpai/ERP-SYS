@@ -21,7 +21,7 @@
           <!-- Quick Stat Cards -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <!-- Revenue -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm relative overflow-hidden">
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
               <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-50 rounded-full opacity-50 pointer-events-none"></div>
               <div class="flex justify-between items-start mb-4">
                 <div class="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
@@ -34,7 +34,7 @@
             </div>
 
             <!-- Low Stock -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm relative overflow-hidden">
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
               <div class="absolute -right-4 -top-4 w-24 h-24 bg-red-50 rounded-full opacity-50 pointer-events-none"></div>
               <div class="flex justify-between items-start mb-4">
                 <div class="p-2 bg-red-100 text-red-600 rounded-lg">
@@ -49,7 +49,7 @@
             </div>
 
             <!-- HR Stats -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm relative overflow-hidden">
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
               <div class="absolute -right-4 -top-4 w-24 h-24 bg-indigo-50 rounded-full opacity-50 pointer-events-none"></div>
               <div class="flex justify-between items-start mb-4">
                 <div class="p-2 bg-indigo-100 text-indigo-600 rounded-lg">
@@ -62,7 +62,7 @@
             </div>
 
             <!-- Archive Storage -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm relative overflow-hidden">
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
               <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-50 rounded-full opacity-50 pointer-events-none"></div>
               <div class="flex justify-between items-start mb-4">
                 <div class="p-2 bg-blue-100 text-blue-600 rounded-lg">
@@ -79,30 +79,30 @@
 
           <!-- Modules Grid -->
           <div class="mt-8">
-            <h3 class="text-lg font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">{{ $t('dashboard.ecosystem_modules') }}</h3>
+            <h3 class="text-lg font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">{{ $t('dashboard.ecosystem_modules') }}</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <NuxtLink v-if="enabledModules?.includes('pos') && (hasPermission('pos:create') || hasPermission('pos:write'))" to="/dashboard/pos" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-orange-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('pos') && (hasPermission('pos:create') || hasPermission('pos:write'))" to="/dashboard/pos" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-orange-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.pos') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('inventory') && (hasPermission('inventory:read') || hasPermission('inventory:write'))" to="/dashboard/inventory" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('inventory') && (hasPermission('inventory:read') || hasPermission('inventory:write'))" to="/dashboard/inventory" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-blue-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.inventory') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('hr') && (hasPermission('hr:read') || hasPermission('hr:write'))" to="/dashboard/employees" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-emerald-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('hr') && (hasPermission('hr:read') || hasPermission('hr:write'))" to="/dashboard/employees" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-emerald-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.hr') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('archive') && (hasPermission('archive:read') || hasPermission('archive:write'))" to="/dashboard/archive" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-purple-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('archive') && (hasPermission('archive:read') || hasPermission('archive:write'))" to="/dashboard/archive" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-purple-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                 </div>
@@ -110,28 +110,28 @@
               </NuxtLink>
 
               <!-- Finance & CRM -->
-              <NuxtLink v-if="hasPermission('pos:create') || hasPermission('pos:write')" to="/dashboard/customers" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-pink-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="hasPermission('pos:create') || hasPermission('pos:write')" to="/dashboard/customers" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-pink-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.customers') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('accounting') && (hasPermission('accounting:read') || hasPermission('accounting:write'))" to="/dashboard/accounting" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-yellow-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('accounting') && (hasPermission('accounting:read') || hasPermission('accounting:write'))" to="/dashboard/accounting" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-yellow-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.accounting') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('accounting') && (hasPermission('accounting:read') || hasPermission('accounting:write'))" to="/dashboard/checks" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-teal-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('accounting') && (hasPermission('accounting:read') || hasPermission('accounting:write'))" to="/dashboard/checks" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-teal-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.checks') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="hasPermission('pos:create') || hasPermission('pos:write')" to="/dashboard/installments" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-cyan-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="hasPermission('pos:create') || hasPermission('pos:write')" to="/dashboard/installments" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-cyan-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-cyan-100 text-cyan-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 </div>
@@ -139,14 +139,14 @@
               </NuxtLink>
 
               <!-- Supply Chain -->
-              <NuxtLink v-if="enabledModules?.includes('inventory') && (hasPermission('inventory:read') || hasPermission('inventory:write'))" to="/dashboard/suppliers" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-fuchsia-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('inventory') && (hasPermission('inventory:read') || hasPermission('inventory:write'))" to="/dashboard/suppliers" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-fuchsia-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-fuchsia-100 text-fuchsia-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.suppliers') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('inventory') && (hasPermission('inventory:read') || hasPermission('inventory:write'))" to="/dashboard/stock-movements" class="group bg-white p-5 rounded-2xl border border-gray-200 hover:border-lime-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('inventory') && (hasPermission('inventory:read') || hasPermission('inventory:write'))" to="/dashboard/stock-movements" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-lime-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-lime-100 text-lime-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
                 </div>
@@ -161,8 +161,8 @@
       <div v-if="!loading" class="w-full lg:w-96 flex flex-col space-y-6">
         
         <!-- Alerts Panel -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-          <div class="bg-gray-50 px-5 py-4 border-b border-gray-200 flex justify-between items-center">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gray-50 px-5 py-4 border-b border-gray-100 flex justify-between items-center">
             <h3 class="font-bold text-gray-900 flex items-center">
               <svg class="w-5 h-5 text-red-500 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
               {{ $t('dashboard.live_alerts') }}
@@ -181,8 +181,8 @@
         </div>
 
         <!-- Activity Feed -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex-1 flex flex-col">
-          <div class="bg-gray-50 px-5 py-4 border-b border-gray-200">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex-1 flex flex-col">
+          <div class="bg-gray-50 px-5 py-4 border-b border-gray-100">
             <h3 class="font-bold text-gray-900 flex items-center">
               <svg class="w-5 h-5 text-indigo-500 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
               {{ $t('dashboard.recent_activity') }}

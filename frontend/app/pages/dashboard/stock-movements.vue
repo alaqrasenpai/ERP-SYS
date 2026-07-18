@@ -20,8 +20,8 @@
     </div>
 
     <!-- Movements Log -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
         <h3 class="font-bold text-gray-900">{{ $t('stock_movements.historical_log') }}</h3>
       </div>
       
@@ -30,7 +30,7 @@
       </div>
 
       <div v-else class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="min-w-full divide-y divide-gray-100">
           <thead class="bg-gray-50">
             <tr>
               <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('stock_movements.date') }}</th>
@@ -41,7 +41,7 @@
               <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('stock_movements.performed_by') }}</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody class="bg-white divide-y divide-gray-100">
             <tr v-for="m in movements" :key="m._id" class="hover:bg-gray-50 transition-colors">
               <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{{ new Date(m.date).toLocaleString() }}</td>
               <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">

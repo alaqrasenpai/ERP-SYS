@@ -9,7 +9,7 @@
       </div>
 
       <!-- Sync / Simulate Biometric Punch -->
-      <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm mb-8">
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-8">
         <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
           <svg class="w-5 h-5 me-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
           {{ $t('attendance.device_sync') }}
@@ -36,9 +36,9 @@
       </div>
 
       <!-- Attendance Table -->
-      <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden">
+      <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
+          <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
                 <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('attendance.date') }}</th>
@@ -76,12 +76,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                   <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full"
-                        :class="[
-                          log.status === 'Present' ? 'bg-green-100 text-green-800' : '',
-                          log.status === 'Late' ? 'bg-orange-100 text-orange-800' : '',
-                          log.status === 'Absent' ? 'bg-red-100 text-red-800' : '',
-                          log.status === 'Leave' ? 'bg-indigo-100 text-indigo-800' : ''
-                        ]">
+                        :class="[ log.status === 'Present' ? 'bg-green-100 text-green-800' : '', log.status === 'Late' ? 'bg-orange-100 text-orange-800' : '', log.status === 'Absent' ? 'bg-red-100 text-red-800' : '', log.status === 'Leave' ? 'bg-indigo-100 text-indigo-800' : '' ]">
                     {{ log.status === 'Present' ? $t('attendance.present') : (log.status === 'Late' ? $t('attendance.late') : (log.status === 'Absent' ? $t('attendance.absent') : (log.status === 'Leave' ? $t('attendance.leave') : log.status))) }}
                   </span>
                 </td>

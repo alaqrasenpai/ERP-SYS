@@ -6,12 +6,12 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('settings.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('settings.description') }}</p>
         </div>
-        <div class="flex space-x-3 mt-4 sm:mt-0 space-x-reverse">
+        <div class="flex gap-3 mt-4 sm:mt-0">
           <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             {{ $t('settings.dashboard') }}
           </NuxtLink>
-          <button @click="saveSettings" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-sm flex items-center text-sm" :disabled="saving">
+          <button @click="saveSettings" class="bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-sm flex items-center text-sm" :disabled="saving">
             <svg v-if="saving" class="animate-spin -ms-1 me-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
             <svg v-else class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
             {{ saving ? $t('settings.saving') : $t('settings.save_changes') }}
@@ -23,10 +23,10 @@
         <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
 
-      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <!-- Tabs -->
-        <div class="border-b border-gray-200">
-          <nav class="-mb-px flex space-x-8 px-6 space-x-reverse" aria-label="Tabs">
+        <div class="border-b border-gray-100">
+          <nav class="-mb-px flex gap-8 px-6" aria-label="Tabs">
             <button @click="activeTab = 'general'" :class="activeTab === 'general' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm">
               {{ $t('settings.general_branding') }}
             </button>
@@ -106,11 +106,11 @@
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-2">{{ $t('settings.allowed_languages') || 'Allowed Languages' }}</label>
               <div class="space-y-2">
-                <label class="flex items-center space-x-3 cursor-pointer rtl:space-x-reverse">
+                <label class="flex items-center gap-3 cursor-pointer rtl:">
                   <input type="checkbox" value="ar" v-model="settings.allowedLanguages" class="w-5 h-5 text-indigo-600 rounded border-gray-300">
                   <span class="text-sm font-medium text-gray-900">العربية (Arabic)</span>
                 </label>
-                <label class="flex items-center space-x-3 cursor-pointer rtl:space-x-reverse">
+                <label class="flex items-center gap-3 cursor-pointer rtl:">
                   <input type="checkbox" value="en" v-model="settings.allowedLanguages" class="w-5 h-5 text-indigo-600 rounded border-gray-300">
                   <span class="text-sm font-medium text-gray-900">English</span>
                 </label>
@@ -129,7 +129,7 @@
               <textarea v-model="settings.receiptFooter" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500" :placeholder="$t('settings.receipt_footer_placeholder')"></textarea>
             </div>
             
-            <div class="mt-8 p-6 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50">
+            <div class="mt-8 p-6 border-2 border-dashed border-gray-100 rounded-xl bg-gray-50">
               <h4 class="text-xs font-black text-gray-500 uppercase tracking-wider mb-4 text-center">{{ $t('settings.receipt_preview') }}</h4>
               <div class="bg-white max-w-xs mx-auto p-4 rounded shadow-sm font-mono text-xs text-center border-t-8 border-gray-800">
                 <p v-if="settings.storeName" class="font-bold text-base mb-1">{{ settings.storeName }}</p>

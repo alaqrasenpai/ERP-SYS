@@ -6,18 +6,18 @@
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('payroll.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('payroll.description') }}</p>
         </div>
-        <div class="flex space-x-3 space-x-reverse">
+        <div class="flex gap-3">
           <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('payroll.dashboard') }}</NuxtLink>
         </div>
       </div>
 
       <!-- Action Area -->
-      <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm mb-8 flex flex-col md:flex-row items-end justify-between gap-4">
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-8 flex flex-col md:flex-row items-end justify-between gap-4">
         <div>
           <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('payroll.target_month') }}</label>
           <input type="month" v-model="targetMonth" class="block w-full md:w-64 border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
         </div>
-        <div class="flex space-x-3 space-x-reverse w-full md:w-auto">
+        <div class="flex gap-3 w-full md:w-auto">
           <button @click="runPayroll" class="flex-1 md:flex-none px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm transition-colors flex justify-center items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             {{ $t('payroll.generate') }}
@@ -29,12 +29,12 @@
       </div>
 
       <!-- Payroll Table -->
-      <div id="payroll-printable-area" class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden">
-        <div class="p-4 border-b border-gray-200 bg-gray-50 hidden print:block">
+      <div id="payroll-printable-area" class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
+        <div class="p-4 border-b border-gray-100 bg-gray-50 hidden print:block">
            <h2 class="text-2xl font-bold text-gray-900 text-center">{{ $t('payroll.sheet_title') }} {{ targetMonth }}</h2>
         </div>
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
+          <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
                 <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('payroll.month') }}</th>

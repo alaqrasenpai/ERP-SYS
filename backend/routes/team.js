@@ -80,11 +80,24 @@ router.delete('/roles/:id', async (req, res) => {
 // Users Management
 // -----------------------------------------------------
 
+// GET /api/team/employees
+// Used to populate dropdowns when linking users to HR profiles
+router.get('/employees', async (req, res) => {
+    try {
+        const Employee = req.tenantConnection.model('Employee');
+        // Fetch a minimal list of employees for the dropdown
+        const employees = await Employee.find().select('_id name email position');
+        res.json(employees);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching employees', error: error.message });
+    }
+});
+
 // GET /api/team/users
 router.get('/users', async (req, res) => {
     try {
         const User = req.tenantConnection.model('User');
-        const users = await User.find().select('-password').populate('role');
+        const users = await User.find().select('-password').populate('role').populate('employeeId', 'name position');
         res.json(users);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching users', error: error.message });
@@ -94,7 +107,7 @@ router.get('/users', async (req, res) => {
 // POST /api/team/users
 router.post('/users', async (req, res) => {
     try {
-        const { name, email, password, roleId, isActive } = req.body;
+        const { name, email, password, roleId, employeeId, isActive } = req.body;
         const User = req.tenantConnection.model('User');
 
         if (!name || !email || !password || !roleId) {
@@ -111,6 +124,7 @@ router.post('/users', async (req, res) => {
             email,
             password, // Password hashed via User schema pre-save hook
             role: roleId,
+            employeeId: employeeId || null,
             isActive: isActive !== undefined ? isActive : true
         });
 
@@ -123,7 +137,7 @@ router.post('/users', async (req, res) => {
 // PUT /api/team/users/:id
 router.put('/users/:id', async (req, res) => {
     try {
-        const { name, email, password, roleId, isActive } = req.body;
+        const { name, email, password, roleId, employeeId, isActive } = req.body;
         const User = req.tenantConnection.model('User');
 
         const user = await User.findById(req.params.id);
@@ -132,6 +146,7 @@ router.put('/users/:id', async (req, res) => {
         if (name) user.name = name;
         if (email) user.email = email;
         if (roleId) user.role = roleId;
+        if (employeeId !== undefined) user.employeeId = employeeId || null;
         if (isActive !== undefined) user.isActive = isActive;
         if (password) {
             user.password = password; // Will be hashed via pre-save hook

@@ -3,12 +3,12 @@
     <div class="max-w-7xl mx-auto space-y-6">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
       <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('crm.title') }}</h2>
-      <div class="flex space-x-3 space-x-reverse mt-4 sm:mt-0">
+      <div class="flex gap-3 mt-4 sm:mt-0">
         <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
           <svg class="w-4 h-4 me-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
           {{ $t('crm.dashboard') }}
         </NuxtLink>
-        <button @click="openAddModal" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-sm flex items-center text-sm">
+        <button @click="openAddModal" class="bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-sm flex items-center text-sm">
           <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           {{ $t('crm.add_customer') }}
         </button>
@@ -16,9 +16,9 @@
     </div>
 
     <!-- Search -->
-    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
+    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
       <div class="relative">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <div class="absolute inset-y-0 left-0 ps-3 flex items-center pointer-events-none">
           <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
         <input v-model="searchQuery" type="text" class="block w-full ps-10 pe-3 py-2.5 border border-gray-300 rounded-xl leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all" :placeholder="$t('crm.search_placeholder')">
@@ -31,9 +31,9 @@
     </div>
 
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div v-for="customer in filteredCustomers" :key="customer._id" class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 relative">
+      <div v-for="customer in filteredCustomers" :key="customer._id" class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-6 relative">
         <div class="flex justify-between items-start mb-4">
-          <div class="flex items-center space-x-3">
+          <div class="flex items-center gap-3">
             <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold text-xl uppercase">
               {{ customer.name.charAt(0) }}
             </div>
@@ -93,7 +93,7 @@
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('crm.address') }}</label>
               <textarea v-model="form.address" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500"></textarea>
             </div>
-            <div class="flex justify-end space-x-3 space-x-reverse pt-4 border-t">
+            <div class="flex justify-end gap-3 pt-4 border-t">
               <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">{{ $t('crm.cancel') }}</button>
               <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">{{ $t('crm.save_customer') }}</button>
             </div>
@@ -119,7 +119,7 @@
           <h4 class="text-sm font-bold text-gray-700 uppercase mb-3">{{ $t('crm.ledger_history') }}</h4>
           <div v-if="debtLogs.length === 0" class="text-center p-4 text-gray-500 text-sm">{{ $t('crm.no_debt_records') }}</div>
           <div class="space-y-3">
-            <div v-for="log in debtLogs" :key="log._id" class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
+            <div v-for="log in debtLogs" :key="log._id" class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex justify-between items-center">
               <div>
                 <p class="font-bold text-gray-900 text-sm flex items-center">
                   <span v-if="log.type === 'charge'" class="w-2 h-2 rounded-full bg-red-500 me-2"></span>
@@ -129,7 +129,7 @@
                 <p class="text-xs text-gray-500 mt-1">{{ new Date(log.date).toLocaleString() }} &bull; {{ log.notes || (log.orderId ? `Order ${log.orderId.orderNumber}` : $t('crm.manual_entry')) }}</p>
                 <p class="text-xs font-medium text-gray-500 mt-0.5">{{ $t('crm.method') }} {{ log.paymentMethod }}</p>
               </div>
-              <div class="text-right">
+              <div class="text-end">
                 <span class="font-black text-lg" :class="log.type === 'charge' ? 'text-red-600' : 'text-emerald-600'">
                   {{ log.type === 'charge' ? '+' : '-' }}${{ log.amount.toFixed(2) }}
                 </span>
@@ -167,7 +167,7 @@
               </div>
             </div>
             
-            <div class="flex justify-end space-x-3 pt-2">
+            <div class="flex justify-end gap-3 pt-2">
               <button type="submit" class="px-5 py-2.5 text-white rounded-xl font-bold w-full" :class="debtForm.type === 'payment' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-red-600 hover:bg-red-700'">
                 {{ debtForm.type === 'payment' ? $t('crm.process_payment') : $t('crm.add_debt_charge') }}
               </button>

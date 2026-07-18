@@ -357,6 +357,9 @@
     "failed_save": "فشل حفظ بيانات العضو:",
     "activate_prompt": "تفعيل {name}؟",
     "suspend_prompt": "إيقاف {name}؟ لن يتمكن من تسجيل الدخول.",
+    "linked_employee": "الملف التعريفي المرتبط",
+    "unassigned": "غير مربوط",
+    "n_a": "غير متوفر",
     "failed_status": "فشل في تحديث الحالة"
   },
   "employees": {
@@ -852,16 +855,6 @@
     "success_generate": "تم حساب الرواتب بنجاح!",
     "failed_generate": "فشل في حساب الرواتب",
     "failed_update": "فشل في تحديث حالة الدفع"
-  },
-  "my_attendance": {
-    "title": "حضوري",
-    "description": "تسجيل الحضور عبر الويب وكشف الدوام الشهري.",
-    "current_time": "الوقت الحالي",
-    "web_punch": "تسجيل الحضور عبر الويب",
-    "clock_in": "تسجيل الدخول",
-    "clock_out": "تسجيل الخروج",
-    "punch_success": "تم تسجيل الدخول/الخروج بنجاح في",
-    "punch_failed": "فشل التسجيل"
   },
   "nav": {
     "sales_crm": "المبيعات والعملاء",

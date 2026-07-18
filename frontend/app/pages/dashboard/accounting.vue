@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto space-y-6">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
       <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('accounting.title') }}</h2>
-      <div class="flex space-x-3 mt-4 sm:mt-0 space-x-reverse">
+      <div class="flex gap-3 mt-4 sm:mt-0">
         <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
           <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
           {{ $t('accounting.dashboard') }}
@@ -23,9 +23,9 @@
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div v-for="acc in accounts" :key="acc.code" class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-all relative group">
           <div class="absolute top-0 left-0 w-1.5 h-full" :class="getBorderColor(acc.type)"></div>
-          <div class="p-5 pl-6">
+          <div class="p-5 ps-6">
             <div class="flex justify-between items-center mb-4">
-              <span class="px-2.5 py-1 bg-gray-50 text-gray-600 border border-gray-200 text-xs font-black rounded-lg font-mono">{{ acc.code }}</span>
+              <span class="px-2.5 py-1 bg-gray-50 text-gray-600 border border-gray-100 text-xs font-black rounded-lg font-mono">{{ acc.code }}</span>
               <span class="text-xs font-bold px-2.5 py-1 rounded-lg" :class="getTypeBadgeClass(acc.type)">{{ acc.type === 'Asset' ? $t('accounting.asset') : (acc.type === 'Liability' ? $t('accounting.liability') : (acc.type === 'Revenue' ? $t('accounting.revenue') : (acc.type === 'Expense' ? $t('accounting.expense') : acc.type))) }}</span>
             </div>
             <h4 class="font-bold text-gray-500 text-sm mb-1 uppercase tracking-wider">{{ acc.name }}</h4>
@@ -40,7 +40,7 @@
     </div>
 
     <!-- General Journal Ledger -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mt-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mt-8">
       <div class="px-6 py-5 border-b border-gray-100 bg-white flex justify-between items-center">
         <div>
           <h3 class="text-lg font-black text-gray-900 tracking-tight flex items-center">
@@ -52,7 +52,7 @@
       </div>
       
       <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="min-w-full divide-y divide-gray-100">
           <thead class="bg-gray-50/50">
             <tr>
               <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider w-1/4">{{ $t('accounting.date_ref') }}</th>
@@ -70,7 +70,7 @@
                   <div class="text-xs font-bold text-indigo-600 mt-1">{{ entry.entryNumber }}</div>
                 </td>
                 <td colspan="3" class="px-6 py-4">
-                  <span class="text-sm font-bold text-gray-800 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">{{ entry.description }}</span>
+                  <span class="text-sm font-bold text-gray-800 bg-white px-3 py-1.5 rounded-lg border border-gray-100 shadow-sm">{{ entry.description }}</span>
                 </td>
               </tr>
               <!-- Entry Lines Rows -->
@@ -157,7 +157,7 @@ const getTypeBadgeClass = (type) => {
   if (type === 'Liability') return 'bg-orange-50 text-orange-700 border border-orange-200'
   if (type === 'Revenue') return 'bg-emerald-50 text-emerald-700 border border-emerald-200'
   if (type === 'Expense') return 'bg-rose-50 text-rose-700 border border-rose-200'
-  return 'bg-gray-50 text-gray-700 border border-gray-200'
+  return 'bg-gray-50 text-gray-700 border border-gray-100'
 }
 
 const getBorderColor = (type) => {

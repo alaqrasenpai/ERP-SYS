@@ -2,13 +2,13 @@
   <div class="h-[100dvh] bg-gray-100 flex flex-col">
     <!-- Top Nav -->
     <div class="bg-indigo-700 text-white shadow-md flex justify-between items-center px-6 py-3 print:hidden">
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center gap-4">
         <NuxtLink to="/" class="hover:bg-indigo-600 p-2 rounded-lg transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
         </NuxtLink>
         <h1 class="text-2xl font-black tracking-tight">{{ $t('pos.terminal') }}</h1>
       </div>
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center gap-4">
         <button v-if="!shiftOpen" @click="openShift" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-lg transition-colors">{{ $t('pos.open_shift') }}</button>
         <button v-if="shiftOpen" @click="closeShift" class="px-4 py-2 bg-rose-500 hover:bg-rose-400 text-white font-bold rounded-lg transition-colors">{{ $t('pos.close_shift') }}</button>
         <div class="text-sm font-medium opacity-80 hidden sm:block">{{ currentDate }}</div>
@@ -19,10 +19,10 @@
     <div class="flex-1 flex flex-col lg:flex-row overflow-hidden print:hidden">
       
       <!-- Left Pane: Products -->
-      <div class="w-full lg:w-2/3 flex flex-col flex-1 lg:flex-none lg:h-full bg-gray-50 border-b lg:border-b-0 lg:border-r border-gray-200 overflow-hidden">
-        <div class="p-4 bg-white border-b border-gray-200 flex space-x-3">
+      <div class="w-full lg:w-2/3 flex flex-col flex-1 lg:flex-none lg:h-full bg-gray-50 border-b lg:border-b-0 lg:border-e border-gray-100 overflow-hidden">
+        <div class="p-4 bg-white border-b border-gray-100 flex gap-3">
           <div class="relative flex-1">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <div class="absolute inset-y-0 left-0 ps-3 flex items-center pointer-events-none">
               <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             </div>
             <input v-model="searchQuery" type="text" :placeholder="$t('pos.search_placeholder')" class="block w-full ps-10 pe-3 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow">
@@ -36,7 +36,7 @@
           </div>
           
           <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div v-for="product in filteredProducts" :key="product._id" @click="addToCart(product)" class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 cursor-pointer hover:border-indigo-500 hover:shadow-md transition-all group flex flex-col h-full" :class="{ 'opacity-50 pointer-events-none': product.stockQuantity <= 0 }">
+            <div v-for="product in filteredProducts" :key="product._id" @click="addToCart(product)" class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 cursor-pointer hover:border-indigo-500 hover:shadow-md transition-all group flex flex-col h-full" :class="{ 'opacity-50 pointer-events-none': product.stockQuantity <= 0 }">
               <div class="flex-1">
                 <h3 class="text-sm font-bold text-gray-900 group-hover:text-indigo-700 leading-tight mb-1">{{ product.name }}</h3>
                 <p class="text-xs text-gray-500">{{ product.barcode || product.sku }}</p>
@@ -55,9 +55,9 @@
       <!-- Right Pane: Cart -->
       <div class="w-full lg:w-1/3 flex flex-col h-[45%] lg:h-full bg-white overflow-hidden shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] lg:shadow-none z-10">
         <!-- Header -->
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50 shrink-0">
+        <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 shrink-0">
           <h2 class="font-black text-gray-900 tracking-tight flex items-center">
-            <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <svg class="w-5 h-5 me-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
             {{ $t('pos.current_order') }}
           </h2>
           <span v-if="shiftOpen" class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full border border-emerald-200">
@@ -77,13 +77,13 @@
                 <h4 class="text-sm font-bold text-gray-900">{{ item.name }}</h4>
                 <div class="text-xs text-gray-500 mt-1">{{ currency }}{{ item.unitPrice.toFixed(2) }}</div>
               </div>
-              <div class="flex items-center space-x-3">
+              <div class="flex items-center gap-3">
                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
                   <button @click="updateQuantity(index, -1)" class="px-2 py-1 bg-gray-50 hover:bg-gray-100 text-gray-600 font-bold">-</button>
                   <input type="number" v-model.number="item.quantity" @change="recalculateCart" class="w-12 text-center text-sm font-bold border-x border-gray-300 py-1 focus:outline-none focus:ring-0">
                   <button @click="updateQuantity(index, 1)" class="px-2 py-1 bg-gray-50 hover:bg-gray-100 text-gray-600 font-bold">+</button>
                 </div>
-                <div class="w-16 text-right font-bold text-gray-900">
+                <div class="w-16 text-end font-bold text-gray-900">
                   {{ currency }}{{ item.totalPrice.toFixed(2) }}
                 </div>
                 <button @click="removeFromCart(index)" class="text-red-400 hover:text-red-600">
@@ -94,7 +94,7 @@
           </ul>
         </div>
 
-        <div class="bg-gray-50 p-4 border-t border-gray-200">
+        <div class="bg-gray-50 p-4 border-t border-gray-100">
           <div class="space-y-4">
             <div class="flex justify-between items-center text-sm">
               <span class="text-gray-500">{{ $t('pos.subtotal') }}</span>
@@ -137,14 +137,14 @@
             </div>
 
             <!-- Conditional Details: Check -->
-            <div v-if="paymentMethod === 'Check'" class="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2 mt-2">
+            <div v-if="paymentMethod === 'Check'" class="bg-gray-50 p-3 rounded-xl border border-gray-100 space-y-2 mt-2">
               <input v-model="checkDetails.checkNumber" type="text" :placeholder="$t('pos.check_number')" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
               <input v-model="checkDetails.bankName" type="text" :placeholder="$t('pos.bank_name')" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
               <input v-model="checkDetails.dueDate" type="date" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
             </div>
 
             <!-- Conditional Details: Installment -->
-            <div v-if="paymentMethod === 'Installment'" class="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2 mt-2">
+            <div v-if="paymentMethod === 'Installment'" class="bg-gray-50 p-3 rounded-xl border border-gray-100 space-y-2 mt-2">
               <div>
                 <label class="text-xs font-bold text-gray-500">{{ $t('pos.down_payment') }} ({{ currency }})</label>
                 <input v-model="installmentDetails.downPayment" type="number" min="0" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm">
@@ -187,16 +187,16 @@
       <table v-if="lastOrder" class="w-full mb-2">
         <thead>
           <tr class="border-b border-dashed border-black">
-            <th class="text-left py-1">Item</th>
-            <th class="text-right py-1">Qty</th>
-            <th class="text-right py-1">Price</th>
+            <th class="text-start py-1">Item</th>
+            <th class="text-end py-1">Qty</th>
+            <th class="text-end py-1">Price</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in lastOrder.items" :key="item.productId">
             <td class="py-1">{{ item.name }}</td>
-            <td class="text-right py-1">{{ item.quantity }}</td>
-            <td class="text-right py-1">{{ item.totalPrice.toFixed(2) }}</td>
+            <td class="text-end py-1">{{ item.quantity }}</td>
+            <td class="text-end py-1">{{ item.totalPrice.toFixed(2) }}</td>
           </tr>
         </tbody>
       </table>
@@ -240,7 +240,7 @@
                 <input v-model="customerForm.email" type="email" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
             </div>
-            <div class="flex justify-end space-x-3 space-x-reverse pt-4 border-t">
+            <div class="flex justify-end gap-3 pt-4 border-t">
               <button type="button" @click="showAddCustomerModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">{{ $t('pos.cancel') }}</button>
               <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">{{ $t('pos.save_customer') }}</button>
             </div>

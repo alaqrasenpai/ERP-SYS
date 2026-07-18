@@ -16,8 +16,8 @@
         <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
 
-      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
+      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-100">
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('devices.device_name') }}</th>
@@ -69,7 +69,7 @@
               <input type="text" v-model="form.serialNumber" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono" :placeholder="$t('devices.sn_placeholder')">
               <p class="text-xs text-gray-500 mt-1">{{ $t('devices.sn_hint') }}</p>
             </div>
-            <div class="pt-4 flex justify-end space-x-3 space-x-reverse">
+            <div class="pt-4 flex justify-end gap-3">
               <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('devices.cancel') }}</button>
               <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold">
                 {{ saving ? $t('devices.registering') : $t('devices.register_btn') }}

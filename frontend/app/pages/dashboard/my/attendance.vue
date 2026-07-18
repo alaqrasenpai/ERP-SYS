@@ -7,7 +7,7 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('my_attendance.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('my_attendance.description') }}</p>
         </div>
-        <div class="flex items-center space-x-4 space-x-reverse">
+        <div class="flex items-center gap-4">
           <div class="text-end me-4">
             <p class="text-xs font-bold text-gray-500 uppercase">{{ $t('my_attendance.current_time') }}</p>
             <p class="text-xl font-black text-indigo-600">{{ currentTime }}</p>
@@ -18,7 +18,7 @@
       </div>
 
       <!-- Filters -->
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200 flex items-center space-x-4 space-x-reverse">
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
         <label class="text-sm font-bold text-gray-700">{{ $t('my_attendance.filter_month') }}</label>
         <input type="month" v-model="filterMonth" @change="fetchAttendance" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-sm">
       </div>
@@ -27,8 +27,8 @@
         <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
       
-      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
+      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-100">
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_attendance.date') }}</th>

@@ -7,7 +7,7 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('attendance_monitor.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('attendance_monitor.description') }}</p>
         </div>
-        <div class="flex space-x-3">
+        <div class="flex gap-3">
           <input type="date" v-model="filterDate" @change="fetchGrid" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-sm">
         </div>
       </div>
@@ -16,16 +16,16 @@
         <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
 
-      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
         <!-- Tabs -->
-        <div class="border-b border-gray-200 flex overflow-x-auto">
+        <div class="border-b border-gray-100 flex overflow-x-auto">
           <button @click="activeTab = 'grid'" :class="['px-6 py-4 text-sm font-bold border-b-2 whitespace-nowrap', activeTab === 'grid' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700']">{{ $t('attendance_monitor.daily_grid') }}</button>
           <button @click="activeTab = 'overtime'" :class="['px-6 py-4 text-sm font-bold border-b-2 whitespace-nowrap', activeTab === 'overtime' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700']">{{ $t('attendance_monitor.overtime_approval') }}</button>
         </div>
 
         <!-- Grid Tab -->
         <div v-if="activeTab === 'grid'" class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
+          <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('attendance_monitor.employee') }}</th>
@@ -48,11 +48,7 @@
                   <span class="text-xs text-gray-500">{{ row.department }}</span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span :class="{
-                    'bg-emerald-100 text-emerald-800': row.status === 'Present',
-                    'bg-red-100 text-red-800': row.status === 'Absent',
-                    'bg-yellow-100 text-yellow-800': row.status === 'Late' || row.isAnomalous
-                  }" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
+                  <span :class="{ 'bg-emerald-100 text-emerald-800': row.status === 'Present', 'bg-red-100 text-red-800': row.status === 'Absent', 'bg-yellow-100 text-yellow-800': row.status === 'Late' || row.isAnomalous }" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
                     {{ row.isAnomalous ? $t('attendance_monitor.anomaly') : (row.status === 'Present' ? $t('attendance_monitor.present') : (row.status === 'Late' ? $t('attendance_monitor.late') : (row.status === 'Absent' ? $t('attendance_monitor.absent') : row.status))) }}
                   </span>
                 </td>
@@ -77,7 +73,7 @@
 
         <!-- Overtime Tab -->
         <div v-if="activeTab === 'overtime'" class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
+          <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('attendance_monitor.employee') }}</th>
@@ -99,10 +95,12 @@
                     {{ row.overtimeStatus }}
                   </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-end space-x-2 space-x-reverse">
+                <td class="px-6 py-4 whitespace-nowrap text-end">
+              <div class="flex items-center justify-end gap-2">
                   <button @click="handleOvertime(row.attendanceId, 'Approved')" class="text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg font-bold hover:bg-emerald-100">{{ $t('attendance_monitor.approve') }}</button>
                   <button @click="handleOvertime(row.attendanceId, 'Rejected')" class="text-red-600 bg-red-50 px-3 py-1 rounded-lg font-bold hover:bg-red-100">{{ $t('attendance_monitor.reject') }}</button>
-                </td>
+                </div>
+            </td>
               </tr>
               <tr v-if="overtimeRequests.length === 0">
                 <td colspan="4" class="px-6 py-12 text-center text-gray-500 text-sm font-bold">{{ $t('attendance_monitor.no_overtime_requests') }}</td>
@@ -134,7 +132,7 @@
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.reason_required') }}</label>
               <textarea v-model="overrideForm.reason" required rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500" :placeholder="$t('attendance_monitor.reason_placeholder')"></textarea>
             </div>
-            <div class="pt-4 flex justify-end space-x-3 space-x-reverse">
+            <div class="pt-4 flex justify-end gap-3">
               <button type="button" @click="showOverrideModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('attendance_monitor.cancel') }}</button>
               <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50">
                 {{ saving ? $t('attendance_monitor.saving') : $t('attendance_monitor.save_override') }}

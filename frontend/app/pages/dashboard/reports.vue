@@ -6,7 +6,7 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('reports.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('reports.description') }}</p>
         </div>
-        <div class="flex space-x-3 mt-4 sm:mt-0 print:hidden space-x-reverse">
+        <div class="flex gap-3 mt-4 sm:mt-0 print:hidden">
           <button @click="printReport" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
             {{ $t('reports.print_pdf') }}
@@ -23,8 +23,8 @@
       </div>
 
       <!-- Navigation Tabs -->
-      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-6 print:hidden">
-        <nav class="flex divide-x divide-x-reverse divide-gray-200" aria-label="Tabs">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6 print:hidden">
+        <nav class="flex divide-x divide-x-reverse divide-gray-100" aria-label="Tabs">
           <button @click="activeReport = 'pnl'" :class="activeReport === 'pnl' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'" class="flex-1 group relative min-w-0 overflow-hidden py-4 px-4 text-center text-sm font-bold hover:bg-gray-50 focus:z-10 transition-colors">
             <span>{{ $t('reports.profit_and_loss') }}</span>
             <span aria-hidden="true" :class="activeReport === 'pnl' ? 'bg-indigo-500' : 'bg-transparent'" class="absolute inset-x-0 bottom-0 h-1"></span>
@@ -47,9 +47,9 @@
       <template v-else>
         <!-- Profit & Loss Report -->
         <div v-if="activeReport === 'pnl'" class="space-y-6">
-          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 print:hidden">
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 print:hidden">
             <h3 class="font-bold text-gray-900 mb-4">{{ $t('reports.date_filter') }}</h3>
-            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 sm:space-x-reverse items-end">
+            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:gap-4 sm: items-end">
               <div class="flex-1">
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">{{ $t('reports.start_date') }}</label>
                 <input v-model="dateRange.start" type="date" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
@@ -58,19 +58,19 @@
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">{{ $t('reports.end_date') }}</label>
                 <input v-model="dateRange.end" type="date" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
-              <button @click="fetchPnL" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-sm">
+              <button @click="fetchPnL" class="bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-sm">
                 {{ $t('reports.generate') }}
               </button>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <p class="text-sm font-bold text-gray-500 uppercase">{{ $t('reports.total_revenue') }}</p>
               <p class="text-3xl font-black text-emerald-600 mt-2">{{ currency }}{{ (pnl.totalRevenue || 0).toLocaleString('en-US', {minimumFractionDigits: 2}) }}</p>
               <p class="text-xs text-gray-400 mt-1">{{ $t('reports.from_sales') }}</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <p class="text-sm font-bold text-gray-500 uppercase">{{ $t('reports.cogs_expenses') }}</p>
               <p class="text-3xl font-black text-rose-600 mt-2">{{ currency }}{{ (pnl.totalCostAndExpenses || 0).toLocaleString('en-US', {minimumFractionDigits: 2}) }}</p>
               <p class="text-xs text-gray-400 mt-1">{{ $t('reports.cogs_desc') }}</p>
@@ -84,7 +84,7 @@
         </div>
 
         <!-- Debtors & Overdue Report -->
-        <div v-if="activeReport === 'debtors'" class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div v-if="activeReport === 'debtors'" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
             <div>
               <h3 class="text-lg font-black text-gray-900 tracking-tight">{{ $t('reports.debtors_summary') }}</h3>
@@ -92,7 +92,7 @@
             </div>
           </div>
           <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="min-w-full divide-y divide-gray-100">
               <thead class="bg-gray-50/50">
                 <tr>
                   <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('reports.customer') }}</th>
@@ -135,7 +135,7 @@
 
         <!-- Inventory Valuation Report -->
         <div v-if="activeReport === 'inventory'" class="space-y-6">
-          <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 text-center max-w-lg mx-auto mt-12">
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center max-w-lg mx-auto mt-12">
             <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
             </div>

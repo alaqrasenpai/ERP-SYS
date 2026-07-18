@@ -5,7 +5,7 @@
     <div v-if="mobileMenuOpen" class="fixed inset-0 bg-gray-900/50 z-40 lg:hidden backdrop-blur-sm transition-opacity" @click="mobileMenuOpen = false"></div>
 
     <!-- Sidebar (Desktop Fixed, Mobile Absolute) -->
-    <aside :class="mobileMenuOpen ? 'translate-x-0' : '-translate-x-full rtl:translate-x-full'" class="fixed inset-y-0 start-0 z-50 w-64 bg-indigo-900 text-white transition-transform duration-300 lg:static lg:translate-x-0 flex flex-col h-[100dvh] shadow-2xl lg:shadow-none">
+    <aside :class="mobileMenuOpen ? 'translate-x-0' : '-translate-x-full rtl:translate-x-full'" class="fixed inset-y-0 start-0 z-50 w-64 bg-indigo-900 text-white transition-transform duration-300 lg:static lg:translate-x-0 lg:rtl:translate-x-0 flex flex-col h-[100dvh] shadow-2xl lg:shadow-none">
       
       <!-- Logo -->
       <div class="h-16 flex items-center px-6 border-b border-indigo-800 bg-indigo-950/50 flex-shrink-0">
@@ -63,7 +63,7 @@
     <div class="flex-1 flex flex-col min-w-0 h-[100dvh] overflow-hidden bg-gray-50">
       
       <!-- Header -->
-      <header class="bg-white shadow-sm border-b border-gray-200 h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 z-30">
+      <header class="bg-white shadow-sm border-b border-gray-100 h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 z-30">
         <div class="flex items-center">
           <button @click="mobileMenuOpen = true" class="p-2 -ms-2 me-2 text-gray-600 hover:text-gray-900 focus:outline-none rounded-lg hover:bg-gray-100 transition-colors lg:hidden">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -71,7 +71,7 @@
           <div class="font-black text-gray-900 tracking-tight text-lg lg:hidden">ERP SYSTEM</div>
         </div>
         
-        <div class="flex items-center space-x-4 space-x-reverse ms-auto rtl:space-x-reverse">
+        <div class="flex items-center gap-4 ms-auto">
           <select v-if="allowedLanguages.length > 1" v-model="currentLanguage" @change="handleLanguageChange" class="text-sm font-bold border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 py-1.5 ps-3 pe-8">
             <option v-for="lang in allowedLanguages" :key="lang" :value="lang">
               {{ lang === 'ar' ? 'العربية' : 'English' }}
@@ -163,7 +163,7 @@ const navGroups = computed(() => {
     },
     {
       name: 'ess.title',
-      visible: hasPermission('ess:read') || hasPermission('*'),
+      visible: enabledModules.value?.includes('ess') && (hasPermission('ess:read') || hasPermission('*')),
       children: [
         { name: 'ess.my_profile', path: '/dashboard/my/profile', visible: true },
         { name: 'ess.my_attendance', path: '/dashboard/my/attendance', visible: true },

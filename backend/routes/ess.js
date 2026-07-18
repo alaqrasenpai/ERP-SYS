@@ -8,7 +8,7 @@ const requireEmployeeProfile = async (req, res, next) => {
         const User = req.tenantConnection.model('User');
         
         // Find User to get employeeId (in case it's newly linked or req.user lacks it)
-        const userRec = await User.findById(req.user._id);
+        const userRec = await User.findById(req.user.id || req.user._id);
         
         let employee = null;
         if (userRec && userRec.employeeId) {

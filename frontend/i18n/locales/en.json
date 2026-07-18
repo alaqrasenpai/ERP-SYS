@@ -357,6 +357,9 @@
     "failed_save": "Failed to save staff member:",
     "activate_prompt": "Activate {name}?",
     "suspend_prompt": "Suspend {name}? They will not be able to log in.",
+    "linked_employee": "Linked HR Profile",
+    "unassigned": "Unassigned",
+    "n_a": "N/A",
     "failed_status": "Failed to update status"
   },
   "employees": {
@@ -852,16 +855,6 @@
     "success_generate": "Payroll calculated successfully!",
     "failed_generate": "Failed to calculate payroll",
     "failed_update": "Failed to update payment status"
-  },
-  "my_attendance": {
-    "title": "My Attendance",
-    "description": "Web punch and monthly timesheet.",
-    "current_time": "Current Time",
-    "web_punch": "Web Attendance Punch",
-    "clock_in": "CLOCK IN",
-    "clock_out": "CLOCK OUT",
-    "punch_success": "Successfully clocked",
-    "punch_failed": "Punch failed"
   },
   "nav": {
     "sales_crm": "Sales & CRM",

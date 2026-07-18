@@ -6,14 +6,14 @@
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('sales_history.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('sales_history.subtitle') }}</p>
         </div>
-        <div class="flex space-x-3 space-x-reverse">
+        <div class="flex gap-3">
           <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('sales_history.dashboard') }}</NuxtLink>
         </div>
       </div>
 
       <!-- Stats -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
                  <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_cash') }}</p>
@@ -24,7 +24,7 @@
               </div>
            </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
                  <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_card') }}</p>
@@ -35,7 +35,7 @@
               </div>
            </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
                  <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_orders') }}</p>
@@ -49,9 +49,9 @@
       </div>
 
       <!-- Orders Table -->
-      <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden">
+      <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
+          <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
                 <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.date') }}</th>

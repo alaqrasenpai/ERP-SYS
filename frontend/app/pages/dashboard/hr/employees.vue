@@ -6,7 +6,7 @@
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('employees.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('employees.description') }}</p>
         </div>
-        <div class="flex space-x-3 mt-4 sm:mt-0 space-x-reverse">
+        <div class="flex gap-3 mt-4 sm:mt-0">
           <button @click="openAddModal" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all flex items-center">
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             {{ $t('employees.add_employee') }}
@@ -15,9 +15,9 @@
       </div>
 
       <!-- Employees Table -->
-      <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden">
+      <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
+          <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
                 <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('employees.employee') }}</th>
@@ -52,10 +52,12 @@
                   <div class="text-xs text-gray-700">{{ $t('employees.annual') }} <span class="font-bold">{{ emp.annualLeaveBalance }}</span> {{ $t('employees.days') }}</div>
                   <div class="text-xs text-gray-700">{{ $t('employees.sick') }} <span class="font-bold">{{ emp.sickLeaveBalance }}</span> {{ $t('employees.days') }}</div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium space-x-2 space-x-reverse">
+                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+              <div class="flex items-center justify-end gap-2">
                   <button @click="openEditModal(emp)" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1.5 rounded-lg hover:bg-indigo-100 transition-colors">{{ $t('employees.profile') }}</button>
                   <button @click="deleteEmployee(emp._id)" class="text-red-600 hover:text-red-900 bg-red-50 px-3 py-1.5 rounded-lg hover:bg-red-100 transition-colors">{{ $t('employees.delete') }}</button>
-                </td>
+                </div>
+            </td>
               </tr>
               <tr v-if="employees.length === 0">
                 <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">{{ $t('employees.no_employees_found') }}</td>
@@ -67,7 +69,7 @@
 
       <!-- Add/Edit Employee Modal -->
       <div v-if="showModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-left overflow-hidden shadow-2xl w-full max-w-3xl border border-gray-100 flex flex-col max-h-[90vh]">
+        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-3xl border border-gray-100 flex flex-col max-h-[90vh]">
           
           <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
             <h3 class="text-xl font-bold text-gray-900">{{ isEditing ? $t('employees.edit_hr_profile') : $t('employees.new_employee_profile') }}</h3>
@@ -75,8 +77,8 @@
           </div>
 
           <!-- Tabs -->
-          <div class="border-b border-gray-200 px-6">
-            <nav class="-mb-px flex space-x-8 space-x-reverse">
+          <div class="border-b border-gray-100 px-6">
+            <nav class="-mb-px flex gap-8">
               <button @click="activeModalTab = 'personal'" :class="[activeModalTab === 'personal' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.personal_info') }}</button>
               <button @click="activeModalTab = 'job'" :class="[activeModalTab === 'job' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.job_shift') }}</button>
               <button @click="activeModalTab = 'leaves'" :class="[activeModalTab === 'leaves' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.leave_balances') }}</button>
@@ -195,8 +197,8 @@
               </div>
 
             </div>
-            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 space-x-3 space-x-reverse">
-              <button type="submit" class="inline-flex justify-center rounded-lg px-6 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 shadow-sm ml-3">
+            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
+              <button type="submit" class="inline-flex justify-center rounded-lg px-6 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 shadow-sm ms-3">
                 {{ isEditing ? $t('employees.save_profile') : $t('employees.add_employee') }}
               </button>
               <button type="button" @click="showModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-6 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50 shadow-sm">

@@ -6,12 +6,12 @@
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('shifts.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('shifts.description') }}</p>
         </div>
-        <div class="flex space-x-3 mt-4 sm:mt-0 space-x-reverse">
-          <button v-if="activeTab === 'shifts'" @click="openShiftModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
+        <div class="flex gap-3 mt-4 sm:mt-0">
+          <button v-if="activeTab === 'shifts'" @click="openShiftModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             {{ $t('shifts.add_shift') }}
           </button>
-          <button v-if="activeTab === 'holidays'" @click="openHolidayModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
+          <button v-if="activeTab === 'holidays'" @click="openHolidayModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             {{ $t('shifts.add_holiday') }}
           </button>
@@ -19,8 +19,8 @@
       </div>
 
       <!-- Tabs -->
-      <div class="mb-6 border-b border-gray-200">
-        <nav class="-mb-px flex space-x-8 space-x-reverse">
+      <div class="mb-6 border-b border-gray-100">
+        <nav class="-mb-px flex gap-8">
           <button @click="activeTab = 'shifts'" :class="[activeTab === 'shifts' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap pb-4 px-1 border-b-2 font-bold text-sm transition-colors']">
             {{ $t('shifts.working_shifts') }}
           </button>
@@ -33,8 +33,8 @@
       <!-- Shifts Tab -->
       <div v-if="activeTab === 'shifts'">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div v-for="shift in shifts" :key="shift._id" class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 relative">
-            <div class="absolute top-6 rtl:left-6 ltr:right-6 rtl:right-auto space-x-2 space-x-reverse flex">
+          <div v-for="shift in shifts" :key="shift._id" class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 relative">
+            <div class="absolute top-6 rtl:left-6 ltr:right-6 rtl:right-auto gap-2 flex">
                <button @click="openShiftModal(shift)" class="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
                <button @click="deleteShift(shift._id)" class="p-2 text-red-600 hover:bg-red-50 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
             </div>
@@ -46,7 +46,7 @@
             </div>
             <div class="mt-4">
               <span class="text-xs font-bold text-gray-500 uppercase">{{ $t('shifts.weekends') }}</span>
-              <div class="flex space-x-2 space-x-reverse mt-2">
+              <div class="flex gap-2 mt-2">
                 <span v-for="day in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" :key="day" 
                       :class="shift.weekendDays.includes(day) ? 'bg-red-100 text-red-700 border-red-200' : 'bg-green-100 text-green-700 border-green-200'"
                       class="px-2 py-1 border text-xs font-bold rounded-lg">{{ $t(`shifts.${day.toLowerCase()}`) }}</span>
@@ -58,8 +58,8 @@
 
       <!-- Holidays Tab -->
       <div v-if="activeTab === 'holidays'">
-        <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden">
-          <table class="min-w-full divide-y divide-gray-200">
+        <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('shifts.holiday_name') }}</th>
@@ -76,12 +76,14 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span v-if="holiday.isRecurringYearly" class="px-2.5 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-200">{{ $t('shifts.yearly') }}</span>
-                  <span v-else class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs font-bold rounded-lg border border-gray-200">{{ $t('shifts.one_time') }}</span>
+                  <span v-else class="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs font-bold rounded-lg border border-gray-100">{{ $t('shifts.one_time') }}</span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium space-x-2 space-x-reverse">
+                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+              <div class="flex items-center justify-end gap-2">
                   <button @click="openHolidayModal(holiday)" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1.5 rounded-lg font-bold">{{ $t('shifts.edit') }}</button>
                   <button @click="deleteHoliday(holiday._id)" class="text-red-600 hover:text-red-900 bg-red-50 px-3 py-1.5 rounded-lg font-bold">{{ $t('shifts.delete') }}</button>
-                </td>
+                </div>
+            </td>
               </tr>
             </tbody>
           </table>
@@ -90,7 +92,7 @@
 
       <!-- Add/Edit Shift Modal -->
       <div v-if="showShiftModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-left overflow-hidden shadow-2xl w-full max-w-lg border border-gray-100 flex flex-col max-h-[90vh]">
+        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-lg border border-gray-100 flex flex-col max-h-[90vh]">
           <form @submit.prevent="saveShift" class="flex flex-col flex-1 overflow-hidden">
             <div class="bg-white px-6 pt-6 pb-6 overflow-y-auto flex-1">
               <h3 class="text-xl font-bold text-gray-900 mb-6">{{ shiftForm._id ? $t('shifts.edit_shift') : $t('shifts.create_shift') }}</h3>
@@ -114,7 +116,7 @@
                 <div class="pt-2">
                   <label class="block text-sm font-bold text-gray-700 mb-2">{{ $t('shifts.weekend_days') }}</label>
                   <div class="grid grid-cols-4 gap-2">
-                    <label v-for="day in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" :key="day" class="flex items-center space-x-2 space-x-reverse bg-gray-50 p-2 rounded border border-gray-200 cursor-pointer">
+                    <label v-for="day in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" :key="day" class="flex items-center gap-2 bg-gray-50 p-2 rounded border border-gray-100 cursor-pointer">
                       <input type="checkbox" :value="day" v-model="shiftForm.weekendDays" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4">
                       <span class="text-sm font-bold text-gray-700">{{ $t(`shifts.${day.toLowerCase()}`) }}</span>
                     </label>
@@ -122,8 +124,8 @@
                 </div>
               </div>
             </div>
-            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 space-x-3 space-x-reverse">
-              <button type="submit" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ml-3">{{ $t('shifts.save') }}</button>
+            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
+              <button type="submit" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ms-3">{{ $t('shifts.save') }}</button>
               <button type="button" @click="showShiftModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-5 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('shifts.cancel') }}</button>
             </div>
           </form>
@@ -132,7 +134,7 @@
 
       <!-- Add/Edit Holiday Modal -->
       <div v-if="showHolidayModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-left overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
+        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
           <form @submit.prevent="saveHoliday" class="flex flex-col flex-1 overflow-hidden">
             <div class="bg-white px-6 pt-6 pb-6 overflow-y-auto flex-1">
               <h3 class="text-xl font-bold text-gray-900 mb-6">{{ holidayForm._id ? $t('shifts.edit_holiday') : $t('shifts.create_holiday') }}</h3>
@@ -153,15 +155,15 @@
                   </div>
                 </div>
                 <div>
-                  <label class="flex items-center space-x-2 space-x-reverse mt-2">
+                  <label class="flex items-center gap-2 mt-2">
                     <input type="checkbox" v-model="holidayForm.isRecurringYearly" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4">
                     <span class="text-sm font-bold text-gray-700">{{ $t('shifts.repeats_yearly') }}</span>
                   </label>
                 </div>
               </div>
             </div>
-            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 space-x-3 space-x-reverse">
-              <button type="submit" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ml-3">{{ $t('shifts.save') }}</button>
+            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
+              <button type="submit" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ms-3">{{ $t('shifts.save') }}</button>
               <button type="button" @click="showHolidayModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-5 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('shifts.cancel') }}</button>
             </div>
           </form>

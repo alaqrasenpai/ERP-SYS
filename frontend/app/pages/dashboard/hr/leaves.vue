@@ -6,8 +6,8 @@
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('leaves.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('leaves.description') }}</p>
         </div>
-        <div class="flex space-x-3 mt-4 sm:mt-0 space-x-reverse">
-          <button @click="openRequestModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
+        <div class="flex gap-3 mt-4 sm:mt-0">
+          <button @click="openRequestModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             {{ $t('leaves.submit_request') }}
           </button>
@@ -16,7 +16,7 @@
 
       <!-- Filters & Stats -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex justify-between items-center">
+        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm flex justify-between items-center">
           <div>
             <p class="text-sm font-medium text-gray-500">{{ $t('leaves.pending_requests') }}</p>
             <p class="text-2xl font-bold text-yellow-600">{{ pendingCount }}</p>
@@ -28,9 +28,9 @@
       </div>
 
       <!-- Leaves Table -->
-      <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden">
+      <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
+          <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
                 <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('leaves.employee') }}</th>
@@ -71,10 +71,12 @@
                   <span v-else-if="leave.status === 'Approved'" class="px-2.5 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-lg border border-green-200">{{ $t('leaves.approved') }}</span>
                   <span v-else class="px-2.5 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-lg border border-red-200">{{ $t('leaves.rejected') }}</span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium space-x-2 space-x-reverse">
+                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+              <div class="flex items-center justify-end gap-2">
                   <button v-if="leave.status === 'Pending'" @click="openApproveModal(leave)" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1.5 rounded-lg font-bold transition-colors">{{ $t('leaves.review') }}</button>
                   <span v-else class="text-xs text-gray-400">{{ leave.approvedBy?.name ? $t('leaves.resolved_by', {name: leave.approvedBy.name}) : $t('leaves.resolved_by_system') }}</span>
-                </td>
+                </div>
+            </td>
               </tr>
               <tr v-if="leaves.length === 0">
                 <td colspan="6" class="px-6 py-12 text-center text-sm text-gray-500">{{ $t('leaves.no_leave_requests_found') }}</td>
@@ -86,7 +88,7 @@
 
       <!-- Submit Request Modal -->
       <div v-if="showRequestModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-left overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
+        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
           <form @submit.prevent="submitRequest" class="flex flex-col flex-1 overflow-hidden">
             <div class="bg-white px-6 pt-6 pb-6 overflow-y-auto flex-1">
               <h3 class="text-xl font-bold text-gray-900 mb-6">{{ $t('leaves.submit_request') }}</h3>
@@ -142,8 +144,8 @@
                 </div>
               </div>
             </div>
-            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 space-x-3 space-x-reverse">
-              <button type="submit" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ml-3">{{ $t('leaves.submit_btn') }}</button>
+            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
+              <button type="submit" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ms-3">{{ $t('leaves.submit_btn') }}</button>
               <button type="button" @click="showRequestModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-5 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
             </div>
           </form>
@@ -152,11 +154,11 @@
 
       <!-- Review/Approve Modal -->
       <div v-if="showReviewModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-left overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
+        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
           <div class="bg-white px-6 pt-6 pb-6 overflow-y-auto flex-1">
             <h3 class="text-xl font-bold text-gray-900 mb-6">{{ $t('leaves.review_leave_request') }}</h3>
             
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 text-sm">
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 mb-4 text-sm">
               <p><strong>{{ $t('leaves.employee') }}:</strong> {{ selectedLeave.employeeId?.name }}</p>
               <p><strong>{{ $t('leaves.type') }}</strong> 
                 {{ selectedLeave.type === 'Hourly Departure' ? $t('leaves.translated_hourly_departure') : (selectedLeave.type === 'Annual' ? $t('leaves.annual_leave') : (selectedLeave.type === 'Sick' ? $t('leaves.sick_leave') : (selectedLeave.type === 'Unpaid' ? $t('leaves.unpaid_leave') : selectedLeave.type))) }}
@@ -171,9 +173,9 @@
               <textarea v-model="reviewForm.managerNotes" rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" :placeholder="$t('leaves.manager_notes_placeholder')"></textarea>
             </div>
           </div>
-          <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 space-x-3 space-x-reverse">
-            <button @click="processLeave('Approved')" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-green-600 text-sm font-bold text-white hover:bg-green-700 ml-3">{{ $t('leaves.approve') }}</button>
-            <button @click="processLeave('Rejected')" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-red-600 text-sm font-bold text-white hover:bg-red-700 ml-3">{{ $t('leaves.reject') }}</button>
+          <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
+            <button @click="processLeave('Approved')" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-green-600 text-sm font-bold text-white hover:bg-green-700 ms-3">{{ $t('leaves.approve') }}</button>
+            <button @click="processLeave('Rejected')" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-red-600 text-sm font-bold text-white hover:bg-red-700 ms-3">{{ $t('leaves.reject') }}</button>
             <button @click="showReviewModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-5 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
           </div>
         </div>

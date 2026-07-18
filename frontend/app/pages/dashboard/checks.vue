@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto space-y-6">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
       <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('checks.title') }}</h2>
-      <div class="flex space-x-3 mt-4 sm:mt-0 space-x-reverse">
+      <div class="flex gap-3 mt-4 sm:mt-0">
         <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
           <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
           {{ $t('checks.dashboard') }}
@@ -33,7 +33,7 @@
     </div>
 
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div v-for="check in checks" :key="check._id" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 relative">
+      <div v-for="check in checks" :key="check._id" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 relative">
         <div class="absolute top-4 right-4 rtl:left-4 rtl:right-auto">
           <span v-if="check.status === 'Pending'" class="px-2.5 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full">{{ $t('checks.pending') }}</span>
           <span v-else-if="check.status === 'Collected'" class="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">{{ $t('checks.collected') }}</span>
@@ -60,7 +60,7 @@
         </div>
       </div>
       
-      <div v-if="checks.length === 0" class="col-span-full bg-white p-8 text-center rounded-2xl border border-gray-200 shadow-sm text-gray-500">
+      <div v-if="checks.length === 0" class="col-span-full bg-white p-8 text-center rounded-2xl border border-gray-100 shadow-sm text-gray-500">
         {{ $t('checks.no_checks') }}
       </div>
     </div>

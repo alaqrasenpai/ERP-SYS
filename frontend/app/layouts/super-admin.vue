@@ -6,14 +6,14 @@
         <div class="flex justify-between h-16">
           <div class="flex items-center">
             <div class="flex-shrink-0 flex items-center hover:opacity-80 transition-opacity">
-              <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center mr-3 shadow-sm">
+              <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center me-3 shadow-sm">
                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
               </div>
-              <h1 class="text-xl font-black tracking-tight hidden lg:block text-red-500">SUPER <span class="font-normal opacity-70 ml-1 text-white">ADMIN</span></h1>
+              <h1 class="text-xl font-black tracking-tight hidden lg:block text-red-500">SUPER <span class="font-normal opacity-70 ms-1 text-white">ADMIN</span></h1>
             </div>
           </div>
-          <div class="flex items-center space-x-4">
-             <div class="flex flex-col text-right">
+          <div class="flex items-center gap-4">
+             <div class="flex flex-col text-end">
                <span class="text-sm font-bold leading-none">System Admin</span>
              </div>
              <button @click="logout" class="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-full transition-colors" title="Logout">

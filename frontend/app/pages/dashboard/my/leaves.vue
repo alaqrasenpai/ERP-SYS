@@ -7,7 +7,7 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('my_leaves.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('my_leaves.description') }}</p>
         </div>
-        <button @click="showModal = true" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all">
+        <button @click="showModal = true" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all">
           {{ $t('my_leaves.new_request') }}
         </button>
       </div>
@@ -16,8 +16,8 @@
         <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
 
-      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
+      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-100">
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_leaves.type') }}</th>
@@ -41,11 +41,7 @@
               <td class="px-6 py-4 text-sm text-gray-600 max-w-xs truncate" :title="req.reason">{{ req.reason }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex flex-col items-start">
-                  <span :class="{
-                    'bg-emerald-100 text-emerald-800': req.status === 'Approved',
-                    'bg-red-100 text-red-800': req.status === 'Rejected',
-                    'bg-yellow-100 text-yellow-800': req.status === 'Pending'
-                  }" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
+                  <span :class="{ 'bg-emerald-100 text-emerald-800': req.status === 'Approved', 'bg-red-100 text-red-800': req.status === 'Rejected', 'bg-yellow-100 text-yellow-800': req.status === 'Pending' }" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
                     {{ req.status === 'Approved' ? $t('my_leaves.approved') : (req.status === 'Rejected' ? $t('my_leaves.rejected') : (req.status === 'Pending' ? $t('my_leaves.pending') : req.status)) }}
                   </span>
                   <p v-if="req.status === 'Rejected' && req.managerNotes" class="text-xs text-red-600 font-bold mt-1 max-w-[150px] truncate" :title="req.managerNotes">{{ $t('my_leaves.note') }} {{ req.managerNotes }}</p>
@@ -115,7 +111,7 @@
               {{ errorMsg }}
             </div>
 
-            <div class="pt-4 flex justify-end space-x-3 space-x-reverse">
+            <div class="pt-4 flex justify-end gap-3">
               <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('my_leaves.cancel') }}</button>
               <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50">
                 {{ saving ? $t('my_leaves.submitting') : $t('my_leaves.submit_request') }}
