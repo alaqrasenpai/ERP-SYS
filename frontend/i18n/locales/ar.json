@@ -581,6 +581,7 @@
   "attendance_monitor": {
     "title": "مراقب الحضور",
     "description": "الشبكة اليومية، والشذوذات، والتجاوزات اليدوية.",
+    "date": "التاريخ",
     "daily_grid": "الشبكة اليومية",
     "overtime_approval": "الموافقة على العمل الإضافي",
     "employee": "الموظف",
@@ -881,7 +882,8 @@
     "products_overview": "نظرة عامة على المنتجات",
     "stock_audit": "تدقيق المخزون",
     "suppliers": "الموردين",
-    "accounting_ledger": "سجل المحاسبة",
+    "accounting_ledger": "دفتر الأستاذ",
+    "debts": "الديون",
     "staff_members": "الموظفين (فريق العمل)",
     "access_roles": "صلاحيات الوصول"
   },
@@ -982,6 +984,33 @@
     "select_provider": "اختر تطبيق التوصيل",
     "customer_name": "اسم العميل",
     "customer_phone": "رقم العميل",
-    "external_order_id": "رقم الطلب الخارجي"
+    "external_order_id": "رقم الطلب الخارجي",
+    "completed_orders": "الطلبات المكتملة",
+    "completed_orders_desc": "قائمة بجميع الطلبات التي تم إكمالها ودفعها بنجاح",
+    "order_number": "رقم الطلب",
+    "time": "الوقت",
+    "items": "الأصناف",
+    "total_amount": "المبلغ الإجمالي"
+  },
+  "debts": {
+    "title": "سجل الديون",
+    "subtitle": "تتبع وإدارة الذمم المالية للعملاء",
+    "record_payment": "تسديد دفعة",
+    "customer": "العميل",
+    "phone": "رقم الهاتف",
+    "balance": "الرصيد المستحق",
+    "last_updated": "آخر تحديث",
+    "actions": "إجراءات",
+    "no_debts": "لا توجد ديون مستحقة.",
+    "payment_amount": "مبلغ الدفعة",
+    "payment_method": "طريقة الدفع",
+    "notes": "ملاحظات",
+    "view_history": "عرض السجل",
+    "history_title": "سجل ديون العميل",
+    "date": "التاريخ",
+    "type": "النوع",
+    "amount": "المبلغ",
+    "charge": "إضافة دين",
+    "payment": "تسديد"
   }
 }

@@ -39,6 +39,9 @@
             <button @click="activeTab = 'pos'" :class="activeTab === 'pos' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm">
               {{ $t('settings.pos_configuration') }}
             </button>
+            <button @click="activeTab = 'qrmenu'" :class="activeTab === 'qrmenu' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm">
+              {{ $t('settings.digital_menu') }}
+            </button>
           </nav>
         </div>
 
@@ -150,6 +153,25 @@
               </div>
             </div>
           </div>
+
+          <!-- QR Menu Tab -->
+          <div v-if="activeTab === 'qrmenu'" class="space-y-6">
+            <div class="p-8 border border-gray-200 rounded-xl bg-gray-50 flex flex-col items-center">
+              <h3 class="text-xl font-black text-gray-900 mb-2">{{ $t('settings.digital_menu_title') }}</h3>
+              <p class="text-sm text-gray-500 text-center mb-6 max-w-md">{{ $t('settings.digital_menu_desc') }}</p>
+              
+              <div v-if="publicMenuUrl" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
+                <img :src="`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(publicMenuUrl)}`" alt="QR Code" class="w-48 h-48" />
+              </div>
+              
+              <div v-if="publicMenuUrl" class="w-full max-w-md flex items-center bg-white border border-gray-300 rounded-xl overflow-hidden shadow-sm">
+                <input type="text" readonly :value="publicMenuUrl" class="flex-1 px-4 py-3 text-sm text-gray-600 focus:outline-none bg-transparent" />
+                <a :href="publicMenuUrl" target="_blank" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 font-bold text-sm text-gray-700 transition border-l border-gray-300 rtl:border-r rtl:border-l-0">
+                  {{ $t('settings.open_link') }}
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -170,6 +192,8 @@ const { $api } = useNuxtApp()
 const loading = ref(true)
 const saving = ref(false)
 const activeTab = ref('general')
+const publicMenuUrl = ref('')
+const { tenantId } = useAuth()
 
 const settings = ref({
   storeName: '',
@@ -216,5 +240,10 @@ const saveSettings = async () => {
   }
 }
 
-onMounted(fetchSettings)
+onMounted(() => {
+  fetchSettings()
+  if (process.client && tenantId.value) {
+    publicMenuUrl.value = `${window.location.origin}/menu/${tenantId.value}`
+  }
+})
 </script>

@@ -41,10 +41,6 @@
           {{ error }}
         </div>
       </div>
-      
-      <div class="mt-6 text-center">
-        <p class="text-sm text-gray-600">{{ $t('login.need_tenant') }} <NuxtLink to="/super" class="font-medium text-indigo-600 hover:text-indigo-500">{{ $t('login.go_super') }}</NuxtLink></p>
-      </div>
     </div>
   </div>
 </template>

@@ -3,8 +3,8 @@ import { ref, watch, onMounted } from 'vue'
 export const useLanguage = () => {
   const { setLocale, locale } = useI18n()
   
-  const allowedLanguages = ref(['ar', 'en']) // Default fallback
-  const defaultLanguage = ref('ar')
+  const allowedLanguages = useState('allowedLanguages', () => ['ar', 'en']) // Default fallback
+  const defaultLanguage = useState('defaultLanguage', () => 'ar')
   const userLangCookie = useCookie('user_lang', { maxAge: 60 * 60 * 24 * 365 })
 
   // Fetch tenant settings to get allowed languages
@@ -13,7 +13,11 @@ export const useLanguage = () => {
       const { $api } = useNuxtApp()
       const settings = await $api('/settings')
       if (settings) {
-        allowedLanguages.value = settings.allowedLanguages || ['ar', 'en']
+        if (settings.allowedLanguages && settings.allowedLanguages.length > 0) {
+          allowedLanguages.value = settings.allowedLanguages
+        } else {
+          allowedLanguages.value = ['ar', 'en'] // fallback if not configured
+        }
         defaultLanguage.value = settings.defaultLanguage || 'ar'
       }
     } catch (e) {

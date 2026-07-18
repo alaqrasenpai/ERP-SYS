@@ -39,7 +39,7 @@ const restaurantOrderSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Auto-increment orderNumber before saving
-restaurantOrderSchema.pre('save', async function(next) {
+restaurantOrderSchema.pre('save', async function() {
     if (this.isNew && !this.orderNumber) {
         // Find the last order to increment
         const lastOrder = await this.constructor.findOne({}, {}, { sort: { 'createdAt': -1 } });
@@ -50,7 +50,6 @@ restaurantOrderSchema.pre('save', async function(next) {
             this.orderNumber = 'R-ORD-00001';
         }
     }
-    next();
 });
 
 module.exports = restaurantOrderSchema;

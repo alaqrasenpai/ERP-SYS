@@ -10,7 +10,7 @@
         <!-- Header -->
         <div>
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('general.dashboard') }}</h2>
-          <p class="text-sm text-gray-500 mt-1">Real-time ecosystem metrics and unified controls.</p>
+          <p class="text-sm text-gray-500 mt-1">{{ $t('dashboard.subtitle', 'Real-time ecosystem metrics and unified controls.') }}</p>
         </div>
 
         <div v-if="loading" class="flex-1 flex items-center justify-center">
@@ -31,11 +31,11 @@
                 <h4 class="text-sm font-bold text-gray-500">{{ $t('dashboard.todays_revenue') }}</h4>
               </div>
               <div class="mt-2 relative z-10">
-                <h3 class="text-4xl font-black text-gray-900 tracking-tight">${{ metrics.todayRevenue.toFixed(2) }}</h3>
+                <h3 class="text-4xl font-black text-gray-900 tracking-tight">{{ metrics.todayRevenue.toFixed(2) }} <span class="text-xl ms-1 text-gray-400">{{ $t('common.currency') }}</span></h3>
               </div>
               <div class="mt-4 pt-4 border-t border-gray-100/80 flex items-center justify-between">
                 <span class="text-xs font-bold text-gray-500">{{ $t('dashboard.month') }}</span>
-                <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">${{ metrics.monthRevenue.toFixed(2) }}</span>
+                <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">{{ metrics.monthRevenue.toFixed(2) }} {{ $t('common.currency') }}</span>
               </div>
             </div>
 
@@ -73,7 +73,7 @@
               </div>
               <div class="mt-4 pt-4 border-t border-gray-100/80 flex items-center justify-between">
                 <span class="text-xs font-bold text-gray-500">{{ $t('dashboard.mth_payroll') }}</span>
-                <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">${{ metrics.projectedPayroll.toFixed(2) }}</span>
+                <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">{{ metrics.projectedPayroll.toFixed(2) }} {{ $t('common.currency') }}</span>
               </div>
             </div>
 
@@ -117,7 +117,7 @@
                 <h4 class="font-bold text-gray-900">{{ $t('modules.inventory') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('hr') && (hasPermission('hr:read') || hasPermission('hr:write'))" to="/dashboard/employees" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-emerald-500 hover:shadow-md transition-all text-center">
+              <NuxtLink v-if="enabledModules?.includes('hr') && (hasPermission('hr:read') || hasPermission('hr:write'))" to="/dashboard/hr/employees" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-emerald-500 hover:shadow-md transition-all text-center">
                 <div class="w-12 h-12 mx-auto bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
@@ -197,7 +197,14 @@
             </div>
             <div v-for="alert in alerts" :key="alert.id" class="p-3 mb-2 bg-red-50 border border-red-100 rounded-xl flex items-start">
               <svg class="w-5 h-5 text-red-500 me-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              <p class="text-sm font-medium text-red-800">{{ alert.message }}</p>
+              <p class="text-sm font-medium text-red-800">
+                <template v-if="alert.messageCode === 'low_stock'">
+                  {{ $t('dashboard.low_stock_msg', { name: alert.productName, qty: alert.quantity }) }}
+                </template>
+                <template v-else>
+                  {{ alert.message }}
+                </template>
+              </p>
             </div>
           </div>
         </div>
@@ -220,7 +227,7 @@
                   <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
                 </span>
                 <p class="text-sm font-bold text-gray-900">{{ $t('dashboard.pos_sale') }}: {{ order.orderNumber }}</p>
-                <p class="text-xs text-gray-500">{{ new Date(order.createdAt).toLocaleString() }} - {{ $t('dashboard.revenue') }}: ${{ order.grandTotal.toFixed(2) }}</p>
+                <p class="text-xs text-gray-500">{{ new Date(order.createdAt).toLocaleString() }} - {{ $t('dashboard.revenue') }}: {{ order.grandTotal.toFixed(2) }} {{ $t('common.currency') }}</p>
               </div>
 
               <div v-for="file in activities.files" :key="file._id" class="relative ps-6">

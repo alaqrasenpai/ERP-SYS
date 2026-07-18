@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      titleTemplate: '%s - ERP System',
+      titleTemplate: '%s - Alaqra ERP',
       title: 'Home'
     }
   }

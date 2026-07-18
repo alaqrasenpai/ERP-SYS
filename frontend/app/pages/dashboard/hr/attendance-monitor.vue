@@ -7,8 +7,22 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('attendance_monitor.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('attendance_monitor.description') }}</p>
         </div>
-        <div class="flex gap-3">
-          <input type="date" v-model="filterDate" @change="fetchGrid" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-sm">
+        <div class="flex flex-wrap gap-3 mt-4 sm:mt-0 justify-end items-center">
+          <input type="text" v-model="searchName" @input="fetchGrid" :placeholder="$t('attendance_monitor.search_employee')" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-sm w-40 sm:w-48">
+          
+          <div class="flex items-center gap-2 bg-white px-3 py-1.5 border border-gray-300 rounded-xl focus-within:ring-2 focus-within:ring-indigo-500">
+            <span class="text-xs font-bold text-gray-500">{{ $t('attendance_monitor.start_date') }}:</span>
+            <input type="date" v-model="filterStartDate" @change="fetchGrid" class="border-none focus:ring-0 p-0 font-bold text-sm text-gray-700 bg-transparent outline-none">
+          </div>
+
+          <div class="flex items-center gap-2 bg-white px-3 py-1.5 border border-gray-300 rounded-xl focus-within:ring-2 focus-within:ring-indigo-500">
+            <span class="text-xs font-bold text-gray-500">{{ $t('attendance_monitor.end_date') }}:</span>
+            <input type="date" v-model="filterEndDate" @change="fetchGrid" class="border-none focus:ring-0 p-0 font-bold text-sm text-gray-700 bg-transparent outline-none">
+          </div>
+          <button @click="openAddModal" class="px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm hover:bg-indigo-700 transition font-bold flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <span class="hidden sm:inline">{{ $t('attendance_monitor.add_attendance') }}</span>
+          </button>
         </div>
       </div>
 
@@ -28,6 +42,7 @@
           <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
               <tr>
+                <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('attendance_monitor.date') }}</th>
                 <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('attendance_monitor.employee') }}</th>
                 <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('attendance_monitor.shift_dept') }}</th>
                 <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('attendance_monitor.status') }}</th>
@@ -38,9 +53,12 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-              <tr v-for="row in grid" :key="row.employee._id" class="hover:bg-gray-50">
+              <tr v-for="row in grid" :key="row.employee._id + row.date" class="hover:bg-gray-50">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
-                  {{ row.employee.firstName }} {{ row.employee.lastName }}
+                  {{ row.date }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                  {{ row.employee.name }}
                   <div class="text-xs text-gray-500 font-medium">{{ row.employee.code || $t('attendance_monitor.n_a') }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
@@ -85,7 +103,7 @@
             <tbody class="divide-y divide-gray-100">
               <tr v-for="row in overtimeRequests" :key="row.attendanceId" class="hover:bg-gray-50">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
-                  {{ row.employee.firstName }} {{ row.employee.lastName }}
+                  {{ row.employee.name }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-orange-600">
                   {{ row.overtimeHours }}{{ $t('attendance_monitor.hrs_abbrev') }}
@@ -107,6 +125,44 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <!-- Add Attendance Modal -->
+      <div v-if="showAddModal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+            <h3 class="text-lg font-bold text-gray-900">{{ $t('attendance_monitor.add_attendance') }}</h3>
+            <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+          <form @submit.prevent="submitAddAttendance" class="p-6 space-y-4">
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.select_employee') }}</label>
+              <select v-model="addForm.employeeId" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold">
+                <option value="" disabled>{{ $t('attendance_monitor.select_employee') }}</option>
+                <option v-for="emp in employeesList" :key="emp._id" :value="emp._id">{{ emp.name }}</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.clock_in_time') }}</label>
+              <input type="datetime-local" v-model="addForm.clockIn" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.clock_out_time') }}</label>
+              <input type="datetime-local" v-model="addForm.clockOut" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.reason_required') }}</label>
+              <textarea v-model="addForm.reason" required rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500" :placeholder="$t('attendance_monitor.reason_placeholder')"></textarea>
+            </div>
+            <div class="pt-4 flex justify-end gap-3">
+              <button type="button" @click="showAddModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('attendance_monitor.cancel') }}</button>
+              <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50">
+                {{ saving ? $t('attendance_monitor.saving') : $t('attendance_monitor.add_attendance') }}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       
@@ -158,7 +214,9 @@ definePageMeta({
 
 const { $api } = useNuxtApp()
 
-const filterDate = ref(new Date().toISOString().split('T')[0])
+const filterStartDate = ref(new Date().toISOString().split('T')[0])
+const filterEndDate = ref(new Date().toISOString().split('T')[0])
+const searchName = ref('')
 const grid = ref([])
 const loading = ref(true)
 const activeTab = ref('grid')
@@ -168,13 +226,24 @@ const overtimeRequests = computed(() => {
 })
 
 const showOverrideModal = ref(false)
+const showAddModal = ref(false)
 const saving = ref(false)
+const employeesList = ref([])
+
 const overrideForm = ref({
   attendanceId: null,
   employeeId: null,
+  date: '',
   newClockIn: '',
   newClockOut: '',
   reason: ''
+})
+
+const addForm = ref({
+  employeeId: '',
+  clockIn: '',
+  clockOut: '',
+  reason: 'تمت إضافته يدوياً من قبل الإدارة'
 })
 
 const formatTime = (isoString) => {
@@ -191,7 +260,7 @@ const formatDateTimeLocal = (isoString) => {
 const fetchGrid = async () => {
   loading.value = true
   try {
-    grid.value = await $api(`/hr/attendance/daily-grid?date=${filterDate.value}`)
+    grid.value = await $api(`/hr/attendance/daily-grid?startDate=${filterStartDate.value}&endDate=${filterEndDate.value}&searchName=${encodeURIComponent(searchName.value)}`)
   } catch (err) {
     alert(useNuxtApp().$i18n.t('attendance_monitor.failed_load_grid') + err.message)
   } finally {
@@ -199,16 +268,54 @@ const fetchGrid = async () => {
   }
 }
 
-const openOverride = (row) => {
-  if (!row.attendanceId) {
-    alert(useNuxtApp().$i18n.t('attendance_monitor.cannot_override'))
-    return
+const fetchEmployees = async () => {
+  try {
+    employeesList.value = await $api('/hr/employees')
+  } catch (err) {
+    console.error(err)
   }
+}
+
+const openAddModal = () => {
+  addForm.value = {
+    employeeId: '',
+    clockIn: '',
+    clockOut: '',
+    reason: 'تمت إضافته يدوياً من قبل الإدارة'
+  }
+  showAddModal.value = true
+}
+
+const submitAddAttendance = async () => {
+  if (!addForm.value.reason || !addForm.value.employeeId) return alert(useNuxtApp().$i18n.t('attendance_monitor.reason_is_required'))
+  saving.value = true
+  try {
+    await $api('/hr/attendance/manual', {
+      method: 'POST',
+      body: {
+        employeeId: addForm.value.employeeId,
+        date: addForm.value.clockIn ? addForm.value.clockIn.split('T')[0] : filterStartDate.value,
+        clockIn: addForm.value.clockIn ? new Date(addForm.value.clockIn).toISOString() : null,
+        clockOut: addForm.value.clockOut ? new Date(addForm.value.clockOut).toISOString() : null,
+        reason: addForm.value.reason
+      }
+    })
+    showAddModal.value = false
+    await fetchGrid()
+  } catch (err) {
+    alert(err.response?.data?.message || useNuxtApp().$i18n.t('attendance_monitor.override_failed'))
+  } finally {
+    saving.value = false
+  }
+}
+
+const openOverride = (row) => {
   overrideForm.value = {
-    attendanceId: row.attendanceId,
+    attendanceId: row.attendanceId || null,
     employeeId: row.employee._id,
-    newClockIn: formatDateTimeLocal(row.clockIn),
-    newClockOut: formatDateTimeLocal(row.clockOut),
+    date: row.date,
+    newClockIn: row.clockIn ? formatDateTimeLocal(row.clockIn) : '',
+    newClockOut: row.clockOut ? formatDateTimeLocal(row.clockOut) : '',
     reason: ''
   }
   showOverrideModal.value = true
@@ -218,14 +325,27 @@ const submitOverride = async () => {
   if (!overrideForm.value.reason) return alert(useNuxtApp().$i18n.t('attendance_monitor.reason_is_required'))
   saving.value = true
   try {
-    await $api(`/hr/attendance/override/${overrideForm.value.attendanceId}`, {
-      method: 'PUT',
-      body: {
-        newClockIn: overrideForm.value.newClockIn ? new Date(overrideForm.value.newClockIn).toISOString() : null,
-        newClockOut: overrideForm.value.newClockOut ? new Date(overrideForm.value.newClockOut).toISOString() : null,
-        reason: overrideForm.value.reason
-      }
-    })
+    if (overrideForm.value.attendanceId) {
+      await $api(`/hr/attendance/override/${overrideForm.value.attendanceId}`, {
+        method: 'PUT',
+        body: {
+          newClockIn: overrideForm.value.newClockIn ? new Date(overrideForm.value.newClockIn).toISOString() : null,
+          newClockOut: overrideForm.value.newClockOut ? new Date(overrideForm.value.newClockOut).toISOString() : null,
+          reason: overrideForm.value.reason
+        }
+      })
+    } else {
+      await $api('/hr/attendance/manual', {
+        method: 'POST',
+        body: {
+          employeeId: overrideForm.value.employeeId,
+          date: overrideForm.value.date,
+          clockIn: overrideForm.value.newClockIn ? new Date(overrideForm.value.newClockIn).toISOString() : null,
+          clockOut: overrideForm.value.newClockOut ? new Date(overrideForm.value.newClockOut).toISOString() : null,
+          reason: overrideForm.value.reason
+        }
+      })
+    }
     showOverrideModal.value = false
     await fetchGrid()
   } catch (err) {
@@ -247,5 +367,8 @@ const handleOvertime = async (attendanceId, status) => {
   }
 }
 
-onMounted(fetchGrid)
+onMounted(() => {
+  fetchGrid()
+  fetchEmployees()
+})
 </script>

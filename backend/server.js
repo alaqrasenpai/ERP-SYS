@@ -78,6 +78,10 @@ app.use('/api/pos', verifyToken, tenantResolver, requireModule('pos'), posRoutes
 app.use('/api/finance', verifyToken, tenantResolver, requireModule('accounting'), financeRoutes);
 app.use('/api/restaurant', verifyToken, tenantResolver, requireModule('restaurant'), restaurantRoutes);
 
+// Public Routes (No Auth)
+const publicRoutes = require('./routes/public');
+app.use('/api/public', tenantResolver, publicRoutes);
+
 // Future tenant routes can be mounted securely here:
 // app.use('/api/inventory', tenantResolver, inventoryRoutes);
 // app.use('/api/payroll', tenantResolver, payrollRoutes);

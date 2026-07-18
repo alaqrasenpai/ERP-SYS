@@ -30,6 +30,7 @@ const settingSchema = require('../models/Setting');
 // Restaurant
 const deliveryProviderSchema = require('../models/DeliveryProvider');
 const restaurantTableSchema = require('../models/RestaurantTable');
+const tableSectionSchema = require('../models/TableSection');
 const menuItemSchema = require('../models/MenuItem');
 const restaurantOrderSchema = require('../models/RestaurantOrder');
 const menuCategorySchema = require('../models/MenuCategory');
@@ -92,6 +93,7 @@ const getTenantConnection = (dbName) => {
     // Restaurant
     connection.model('DeliveryProvider', deliveryProviderSchema);
     connection.model('RestaurantTable', restaurantTableSchema);
+    connection.model('TableSection', tableSectionSchema);
     connection.model('MenuItem', menuItemSchema);
     connection.model('RestaurantOrder', restaurantOrderSchema);
     connection.model('MenuCategory', menuCategorySchema);

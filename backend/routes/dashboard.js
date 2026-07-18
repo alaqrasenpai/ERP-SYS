@@ -4,6 +4,7 @@ const router = express.Router();
 router.get('/summary', async (req, res) => {
     try {
         const Order = req.tenantConnection.model('Order');
+        const RestaurantOrder = req.tenantConnection.model('RestaurantOrder');
         const Product = req.tenantConnection.model('Product');
         const Employee = req.tenantConnection.model('Employee');
         const PayrollRun = req.tenantConnection.model('PayrollRun');
@@ -19,6 +20,8 @@ router.get('/summary', async (req, res) => {
         const [
             todayOrders,
             monthOrders,
+            todayRestOrders,
+            monthRestOrders,
             lowStockProducts,
             totalEmployees,
             monthPayrollRuns,
@@ -28,6 +31,8 @@ router.get('/summary', async (req, res) => {
         ] = await Promise.all([
             Order.aggregate([{ $match: { createdAt: { $gte: startOfDay } } }, { $group: { _id: null, total: { $sum: '$grandTotal' } } }]),
             Order.aggregate([{ $match: { createdAt: { $gte: startOfMonth } } }, { $group: { _id: null, total: { $sum: '$grandTotal' } } }]),
+            RestaurantOrder.aggregate([{ $match: { createdAt: { $gte: startOfDay }, status: 'Paid' } }, { $group: { _id: null, total: { $sum: '$financials.grandTotal' } } }]),
+            RestaurantOrder.aggregate([{ $match: { createdAt: { $gte: startOfMonth }, status: 'Paid' } }, { $group: { _id: null, total: { $sum: '$financials.grandTotal' } } }]),
             Product.find({ $expr: { $lte: ['$stockQuantity', { $ifNull: ['$alertQuantity', 0] }] } }), // Products where stock <= alertQuantity
             Employee.countDocuments(),
             PayrollRun.aggregate([{ $match: { month: currentMonthString } }, { $group: { _id: null, totalPayroll: { $sum: '$netSalary' } } }]),
@@ -36,8 +41,13 @@ router.get('/summary', async (req, res) => {
             Order.find().sort({ createdAt: -1 }).limit(5)
         ]);
 
-        const todayRevenue = todayOrders.length > 0 ? todayOrders[0].total : 0;
-        const monthRevenue = monthOrders.length > 0 ? monthOrders[0].total : 0;
+        const posToday = todayOrders.length > 0 ? todayOrders[0].total : 0;
+        const posMonth = monthOrders.length > 0 ? monthOrders[0].total : 0;
+        const restToday = todayRestOrders.length > 0 ? todayRestOrders[0].total : 0;
+        const restMonth = monthRestOrders.length > 0 ? monthRestOrders[0].total : 0;
+
+        const todayRevenue = posToday + restToday;
+        const monthRevenue = posMonth + restMonth;
         const projectedPayroll = monthPayrollRuns.length > 0 ? monthPayrollRuns[0].totalPayroll : 0;
 
         res.json({
@@ -51,6 +61,9 @@ router.get('/summary', async (req, res) => {
             alerts: lowStockProducts.map(p => ({
                 id: p._id,
                 message: `Low Stock Alert: ${p.name} has only ${p.stockQuantity} remaining!`,
+                messageCode: 'low_stock',
+                productName: p.name,
+                quantity: p.stockQuantity,
                 type: 'warning'
             })),
             activities: {
