@@ -627,7 +627,13 @@
     "cannot_override": "لا يمكن التجاوز: لا يوجد سجل حضور لهذا التاريخ. يجب أن يكون لدى الموظف سجل فارغ على الأقل أو تحتاج إلى إنشاء واحد.",
     "reason_is_required": "السبب مطلوب",
     "override_failed": "فشل التجاوز",
-    "failed_update_overtime": "فشل تحديث العمل الإضافي"
+    "failed_update_overtime": "فشل تحديث العمل الإضافي",
+    "add_attendance": "إضافة حضور",
+    "select_employee": "اختر موظف",
+    "start_date": "تاريخ البدء",
+    "end_date": "تاريخ الانتهاء",
+    "search_employee": "البحث عن موظف...",
+    "date": "التاريخ"
   },
   "devices": {
     "title": "أجهزة البصمة",
@@ -863,9 +869,11 @@
     "receipt_preview": "معاينة الإيصال",
     "item_a": "1x عنصر أ",
     "total_incl": "الإجمالي (شامل",
-    "tax": "% ضريبة)",
+    "tax": "ضريبة %)",
     "saved_successfully": "تم حفظ الإعدادات بنجاح!",
     "failed_save": "فشل في حفظ الإعدادات",
+    "digital_menu": "المنيو الرقمي",
+    "digital_menu_desc": "قم بطباعة أو مشاركة رمز الـ QR هذا ليتمكن عملاؤك من تصفح قائمة الطعام.",
     "allowed_languages": "اللغات المسموحة",
     "default_language": "اللغة الافتراضية"
   },
@@ -963,6 +971,8 @@
     "all_categories": "كل الفئات",
     "add_dish": "إضافة طبق",
     "add_provider": "إضافة تطبيق",
+    "sections_management": "إدارة الأقسام",
+    "add_table": "إضافة طاولة",
     "dish_name_ar": "الاسم (بالعربية)",
     "dish_name_en": "الاسم (بالإنجليزية)",
     "dish_desc_ar": "الوصف / المكونات (بالعربية)",
