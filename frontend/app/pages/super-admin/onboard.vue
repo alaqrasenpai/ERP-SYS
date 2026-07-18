@@ -97,7 +97,8 @@ const availableModules = [
   { id: 'attendance', label: 'Attendance' },
   { id: 'payroll', label: 'HR & Payroll' },
   { id: 'archive', label: 'Archive' },
-  { id: 'ess', label: 'Self Service (ESS)' }
+  { id: 'ess', label: 'Self Service (ESS)' },
+  { id: 'restaurant', label: 'Restaurant & F&B' }
 ]
 
 const form = ref({

@@ -27,6 +27,12 @@ const accountSchema = require('../models/Account');
 const journalEntrySchema = require('../models/JournalEntry');
 const settingSchema = require('../models/Setting');
 
+// Restaurant
+const deliveryProviderSchema = require('../models/DeliveryProvider');
+const restaurantTableSchema = require('../models/RestaurantTable');
+const menuItemSchema = require('../models/MenuItem');
+const restaurantOrderSchema = require('../models/RestaurantOrder');
+const menuCategorySchema = require('../models/MenuCategory');
 // Cache to store the existing tenant database connections
 const connectionCache = new Map();
 
@@ -82,6 +88,13 @@ const getTenantConnection = (dbName) => {
     connection.model('Account', accountSchema);
     connection.model('JournalEntry', journalEntrySchema);
     connection.model('Setting', settingSchema);
+
+    // Restaurant
+    connection.model('DeliveryProvider', deliveryProviderSchema);
+    connection.model('RestaurantTable', restaurantTableSchema);
+    connection.model('MenuItem', menuItemSchema);
+    connection.model('RestaurantOrder', restaurantOrderSchema);
+    connection.model('MenuCategory', menuCategorySchema);
 
     // Cache the active connection for future requests
     connectionCache.set(dbName, connection);

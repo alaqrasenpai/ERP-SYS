@@ -202,7 +202,8 @@ const availableModules = [
   { id: 'hr', label: 'Human Resources (HR)' },
   { id: 'accounting', label: 'Accounting & Finance' },
   { id: 'archive', label: 'Digital Archive' },
-  { id: 'ess', label: 'Self Service (ESS)' }
+  { id: 'ess', label: 'Self Service (ESS)' },
+  { id: 'restaurant', label: 'Restaurant & F&B' }
 ]
 
 const showModulesModal = ref(false)

@@ -141,6 +141,17 @@ const navGroups = computed(() => {
       ]
     },
     {
+      name: 'modules.restaurant',
+      visible: enabledModules.value?.includes('restaurant'),
+      children: [
+        { name: 'restaurant.tables_grid', path: '/dashboard/restaurant/tables-grid', visible: true },
+        { name: 'restaurant.pos_terminal', path: '/dashboard/restaurant/pos-terminal', visible: true },
+        { name: 'restaurant.kitchen_display', path: '/dashboard/restaurant/kitchen-display', visible: true },
+        { name: 'restaurant.delivery_providers', path: '/dashboard/restaurant/providers', visible: true },
+        { name: 'restaurant.menu_setup', path: '/dashboard/restaurant/menu-setup', visible: true }
+      ]
+    },
+    {
       name: 'modules.finance',
       visible: enabledModules.value?.includes('accounting') && (hasPermission('accounting:read') || hasPermission('accounting:write')), 
       children: [
