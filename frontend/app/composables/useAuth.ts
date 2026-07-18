@@ -47,8 +47,9 @@ export const useAuth = () => {
     tenantId.value = null
     user.value = null
     enabledModules.value = []
-    if (process.client) {
-      alert('Session ended. You have been logged out.')
+    if (process.client && token.value !== null) {
+      // Only optionally log something, but no annoying alert
+      console.log('Session ended or token invalid.')
     }
     return navigateTo('/login')
   }
