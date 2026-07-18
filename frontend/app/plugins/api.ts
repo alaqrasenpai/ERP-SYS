@@ -3,7 +3,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Create a custom fetch instance with pre-configured interceptors
   const api = $fetch.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'https://erp-sys-71b6.onrender.com/api',
     onRequest({ request, options }) {
       const headers = new Headers(options.headers || {})
       
@@ -19,8 +19,9 @@ export default defineNuxtPlugin((nuxtApp) => {
       
       options.headers = headers
     },
-    onResponseError({ response }) {
-      if (response.status === 401 || response.status === 403) {
+    onResponseError({ request, response }) {
+      const isLoginRequest = request.toString().includes('/login')
+      if (!isLoginRequest && (response.status === 401 || response.status === 403)) {
         console.warn('API returned 401/403 Unauthorized. Logging out...')
         if (process.client) {
            auth.logout()

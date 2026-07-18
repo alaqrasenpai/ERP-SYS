@@ -72,14 +72,10 @@ router.post('/tenants/onboard', superAdminAuth, async (req, res) => {
             });
         }
 
-        // 4. Hash password and create Primary Admin User
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(adminPassword, salt);
-
         const adminUser = await User.create({
             name: adminName,
             email: adminEmail,
-            password: hashedPassword,
+            password: adminPassword,
             role: adminRole._id
         });
 
@@ -179,8 +175,7 @@ router.put('/tenants/:id/users/:userId', superAdminAuth, async (req, res) => {
         if (name) userToUpdate.name = name;
         
         if (password) {
-            const salt = await bcrypt.genSalt(10);
-            userToUpdate.password = await bcrypt.hash(password, salt);
+            userToUpdate.password = password;
         }
 
         await userToUpdate.save();

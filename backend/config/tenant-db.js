@@ -50,9 +50,16 @@ const getTenantConnection = (dbName) => {
 
     // Build the URI for the tenant database
     const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017';
-    // Remove trailing slash if any, then append dbName
-    const baseUri = mongoUri.replace(/\/$/, '');
-    const tenantUri = `${baseUri}/${dbName}?retryWrites=true&w=majority`;
+    let tenantUri;
+    const match = mongoUri.match(/^(mongodb(?:\+srv)?:\/\/[^\/]+)\/?([^\?]*)(?:\?(.*))?$/);
+    if (match) {
+        const base = match[1];
+        const query = match[3] ? `?${match[3]}` : '';
+        tenantUri = `${base}/${dbName}${query}`;
+    } else {
+        const baseUri = mongoUri.replace(/\/$/, '');
+        tenantUri = `${baseUri}/${dbName}`;
+    }
 
     // Create a new connection
     const connection = mongoose.createConnection(tenantUri);

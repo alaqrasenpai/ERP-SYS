@@ -6,7 +6,7 @@ const tenantSchema = new mongoose.Schema({
     dbName: { type: String, required: true, unique: true },
     enabledModules: [{
         type: String,
-        enum: ['inventory', 'archive', 'hr', 'accounting', 'pos']
+        enum: ['inventory', 'archive', 'hr', 'accounting', 'pos', 'attendance', 'payroll', 'ess', 'restaurant']
     }],
     status: {
         type: String,

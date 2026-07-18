@@ -52,7 +52,7 @@ const handleLogin = async () => {
   error.value = ''
   
   try {
-    const res = await $fetch(`http://localhost:5000/api/super/login`, {
+    const res = await $fetch(`https://erp-sys-71b6.onrender.com/api/super/login`, {
       method: 'POST',
       body: form.value
     })

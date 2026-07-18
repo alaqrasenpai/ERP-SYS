@@ -229,7 +229,7 @@ const fetchTenants = async () => {
   }
 
   try {
-    tenants.value = await $fetch(`http://localhost:5000/api/super/tenants`, {
+    tenants.value = await $fetch(`https://erp-sys-71b6.onrender.com/api/super/tenants`, {
       headers: { Authorization: `Bearer ${token}` }
     })
   } catch (error) {
@@ -252,7 +252,7 @@ const toggleStatus = async (tenant) => {
   if (!confirm(confirmMsg)) return
 
   try {
-    await $fetch(`http://localhost:5000/api/super/tenants/${tenant._id}/status`, {
+    await $fetch(`https://erp-sys-71b6.onrender.com/api/super/tenants/${tenant._id}/status`, {
       method: 'PUT',
       headers: { Authorization: `Bearer ${token}` },
       body: { status: newStatus }
@@ -273,7 +273,7 @@ const saveModules = async () => {
   const token = localStorage.getItem('super_token')
   savingModules.value = true
   try {
-    const res = await $fetch(`http://localhost:5000/api/super/tenants/${selectedTenant.value._id}/modules`, {
+    const res = await $fetch(`https://erp-sys-71b6.onrender.com/api/super/tenants/${selectedTenant.value._id}/modules`, {
       method: 'PUT',
       headers: { Authorization: `Bearer ${token}` },
       body: { enabledModules: editingModules.value }
@@ -291,7 +291,7 @@ const fetchTenantUsers = async (tenant) => {
   const token = localStorage.getItem('super_token')
   loadingUsers.value = true
   try {
-    tenantUsers.value = await $fetch(`http://localhost:5000/api/super/tenants/${tenant._id}/users`, {
+    tenantUsers.value = await $fetch(`https://erp-sys-71b6.onrender.com/api/super/tenants/${tenant._id}/users`, {
       headers: { Authorization: `Bearer ${token}` }
     })
   } catch (error) {
@@ -322,7 +322,7 @@ const saveUser = async () => {
       payload.password = editUserForm.value.password
     }
     
-    await $fetch(`http://localhost:5000/api/super/tenants/${selectedTenant.value._id}/users/${selectedUser.value._id}`, {
+    await $fetch(`https://erp-sys-71b6.onrender.com/api/super/tenants/${selectedTenant.value._id}/users/${selectedUser.value._id}`, {
       method: 'PUT',
       headers: { Authorization: `Bearer ${token}` },
       body: payload

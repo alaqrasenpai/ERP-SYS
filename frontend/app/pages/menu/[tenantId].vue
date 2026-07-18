@@ -161,7 +161,7 @@ const activeCategory = ref(null)
 const fetchMenu = async () => {
   try {
     // Using direct fetch to public API passing tenant ID header
-    const response = await $fetch(`http://localhost:5000/api/public/menu`, {
+    const response = await $fetch(`https://erp-sys-71b6.onrender.com/api/public/menu`, {
       headers: {
         'x-tenant-id': tenantId
       }
