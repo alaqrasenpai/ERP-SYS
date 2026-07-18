@@ -18,9 +18,11 @@ useHead({
   }
 })
 
+const route = useRoute()
+
 onMounted(async () => {
   await initLanguage()
-  if (auth.isLoggedIn.value) {
+  if (auth.isLoggedIn.value && !route.path.startsWith('/super-admin')) {
     auth.fetchUser()
   }
 })
