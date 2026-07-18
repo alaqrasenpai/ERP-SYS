@@ -106,7 +106,7 @@ exports.createOrder = async (req, res) => {
         if (customerId) customer = await Customer.findById(customerId);
 
         if (paymentMethod === 'Debt' && customer) {
-            customer.totalDebt += grandTotal;
+            customer.totalDebt = (customer.totalDebt || 0) + grandTotal;
             await customer.save();
             await DebtLog.create({
                 customerId, orderId: newOrder._id, type: 'charge', amount: grandTotal, paymentMethod: 'Debt', notes: `POS Debt Sale #${orderNumber}`

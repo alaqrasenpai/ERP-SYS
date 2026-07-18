@@ -856,7 +856,7 @@
     "failed_submit": "Failed to submit request"
   },
   "accounting": {
-    "title": "Double-Entry Accounting Ledger",
+    "title": "Accounting",
     "dashboard": "Dashboard",
     "chart_of_accounts": "Chart of Accounts (Live Balances)",
     "general_journal": "General Journal",
@@ -1004,7 +1004,7 @@
     "products_overview": "Products Overview",
     "stock_audit": "Stock Audit",
     "suppliers": "Suppliers",
-    "accounting_ledger": "Accounting Ledger",
+    "accounting_ledger": "Accounting",
     "debts": "Debts",
     "staff_members": "Staff Members",
     "access_roles": "Access Roles"
@@ -1128,6 +1128,7 @@
     "order_type": "Order Type"
   },
   "common": {
-    "currency": "SAR"
+    "currency": "SAR",
+    "no_data": "No data available."
   }
 }

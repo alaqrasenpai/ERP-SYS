@@ -210,7 +210,20 @@
   },
   "installments": {
     "title": "متتبع خطط التقسيط",
+    "description": "مراقبة مبيعات التقسيط والأرصدة المتبقية",
     "dashboard": "لوحة القيادة",
+    "total_due": "الإجمالي المستحق:",
+    "manage_tabs": "إدارة الأقساط",
+    "history_tab": "سجل الأقساط",
+    "customer_name": "اسم العميل",
+    "total_amount": "المبلغ الإجمالي",
+    "paid": "المدفوع",
+    "remaining_amount": "المتبقي",
+    "due_date": "تاريخ الاستحقاق",
+    "progress": "التقدم",
+    "actions": "إجراءات",
+    "pay_installment": "تسديد القسط",
+    "history_dummy": "سيظهر سجل الدفعات هنا",
     "unknown_customer": "عميل غير معروف",
     "order": "الطلب:",
     "created": "تاريخ الإنشاء:",
@@ -712,7 +725,7 @@
     "failed_submit": "فشل في تقديم الطلب"
   },
   "accounting": {
-    "title": "دفتر المحاسبة مزدوج القيد",
+    "title": "المحاسبة",
     "dashboard": "لوحة القيادة",
     "chart_of_accounts": "دليل الحسابات (الأرصدة المباشرة)",
     "general_journal": "دفتر اليومية العام",
@@ -753,7 +766,13 @@
   },
   "checks": {
     "title": "بوابة مدفوعات الشيكات",
+    "description": "تتبع الشيكات المعلقة والمحصلة والمرتجعة",
     "dashboard": "لوحة القيادة",
+    "customer_name": "اسم العميل",
+    "total_amount": "المبلغ الإجمالي",
+    "check_number": "رقم الشيك",
+    "status": "الحالة",
+    "actions": "إجراءات",
     "pending_checks": "الشيكات المعلقة",
     "collected_total": "إجمالي المحصل",
     "bounced_count": "عدد المرتجعات",
@@ -882,7 +901,7 @@
     "products_overview": "نظرة عامة على المنتجات",
     "stock_audit": "تدقيق المخزون",
     "suppliers": "الموردين",
-    "accounting_ledger": "دفتر الأستاذ",
+    "accounting_ledger": "المحاسبة",
     "debts": "الديون",
     "staff_members": "الموظفين (فريق العمل)",
     "access_roles": "صلاحيات الوصول"
@@ -1012,5 +1031,9 @@
     "amount": "المبلغ",
     "charge": "إضافة دين",
     "payment": "تسديد"
+  },
+  "common": {
+    "currency": "ر.س",
+    "no_data": "لا توجد بيانات."
   }
 }
