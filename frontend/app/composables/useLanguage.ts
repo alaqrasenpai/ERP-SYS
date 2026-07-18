@@ -9,6 +9,9 @@ export const useLanguage = () => {
 
   // Fetch tenant settings to get allowed languages
   const fetchTenantLanguages = async () => {
+    const route = useRoute()
+    if (route.path.startsWith('/super-admin')) return // No tenant settings for super-admin
+
     try {
       const { $api } = useNuxtApp()
       const settings = await $api('/settings')
