@@ -25,7 +25,25 @@
     "checks": "الشيكات",
     "installments": "الأقساط",
     "suppliers": "الموردين",
-    "stock_movements": "حركات المخزون"
+    "stock_movements": "حركات المخزون",
+    "cash_shifts": "ورديات الكاشير"
+  },
+  "cash_shifts_page": {
+    "title": "ورديات الكاشير",
+    "description": "مراقبة الورديات المفتوحة والمغلقة وأرصدة الصندوق النقدي",
+    "total_shifts": "إجمالي الورديات",
+    "open_shifts": "الورديات المفتوحة",
+    "cashier": "الكاشير",
+    "status": "الحالة",
+    "opened_at": "تاريخ البدء",
+    "closed_at": "تاريخ الإغلاق",
+    "opening_balance": "الكاش عند البدء",
+    "expected_balance": "الكاش المتوقع",
+    "closing_balance": "الكاش عند الإغلاق",
+    "unknown_cashier": "كاشير غير معروف",
+    "status_open": "مفتوحة",
+    "status_closed": "مغلقة",
+    "no_shifts_found": "لا توجد ورديات متاحة."
   },
   "hr": {
     "attendance_monitor": "مراقب الحضور",

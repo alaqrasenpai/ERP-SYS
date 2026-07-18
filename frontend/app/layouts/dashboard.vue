@@ -145,6 +145,7 @@ const navGroups = computed(() => {
       visible: enabledModules.value?.includes('accounting') && (hasPermission('accounting:read') || hasPermission('accounting:write')), 
       children: [
         { name: 'nav.accounting_ledger', path: '/dashboard/accounting', visible: true },
+        { name: 'modules.cash_shifts', path: '/dashboard/shifts', visible: true },
         { name: 'modules.reports', path: '/dashboard/reports', visible: true }
       ]
     },

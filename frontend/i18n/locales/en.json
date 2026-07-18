@@ -25,7 +25,25 @@
     "checks": "Checks",
     "installments": "Installments",
     "suppliers": "Suppliers",
-    "stock_movements": "Stock Movements"
+    "stock_movements": "Stock Movements",
+    "cash_shifts": "Cashier Shifts"
+  },
+  "cash_shifts_page": {
+    "title": "Cashier Shifts",
+    "description": "Monitor open and closed POS shifts with cash balances",
+    "total_shifts": "Total Shifts",
+    "open_shifts": "Open Shifts",
+    "cashier": "Cashier",
+    "status": "Status",
+    "opened_at": "Opened At",
+    "closed_at": "Closed At",
+    "opening_balance": "Opening Cash",
+    "expected_balance": "Expected Cash",
+    "closing_balance": "Closing Cash",
+    "unknown_cashier": "Unknown Cashier",
+    "status_open": "Open",
+    "status_closed": "Closed",
+    "no_shifts_found": "No shifts found."
   },
   "hr": {
     "attendance_monitor": "Attendance Monitor",

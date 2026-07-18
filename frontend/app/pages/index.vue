@@ -20,61 +20,83 @@
         <template v-else>
           <!-- Quick Stat Cards -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            
             <!-- Revenue -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
-              <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-50 rounded-full opacity-50 pointer-events-none"></div>
-              <div class="flex justify-between items-start mb-4">
-                <div class="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+              <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-emerald-100/40 to-emerald-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl shadow-sm border border-emerald-100/50">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-500 uppercase">{{ $t('dashboard.todays_revenue') }}</span>
+                <h4 class="text-sm font-bold text-gray-500">{{ $t('dashboard.todays_revenue') }}</h4>
               </div>
-              <h3 class="text-3xl font-black text-gray-900">${{ metrics.todayRevenue.toFixed(2) }}</h3>
-              <p class="text-xs text-emerald-600 font-bold mt-2">{{ $t('dashboard.month') }}: ${{ metrics.monthRevenue.toFixed(2) }}</p>
+              <div class="mt-2 relative z-10">
+                <h3 class="text-4xl font-black text-gray-900 tracking-tight">${{ metrics.todayRevenue.toFixed(2) }}</h3>
+              </div>
+              <div class="mt-4 pt-4 border-t border-gray-100/80 flex items-center justify-between">
+                <span class="text-xs font-bold text-gray-500">{{ $t('dashboard.month') }}</span>
+                <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">${{ metrics.monthRevenue.toFixed(2) }}</span>
+              </div>
             </div>
 
             <!-- Low Stock -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
-              <div class="absolute -right-4 -top-4 w-24 h-24 bg-red-50 rounded-full opacity-50 pointer-events-none"></div>
-              <div class="flex justify-between items-start mb-4">
-                <div class="p-2 bg-red-100 text-red-600 rounded-lg">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <div class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+              <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-red-100/40 to-red-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="p-2.5 bg-red-50 text-red-600 rounded-xl shadow-sm border border-red-100/50">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-500 uppercase">{{ $t('dashboard.low_stock') }}</span>
+                <h4 class="text-sm font-bold text-gray-500">{{ $t('dashboard.low_stock') }}</h4>
               </div>
-              <h3 class="text-3xl font-black text-gray-900" :class="{'text-red-600': metrics.lowStockCount > 0}">{{ metrics.lowStockCount }}</h3>
-              <NuxtLink to="/dashboard/inventory" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold mt-2 inline-flex items-center">
-                {{ $t('dashboard.view_inventory') }} <svg class="w-3 h-3 ms-1 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-              </NuxtLink>
+              <div class="mt-2 relative z-10">
+                <h3 class="text-4xl font-black tracking-tight" :class="metrics.lowStockCount > 0 ? 'text-red-600' : 'text-gray-900'">{{ metrics.lowStockCount }}</h3>
+              </div>
+              <div class="mt-4 pt-4 border-t border-gray-100/80">
+                <NuxtLink to="/dashboard/inventory" class="group/link text-xs font-bold text-gray-600 hover:text-red-600 transition-colors flex items-center justify-between">
+                  {{ $t('dashboard.view_inventory') }} 
+                  <svg class="w-4 h-4 transform group-hover/link:translate-x-1 rtl:group-hover/link:-translate-x-1 rtl:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </NuxtLink>
+              </div>
             </div>
 
             <!-- HR Stats -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
-              <div class="absolute -right-4 -top-4 w-24 h-24 bg-indigo-50 rounded-full opacity-50 pointer-events-none"></div>
-              <div class="flex justify-between items-start mb-4">
-                <div class="p-2 bg-indigo-100 text-indigo-600 rounded-lg">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <div class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+              <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-indigo-100/40 to-indigo-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl shadow-sm border border-indigo-100/50">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-500 uppercase">{{ $t('dashboard.active_staff') }}</span>
+                <h4 class="text-sm font-bold text-gray-500">{{ $t('dashboard.active_staff') }}</h4>
               </div>
-              <h3 class="text-3xl font-black text-gray-900">{{ metrics.totalEmployees }}</h3>
-              <p class="text-xs text-gray-500 font-medium mt-2">{{ $t('dashboard.mth_payroll') }}: <span class="font-bold text-gray-800">${{ metrics.projectedPayroll.toFixed(2) }}</span></p>
+              <div class="mt-2 relative z-10">
+                <h3 class="text-4xl font-black text-gray-900 tracking-tight">{{ metrics.totalEmployees }}</h3>
+              </div>
+              <div class="mt-4 pt-4 border-t border-gray-100/80 flex items-center justify-between">
+                <span class="text-xs font-bold text-gray-500">{{ $t('dashboard.mth_payroll') }}</span>
+                <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">${{ metrics.projectedPayroll.toFixed(2) }}</span>
+              </div>
             </div>
 
             <!-- Archive Storage -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
-              <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-50 rounded-full opacity-50 pointer-events-none"></div>
-              <div class="flex justify-between items-start mb-4">
-                <div class="p-2 bg-blue-100 text-blue-600 rounded-lg">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+            <div class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+              <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-blue-100/40 to-blue-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="p-2.5 bg-blue-50 text-blue-600 rounded-xl shadow-sm border border-blue-100/50">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-500 uppercase">{{ $t('dashboard.archive') }}</span>
+                <h4 class="text-sm font-bold text-gray-500">{{ $t('dashboard.archive') }}</h4>
               </div>
-              <h3 class="text-2xl font-black text-gray-900 truncate">{{ activities.files.length }}</h3>
-              <NuxtLink to="/dashboard/archive" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold mt-2 inline-flex items-center">
-                {{ $t('dashboard.open_drive') }} <svg class="w-3 h-3 ms-1 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-              </NuxtLink>
+              <div class="mt-2 relative z-10">
+                <h3 class="text-4xl font-black text-gray-900 tracking-tight">{{ activities.files.length }}</h3>
+              </div>
+              <div class="mt-4 pt-4 border-t border-gray-100/80">
+                <NuxtLink to="/dashboard/archive" class="group/link text-xs font-bold text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-between">
+                  {{ $t('dashboard.open_drive') }} 
+                  <svg class="w-4 h-4 transform group-hover/link:translate-x-1 rtl:group-hover/link:-translate-x-1 rtl:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </NuxtLink>
+              </div>
             </div>
+            
           </div>
 
           <!-- Modules Grid -->
