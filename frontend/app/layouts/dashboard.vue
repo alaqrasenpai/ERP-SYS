@@ -71,7 +71,7 @@
              <span class="text-xs text-indigo-300 mt-1 truncate">{{ user?.role?.name || user?.role || 'Staff' }}</span>
              <span class="text-[10px] text-indigo-400 mt-1 font-mono uppercase truncate">T: {{ tenantId }}</span>
            </div>
-           <button @click="logout" :title="sidebarCollapsed ? 'Logout' : ''" class="p-2 text-indigo-200 hover:text-white hover:bg-rose-500 rounded-lg transition-colors flex-shrink-0" :class="sidebarCollapsed ? 'bg-rose-500/20 text-rose-300' : ''">
+           <button @click="handleLogout" :title="sidebarCollapsed ? 'Logout' : ''" class="p-2 text-indigo-200 hover:text-white hover:bg-rose-500 rounded-lg transition-colors flex-shrink-0" :class="sidebarCollapsed ? 'bg-rose-500/20 text-rose-300' : ''">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
            </button>
          </div>
@@ -122,6 +122,7 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const { user, tenantId, enabledModules, logout } = useAuth()
+const { t } = useI18n()
 const { hasPermission } = usePermissions()
 const { allowedLanguages, setLanguage, currentLanguage } = useLanguage()
 
@@ -246,6 +247,11 @@ onMounted(() => {
     openGroups.value = navGroups.value.filter(g => g.visible && g.children).map(g => g.name)
   }
 })
+const handleLogout = () => {
+  if (confirm(t('common.logout_confirm'))) {
+    logout()
+  }
+}
 </script>
 
 <style scoped>

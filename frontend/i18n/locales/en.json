@@ -1129,6 +1129,7 @@
   },
   "common": {
     "currency": "SAR",
-    "no_data": "No data available."
+    "no_data": "No data available.",
+    "logout_confirm": "Are you sure you want to logout?"
   }
 }

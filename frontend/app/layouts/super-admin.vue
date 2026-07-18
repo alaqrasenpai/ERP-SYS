@@ -33,9 +33,12 @@
 
 <script setup>
 const router = useRouter()
+const { t } = useI18n()
 
 const logout = () => {
-  localStorage.removeItem('super_token')
-  router.push('/super-admin/login')
+  if (confirm(t('common.logout_confirm'))) {
+    localStorage.removeItem('super_token')
+    router.push('/super-admin/login')
+  }
 }
 </script>
