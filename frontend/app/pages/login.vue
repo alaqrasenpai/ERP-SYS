@@ -49,6 +49,7 @@
 useHead({ title: 'Login' })
 
 const { setAuth } = useAuth()
+const { t } = useI18n()
 const loading = ref(false)
 const error = ref('')
 
@@ -66,7 +67,16 @@ const handleLogin = async () => {
     const { login } = useAuth()
     await login(form.value.email, form.value.password, form.value.tenantId)
   } catch (err) {
-    error.value = err.response?.data?.message || err.message || 'Invalid credentials or connection error'
+    const backendMsg = err.data?.message || err.message
+    if (backendMsg === 'Tenant not found') {
+      error.value = t('login.tenant_not_found')
+    } else if (backendMsg === 'Invalid email or password') {
+      error.value = t('login.invalid_credentials')
+    } else if (backendMsg === 'Your account has been deactivated') {
+      error.value = t('login.account_deactivated')
+    } else {
+      error.value = err.data?.message || err.message || t('login.default_error', 'Invalid credentials or connection error')
+    }
   } finally {
     loading.value = false
   }

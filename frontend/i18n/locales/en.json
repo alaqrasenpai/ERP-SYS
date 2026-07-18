@@ -1020,6 +1020,10 @@
     "sign_in": "Sign In",
     "signing_in": "Signing in...",
     "need_tenant": "Need to create a tenant?",
+    "tenant_not_found": "Workspace not found. Please check your Workspace ID.",
+    "invalid_credentials": "Email or password is incorrect.",
+    "account_deactivated": "Your account has been deactivated. Please contact your admin.",
+    "default_error": "Connection error or invalid credentials.",
     "go_super": "Go to Super Admin"
   },
   "dashboard": {
