@@ -20,7 +20,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       options.headers = headers
     },
     onResponseError({ request, response }) {
-      const isLoginRequest = request.toString().includes('/login')
+      const url = typeof request === 'string' ? request : (request.url || request.toString())
+      const isLoginRequest = url.includes('/login')
       if (!isLoginRequest && (response.status === 401 || response.status === 403)) {
         console.warn('API returned 401/403 Unauthorized. Logging out...')
         if (process.client) {
