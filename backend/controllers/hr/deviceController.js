@@ -36,24 +36,36 @@ exports.fetchLogs = async (req, res) => {
         
         if (!device.ipAddress) return res.status(400).json({ message: 'Device IP address is missing' });
         
-        const zkInstance = new ZKLib({
-            ip: device.ipAddress,
-            port: device.port || 4370,
-            timeout: 10000,
-            inport: 5200
-        });
+        let attendances;
+        if (device.ipAddress === 'mock') {
+            // MOCK MODE: Generate fake data
+            attendances = {
+                data: [
+                    { deviceUserId: '9999', recordTime: new Date().toISOString() },
+                    { deviceUserId: '8888', recordTime: new Date(Date.now() - 3600000).toISOString() },
+                    { deviceUserId: '1001', recordTime: new Date().toISOString() } // Assume 1001 might be a real employee
+                ]
+            };
+        } else {
+            const zkInstance = new ZKLib({
+                ip: device.ipAddress,
+                port: device.port || 4370,
+                timeout: 10000,
+                inport: 5200
+            });
 
-        await zkInstance.createSocket();
-        
-        try {
-            await zkInstance.connect();
-        } catch (e) {
-            return res.status(500).json({ message: 'Failed to connect to device. Ensure it is online on the local network.', error: e.message });
+            await zkInstance.createSocket();
+            
+            try {
+                await zkInstance.connect();
+            } catch (e) {
+                return res.status(500).json({ message: 'Failed to connect to device. Ensure it is online on the local network.', error: e.message });
+            }
+            
+            attendances = await zkInstance.getAttendances();
+            await zkInstance.disconnect();
+            await zkInstance.freeData(); 
         }
-        
-        const attendances = await zkInstance.getAttendances();
-        await zkInstance.disconnect();
-        await zkInstance.freeData(); // Optional, clears the logs in device if required by ZKTeco but generally just free local memory
 
         if (!attendances || !attendances.data || attendances.data.length === 0) {
             return res.json({ message: 'No logs found on device', count: 0 });
