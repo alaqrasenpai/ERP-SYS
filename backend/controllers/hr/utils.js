@@ -13,4 +13,6 @@ const getModels = (req) => {
     };
 };
 
-module.exports = { getModels, BiometricDevice };
+const DeviceLog = require('../../models/DeviceLog');
+
+module.exports = { getModels, BiometricDevice, DeviceLog };

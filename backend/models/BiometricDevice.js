@@ -6,6 +6,7 @@ const biometricDeviceSchema = new mongoose.Schema({
     warehouseOrBranchId: { type: mongoose.Schema.Types.ObjectId, ref: 'Warehouse' },
     tenantId: { type: String, required: true },
     ipAddress: { type: String },
+    port: { type: Number, default: 4370 },
     status: { type: String, enum: ['Online', 'Offline'], default: 'Offline' },
     lastPing: { type: Date }
 }, { timestamps: true });

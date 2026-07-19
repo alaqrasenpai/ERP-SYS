@@ -36,7 +36,7 @@
                     </div>
                     <div>
                       <div class="text-sm font-bold text-gray-900">{{ emp.name }}</div>
-                      <div class="text-xs text-gray-500">{{ emp.nationalId || $t('employees.no_id') }}</div>
+                      <div class="text-xs text-gray-500">{{ emp.nationalId || $t('employees.no_id') }} • #{{ emp.employeeNumber || 'N/A' }}</div>
                     </div>
                   </div>
                 </td>
@@ -98,6 +98,10 @@
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.national_id') }}</label>
                     <input v-model="form.nationalId" type="text" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.employee_number') }} (رقم البصمة)</label>
+                    <input v-model="form.employeeNumber" type="text" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -235,7 +239,7 @@ const isEditing = ref(false)
 const editingId = ref(null)
 
 const form = ref({
-  name: '', email: '', phone: '', nationalId: '', gender: 'Male', birthDate: '', address: '',
+  name: '', email: '', phone: '', nationalId: '', employeeNumber: '', gender: 'Male', birthDate: '', address: '',
   emergencyContact: { name: '', phone: '', relationship: '' },
   position: '', departmentId: null, shiftId: null, joinedAt: '',
   basicSalary: '', allowance: 0, 
@@ -259,7 +263,7 @@ const openAddModal = () => {
   editingId.value = null
   activeModalTab.value = 'personal'
   form.value = {
-    name: '', email: '', phone: '', nationalId: '', gender: 'Male', birthDate: '', address: '',
+    name: '', email: '', phone: '', nationalId: '', employeeNumber: '', gender: 'Male', birthDate: '', address: '',
     emergencyContact: { name: '', phone: '', relationship: '' },
     position: '', departmentId: null, shiftId: null, joinedAt: formatDate(new Date()),
     basicSalary: '', allowance: 0, 
@@ -273,7 +277,7 @@ const openEditModal = (emp) => {
   editingId.value = emp._id
   activeModalTab.value = 'personal'
   form.value = { 
-    name: emp.name, email: emp.email, phone: emp.phone || '', nationalId: emp.nationalId || '',
+    name: emp.name, email: emp.email, phone: emp.phone || '', nationalId: emp.nationalId || '', employeeNumber: emp.employeeNumber || '',
     gender: emp.gender || 'Male', birthDate: formatDate(emp.birthDate), address: emp.address || '',
     emergencyContact: { 
       name: emp.emergencyContact?.name || '', 
@@ -297,6 +301,7 @@ const saveEmployee = async () => {
     if (!payload.departmentId) delete payload.departmentId
     if (!payload.shiftId) delete payload.shiftId
     if (!payload.nationalId) delete payload.nationalId
+    if (!payload.employeeNumber) delete payload.employeeNumber
     if (!payload.birthDate) delete payload.birthDate
     if (!payload.joinedAt) delete payload.joinedAt
 

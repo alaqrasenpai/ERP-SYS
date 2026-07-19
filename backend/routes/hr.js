@@ -56,11 +56,14 @@ router.post('/attendance/web-punch', attendanceController.webPunch);
 router.post('/attendance/biometric-punch', attendanceController.biometricPunch);
 
 // ----------------------------------------
-// Biometric Devices Routes
+// Biometric Devices & Logs Routes
 // ----------------------------------------
 router.get('/devices', deviceController.getDevices);
 router.post('/devices', deviceController.createDevice);
 router.delete('/devices/:id', deviceController.deleteDevice);
+router.post('/devices/:id/fetch', deviceController.fetchLogs);
+router.get('/devices/logs/pending', deviceController.getPendingLogs);
+router.post('/devices/logs/:id/link', deviceController.linkLog);
 
 // ----------------------------------------
 // Leave Requests Routes

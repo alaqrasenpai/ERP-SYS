@@ -24,6 +24,7 @@ const employeeSchema = new mongoose.Schema({
     },
     departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' },
     shiftId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shift' },
+    employeeNumber: { type: String, sparse: true, unique: true }, // Mapped to Biometric/Time Clock ID
     biometricId: { type: String, sparse: true, unique: true }, // Mapped to ZKTeco PIN
     annualLeaveBalance: { type: Number, default: 21 },
     sickLeaveBalance: { type: Number, default: 14 },

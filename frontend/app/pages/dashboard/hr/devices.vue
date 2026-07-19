@@ -22,6 +22,7 @@
             <tr>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('devices.device_name') }}</th>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('devices.serial_number') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">IP Address</th>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('devices.status') }}</th>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('devices.last_ping') }}</th>
               <th class="px-6 py-4 text-end text-xs font-black text-gray-500 uppercase">{{ $t('devices.actions') }}</th>
@@ -31,6 +32,7 @@
             <tr v-for="dev in devices" :key="dev._id">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ dev.deviceName }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">{{ dev.serialNumber }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">{{ dev.ipAddress || 'N/A' }}:{{ dev.port || 4370 }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span :class="{'bg-emerald-100 text-emerald-800': dev.status === 'Online', 'bg-red-100 text-red-800': dev.status === 'Offline'}" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
                   {{ dev.status === 'Online' ? $t('devices.online') : (dev.status === 'Offline' ? $t('devices.offline') : dev.status) }}
@@ -39,7 +41,8 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {{ dev.lastPing ? new Date(dev.lastPing).toLocaleString() : $t('devices.never') }}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-end">
+              <td class="px-6 py-4 whitespace-nowrap text-end space-x-2">
+                <button @click="fetchLogs(dev._id)" class="text-indigo-600 hover:text-indigo-900 font-bold text-sm bg-indigo-50 px-3 py-1 rounded-lg me-2">Fetch Data</button>
                 <button @click="deleteDevice(dev._id)" class="text-red-600 hover:text-red-900 font-bold text-sm bg-red-50 px-3 py-1 rounded-lg">{{ $t('devices.delete') }}</button>
               </td>
             </tr>
@@ -68,6 +71,14 @@
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('devices.serial_number') }}</label>
               <input type="text" v-model="form.serialNumber" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono" :placeholder="$t('devices.sn_placeholder')">
               <p class="text-xs text-gray-500 mt-1">{{ $t('devices.sn_hint') }}</p>
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">IP Address</label>
+              <input type="text" v-model="form.ipAddress" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="192.168.1.201">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">Port</label>
+              <input type="number" v-model="form.port" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="4370">
             </div>
             <div class="pt-4 flex justify-end gap-3">
               <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('devices.cancel') }}</button>
@@ -102,7 +113,9 @@ const saving = ref(false)
 
 const form = ref({
   deviceName: '',
-  serialNumber: ''
+  serialNumber: '',
+  ipAddress: '',
+  port: 4370
 })
 
 const fetchDevices = async () => {
@@ -140,6 +153,16 @@ const deleteDevice = async (id) => {
     await fetchDevices()
   } catch (err) {
     alert(useNuxtApp().$i18n.t('devices.failed_delete'))
+  }
+}
+
+const fetchLogs = async (id) => {
+  try {
+    alert('Fetching data from device... This may take a few seconds.')
+    const res = await $api(`/hr/devices/${id}/fetch`, { method: 'POST' })
+    alert(`Success: ${res.message}. Added: ${res.addedLogs}, Processed: ${res.processedLogs}`)
+  } catch (err) {
+    alert(err.response?.data?.message || err.message || 'Failed to fetch data')
   }
 }
 
