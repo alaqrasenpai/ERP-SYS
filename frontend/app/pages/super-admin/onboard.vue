@@ -88,6 +88,11 @@ definePageMeta({
   layout: 'super-admin'
 })
 
+const showSuccessModal = ref(false)
+const onboardingTenantId = ref('')
+
+const API_BASE = process.env.NODE_ENV === 'production' ? 'https://erp-sys-71b6.onrender.com/api' : 'http://localhost:5000/api'
+
 const router = useRouter()
 const loading = ref(false)
 
@@ -120,7 +125,7 @@ const submitOnboarding = async () => {
 
   loading.value = true
   try {
-    const res = await $fetch(`http://localhost:5000/api/super/tenants/onboard`, {
+    const res = await $fetch(`${API_BASE}/super/tenants/onboard`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
       body: form.value

@@ -46,13 +46,16 @@ const router = useRouter()
 const form = ref({ email: '', password: '' })
 const loading = ref(false)
 const error = ref('')
+const errorMsg = ref('')
+
+const API_BASE = process.env.NODE_ENV === 'production' ? 'https://erp-sys-71b6.onrender.com/api' : 'http://localhost:5000/api'
 
 const handleLogin = async () => {
   loading.value = true
   error.value = ''
   
   try {
-    const res = await $fetch(`http://localhost:5000/api/super/login`, {
+    const res = await $fetch(`${API_BASE}/super/login`, {
       method: 'POST',
       body: form.value
     })
