@@ -64,9 +64,9 @@ router.post('/seed', async (req, res) => {
                     nationalId: `123456789${i}`,
                     departmentId: dept._id,
                     shiftId: shift._id,
-                    role: 'Employee',
-                    baseSalary: 3000 + (i * 100),
-                    joinDate: new Date(),
+                    position: 'Employee',
+                    basicSalary: 3000 + (i * 100),
+                    joinedAt: new Date(),
                     annualLeaveBalance: 14
                 });
             }
