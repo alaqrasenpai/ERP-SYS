@@ -38,7 +38,12 @@ router.put('/', async (req, res) => {
 // POST /api/settings/seed - Generate Dummy Data for testing
 router.post('/seed', async (req, res) => {
     try {
-        const { Employee, Department, Shift, Attendance, Item, Category, InventoryTransaction } = require('../controllers/hr/utils').getModels(req);
+        const Employee = req.tenantConnection.model('Employee');
+        const Department = req.tenantConnection.model('Department');
+        const Shift = req.tenantConnection.model('Shift');
+        const Attendance = req.tenantConnection.model('Attendance');
+        const Product = req.tenantConnection.model('Product');
+        const StockMovement = req.tenantConnection.model('StockMovement');
 
         // 1. Create Dummy Department & Shift
         let dept = await Department.findOne({ name: 'Test Department' });
@@ -124,47 +129,46 @@ router.post('/seed', async (req, res) => {
         }
         await Attendance.insertMany(attendanceLogs);
 
-        // 4. Create Dummy Categories & Items
-        let cat = await Category.findOne({ name: 'Test Category' });
-        if (!cat) cat = await Category.create({ name: 'Test Category', type: 'Inventory' });
-
-        const newItems = [];
+        // 4. Create Dummy Products
+        const newProducts = [];
         for (let i = 1; i <= 20; i++) {
-            const itemName = `Test Product ${i}`;
-            const existing = await Item.findOne({ name: itemName });
+            const productName = `Test Product ${i}`;
+            const existing = await Product.findOne({ name: productName });
             if (!existing) {
-                newItems.push({
-                    name: itemName,
+                newProducts.push({
+                    name: productName,
                     sku: `SKU-TEST-${i}`,
-                    categoryId: cat._id,
-                    price: 10 * i,
-                    cost: 5 * i,
-                    type: 'Standard',
-                    stock: 0
+                    category: 'Test Category',
+                    unitPrice: 10 * i,
+                    purchasePrice: 5 * i,
+                    stockQuantity: 0
                 });
             }
         }
         
-        let insertedItems = [];
-        if (newItems.length > 0) {
-            insertedItems = await Item.insertMany(newItems);
+        let insertedProducts = [];
+        if (newProducts.length > 0) {
+            insertedProducts = await Product.insertMany(newProducts);
         } else {
-            insertedItems = await Item.find({ categoryId: cat._id });
+            insertedProducts = await Product.find({ category: 'Test Category' });
         }
 
-        // 5. Create Dummy Inventory Transactions
+        // 5. Create Dummy Stock Movements
         const txs = [];
-        for (const item of insertedItems) {
+        for (const item of insertedProducts) {
             txs.push({
-                itemId: item._id,
-                type: 'IN',
+                productId: item._id,
+                type: 'in',
                 quantity: 100,
-                reference: 'Initial Seed',
+                unitCost: item.purchasePrice,
+                totalCost: item.purchasePrice * 100,
+                reason: 'Initial Seed',
+                referenceNumber: 'SEED-' + Math.floor(Math.random() * 10000),
                 date: new Date()
             });
-            await Item.findByIdAndUpdate(item._id, { $inc: { stock: 100 } });
+            await Product.findByIdAndUpdate(item._id, { $inc: { stockQuantity: 100 } });
         }
-        if (txs.length > 0) await InventoryTransaction.insertMany(txs);
+        if (txs.length > 0) await StockMovement.insertMany(txs);
 
         res.json({ message: 'Test data generated successfully!' });
     } catch (error) {
@@ -172,5 +176,6 @@ router.post('/seed', async (req, res) => {
         res.status(500).json({ message: 'Error generating test data', error: error.message });
     }
 });
+
 
 module.exports = router;
