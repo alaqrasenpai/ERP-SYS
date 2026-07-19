@@ -28,6 +28,8 @@ const employeeSchema = new mongoose.Schema({
     biometricId: { type: String, sparse: true, unique: true }, // Mapped to ZKTeco PIN
     annualLeaveBalance: { type: Number, default: 21 },
     sickLeaveBalance: { type: Number, default: 14 },
+    accumulatedLeaveHours: { type: Number, default: 0 },
+    pendingSalaryDeductionDays: { type: Number, default: 0 },
     documents: [{
         title: { type: String },
         fileUrl: { type: String },

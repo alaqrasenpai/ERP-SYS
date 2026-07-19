@@ -84,6 +84,13 @@ exports.getDailyGrid = async (req, res) => {
             date: { $gte: filterStartDateStr, $lte: filterEndDateStr } 
         }).lean();
         
+        const { LeaveRequest } = getModels(req);
+        const leaveRequests = await LeaveRequest.find({
+            status: 'Approved',
+            startDate: { $lte: filterEndDateStr },
+            endDate: { $gte: filterStartDateStr }
+        }).lean();
+        
         const grid = [];
 
         // Generate date array between start and end
@@ -102,11 +109,66 @@ exports.getDailyGrid = async (req, res) => {
                 let status = att ? att.status : 'Absent';
                 let isAnomalous = att ? att.isAnomalous : false;
 
-                if (att && att.clockIn && !att.clockOut && emp.shiftId) {
-                    const shiftEndParts = (emp.shiftId.endTime || "17:00").split(':').map(Number);
+                let lateMinutes = 0;
+                let earlyExitMinutes = 0;
+                let leaveType = null;
+                let hasApprovedLeave = false;
+                
+                // Check if employee has approved leave on this date
+                const empLeave = leaveRequests.find(lr => 
+                    lr.employeeId.toString() === emp._id.toString() &&
+                    new Date(lr.startDate).toISOString().split('T')[0] <= dateStr &&
+                    new Date(lr.endDate).toISOString().split('T')[0] >= dateStr
+                );
+
+                if (empLeave) {
+                    hasApprovedLeave = true;
+                    leaveType = empLeave.type;
+                    if (leaveType !== 'Hourly Departure') {
+                        status = `On Leave (${leaveType})`;
+                    }
+                }
+
+                if (emp.shiftId) {
+                    const [sh, sm] = (emp.shiftId.startTime || "09:00").split(':').map(Number);
+                    const [eh, em] = (emp.shiftId.endTime || "17:00").split(':').map(Number);
+                    
+                    const shiftStart = new Date(dateStr);
+                    shiftStart.setHours(sh, sm, 0, 0);
+                    
                     const shiftEnd = new Date(dateStr);
-                    shiftEnd.setHours(shiftEndParts[0], shiftEndParts[1], 0, 0);
-                    if (new Date() > shiftEnd) {
+                    shiftEnd.setHours(eh, em, 0, 0);
+
+                    // Check tardiness
+                    if (att && att.clockIn) {
+                        const punchIn = new Date(att.clockIn);
+                        const grace = emp.shiftId.gracePeriodMinutes || 0;
+                        const diffMins = (punchIn - shiftStart) / 60000;
+                        if (diffMins > grace) {
+                            lateMinutes = Math.floor(diffMins);
+                            isAnomalous = true;
+                        }
+                    }
+
+                    // Check early exit
+                    if (att && att.clockOut) {
+                        const punchOut = new Date(att.clockOut);
+                        const diffMins = (shiftEnd - punchOut) / 60000;
+                        if (diffMins > 0) {
+                            earlyExitMinutes = Math.floor(diffMins);
+                            isAnomalous = true;
+                        }
+                    }
+
+                    if (att && att.clockIn && !att.clockOut && new Date() > shiftEnd) {
+                        isAnomalous = true;
+                    }
+                }
+
+                if (!att && !hasApprovedLeave) {
+                    const today = new Date().toISOString().split('T')[0];
+                    if (dateStr < today) {
+                        status = 'Absent Without Permission';
                         isAnomalous = true;
                     }
                 }
@@ -125,7 +187,10 @@ exports.getDailyGrid = async (req, res) => {
                     totalHours: att ? att.totalHours : 0,
                     overtimeHours: att ? att.overtimeHours : 0,
                     overtimeStatus: att ? att.overtimeStatus : 'None',
-                    isAnomalous
+                    isAnomalous,
+                    lateMinutes,
+                    earlyExitMinutes,
+                    leaveType
                 });
             }
         }

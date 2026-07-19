@@ -3,7 +3,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Create a custom fetch instance with pre-configured interceptors
   const api = $fetch.create({
-    baseURL: 'https://erp-sys-71b6.onrender.com/api',
+    baseURL: 'http://localhost:5000/api',
     onRequest({ request, options }) {
       const headers = new Headers(options.headers || {})
       

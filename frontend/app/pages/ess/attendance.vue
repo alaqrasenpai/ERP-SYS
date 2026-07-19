@@ -78,7 +78,7 @@ useHead({ title: 'My Attendance' })
 import { ref, onMounted, onUnmounted } from 'vue'
 
 definePageMeta({
-  layout: 'dashboard',
+  layout: 'ess',
   middleware: ['auth']
 })
 

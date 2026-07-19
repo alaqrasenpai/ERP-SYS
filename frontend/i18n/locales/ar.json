@@ -56,10 +56,17 @@
     "payroll": "مسيرات الرواتب"
   },
   "ess": {
-    "title": "الخدمة الذاتية (ESS)",
+    "title": "شؤون الموظف الشخصية",
     "my_profile": "الملف الشخصي والأرصدة",
     "my_attendance": "سجل حضوري",
-    "my_leaves": "طلبات إجازاتي"
+    "my_leaves": "إجازاتي ومغادراتي",
+    "switch_dashboard": "العودة للوحة التحكم",
+    "manager_approvals": "موافقات المدير",
+    "approvals_desc": "إدارة الطلبات والمغادرات لموظفي قسمك.",
+    "no_pending_approvals": "لا توجد طلبات معلقة للموافقة عليها.",
+    "approve_request": "الموافقة على الطلب",
+    "reject_request": "رفض الطلب",
+    "confirm_action_desc": "هل أنت متأكد من {action} لطلب الموظف {employee}؟"
   },
   "settings": {
     "title": "إعدادات المتجر",
@@ -352,8 +359,8 @@
       "hr_payroll": "الموارد البشرية والرواتب",
       "read_employee_data": "قراءة بيانات الموظفين",
       "manage_employees_payroll": "إدارة الموظفين والرواتب",
-      "ess": "الخدمة الذاتية (ESS)",
-      "access_ess_portal": "الوصول إلى بوابة الخدمة الذاتية",
+      "ess": "شؤون الموظف الشخصية",
+      "access_ess_portal": "الوصول إلى بوابة شؤون الموظف الشخصية",
       "digital_archive": "الأرشيف الرقمي",
       "read_files": "قراءة الملفات",
       "upload_delete_files": "رفع/حذف الملفات",
@@ -608,7 +615,9 @@
     "anomaly": "شذوذ",
     "present": "حاضر",
     "absent": "غائب",
+    "absent_no_perm": "غائب بدون إذن",
     "late": "متأخر",
+    "early_exit": "خروج مبكر",
     "hrs_abbrev": "س",
     "override": "تجاوز",
     "overtime_hrs": "ساعات إضافية",
@@ -699,7 +708,7 @@
     "hrs_abbrev": "س"
   },
   "my_leaves": {
-    "title": "طلبات الإجازة الخاصة بي",
+    "title": "إجازاتي ومغادراتي",
     "description": "تقديم طلبات إجازة جديدة وعرض السجل.",
     "new_request": "طلب جديد",
     "type": "النوع",
@@ -1051,6 +1060,11 @@
   "common": {
     "currency": "ر.س",
     "no_data": "لا تتوفر بيانات.",
-    "logout_confirm": "هل أنت متأكد من تسجيل الخروج؟"
+    "logout_confirm": "هل أنت متأكد من تسجيل الخروج؟",
+    "optional": "اختياري",
+    "cancel": "إلغاء",
+    "saving": "جاري الحفظ...",
+    "confirm": "تأكيد",
+    "error_occurred": "حدث خطأ غير متوقع"
   }
 }

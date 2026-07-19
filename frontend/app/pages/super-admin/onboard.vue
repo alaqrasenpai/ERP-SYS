@@ -120,7 +120,7 @@ const submitOnboarding = async () => {
 
   loading.value = true
   try {
-    const res = await $fetch(`https://erp-sys-71b6.onrender.com/api/super/tenants/onboard`, {
+    const res = await $fetch(`http://localhost:5000/api/super/tenants/onboard`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
       body: form.value

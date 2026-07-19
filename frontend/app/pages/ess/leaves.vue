@@ -131,7 +131,7 @@ useHead({ title: 'My Leaves' })
 import { ref, onMounted } from 'vue'
 
 definePageMeta({
-  layout: 'dashboard',
+  layout: 'ess',
   middleware: ['auth']
 })
 

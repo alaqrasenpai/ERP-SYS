@@ -87,7 +87,14 @@
     "title": "Self Service (ESS)",
     "my_profile": "My Profile & Balances",
     "my_attendance": "My Attendance Log",
-    "my_leaves": "My Leave Requests"
+    "my_leaves": "My Leaves & Departures",
+    "switch_dashboard": "Back to Dashboard",
+    "manager_approvals": "Manager Approvals",
+    "approvals_desc": "Manage requests and hourly departures for your department's employees.",
+    "no_pending_approvals": "No pending requests to approve.",
+    "approve_request": "Approve Request",
+    "reject_request": "Reject Request",
+    "confirm_action_desc": "Are you sure you want to {action} the request for {employee}?"
   },
   "settings": {
     "title": "Store Settings",
@@ -712,7 +719,9 @@
     "anomaly": "Anomaly",
     "present": "Present",
     "absent": "Absent",
+    "absent_no_perm": "Absent w/o Permission",
     "late": "Late",
+    "early_exit": "Early Exit",
     "hrs_abbrev": "h",
     "override": "Override",
     "overtime_hrs": "Overtime Hrs",
@@ -824,7 +833,7 @@
     "hrs_abbrev": "h"
   },
   "my_leaves": {
-    "title": "My Leave Requests",
+    "title": "My Leaves & Departures",
     "description": "Submit new time-off requests and view history.",
     "new_request": "New Request",
     "type": "Type",
@@ -1134,6 +1143,11 @@
   "common": {
     "currency": "SAR",
     "no_data": "No data available.",
-    "logout_confirm": "Are you sure you want to logout?"
+    "logout_confirm": "Are you sure you want to log out?",
+    "optional": "Optional",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "confirm": "Confirm",
+    "error_occurred": "An unexpected error occurred"
   }
 }

@@ -190,4 +190,92 @@ router.post('/my-leaves/request', requireEmployeeProfile, async (req, res) => {
     }
 });
 
+// GET /api/ess/approvals
+router.get('/approvals', requireEmployeeProfile, async (req, res) => {
+    try {
+        const Department = req.tenantConnection.model('Department');
+        const Employee = req.tenantConnection.model('Employee');
+        const LeaveRequest = req.tenantConnection.model('LeaveRequest');
+
+        const departments = await Department.find({ managerId: req.employee._id });
+        const deptIds = departments.map(d => d._id);
+
+        if (deptIds.length === 0) {
+            return res.json([]);
+        }
+
+        const employees = await Employee.find({ departmentId: { $in: deptIds } });
+        const empIds = employees.map(e => e._id);
+
+        const requests = await LeaveRequest.find({
+            employeeId: { $in: empIds },
+            status: 'Pending'
+        }).populate('employeeId', 'name position');
+
+        res.json(requests);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// PUT /api/ess/approvals/:id
+router.put('/approvals/:id', requireEmployeeProfile, async (req, res) => {
+    try {
+        const LeaveRequest = req.tenantConnection.model('LeaveRequest');
+        const Department = req.tenantConnection.model('Department');
+        const User = req.tenantConnection.model('User');
+        
+        const { status, managerNotes } = req.body;
+        if (!['Approved', 'Rejected'].includes(status)) {
+            return res.status(400).json({ message: 'Invalid status' });
+        }
+
+        const request = await LeaveRequest.findById(req.params.id).populate('employeeId');
+        if (!request) return res.status(404).json({ message: 'Request not found' });
+
+        const dept = await Department.findById(request.employeeId.departmentId);
+        if (!dept || dept.managerId?.toString() !== req.employee._id.toString()) {
+             return res.status(403).json({ message: 'Forbidden: You are not the manager of this employee.' });
+        }
+
+        request.status = status;
+        request.managerNotes = managerNotes;
+        
+        const approvingUser = await User.findOne({ employeeId: req.employee._id });
+        if (approvingUser) {
+            request.approvedBy = approvingUser._id;
+        }
+
+        if (status === 'Approved') {
+            let emp = request.employeeId;
+            if (request.type === 'Hourly Departure') {
+                emp.accumulatedLeaveHours += request.totalHours;
+                const workHours = emp.dailyWorkHours || 8;
+                if (emp.accumulatedLeaveHours >= workHours) {
+                    const daysToDeduct = Math.floor(emp.accumulatedLeaveHours / workHours);
+                    emp.accumulatedLeaveHours -= (daysToDeduct * workHours);
+                    
+                    if (emp.annualLeaveBalance >= daysToDeduct) {
+                        emp.annualLeaveBalance -= daysToDeduct;
+                    } else {
+                        const remainingDays = daysToDeduct - emp.annualLeaveBalance;
+                        emp.annualLeaveBalance = 0;
+                        emp.pendingSalaryDeductionDays += remainingDays;
+                    }
+                }
+            } else if (request.type === 'Annual') {
+                emp.annualLeaveBalance -= request.totalDays;
+            } else if (request.type === 'Sick') {
+                emp.sickLeaveBalance -= request.totalDays;
+            }
+            await emp.save();
+        }
+
+        await request.save();
+        res.json(request);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 module.exports = router;

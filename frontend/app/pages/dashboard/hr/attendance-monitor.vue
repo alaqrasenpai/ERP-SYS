@@ -66,9 +66,22 @@
                   <span class="text-xs text-gray-500">{{ row.department }}</span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span :class="{ 'bg-emerald-100 text-emerald-800': row.status === 'Present', 'bg-red-100 text-red-800': row.status === 'Absent', 'bg-yellow-100 text-yellow-800': row.status === 'Late' || row.isAnomalous }" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
-                    {{ row.isAnomalous ? $t('attendance_monitor.anomaly') : (row.status === 'Present' ? $t('attendance_monitor.present') : (row.status === 'Late' ? $t('attendance_monitor.late') : (row.status === 'Absent' ? $t('attendance_monitor.absent') : row.status))) }}
-                  </span>
+                  <div class="flex flex-col gap-1">
+                    <span :class="{ 
+                      'bg-emerald-100 text-emerald-800': row.status === 'Present', 
+                      'bg-red-100 text-red-800': row.status === 'Absent' || row.status === 'Absent Without Permission', 
+                      'bg-yellow-100 text-yellow-800': row.status === 'Late' || row.isAnomalous,
+                      'bg-blue-100 text-blue-800': row.status.startsWith('On Leave') 
+                    }" class="w-fit px-2 py-1 text-[10px] font-bold uppercase rounded-md">
+                      {{ row.status === 'Present' ? $t('attendance_monitor.present') : (row.status === 'Absent' ? $t('attendance_monitor.absent') : (row.status === 'Absent Without Permission' ? $t('attendance_monitor.absent_no_perm') : row.status)) }}
+                    </span>
+                    <span v-if="row.lateMinutes > 0" class="w-fit px-2 py-0.5 text-[9px] font-bold text-orange-600 bg-orange-50 rounded border border-orange-200">
+                      {{ $t('attendance_monitor.late') }}: {{ row.lateMinutes }}m
+                    </span>
+                    <span v-if="row.earlyExitMinutes > 0" class="w-fit px-2 py-0.5 text-[9px] font-bold text-red-600 bg-red-50 rounded border border-red-200">
+                      {{ $t('attendance_monitor.early_exit') }}: {{ row.earlyExitMinutes }}m
+                    </span>
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-700">
                   {{ formatTime(row.clockIn) }}

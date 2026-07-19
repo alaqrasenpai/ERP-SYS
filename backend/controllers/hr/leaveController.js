@@ -87,7 +87,22 @@ exports.approveLeave = async (req, res) => {
         const employee = await Employee.findById(leave.employeeId);
         
         if (req.body.status === 'Approved') {
-            if (leave.type === 'Annual') {
+            if (leave.type === 'Hourly Departure') {
+                employee.accumulatedLeaveHours += leave.totalHours;
+                const workHours = employee.dailyWorkHours || 8;
+                if (employee.accumulatedLeaveHours >= workHours) {
+                    const daysToDeduct = Math.floor(employee.accumulatedLeaveHours / workHours);
+                    employee.accumulatedLeaveHours -= (daysToDeduct * workHours);
+                    
+                    if (employee.annualLeaveBalance >= daysToDeduct) {
+                        employee.annualLeaveBalance -= daysToDeduct;
+                    } else {
+                        const remainingDays = daysToDeduct - employee.annualLeaveBalance;
+                        employee.annualLeaveBalance = 0;
+                        employee.pendingSalaryDeductionDays += remainingDays;
+                    }
+                }
+            } else if (leave.type === 'Annual') {
                 employee.annualLeaveBalance -= leave.totalDays;
             } else if (leave.type === 'Sick') {
                 employee.sickLeaveBalance -= leave.totalDays;

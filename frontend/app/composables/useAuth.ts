@@ -23,7 +23,15 @@ export const useAuth = () => {
       body: { email, password }
     })
     setAuth(data.token, tenant, data.user, data.enabledModules)
-    return navigateTo('/')
+    
+    const perms = data.user?.role?.permissions || []
+    const hasDashboardPerm = perms.includes('*') || perms.includes('pos:create') || perms.includes('hr:read') || perms.includes('hr:write') || perms.includes('accounting:read') || perms.includes('inventory:read')
+    
+    if (hasDashboardPerm) {
+      return navigateTo('/')
+    } else {
+      return navigateTo('/ess/profile')
+    }
   }
 
   const fetchUser = async () => {
