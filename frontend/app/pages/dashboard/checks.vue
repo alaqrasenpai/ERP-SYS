@@ -3,26 +3,26 @@
     <div class="max-w-7xl mx-auto space-y-6">
       
       <!-- Top Header Area -->
-      <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         <!-- Title and Subtitle -->
-        <div class="flex items-baseline gap-4 shrink-0">
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('checks.title', 'إدارة الشيكات') }}</h2>
-          <p class="text-sm font-bold text-gray-400">{{ $t('checks.description', 'متابعة الشيكات المستحقة، المحصلة، والمرتجعة') }}</p>
+        <div class="flex items-baseline gap-3 shrink-0 overflow-hidden">
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('checks.title', 'إدارة الشيكات') }}</h2>
+          <p class="text-xs font-bold text-gray-400 truncate hidden sm:block">{{ $t('checks.description', 'متابعة الشيكات المستحقة، المحصلة، والمرتجعة') }}</p>
         </div>
         
         <!-- Stats Badges -->
-        <div class="flex flex-wrap gap-3 w-full xl:w-auto">
-          <div class="flex-1 xl:flex-none px-5 py-3 bg-emerald-50/80 text-emerald-600 border border-emerald-100 rounded-2xl flex items-center justify-between xl:justify-start gap-4">
-            <span class="text-xs font-black uppercase tracking-wider opacity-80">{{ $t('checks.collected_total', 'إجمالي المحصل') }}</span>
-            <span class="text-lg font-black">{{ collectedTotal.toFixed(2) }} ريال</span>
+        <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
+          <div class="flex-none px-3 py-2 bg-emerald-50/80 text-emerald-600 border border-emerald-100 rounded-xl flex items-center justify-start gap-2 whitespace-nowrap">
+            <span class="text-[10px] font-black uppercase tracking-wider opacity-80">{{ $t('checks.collected_total', 'إجمالي المحصل') }}</span>
+            <span class="text-base font-black">{{ collectedTotal.toFixed(2) }} ريال</span>
           </div>
-          <div class="flex-1 xl:flex-none px-5 py-3 bg-amber-50/80 text-amber-600 border border-amber-100 rounded-2xl flex items-center justify-between xl:justify-start gap-4">
-            <span class="text-xs font-black uppercase tracking-wider opacity-80">{{ $t('checks.pending_checks', 'شيكات تحت التحصيل') }}</span>
-            <span class="text-lg font-black">{{ pendingCount }}</span>
+          <div class="flex-none px-3 py-2 bg-amber-50/80 text-amber-600 border border-amber-100 rounded-xl flex items-center justify-start gap-2 whitespace-nowrap">
+            <span class="text-[10px] font-black uppercase tracking-wider opacity-80">{{ $t('checks.pending_checks', 'شيكات تحت التحصيل') }}</span>
+            <span class="text-base font-black">{{ pendingCount }}</span>
           </div>
-          <div class="flex-1 xl:flex-none px-5 py-3 bg-rose-50/80 text-rose-600 border border-rose-100 rounded-2xl flex items-center justify-between xl:justify-start gap-4">
-            <span class="text-xs font-black uppercase tracking-wider opacity-80">{{ $t('checks.bounced_count', 'شيكات مرتجعة') }}</span>
-            <span class="text-lg font-black">{{ bouncedCount }}</span>
+          <div class="flex-none px-3 py-2 bg-rose-50/80 text-rose-600 border border-rose-100 rounded-xl flex items-center justify-start gap-2 whitespace-nowrap">
+            <span class="text-[10px] font-black uppercase tracking-wider opacity-80">{{ $t('checks.bounced_count', 'شيكات مرتجعة') }}</span>
+            <span class="text-base font-black">{{ bouncedCount }}</span>
           </div>
         </div>
       </div>
