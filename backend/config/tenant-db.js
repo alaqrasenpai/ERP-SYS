@@ -17,6 +17,7 @@ const departmentSchema = require('../models/Department');
 const shiftSchema = require('../models/Shift');
 const holidaySchema = require('../models/Holiday');
 const leaveRequestSchema = require('../models/LeaveRequest');
+const leaveTypeSchema = require('../models/LeaveType');
 const orderSchema = require('../models/Order');
 const shiftLogSchema = require('../models/ShiftLog');
 const customerSchema = require('../models/Customer');
@@ -49,7 +50,7 @@ const getTenantConnection = (dbName) => {
     }
 
     // Build the URI for the tenant database
-    const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017';
+    const mongoUri = process.env.MONGO_URI || 'mongodb://ahmad2007fcb_db_user:Wf6bdvyXUD5YXav4@ac-kr9i09y-shard-00-00.ysqbrfj.mongodb.net:27017,ac-kr9i09y-shard-00-01.ysqbrfj.mongodb.net:27017,ac-kr9i09y-shard-00-02.ysqbrfj.mongodb.net:27017/?ssl=true&replicaSet=atlas-kx9tun-shard-0&authSource=admin&retryWrites=true&appName=Cluster0';
     let tenantUri;
     const match = mongoUri.match(/^(mongodb(?:\+srv)?:\/\/[^\/]+)\/?([^\?]*)(?:\?(.*))?$/);
     if (match) {
@@ -85,6 +86,7 @@ const getTenantConnection = (dbName) => {
     connection.model('Shift', shiftSchema);
     connection.model('Holiday', holidaySchema);
     connection.model('LeaveRequest', leaveRequestSchema);
+    connection.model('LeaveType', leaveTypeSchema);
 
     // POS
     connection.model('Order', orderSchema);

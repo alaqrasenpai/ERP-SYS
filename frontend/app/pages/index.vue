@@ -22,7 +22,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             
             <!-- Revenue -->
-            <div class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <div v-if="enabledModules?.includes('pos') || enabledModules?.includes('restaurant')" class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
               <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-emerald-100/40 to-emerald-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
               <div class="flex items-center gap-3 mb-4">
                 <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl shadow-sm border border-emerald-100/50">
@@ -40,7 +40,7 @@
             </div>
 
             <!-- Low Stock -->
-            <div class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <div v-if="enabledModules?.includes('inventory')" class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
               <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-red-100/40 to-red-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
               <div class="flex items-center gap-3 mb-4">
                 <div class="p-2.5 bg-red-50 text-red-600 rounded-xl shadow-sm border border-red-100/50">
@@ -60,7 +60,7 @@
             </div>
 
             <!-- HR Stats -->
-            <div class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <div v-if="enabledModules?.includes('hr')" class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
               <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-indigo-100/40 to-indigo-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
               <div class="flex items-center gap-3 mb-4">
                 <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl shadow-sm border border-indigo-100/50">
@@ -78,7 +78,7 @@
             </div>
 
             <!-- Archive Storage -->
-            <div class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <div v-if="enabledModules?.includes('archive')" class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
               <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-blue-100/40 to-blue-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
               <div class="flex items-center gap-3 mb-4">
                 <div class="p-2.5 bg-blue-50 text-blue-600 rounded-xl shadow-sm border border-blue-100/50">

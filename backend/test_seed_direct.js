@@ -1,49 +1,17 @@
-const express = require('express');
-const router = express.Router();
+const mongoose = require('mongoose');
+const { getTenantConnection } = require('./config/tenant-db');
 
-// GET /api/settings - Fetch global settings
-router.get('/', async (req, res) => {
+async function testSeed() {
+    await mongoose.connect('mongodb://localhost:27017/erp-sys-master');
+    const tenantConnection = getTenantConnection('alaqra'); // assume 'alaqra' is a tenant db
+    
     try {
-        const Setting = req.tenantConnection.model('Setting');
-        let settings = await Setting.findOne();
-        
-        // Singleton pattern: Create default if it doesn't exist
-        if (!settings) {
-            settings = await Setting.create({});
-        }
-        
-        res.json(settings);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching settings', error: error.message });
-    }
-});
-
-// PUT /api/settings - Update global settings
-router.put('/', async (req, res) => {
-    try {
-        const Setting = req.tenantConnection.model('Setting');
-        let settings = await Setting.findOne();
-        
-        if (!settings) {
-            settings = await Setting.create(req.body);
-        } else {
-            settings = await Setting.findOneAndUpdate({}, req.body, { new: true });
-        }
-        
-        res.json(settings);
-    } catch (error) {
-        res.status(500).json({ message: 'Error updating settings', error: error.message });
-    }
-});
-// POST /api/settings/seed - Generate Dummy Data for testing
-router.post('/seed', async (req, res) => {
-    try {
-        const Employee = req.tenantConnection.model('Employee');
-        const Department = req.tenantConnection.model('Department');
-        const Shift = req.tenantConnection.model('Shift');
-        const Attendance = req.tenantConnection.model('Attendance');
-        const Product = req.tenantConnection.model('Product');
-        const StockMovement = req.tenantConnection.model('StockMovement');
+        const Employee = tenantConnection.model('Employee');
+        const Department = tenantConnection.model('Department');
+        const Shift = tenantConnection.model('Shift');
+        const Attendance = tenantConnection.model('Attendance');
+        const Product = tenantConnection.model('Product');
+        const StockMovement = tenantConnection.model('StockMovement');
 
         // 1. Create Dummy Department & Shift
         let dept = await Department.findOne({ name: 'Test Department' });
@@ -170,59 +138,11 @@ router.post('/seed', async (req, res) => {
         }
         if (txs.length > 0) await StockMovement.insertMany(txs);
 
-        res.json({ message: 'Test data generated successfully!' });
+        console.log('Test data generated successfully!');
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error generating test data', error: error.message });
+        console.error('Error generating test data:', error);
     }
-});
+    process.exit(0);
+}
 
-
-
-
-// GET /api/settings/leave-types
-router.get('/leave-types', async (req, res) => {
-    try {
-        const LeaveType = req.tenantConnection.model('LeaveType');
-        const types = await LeaveType.find().sort({ createdAt: -1 });
-        res.json(types);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching leave types', error: error.message });
-    }
-});
-
-// POST /api/settings/leave-types
-router.post('/leave-types', async (req, res) => {
-    try {
-        const LeaveType = req.tenantConnection.model('LeaveType');
-        const newType = await LeaveType.create(req.body);
-        res.status(201).json(newType);
-    } catch (error) {
-        res.status(400).json({ message: 'Error creating leave type', error: error.message });
-    }
-});
-
-// PUT /api/settings/leave-types/:id
-router.put('/leave-types/:id', async (req, res) => {
-    try {
-        const LeaveType = req.tenantConnection.model('LeaveType');
-        const updated = await LeaveType.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updated) return res.status(404).json({ message: 'Not found' });
-        res.json(updated);
-    } catch (error) {
-        res.status(400).json({ message: 'Error updating leave type', error: error.message });
-    }
-});
-
-// DELETE /api/settings/leave-types/:id
-router.delete('/leave-types/:id', async (req, res) => {
-    try {
-        const LeaveType = req.tenantConnection.model('LeaveType');
-        await LeaveType.findByIdAndDelete(req.params.id);
-        res.json({ message: 'Deleted successfully' });
-    } catch (error) {
-        res.status(400).json({ message: 'Error deleting leave type', error: error.message });
-    }
-});
-
-module.exports = router;
+testSeed();

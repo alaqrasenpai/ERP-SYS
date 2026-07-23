@@ -54,6 +54,9 @@
             </div>
           </div>
         </div>
+        <div v-if="shifts.length === 0" class="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100 mt-4">
+          <p class="text-gray-500 font-bold">{{ $t('hr.no_shifts_available') }}</p>
+        </div>
       </div>
 
       <!-- Holidays Tab -->

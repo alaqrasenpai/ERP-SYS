@@ -16,7 +16,8 @@ const attendanceSchema = new mongoose.Schema({
     // Overtime & Anomalies
     overtimeHours: { type: Number, default: 0 },
     overtimeStatus: { type: String, enum: ['None', 'Pending Approval', 'Approved', 'Rejected'], default: 'None' },
-    isAnomalous: { type: Boolean, default: false }
+    isAnomalous: { type: Boolean, default: false },
+    isAutoClosed: { type: Boolean, default: false }
 }, { timestamps: true });
 
 // Compound index to ensure one attendance record per employee per day

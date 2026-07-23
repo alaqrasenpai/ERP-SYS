@@ -2,12 +2,29 @@ const { getModels } = require('./utils');
 
 exports.getReport = async (req, res) => {
     try {
-        const { Attendance } = getModels(req);
+        const { Attendance, AttendanceAudit } = getModels(req);
         const { month } = req.query; 
         let filter = {};
         if (month) filter.date = { $regex: `^${month}` };
         
-        const logs = await Attendance.find(filter).populate('employeeId').sort({ date: -1 });
+        const logs = await Attendance.find(filter).populate('employeeId').lean().sort({ date: -1 });
+        
+        const audits = await AttendanceAudit.find({
+            attendanceId: { $in: logs.map(a => a._id) }
+        }).populate('modifiedBy').lean();
+        
+        for (const log of logs) {
+            const logAudits = audits.filter(a => a.attendanceId.toString() === log._id.toString());
+            if (logAudits.length > 0) {
+                logAudits.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                const latest = logAudits[0];
+                log.lastAudit = {
+                    modifiedBy: latest.modifiedBy ? latest.modifiedBy.name : 'Unknown',
+                    reason: latest.reason
+                };
+            }
+        }
+        
         res.json(logs);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching attendance', error: error.message });
@@ -64,7 +81,7 @@ exports.clockOut = async (req, res) => {
 
 exports.getDailyGrid = async (req, res) => {
     try {
-        const { Attendance, Employee } = getModels(req);
+        const { Attendance, Employee, AttendanceAudit } = getModels(req);
         const { startDate, endDate, searchName } = req.query; 
         
         const start = startDate ? new Date(startDate) : new Date();
@@ -83,6 +100,10 @@ exports.getDailyGrid = async (req, res) => {
         const attendances = await Attendance.find({ 
             date: { $gte: filterStartDateStr, $lte: filterEndDateStr } 
         }).lean();
+        
+        const audits = await AttendanceAudit.find({
+            attendanceId: { $in: attendances.map(a => a._id) }
+        }).populate('modifiedBy').lean();
         
         const { LeaveRequest } = getModels(req);
         const leaveRequests = await LeaveRequest.find({
@@ -108,6 +129,20 @@ exports.getDailyGrid = async (req, res) => {
                 const att = attendances.find(a => a.employeeId.toString() === emp._id.toString() && a.date === dateStr);
                 let status = att ? att.status : 'Absent';
                 let isAnomalous = att ? att.isAnomalous : false;
+                let isAutoClosed = att ? att.isAutoClosed : false;
+                let lastAudit = null;
+                
+                if (att) {
+                    const attAudits = audits.filter(a => a.attendanceId.toString() === att._id.toString());
+                    if (attAudits.length > 0) {
+                        attAudits.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                        const latest = attAudits[0];
+                        lastAudit = {
+                            modifiedBy: latest.modifiedBy ? latest.modifiedBy.name : 'Unknown',
+                            reason: latest.reason
+                        };
+                    }
+                }
 
                 let lateMinutes = 0;
                 let earlyExitMinutes = 0;
@@ -188,6 +223,8 @@ exports.getDailyGrid = async (req, res) => {
                     overtimeHours: att ? att.overtimeHours : 0,
                     overtimeStatus: att ? att.overtimeStatus : 'None',
                     isAnomalous,
+                    isAutoClosed,
+                    lastAudit,
                     lateMinutes,
                     earlyExitMinutes,
                     leaveType

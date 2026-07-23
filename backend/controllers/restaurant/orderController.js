@@ -19,7 +19,7 @@ exports.getOrders = async (req, res) => {
 exports.createOrder = async (req, res) => {
     try {
         const { RestaurantOrder, RestaurantTable, DeliveryProvider } = getModels(req);
-        const { orderType, tableId, items, deliveryDetails } = req.body;
+        const { orderType, tableId, customerName, items, deliveryDetails } = req.body;
         
         let subTotal = 0;
         if (items && items.length > 0) {
@@ -43,6 +43,7 @@ exports.createOrder = async (req, res) => {
         const newOrder = await RestaurantOrder.create({
             orderType,
             tableId,
+            customerName,
             items,
             deliveryDetails,
             financials: { subTotal, tax, aggregatorCommission, grandTotal, netRestaurantRevenue }
@@ -178,16 +179,23 @@ exports.checkout = async (req, res) => {
 exports.getCompletedOrders = async (req, res) => {
     try {
         const { RestaurantOrder } = getModels(req);
-        const { date } = req.query;
+        const { date, customer } = req.query;
         
         const filterDate = date ? new Date(date) : new Date();
         const startOfDay = new Date(filterDate.setHours(0, 0, 0, 0));
         const endOfDay = new Date(filterDate.setHours(23, 59, 59, 999));
 
-        const orders = await RestaurantOrder.find({
-            status: 'Paid',
-            createdAt: { $gte: startOfDay, $lte: endOfDay }
-        }).sort({ createdAt: -1 });
+        let query = { status: 'Paid' };
+        
+        if (date) {
+            query.createdAt = { $gte: startOfDay, $lte: endOfDay };
+        }
+        
+        if (customer) {
+            query.customerName = { $regex: customer, $options: 'i' };
+        }
+
+        const orders = await RestaurantOrder.find(query).sort({ createdAt: -1 });
 
         res.json(orders);
     } catch (err) { res.status(500).json({ error: err.message }); }

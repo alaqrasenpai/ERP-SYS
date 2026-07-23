@@ -4,8 +4,8 @@
       
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
         <div>
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight">البصمات العالقة (Pending Attendance)</h2>
-          <p class="text-sm text-gray-500 mt-1">عرض بصمات الموظفين غير المرتبطة بموظف محدد وربطها يدوياً.</p>
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('hr.pending_attendance_title') }}</h2>
+          <p class="text-sm text-gray-500 mt-1">{{ $t('hr.pending_attendance_desc') }}</p>
         </div>
       </div>
 
@@ -17,10 +17,10 @@
         <table class="min-w-full divide-y divide-gray-100">
           <thead class="bg-gray-50">
             <tr>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">الجهاز</th>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">رقم البصمة</th>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">وقت التسجيل</th>
-              <th class="px-6 py-4 text-end text-xs font-black text-gray-500 uppercase">الإجراءات</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('hr.device') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('hr.fingerprint_id') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('hr.record_time') }}</th>
+              <th class="px-6 py-4 text-end text-xs font-black text-gray-500 uppercase">{{ $t('debts.actions') }}</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
@@ -31,21 +31,20 @@
                 {{ new Date(log.recordTime).toLocaleString() }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-end space-x-2 space-x-reverse">
-                <button @click="openLinkModal(log)" class="text-indigo-600 hover:text-indigo-900 font-bold text-sm bg-indigo-50 px-4 py-2 rounded-lg">ربط بموظف</button>
+                <button @click="openLinkModal(log)" class="text-indigo-600 hover:text-indigo-900 font-bold text-sm bg-indigo-50 px-4 py-2 rounded-lg">{{ $t('hr.link_employee') }}</button>
               </td>
             </tr>
             <tr v-if="logs.length === 0">
-              <td colspan="4" class="px-6 py-12 text-center text-gray-500 font-bold">لا توجد بصمات عالقة.</td>
+              <td colspan="4" class="px-6 py-12 text-center text-gray-500 font-bold">{{ $t('hr.no_pending') }}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Link Employee Modal -->
       <div v-if="showModal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden text-right" dir="rtl">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden text-start rtl:text-right" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'">
           <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-            <h3 class="text-lg font-bold text-gray-900">ربط البصمة بموظف</h3>
+            <h3 class="text-lg font-bold text-gray-900">{{ $t('hr.link_title') }}</h3>
             <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -53,22 +52,22 @@
           <form @submit.prevent="linkEmployee" class="p-6 space-y-4">
             <div>
               <p class="text-sm text-gray-600 mb-4">
-                أنت تقوم بربط البصمة رقم <span class="font-bold text-indigo-600">{{ selectedLog?.deviceEmployeeNumber }}</span>. سيتم تعيين هذا الرقم للموظف المختار.
+                {{ $t('hr.link_desc').replace('{id}', selectedLog?.deviceEmployeeNumber) }}
               </p>
-              <label class="block text-sm font-bold text-gray-700 mb-1">اختر الموظف</label>
+              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('hr.select_employee_label') }}</label>
               <select v-model="selectedEmployeeId" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
-                <option value="" disabled>-- اختر موظف --</option>
+                <option value="" disabled>{{ $t('hr.select_employee_default') }}</option>
                 <option v-for="emp in employees" :key="emp._id" :value="emp._id">
                   {{ emp.name }} ({{ emp.position || 'بدون منصب' }})
                 </option>
               </select>
             </div>
             
-            <div class="pt-4 flex justify-end gap-3" dir="ltr">
+            <div class="pt-4 flex justify-end gap-3 rtl:space-x-reverse" :dir="$i18n.locale === 'ar' ? 'ltr' : 'rtl'">
               <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold">
-                {{ saving ? 'جاري الربط...' : 'تأكيد الربط' }}
+                {{ saving ? $t('hr.linking') : $t('hr.confirm_link') }}
               </button>
-              <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium text-gray-700">إلغاء</button>
+              <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium text-gray-700">{{ $t('common.cancel') }}</button>
             </div>
           </form>
         </div>

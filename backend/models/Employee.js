@@ -34,7 +34,14 @@ const employeeSchema = new mongoose.Schema({
         title: { type: String },
         fileUrl: { type: String },
         uploadedAt: { type: Date, default: Date.now }
-    }]
+    }],
+    activeLeaveBalances: [{
+        leaveTypeId: { type: mongoose.Schema.Types.ObjectId, ref: 'LeaveType' },
+        name: { type: String }, // For convenience
+        balance: { type: Number, default: 0 }
+    }],
+    delegatedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
+    delegationEnd: { type: Date }
 }, { timestamps: true });
 
 // Ensure nationalId is unique if provided (sparse index to allow nulls and avoid conflicts on empty strings across tenants)

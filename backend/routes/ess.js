@@ -196,9 +196,20 @@ router.get('/approvals', requireEmployeeProfile, async (req, res) => {
         const Department = req.tenantConnection.model('Department');
         const Employee = req.tenantConnection.model('Employee');
         const LeaveRequest = req.tenantConnection.model('LeaveRequest');
+        const { history } = req.query;
 
         const departments = await Department.find({ managerId: req.employee._id });
-        const deptIds = departments.map(d => d._id);
+        
+        // Find if any manager delegated to this employee
+        const delegatedEmployees = await Employee.find({
+            delegatedTo: req.employee._id,
+            delegationEnd: { $gte: new Date() }
+        });
+        const delegatedManagerIds = delegatedEmployees.map(e => e._id);
+        const delegatedDepartments = await Department.find({ managerId: { $in: delegatedManagerIds } });
+
+        const allDepts = [...departments, ...delegatedDepartments];
+        const deptIds = allDepts.map(d => d._id);
 
         if (deptIds.length === 0) {
             return res.json([]);
@@ -207,10 +218,12 @@ router.get('/approvals', requireEmployeeProfile, async (req, res) => {
         const employees = await Employee.find({ departmentId: { $in: deptIds } });
         const empIds = employees.map(e => e._id);
 
+        const statusFilter = history === 'true' ? { $in: ['Approved', 'Rejected'] } : 'Pending';
+
         const requests = await LeaveRequest.find({
             employeeId: { $in: empIds },
-            status: 'Pending'
-        }).populate('employeeId', 'name position');
+            status: statusFilter
+        }).populate('employeeId', 'name position').sort({ createdAt: -1 });
 
         res.json(requests);
     } catch (error) {
@@ -233,9 +246,21 @@ router.put('/approvals/:id', requireEmployeeProfile, async (req, res) => {
         const request = await LeaveRequest.findById(req.params.id).populate('employeeId');
         if (!request) return res.status(404).json({ message: 'Request not found' });
 
+        const Employee = req.tenantConnection.model('Employee');
         const dept = await Department.findById(request.employeeId.departmentId);
-        if (!dept || dept.managerId?.toString() !== req.employee._id.toString()) {
-             return res.status(403).json({ message: 'Forbidden: You are not the manager of this employee.' });
+        
+        const isManager = dept && dept.managerId?.toString() === req.employee._id.toString();
+        let isDelegated = false;
+        
+        if (dept && dept.managerId) {
+            const managerEmp = await Employee.findById(dept.managerId);
+            if (managerEmp && managerEmp.delegatedTo?.toString() === req.employee._id.toString() && new Date(managerEmp.delegationEnd) >= new Date()) {
+                isDelegated = true;
+            }
+        }
+
+        if (!isManager && !isDelegated) {
+             return res.status(403).json({ message: 'Forbidden: You are not the manager (nor delegated) of this employee.' });
         }
 
         request.status = status;

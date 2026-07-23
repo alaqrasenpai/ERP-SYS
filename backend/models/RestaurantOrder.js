@@ -6,7 +6,8 @@ const restaurantOrderSchema = new mongoose.Schema({
     tableId: { type: mongoose.Schema.Types.ObjectId, ref: 'RestaurantTable' },
     waiterId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     cashierId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    
+    customerName: { type: String },
+
     items: [{
         menuItemId: { type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem' },
         nameAr: String,

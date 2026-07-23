@@ -67,6 +67,17 @@ exports.requestLeave = async (req, res) => {
         if (type === 'Sick' && totalDays > employee.sickLeaveBalance) {
             return res.status(400).json({ message: `Insufficient sick leave balance. Requested: ${totalDays}, Balance: ${employee.sickLeaveBalance}` });
         }
+        
+        // Handle custom leave types
+        if (!['Annual', 'Sick', 'Unpaid', 'Hourly Departure'].includes(type)) {
+            const activeLeave = employee.activeLeaveBalances.find(l => l.name === type || (l.leaveTypeId && l.leaveTypeId.toString() === type));
+            if (!activeLeave) {
+                return res.status(400).json({ message: `This leave type (${type}) is not activated for this employee.` });
+            }
+            if (totalDays > activeLeave.balance) {
+                return res.status(400).json({ message: `Insufficient balance for ${activeLeave.name || type}. Requested: ${totalDays}, Balance: ${activeLeave.balance}` });
+            }
+        }
 
         const leave = await LeaveRequest.create({
             employeeId, type, startDate, endDate, startTime, endTime, totalDays, totalHours, reason, status: 'Pending'
@@ -106,6 +117,11 @@ exports.approveLeave = async (req, res) => {
                 employee.annualLeaveBalance -= leave.totalDays;
             } else if (leave.type === 'Sick') {
                 employee.sickLeaveBalance -= leave.totalDays;
+            } else if (leave.type !== 'Unpaid') {
+                const activeLeave = employee.activeLeaveBalances.find(l => l.name === leave.type || (l.leaveTypeId && l.leaveTypeId.toString() === leave.type));
+                if (activeLeave) {
+                    activeLeave.balance -= leave.totalDays;
+                }
             }
             await employee.save();
         }

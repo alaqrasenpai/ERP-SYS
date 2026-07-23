@@ -37,9 +37,13 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Connect to the Central Admin Database (Master DB)
 // This connection is used strictly for central operations like looking up tenants
-const centralDbUri = process.env.MONGO_URI || 'mongodb://localhost:27017';
+const centralDbUri = process.env.MONGO_URI || 'mongodb://ahmad2007fcb_db_user:Wf6bdvyXUD5YXav4@ac-kr9i09y-shard-00-00.ysqbrfj.mongodb.net:27017,ac-kr9i09y-shard-00-01.ysqbrfj.mongodb.net:27017,ac-kr9i09y-shard-00-02.ysqbrfj.mongodb.net:27017/erp-sys-master?ssl=true&replicaSet=atlas-kx9tun-shard-0&authSource=admin&retryWrites=true&appName=Cluster0';
 mongoose.connect(centralDbUri).then(() => {
     console.log('Connected to Central Master Database');
+    
+    // Initialize Cron Jobs
+    const { initCronJobs } = require('./services/cronService');
+    initCronJobs();
 }).catch((err) => {
     console.error('Central Master Database Connection Error:', err);
     process.exit(1);

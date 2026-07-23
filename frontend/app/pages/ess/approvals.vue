@@ -7,6 +7,10 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('ess.manager_approvals') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('ess.approvals_desc') }}</p>
         </div>
+        <div class="flex bg-gray-100 rounded-lg p-1">
+          <button @click="showHistory = false; fetchRequests()" :class="!showHistory ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'" class="px-4 py-2 text-sm font-bold rounded-md transition-all">الطلبات المعلقة</button>
+          <button @click="showHistory = true; fetchRequests()" :class="showHistory ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'" class="px-4 py-2 text-sm font-bold rounded-md transition-all">سجل الطلبات السابقة</button>
+        </div>
       </div>
 
       <div v-if="loading" class="flex justify-center p-12">
@@ -22,7 +26,8 @@
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_leaves.duration') }}</th>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_leaves.deduction') }}</th>
               <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_leaves.reason') }}</th>
-              <th class="px-6 py-4 text-end text-xs font-black text-gray-500 uppercase">{{ $t('general.actions') }}</th>
+              <th v-if="showHistory" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">الحالة</th>
+              <th v-if="!showHistory" class="px-6 py-4 text-end text-xs font-black text-gray-500 uppercase">{{ $t('general.actions') }}</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
@@ -43,7 +48,11 @@
                 <span v-else>{{ req.totalDays }} {{ $t('my_leaves.days') }}</span>
               </td>
               <td class="px-6 py-4 text-sm text-gray-600 max-w-xs truncate" :title="req.reason">{{ req.reason }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-end">
+              <td v-if="showHistory" class="px-6 py-4 whitespace-nowrap">
+                <span v-if="req.status === 'Approved'" class="px-2.5 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-lg border border-green-200">{{ $t('my_leaves.approved') }}</span>
+                <span v-else-if="req.status === 'Rejected'" class="px-2.5 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-lg border border-red-200">{{ $t('my_leaves.rejected') }}</span>
+              </td>
+              <td v-if="!showHistory" class="px-6 py-4 whitespace-nowrap text-end">
                 <div class="flex justify-end gap-2">
                   <button @click="openActionModal(req, 'Approved')" class="p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition-colors" :title="$t('my_leaves.approved')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -55,7 +64,7 @@
               </td>
             </tr>
             <tr v-if="requests.length === 0">
-              <td colspan="6" class="px-6 py-12 text-center text-gray-500 font-bold">{{ $t('ess.no_pending_approvals') }}</td>
+              <td :colspan="showHistory ? 7 : 6" class="px-6 py-12 text-center text-gray-500 font-bold">لا يوجد طلبات</td>
             </tr>
           </tbody>
         </table>
@@ -116,11 +125,12 @@ const actionType = ref('')
 const managerNotes = ref('')
 const saving = ref(false)
 const errorMsg = ref('')
+const showHistory = ref(false)
 
 const fetchRequests = async () => {
   loading.value = true
   try {
-    requests.value = await $api('/ess/approvals')
+    requests.value = await $api(`/ess/approvals?history=${showHistory.value}`)
   } catch (err) {
     console.error(err)
   } finally {

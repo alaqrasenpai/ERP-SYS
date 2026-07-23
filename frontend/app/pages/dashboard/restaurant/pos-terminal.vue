@@ -1,28 +1,7 @@
 <template>
-  <div class="h-[calc(100vh-2rem)] flex overflow-hidden bg-gray-50 dir-rtl">
+  <div class="h-[calc(100vh-2rem)] flex flex-col lg:flex-row overflow-hidden bg-gray-50">
     
-    <!-- Right: Checkout Drawer Component (Placed first in flex-row for RTL to appear on right) -->
-    <RestaurantPosCartDrawer 
-      :cart="cart"
-      :order-type="orderType"
-      :table-id="tableId"
-      :delivery-details="deliveryDetails"
-      :tables="tables"
-      :providers="providers"
-      :sub-total="subTotal"
-      :discount="discount"
-      :tax="tax"
-      :tax-rate="taxRate"
-      :grand-total="grandTotal"
-      @update:qty="updateCartQty"
-      @update:discount="val => discount = val"
-      @update:table="val => tableId = val"
-      @update:provider="val => deliveryDetails.providerId = val"
-      @update:externalId="val => deliveryDetails.externalOrderId = val"
-      @checkout="checkout"
-    />
-
-    <!-- Left: Menu & Tabs -->
+    <!-- Left: Menu & Tabs (in RTL this becomes right) -->
     <div class="flex-1 flex flex-col p-4 sm:p-6 lg:p-8 overflow-y-auto">
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-4">
@@ -57,6 +36,29 @@
       />
     </div>
 
+    <!-- Right: Checkout Drawer Component (in RTL this becomes left) -->
+    <RestaurantPosCartDrawer 
+      :cart="cart"
+      :order-type="orderType"
+      :table-id="tableId"
+      :customer-name="customerName"
+      :delivery-details="deliveryDetails"
+      :tables="tables"
+      :providers="providers"
+      :sub-total="subTotal"
+      :discount="discount"
+      :tax="tax"
+      :tax-rate="taxRate"
+      :grand-total="grandTotal"
+      @update:qty="updateCartQty"
+      @update:discount="val => discount = val"
+      @update:table="val => tableId = val"
+      @update:customerName="val => customerName = val"
+      @update:provider="val => deliveryDetails.providerId = val"
+      @update:externalId="val => deliveryDetails.externalOrderId = val"
+      @checkout="checkout"
+    />
+
   </div>
 </template>
 
@@ -81,6 +83,7 @@ const selectedCategory = ref('All')
 const orderType = ref('Dine-In')
 const cart = ref([])
 const tableId = ref('')
+const customerName = ref('')
 const deliveryDetails = ref({ providerId: '', externalOrderId: '' })
 
 const taxRate = ref(15)
@@ -156,6 +159,7 @@ const checkout = async (paymentMethod) => {
       body: {
         orderType: orderType.value,
         tableId: orderType.value === 'Dine-In' ? tableId.value : null,
+        customerName: customerName.value,
         items: cart.value.map(item => ({
           menuItemId: item.menuItemId,
           nameAr: item.nameAr,
@@ -179,6 +183,7 @@ const checkout = async (paymentMethod) => {
     cart.value = []
     discount.value = 0
     tableId.value = ''
+    customerName.value = ''
     deliveryDetails.value = { providerId: '', externalOrderId: '' }
     
   } catch (err) {

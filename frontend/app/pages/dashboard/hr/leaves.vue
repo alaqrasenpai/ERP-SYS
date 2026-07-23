@@ -7,6 +7,9 @@
           <p class="text-sm text-gray-500 mt-1">{{ $t('leaves.description') }}</p>
         </div>
         <div class="flex gap-3 mt-4 sm:mt-0">
+          <button @click="showBalancesModal = true" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 rounded-xl font-bold flex items-center">
+            تعديل الأرصدة
+          </button>
           <button @click="openRequestModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             {{ $t('leaves.submit_request') }}
@@ -42,7 +45,7 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-100">
-              <tr v-for="leave in leaves" :key="leave._id" class="hover:bg-gray-50">
+              <tr v-for="leave in paginatedLeaves" :key="leave._id" class="hover:bg-gray-50">
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm font-bold text-gray-900">{{ leave.employeeId?.name || $t('leaves.unknown') }}</div>
                   <div class="text-xs text-gray-500">{{ leave.employeeId?.position }}</div>
@@ -84,8 +87,14 @@
             </tbody>
           </table>
         </div>
+        <!-- Pagination -->
+        <Pagination 
+          v-if="leaves.length > 0"
+          :totalItems="leaves.length" 
+          :itemsPerPage="itemsPerPage"
+          v-model:currentPage="currentPage" 
+        />
       </div>
-
       <!-- Submit Request Modal -->
       <div v-if="showRequestModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
         <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
@@ -107,6 +116,7 @@
                     <option value="Sick">{{ $t('leaves.sick_leave') }}</option>
                     <option value="Unpaid">{{ $t('leaves.unpaid_leave') }}</option>
                     <option value="Hourly Departure">{{ $t('leaves.hourly_departure') }}</option>
+                    <option v-for="lt in leaveTypes" :key="lt._id" :value="lt._id">{{ lt.name }}</option>
                   </select>
                 </div>
 
@@ -181,6 +191,8 @@
         </div>
       </div>
 
+      <!-- Leave Balances Modal -->
+      <HrLeaveBalancesModal v-if="showBalancesModal" @close="showBalancesModal = false" @saved="handleBalancesSaved" :employees="employees" :leaveTypes="leaveTypes" />
     </div>
   </div>
 </template>
@@ -189,6 +201,7 @@
 useHead({ title: 'Leaves' })
 
 import { ref, computed, onMounted } from 'vue'
+import Pagination from '~/components/Pagination.vue'
 
 definePageMeta({ 
   layout: 'dashboard',
@@ -200,8 +213,17 @@ const { $api } = useNuxtApp()
 const leaves = ref([])
 const employees = ref([])
 
+const currentPage = ref(1)
+const itemsPerPage = 15
+
+const paginatedLeaves = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  return leaves.value.slice(start, start + itemsPerPage)
+})
+
 const showRequestModal = ref(false)
 const showReviewModal = ref(false)
+const showBalancesModal = ref(false)
 const selectedLeave = ref(null)
 
 const form = ref({
@@ -225,13 +247,21 @@ const formatDate = (d) => {
   return new Date(d).toISOString().split('T')[0]
 }
 
+const leaveTypes = ref([])
+
 const fetchData = async () => {
   try {
     leaves.value = await $api('/hr/leaves')
     employees.value = await $api('/hr/employees')
+    leaveTypes.value = await $api('/settings/leave-types')
   } catch (error) {
     console.error('Failed to fetch data', error)
   }
+}
+
+const handleBalancesSaved = () => {
+  showBalancesModal.value = false
+  fetchData()
 }
 
 const openRequestModal = () => {

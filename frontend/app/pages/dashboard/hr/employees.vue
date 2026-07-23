@@ -28,7 +28,7 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-100">
-              <tr v-for="emp in employees" :key="emp._id" class="hover:bg-gray-50 transition-colors">
+              <tr v-for="emp in paginatedEmployees" :key="emp._id" class="hover:bg-gray-50 transition-colors">
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold me-3">
@@ -65,6 +65,13 @@
             </tbody>
           </table>
         </div>
+        <!-- Pagination -->
+        <Pagination 
+          v-if="employees.length > 0"
+          :totalItems="employees.length" 
+          :itemsPerPage="itemsPerPage"
+          v-model:currentPage="currentPage" 
+        />
       </div>
 
       <!-- Add/Edit Employee Modal -->
@@ -179,6 +186,21 @@
                     <input v-model="form.allowance" type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
+
+                <h4 class="text-sm font-bold text-gray-900 border-b pb-1 mt-6">التفويض (Delegation)</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">تفويض إلى الموظف</label>
+                    <select v-model="form.delegatedTo" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <option :value="null">بدون تفويض</option>
+                      <option v-for="emp in employees" :key="emp._id" :value="emp._id">{{ emp.name }}</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">تاريخ انتهاء التفويض</label>
+                    <input v-model="form.delegationEnd" type="date" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  </div>
+                </div>
               </div>
 
               <!-- Leaves Tab -->
@@ -220,7 +242,8 @@
 <script setup>
 useHead({ title: 'Employees' })
 
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import Pagination from '~/components/Pagination.vue'
 
 definePageMeta({ 
   layout: 'dashboard',
@@ -233,6 +256,14 @@ const employees = ref([])
 const departments = ref([])
 const shifts = ref([])
 
+const currentPage = ref(1)
+const itemsPerPage = 15
+
+const paginatedEmployees = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  return employees.value.slice(start, start + itemsPerPage)
+})
+
 const showModal = ref(false)
 const activeModalTab = ref('personal')
 const isEditing = ref(false)
@@ -243,7 +274,8 @@ const form = ref({
   emergencyContact: { name: '', phone: '', relationship: '' },
   position: '', departmentId: null, shiftId: null, joinedAt: '',
   basicSalary: '', allowance: 0, 
-  annualLeaveBalance: 21, sickLeaveBalance: 14
+  annualLeaveBalance: 21, sickLeaveBalance: 14,
+  delegatedTo: null, delegationEnd: ''
 })
 
 const formatDate = (d) => d ? new Date(d).toISOString().split('T')[0] : ''
@@ -267,7 +299,8 @@ const openAddModal = () => {
     emergencyContact: { name: '', phone: '', relationship: '' },
     position: '', departmentId: null, shiftId: null, joinedAt: formatDate(new Date()),
     basicSalary: '', allowance: 0, 
-    annualLeaveBalance: 21, sickLeaveBalance: 14
+    annualLeaveBalance: 21, sickLeaveBalance: 14,
+    delegatedTo: null, delegationEnd: ''
   }
   showModal.value = true
 }
@@ -290,7 +323,9 @@ const openEditModal = (emp) => {
     joinedAt: formatDate(emp.joinedAt),
     basicSalary: emp.basicSalary, allowance: emp.allowance || 0, 
     annualLeaveBalance: emp.annualLeaveBalance ?? 21, 
-    sickLeaveBalance: emp.sickLeaveBalance ?? 14
+    sickLeaveBalance: emp.sickLeaveBalance ?? 14,
+    delegatedTo: emp.delegatedTo?._id || emp.delegatedTo || null,
+    delegationEnd: formatDate(emp.delegationEnd)
   }
   showModal.value = true
 }

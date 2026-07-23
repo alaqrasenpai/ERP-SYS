@@ -17,6 +17,7 @@ router.get('/employees', employeeController.getEmployees);
 router.post('/employees', employeeController.createEmployee);
 router.put('/employees/:id', employeeController.updateEmployee);
 router.delete('/employees/:id', employeeController.deleteEmployee);
+router.put('/employees/:id/leave-balances', employeeController.updateLeaveBalances);
 
 // ----------------------------------------
 // Department Routes

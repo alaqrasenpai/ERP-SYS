@@ -51,7 +51,7 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-100">
-              <tr v-for="log in attendanceLogs" :key="log._id" class="hover:bg-gray-50">
+              <tr v-for="log in paginatedLogs" :key="log._id" class="hover:bg-gray-50">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
                   {{ log.date }}
                 </td>
@@ -61,6 +61,9 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">
                   {{ log.clockIn ? new Date(log.clockIn).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--' }}
+                  <div v-if="log.lastAudit && log.lastAudit.modifiedBy" class="text-xs text-indigo-500 mt-1 cursor-pointer" :title="log.lastAudit.reason">
+                    * {{ $t('attendance.modified_by') }}: {{ log.lastAudit.modifiedBy }}
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">
                   {{ log.clockOut ? new Date(log.clockOut).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--' }}
@@ -75,10 +78,13 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                  <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full"
+                  <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full mb-1"
                         :class="[ log.status === 'Present' ? 'bg-green-100 text-green-800' : '', log.status === 'Late' ? 'bg-orange-100 text-orange-800' : '', log.status === 'Absent' ? 'bg-red-100 text-red-800' : '', log.status === 'Leave' ? 'bg-indigo-100 text-indigo-800' : '' ]">
                     {{ log.status === 'Present' ? $t('attendance.present') : (log.status === 'Late' ? $t('attendance.late') : (log.status === 'Absent' ? $t('attendance.absent') : (log.status === 'Leave' ? $t('attendance.leave') : log.status))) }}
                   </span>
+                  <div v-if="log.isAutoClosed" class="text-xs text-orange-600 bg-orange-50 inline-block px-2 py-0.5 rounded border border-orange-200 mt-1 w-full text-center">
+                    {{ $t('attendance.auto_closed') }}
+                  </div>
                 </td>
               </tr>
               <tr v-if="attendanceLogs.length === 0">
@@ -87,8 +93,14 @@
             </tbody>
           </table>
         </div>
+        <!-- Pagination -->
+        <Pagination 
+          v-if="attendanceLogs.length > 0"
+          :totalItems="attendanceLogs.length" 
+          :itemsPerPage="itemsPerPage"
+          v-model:currentPage="currentPage" 
+        />
       </div>
-
     </div>
   </div>
 </template>
@@ -96,7 +108,8 @@
 <script setup>
 useHead({ title: 'Attendance' })
 
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import Pagination from '~/components/Pagination.vue'
 
 definePageMeta({ 
   layout: 'dashboard',
@@ -106,6 +119,14 @@ definePageMeta({
 
 const { $api } = useNuxtApp()
 const attendanceLogs = ref([])
+
+const currentPage = ref(1)
+const itemsPerPage = 15
+
+const paginatedLogs = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  return attendanceLogs.value.slice(start, start + itemsPerPage)
+})
 
 const now = new Date()
 const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
@@ -119,6 +140,7 @@ const sim = ref({
 const fetchAttendance = async () => {
   try {
     attendanceLogs.value = await $api(`/hr/attendance/report?month=${filterMonth.value}`)
+    currentPage.value = 1
   } catch (error) {
     console.error('Failed to fetch attendance logs', error)
   }
