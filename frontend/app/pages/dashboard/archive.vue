@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-100 p-8">
     <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
         <div>
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('archive.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('archive.description') }}</p>
@@ -69,8 +69,8 @@
                 </div>
               </div>
               <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100 sm:">
-                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-5 py-2.5 bg-indigo-600 text-base font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.create_folder') }}</button>
-                <button type="button" @click="showFolderModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-5 py-2.5 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.cancel') }}</button>
+                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-base font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.create_folder') }}</button>
+                <button type="button" @click="showFolderModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.cancel') }}</button>
               </div>
             </form>
           </div>
@@ -103,8 +103,8 @@
                 </div>
               </div>
               <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100 sm:">
-                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-5 py-2.5 bg-indigo-600 text-base font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.upload_metadata') }}</button>
-                <button type="button" @click="showFileModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-5 py-2.5 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.cancel') }}</button>
+                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-base font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.upload_metadata') }}</button>
+                <button type="button" @click="showFileModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.cancel') }}</button>
               </div>
             </form>
           </div>

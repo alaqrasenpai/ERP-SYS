@@ -1,12 +1,12 @@
 <template>
   <div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
     <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
         <div>
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('inventory.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('inventory.description') }}</p>
         </div>
-        <div class="flex gap-3 mt-4 sm:mt-0">
+        <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
           <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('general.dashboard') }}</NuxtLink>
           <div class="flex items-center gap-3" v-if="hasPermission('inventory:write')">
             <button @click="showCategoryModal = true" class="px-4 py-2 bg-white border border-gray-100 hover:border-gray-300 text-gray-700 rounded-xl font-bold shadow-sm transition-all flex items-center">

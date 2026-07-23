@@ -2,7 +2,7 @@
   <div class="p-4 lg:p-8 max-w-7xl mx-auto">
     
     <!-- Header -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 gap-4 mb-8">
       <div>
         <h1 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('debts.title') }}</h1>
         <p class="text-gray-500 mt-1 text-sm">{{ $t('debts.subtitle') }}</p>

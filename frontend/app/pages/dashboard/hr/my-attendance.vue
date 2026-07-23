@@ -3,9 +3,9 @@
     <div class="max-w-5xl mx-auto space-y-6">
       
       <!-- Header -->
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 ">
         <div>
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('my_attendance.title') }}</h2>
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('my_attendance.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('my_attendance.description') }}</p>
         </div>
         <div class="text-end">

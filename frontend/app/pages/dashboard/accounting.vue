@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
     <div class="max-w-7xl mx-auto space-y-6">
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-      <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('accounting.title') }}</h2>
-      <div class="flex gap-3 mt-4 sm:mt-0">
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+      <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('accounting.title') }}</h2>
+      <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
         <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
           <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
           {{ $t('accounting.dashboard') }}

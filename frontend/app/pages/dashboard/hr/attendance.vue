@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
     <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
         <div>
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('attendance.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('attendance.description') }}</p>

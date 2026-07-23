@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
     <div class="max-w-7xl mx-auto space-y-6">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
         <div>
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('reports.title') }}</h2>
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('reports.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('reports.description') }}</p>
         </div>
         <div class="flex gap-3 mt-4 sm:mt-0 print:hidden">
@@ -58,7 +58,7 @@
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">{{ $t('reports.end_date') }}</label>
                 <input v-model="dateRange.end" type="date" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
-              <button @click="fetchPnL" class="bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-sm">
+              <button @click="fetchPnL" class="bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white px-4 py-2 shrink-0 whitespace-nowrap rounded-xl font-bold transition-all shadow-sm">
                 {{ $t('reports.generate') }}
               </button>
             </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="p-6 sm:p-8 space-y-8 bg-gray-50/50 min-h-screen">
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
       <div>
         <h2 class="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight flex items-center gap-3">
           <span class="bg-indigo-100 text-indigo-600 p-2 rounded-xl">

@@ -3,11 +3,11 @@
     <div class="max-w-7xl mx-auto space-y-6">
       
       <!-- Top Header Area -->
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         <!-- Title and Subtitle -->
         <div class="flex items-baseline gap-4">
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('installments.title', 'إدارة الأقساط') }}</h2>
-          <p class="text-sm font-bold text-gray-400">{{ $t('installments.description', 'متابعة مبيعات التقسيط والمبالغ المتبقية') }}</p>
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('installments.title', 'إدارة الأقساط') }}</h2>
+          <p class="text-sm font-bold text-gray-400 truncate hidden sm:block">{{ $t('installments.description', 'متابعة مبيعات التقسيط والمبالغ المتبقية') }}</p>
         </div>
         
         <!-- Total Due Badge -->

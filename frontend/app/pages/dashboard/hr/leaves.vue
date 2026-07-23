@@ -1,12 +1,12 @@
 <template>
   <div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
     <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
         <div>
           <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('leaves.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">{{ $t('leaves.description') }}</p>
         </div>
-        <div class="flex gap-3 mt-4 sm:mt-0">
+        <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
           <button @click="showBalancesModal = true" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 rounded-xl font-bold flex items-center">
             تعديل الأرصدة
           </button>
@@ -155,8 +155,8 @@
               </div>
             </div>
             <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
-              <button type="submit" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ms-3">{{ $t('leaves.submit_btn') }}</button>
-              <button type="button" @click="showRequestModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-5 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
+              <button type="submit" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ms-3">{{ $t('leaves.submit_btn') }}</button>
+              <button type="button" @click="showRequestModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-4 py-2 shrink-0 whitespace-nowrap bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
             </div>
           </form>
         </div>
@@ -184,9 +184,9 @@
             </div>
           </div>
           <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
-            <button @click="processLeave('Approved')" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-green-600 text-sm font-bold text-white hover:bg-green-700 ms-3">{{ $t('leaves.approve') }}</button>
-            <button @click="processLeave('Rejected')" class="inline-flex justify-center rounded-lg px-5 py-2.5 bg-red-600 text-sm font-bold text-white hover:bg-red-700 ms-3">{{ $t('leaves.reject') }}</button>
-            <button @click="showReviewModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-5 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
+            <button @click="processLeave('Approved')" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-green-600 text-sm font-bold text-white hover:bg-green-700 ms-3">{{ $t('leaves.approve') }}</button>
+            <button @click="processLeave('Rejected')" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-red-600 text-sm font-bold text-white hover:bg-red-700 ms-3">{{ $t('leaves.reject') }}</button>
+            <button @click="showReviewModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-4 py-2 shrink-0 whitespace-nowrap bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
           </div>
         </div>
       </div>

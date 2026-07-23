@@ -2,9 +2,9 @@
   <div class="min-h-screen bg-gray-50 p-4 sm:p-8">
     <div class="max-w-6xl mx-auto space-y-6">
       
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 ">
         <div>
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('hr.pending_attendance_title') }}</h2>
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('hr.pending_attendance_title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('hr.pending_attendance_desc') }}</p>
         </div>
       </div>

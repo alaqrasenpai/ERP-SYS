@@ -75,8 +75,8 @@
                 </div>
               </div>
               <div class="bg-gray-50 px-4 py-4 sm:flex sm:flex-row-reverse border-t border-gray-100">
-                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-5 py-2.5 bg-indigo-600 text-white font-bold hover:bg-indigo-700 sm:ms-3 sm:w-auto text-sm">Save User</button>
-                <button type="button" @click="showModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-5 py-2.5 bg-white text-gray-700 font-bold hover:bg-gray-50 sm:mt-0 sm:ms-3 sm:w-auto text-sm">Cancel</button>
+                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-white font-bold hover:bg-indigo-700 sm:ms-3 sm:w-auto text-sm">Save User</button>
+                <button type="button" @click="showModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-white text-gray-700 font-bold hover:bg-gray-50 sm:mt-0 sm:ms-3 sm:w-auto text-sm">Cancel</button>
               </div>
             </form>
           </div>
