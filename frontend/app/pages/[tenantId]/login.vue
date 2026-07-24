@@ -2,10 +2,13 @@
   <div class="min-h-[100dvh] bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tight">
-        {{ $t('login.tenant_portal') }}
+        <template v-if="pending">...</template>
+        <template v-else-if="tenantInfo">{{ tenantInfo.name }}</template>
+        <template v-else>{{ $t('login.tenant_portal') }}</template>
       </h2>
       <p class="mt-2 text-center text-sm text-gray-600">
-        {{ $t('login.sign_in_message') }}
+        <template v-if="tenantInfo">{{ $t('login.welcome_store', { store: tenantInfo.name }) }}</template>
+        <template v-else>{{ $t('login.sign_in_message') }}</template>
       </p>
     </div>
 
@@ -50,8 +53,13 @@ const { t } = useI18n()
 const loading = ref(false)
 const error = ref('')
 
+const { $api } = useNuxtApp()
 const route = useRoute()
 const tenantId = route.params.tenantId
+
+const { data: tenantInfo, pending } = await useAsyncData(`tenant-${tenantId}`, () => {
+  return $api(`/public/tenant/${tenantId}`)
+}, { server: false }) // execute on client side since it's just login UI
 
 const form = ref({
   email: '',

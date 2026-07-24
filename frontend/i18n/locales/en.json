@@ -1115,7 +1115,8 @@
     "invalid_credentials": "Email or password is incorrect.",
     "account_deactivated": "Your account has been deactivated. Please contact your admin.",
     "default_error": "Connection error or invalid credentials.",
-    "go_super": "Go to Super Admin"
+    "go_super": "Go to Super Admin",
+    "welcome_store": "Welcome to {store} workspace"
   },
   "dashboard": {
     "subtitle": "Real-time ecosystem metrics and unified controls.",
