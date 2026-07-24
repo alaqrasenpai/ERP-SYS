@@ -205,8 +205,6 @@
         </div>
       </div>
 
-        </div>
-      </div>
 
       <div v-if="activeTab === 'types'">
         <HrLeaveTypesManager />
