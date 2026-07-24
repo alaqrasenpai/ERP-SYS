@@ -15,9 +15,7 @@
             {{ $t('leaves.submit_request') }}
           </button>
         </div>
-        </div>
       </div>
-
       <!-- Tabs -->
       <div class="mb-6 border-b border-gray-200">
         <nav class="-mb-px flex gap-8">
@@ -204,7 +202,7 @@
           </div>
         </div>
       </div>
-
+      </div>
 
       <div v-if="activeTab === 'types'">
         <HrLeaveTypesManager />
