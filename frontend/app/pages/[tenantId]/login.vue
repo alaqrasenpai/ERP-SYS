@@ -1,20 +1,24 @@
 <template>
-  <div class="min-h-[100dvh] bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
-      <img v-if="tenantInfo?.logoUrl" :src="tenantInfo.logoUrl" alt="Store Logo" class="h-20 w-auto object-contain mb-4" />
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tight">
+  <div class="min-h-[100dvh] bg-gradient-to-br from-indigo-50 via-white to-emerald-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+    <!-- Decorative background blobs -->
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+    <div class="absolute top-1/2 -right-24 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center relative z-10">
+      <img v-if="tenantInfo?.logoUrl" :src="tenantInfo.logoUrl" alt="Store Logo" class="h-24 w-auto object-contain mb-6 drop-shadow-md transition-transform hover:scale-105 duration-300" />
+      <h2 class="mt-2 text-center text-3xl font-extrabold text-gray-900 tracking-tight">
         <template v-if="pending">...</template>
         <template v-else-if="tenantInfo">{{ tenantInfo.name }}</template>
         <template v-else>{{ $t('login.tenant_portal') }}</template>
       </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
+      <p class="mt-3 text-center text-sm text-gray-600 font-medium">
         <template v-if="tenantInfo">{{ $t('login.welcome_store', { store: tenantInfo.name }) }}</template>
         <template v-else>{{ $t('login.sign_in_message') }}</template>
       </p>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="bg-white py-8 px-4 shadow-xl shadow-gray-200/50 sm:rounded-xl sm:px-10 border border-gray-100">
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+      <div class="bg-white/80 backdrop-blur-xl py-10 px-4 shadow-2xl shadow-indigo-900/10 sm:rounded-3xl sm:px-10 border border-white">
         <form @submit.prevent="handleLogin" class="space-y-6">
           <!-- Workspace ID removed, inferred from URL -->
 
@@ -28,7 +32,7 @@
             <input v-model="form.password" type="password" required placeholder="••••••••" class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
           </div>
 
-          <button type="submit" :disabled="loading" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-xl shadow-sm ring-1 ring-gray-900/5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+          <button type="submit" :disabled="loading" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-500/30 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 hover:shadow-indigo-500/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300">
             <svg v-if="loading" class="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
