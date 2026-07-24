@@ -84,7 +84,7 @@ app.use('/api/restaurant', verifyToken, tenantResolver, requireModule('restauran
 
 // Public Routes (No Auth)
 const publicRoutes = require('./routes/public');
-app.use('/api/public', tenantResolver, publicRoutes);
+app.use('/api/public', publicRoutes);
 
 // Future tenant routes can be mounted securely here:
 // app.use('/api/inventory', tenantResolver, inventoryRoutes);

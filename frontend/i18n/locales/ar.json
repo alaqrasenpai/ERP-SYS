@@ -936,6 +936,7 @@
   "login": {
     "tenant_portal": "بوابة المستأجرين",
     "sign_in_message": "قم بتسجيل الدخول للوصول إلى مساحة عمل شركتك",
+    "welcome_store": "قم بتسجيل الدخول للوصول إلى {store}",
     "workspace_id": "معرف مساحة العمل",
     "workspace_placeholder": "مثال: acme",
     "email": "البريد الإلكتروني",

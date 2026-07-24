@@ -1103,6 +1103,7 @@
   "login": {
     "tenant_portal": "Tenant Portal",
     "sign_in_message": "Sign in to access your company workspace",
+    "welcome_store": "Sign in to access {store}",
     "workspace_id": "Workspace ID",
     "workspace_placeholder": "e.g. acme",
     "email": "Email address",
