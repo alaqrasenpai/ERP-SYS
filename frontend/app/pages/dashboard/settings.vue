@@ -16,9 +16,9 @@
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             {{ $t('settings.dashboard') }}
           </NuxtLink>
-          <button @click="saveSettings" class="bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white px-4 py-2 shrink-0 whitespace-nowrap rounded-xl font-bold transition-all shadow-sm flex items-center text-sm" :disabled="saving">
+          <button @click="saveSettings" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white shrink-0 whitespace-nowrap rounded-xl font-bold flex items-center text-sm" :disabled="saving">
             <svg v-if="saving" class="animate-spin -ms-1 me-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            <svg v-else class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+            <svg v-else class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
             {{ saving ? $t('settings.saving') : $t('settings.save_changes') }}
           </button>
         </div>
@@ -183,7 +183,7 @@
 
           <!-- HR Tab -->
           <div v-if="activeTab === 'hr'" class="space-y-6">
-            <HrLeaveTypesManager />
+            <HrAttendanceSettings />
           </div>
         </div>
       </div>

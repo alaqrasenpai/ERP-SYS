@@ -6,12 +6,14 @@ export const useAuth = () => {
   const tenantId = useCookie<string | null>('erp_tenantId', { path: '/', maxAge: 60 * 60 * 24 * 7, watch: true })
   const user = useCookie<any | null>('erp_user', { path: '/', maxAge: 60 * 60 * 24 * 7, watch: true })
   const enabledModules = useCookie<string[]>('erp_modules', { path: '/', maxAge: 60 * 60 * 24 * 7, watch: true, default: () => [] })
+  const currency = useCookie<string>('erp_currency', { path: '/', maxAge: 60 * 60 * 24 * 7, watch: true, default: () => 'SAR' })
 
-  const setAuth = (newToken: string, newTenantId: string, newUser: any, newModules: string[]) => {
+  const setAuth = (newToken: string, newTenantId: string, newUser: any, newModules: string[], newCurrency: string) => {
     token.value = newToken
     tenantId.value = newTenantId
     user.value = newUser
     enabledModules.value = newModules || []
+    if (newCurrency) currency.value = newCurrency
   }
 
   const login = async (email, password, tenant) => {
@@ -22,7 +24,7 @@ export const useAuth = () => {
       headers: { 'x-tenant-id': tenant },
       body: { email, password }
     })
-    setAuth(data.token, tenant, data.user, data.enabledModules)
+    setAuth(data.token, tenant, data.user, data.enabledModules, data.currency)
     
     const perms = data.user?.role?.permissions || []
     const hasDashboardPerm = perms.includes('*') || perms.includes('pos:create') || perms.includes('hr:read') || perms.includes('hr:write') || perms.includes('accounting:read') || perms.includes('inventory:read')
@@ -41,6 +43,7 @@ export const useAuth = () => {
       const data = await $api('/auth/me')
       user.value = data.user
       enabledModules.value = data.enabledModules
+      if (data.currency) currency.value = data.currency
       // data.employee holds the employee profile if needed
     } catch (error) {
       console.error('Failed to fetch user:', error)
@@ -86,6 +89,7 @@ export const useAuth = () => {
     login,
     logout,
     fetchUser,
-    isLoggedIn
+    isLoggedIn,
+    currency
   }
 }

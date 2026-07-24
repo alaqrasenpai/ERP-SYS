@@ -15,7 +15,7 @@
         <h3 class="font-black text-gray-900 text-sm leading-tight mb-1 line-clamp-2 group-hover:text-emerald-600 transition-colors">{{ locale === 'ar' ? item.nameAr : item.nameEn }}</h3>
         
         <div class="mt-auto pt-2">
-          <span class="text-base font-black text-emerald-600 block">{{ item.price.toFixed(2) }} {{ $t('currency', 'ريال') }}</span>
+          <span class="text-base font-black text-emerald-600 block">{{ item.price.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
         </div>
       </div>
     </div>

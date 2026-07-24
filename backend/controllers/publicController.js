@@ -32,7 +32,12 @@ exports.getTenantInfo = async (req, res) => {
             return res.status(404).json({ error: 'Tenant not found or inactive' });
         }
 
-        res.json({ name: tenant.name });
+        const { getTenantConnection } = require('../config/tenant-db');
+        const tenantConnection = getTenantConnection(tenant.dbName);
+        const Setting = tenantConnection.model('Setting');
+        const settings = await Setting.findOne();
+
+        res.json({ name: tenant.name, logoUrl: settings?.logoUrl || null });
     } catch (err) {
         console.error('Error fetching tenant info:', err);
         res.status(500).json({ error: 'Internal server error' });

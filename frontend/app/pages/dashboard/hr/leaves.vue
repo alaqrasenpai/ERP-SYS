@@ -15,10 +15,24 @@
             {{ $t('leaves.submit_request') }}
           </button>
         </div>
+        </div>
       </div>
 
-      <!-- Filters & Stats -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Tabs -->
+      <div class="mb-6 border-b border-gray-200">
+        <nav class="-mb-px flex gap-8">
+          <button @click="activeTab = 'requests'" :class="activeTab === 'requests' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
+            {{ $t('leaves.requests_tab', 'طلبات الإجازات') }}
+          </button>
+          <button @click="activeTab = 'types'" :class="activeTab === 'types' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
+            {{ $t('leaves.types_tab', 'إدارة أنواع الإجازات') }}
+          </button>
+        </nav>
+      </div>
+
+      <div v-if="activeTab === 'requests'">
+        <!-- Filters & Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm flex justify-between items-center">
           <div>
             <p class="text-sm font-medium text-gray-500">{{ $t('leaves.pending_requests') }}</p>
@@ -191,6 +205,13 @@
         </div>
       </div>
 
+        </div>
+      </div>
+
+      <div v-if="activeTab === 'types'">
+        <HrLeaveTypesManager />
+      </div>
+
       <!-- Leave Balances Modal -->
       <HrLeaveBalancesModal v-if="showBalancesModal" @close="showBalancesModal = false" @saved="handleBalancesSaved" :employees="employees" :leaveTypes="leaveTypes" />
     </div>
@@ -212,6 +233,7 @@ definePageMeta({
 const { $api } = useNuxtApp()
 const leaves = ref([])
 const employees = ref([])
+const activeTab = ref('requests')
 
 const currentPage = ref(1)
 const itemsPerPage = 15

@@ -36,13 +36,13 @@
                 <div class="flex justify-between items-center text-sm pt-2">
                   <span class="text-gray-500 font-bold">{{ $t('cash_shifts_page.starting_cash', 'كاش البداية') }}</span>
                   <span class="px-3 py-1 bg-blue-50 text-blue-600 border border-blue-100 rounded-lg font-black text-sm">
-                    {{ currentOpenShift.openingBalance?.toFixed(2) }} {{ $t('currency', 'ريال') }}
+                    {{ currentOpenShift.openingBalance?.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}
                   </span>
                 </div>
                 <div class="flex justify-between items-center text-sm pt-2 pb-4 border-b border-gray-100">
                   <span class="text-gray-500 font-bold">{{ $t('cash_shifts_page.expected_in_safe', 'المتوقع في القاصة') }}</span>
                   <span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-lg font-black text-sm">
-                    {{ currentOpenShift.expectedBalance !== undefined ? currentOpenShift.expectedBalance?.toFixed(2) : currentOpenShift.openingBalance?.toFixed(2) }} {{ $t('currency', 'ريال') }}
+                    {{ currentOpenShift.expectedBalance !== undefined ? currentOpenShift.expectedBalance?.toFixed(2) : currentOpenShift.openingBalance?.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}
                   </span>
                 </div>
               </div>
@@ -65,7 +65,7 @@
                   <label class="block text-xs font-bold text-gray-500">{{ $t('cash_shifts_page.actual_cash', 'الموجود فعلياً') }}</label>
                   <div class="relative">
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <span class="text-gray-400 font-bold">{{ $t('currency', 'ريال') }}</span>
+                      <span class="text-gray-400 font-bold">{{ useCookie('erp_currency').value || 'SAR' }}</span>
                     </div>
                     <input type="number" v-model.number="actualCash" :placeholder="$t('cash_shifts_page.count_cash_placeholder', 'قم بعد النقدية وأدخل المبلغ هنا...')" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block pr-12 p-3.5 transition-colors">
                   </div>
@@ -91,7 +91,7 @@
                     <label class="block text-xs font-bold text-gray-500 text-start mb-2">{{ $t('cash_shifts_page.starting_cash_drawer', 'كاش البداية (الموجود في الدرج)') }}</label>
                     <div class="relative">
                       <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span class="text-gray-400 font-bold">{{ $t('currency', 'ريال') }}</span>
+                        <span class="text-gray-400 font-bold">{{ useCookie('erp_currency').value || 'SAR' }}</span>
                       </div>
                       <input type="number" v-model.number="openingCash" :placeholder="$t('cash_shifts_page.example_100', 'مثال: 100')" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block pr-12 p-3.5 transition-colors">
                     </div>
@@ -133,7 +133,7 @@
                   </td>
                   <td class="px-6 py-4">
                     <div v-if="shift.closingBalance !== undefined" class="font-black" :class="(shift.closingBalance >= (shift.expectedBalance || shift.openingBalance)) ? 'text-emerald-600' : 'text-rose-500'">
-                      {{ (shift.closingBalance - (shift.expectedBalance || shift.openingBalance)).toFixed(2) }} {{ $t('currency', 'ريال') }}
+                      {{ (shift.closingBalance - (shift.expectedBalance || shift.openingBalance)).toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}
                     </div>
                     <div v-else class="text-gray-400 font-bold">-</div>
                   </td>

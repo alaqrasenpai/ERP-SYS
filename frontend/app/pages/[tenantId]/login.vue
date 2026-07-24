@@ -1,6 +1,7 @@
 <template>
   <div class="min-h-[100dvh] bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
+      <img v-if="tenantInfo?.logoUrl" :src="tenantInfo.logoUrl" alt="Store Logo" class="h-20 w-auto object-contain mb-4" />
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tight">
         <template v-if="pending">...</template>
         <template v-else-if="tenantInfo">{{ tenantInfo.name }}</template>
@@ -41,6 +42,11 @@
           {{ error }}
         </div>
       </div>
+    </div>
+    
+    <!-- Developer Footer -->
+    <div class="mt-auto py-6 text-center text-xs text-gray-400">
+      Developed by <a href="https://alaqra.dev" target="_blank" class="text-indigo-500 hover:text-indigo-600 font-medium">alaqra.dev</a>
     </div>
   </div>
 </template>

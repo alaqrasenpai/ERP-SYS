@@ -104,6 +104,10 @@ router.post('/login', async (req, res) => {
             permissions: user.role.permissions || []
         } : { name: 'No Role', permissions: [] };
 
+        const Setting = tenantConnection.model('Setting');
+        const settings = await Setting.findOne();
+        const currency = settings?.currency || 'SAR';
+
         res.json({
             message: 'Login successful',
             user: {
@@ -114,6 +118,7 @@ router.post('/login', async (req, res) => {
                 employeeId: user.employeeId
             },
             enabledModules: tenantConfig.enabledModules,
+            currency: currency,
             token: generateToken(user._id, user.email, roleData.name, roleData.permissions, tenantConfig.tenantId)
         });
     } catch (error) {
@@ -147,16 +152,21 @@ router.get('/me', verifyToken, async (req, res) => {
             permissions: user.role.permissions || []
         } : { name: 'No Role', permissions: [] };
 
+        const Setting = tenantConnection.model('Setting');
+        const settings = await Setting.findOne();
+        const currency = settings?.currency || 'SAR';
+
         res.json({
             user: {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
-                role: roleData,
+                role: user.role ? { name: user.role.name, permissions: user.role.permissions } : null,
                 employeeId: user.employeeId
             },
             employee: employee,
-            enabledModules: req.tenantConfig.enabledModules
+            enabledModules: req.tenantConfig.enabledModules,
+            currency: currency
         });
     } catch (error) {
         console.error('Error fetching user profile:', error);

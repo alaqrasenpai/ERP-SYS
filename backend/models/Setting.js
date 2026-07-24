@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const settingSchema = new mongoose.Schema({
-    storeName: { type: String, default: 'My ERP Store' },
+    storeName: { type: String, default: 'My Store' },
     logoUrl: { type: String, default: '' },
     currency: { type: String, default: '$' },
     taxRate: { type: Number, default: 15 }, // Percentage
