@@ -1150,5 +1150,27 @@
     "saving": "Saving...",
     "confirm": "Confirm",
     "error_occurred": "An unexpected error occurred"
+  },
+  "landing": {
+    "title": "The Ultimate",
+    "title_highlight": "Enterprise",
+    "title_suffix": "Management System",
+    "subtitle": "Unify your HR, Accounting, Inventory, POS, and Restaurant operations in one powerful, cloud-based platform designed for scale.",
+    "access_workspace": "Access Your Workspace",
+    "features_title": "Everything you need to grow",
+    "features_subtitle": "Modular architecture means you only use what you need.",
+    "feat1_title": "Smart Accounting",
+    "feat1_desc": "Automated general ledgers, trial balances, and financial reporting with multi-currency support.",
+    "feat2_title": "Modern HRMS",
+    "feat2_desc": "Manage payroll, attendance, leave requests, and employee structures seamlessly.",
+    "feat3_title": "Retail & POS",
+    "feat3_desc": "Lightning-fast point of sale with offline capabilities, shift management, and barcode scanning.",
+    "copyright": "© {year} ERPSYS. All rights reserved.",
+    "developed_by": "Developed by",
+    "client_login": "Client Login",
+    "features_link": "Features",
+    "modules_link": "Modules",
+    "contact_link": "Contact",
+    "prompt_msg": "Enter your Store ID / Workspace Name:"
   }
 }
