@@ -1,11 +1,16 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   const token = useCookie('erp_token')
   
-  if (!token.value && to.path !== '/login' && !to.path.startsWith('/super-admin')) {
-    return navigateTo('/login')
+  // Allow access to the root landing page without authentication
+  if (to.path === '/') return
+
+  // If not authenticated and not accessing a login page or super-admin, redirect to landing page
+  if (!token.value && !to.path.endsWith('/login') && !to.path.startsWith('/super-admin')) {
+    return navigateTo('/')
   }
 
-  if (token.value && to.path === '/login') {
-    return navigateTo('/')
+  // If authenticated and trying to access a login page, redirect to dashboard
+  if (token.value && to.path.endsWith('/login')) {
+    return navigateTo('/dashboard')
   }
 })

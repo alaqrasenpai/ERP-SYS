@@ -7,7 +7,7 @@
           <p class="text-sm text-gray-500 mt-1">{{ $t('archive.description') }}</p>
         </div>
         <div class="flex gap-4 mt-4 sm:mt-0">
-          <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('archive.back_to_dashboard') }}</NuxtLink>
+          <NuxtLink to="/dashboard" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('archive.back_to_dashboard') }}</NuxtLink>
           <button @click="showFolderModal = true" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-50 shadow-sm flex items-center transition-colors">
             <svg class="w-4 h-4 me-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
             {{ $t('archive.new_folder') }}

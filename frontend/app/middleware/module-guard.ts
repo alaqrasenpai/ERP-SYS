@@ -12,7 +12,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
             if (process.client) {
                 alert('Access Denied: Module not subscribed.')
             }
-            return navigateTo('/')
+            return navigateTo('/dashboard')
         }
     }
 })

@@ -7,7 +7,7 @@
           <p class="text-sm text-gray-500 mt-1">{{ $t('sales_history.subtitle') }}</p>
         </div>
         <div class="flex gap-3">
-          <NuxtLink to="/" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('sales_history.dashboard') }}</NuxtLink>
+          <NuxtLink to="/dashboard" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('sales_history.dashboard') }}</NuxtLink>
         </div>
       </div>
 

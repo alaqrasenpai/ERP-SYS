@@ -12,10 +12,7 @@
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow-xl shadow-gray-200/50 sm:rounded-xl sm:px-10 border border-gray-100">
         <form @submit.prevent="handleLogin" class="space-y-6">
-          <div>
-            <label class="block text-sm font-medium text-gray-700">{{ $t('login.workspace_id') }} <span class="text-gray-400 font-normal">(x-tenant-id)</span></label>
-            <input v-model="form.tenantId" type="text" required :placeholder="$t('login.workspace_placeholder')" class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
-          </div>
+          <!-- Workspace ID removed, inferred from URL -->
 
           <div>
             <label class="block text-sm font-medium text-gray-700">{{ $t('login.email') }}</label>
@@ -53,8 +50,10 @@ const { t } = useI18n()
 const loading = ref(false)
 const error = ref('')
 
+const route = useRoute()
+const tenantId = route.params.tenantId
+
 const form = ref({
-  tenantId: '',
   email: '',
   password: ''
 })
@@ -65,7 +64,7 @@ const handleLogin = async () => {
   
   try {
     const { login } = useAuth()
-    await login(form.value.email, form.value.password, form.value.tenantId)
+    await login(form.value.email, form.value.password, tenantId)
   } catch (err) {
     const backendMsg = err.data?.message || err.message
     if (backendMsg === 'Tenant not found') {

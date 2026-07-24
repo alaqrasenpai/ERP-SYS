@@ -62,6 +62,9 @@
                   <button @click="openModulesModal(tenant)" class="px-4 py-1.5 rounded-lg font-bold text-xs border transition-colors shadow-sm bg-white border-blue-200 text-blue-600 hover:bg-blue-50">
                     Modules
                   </button>
+                  <button @click="copyLoginLink(tenant.tenantId)" class="px-4 py-1.5 rounded-lg font-bold text-xs border transition-colors shadow-sm bg-white border-indigo-200 text-indigo-600 hover:bg-indigo-50">
+                    Copy Link
+                  </button>
                   <button @click="toggleStatus(tenant)" class="px-4 py-1.5 rounded-lg font-bold text-xs border transition-colors shadow-sm" :class="tenant.status === 'active' ? 'bg-white border-red-200 text-red-600 hover:bg-red-50' : 'bg-white border-emerald-200 text-emerald-600 hover:bg-emerald-50'">
                     {{ tenant.status === 'active' ? 'Suspend' : 'Activate' }}
                   </button>
@@ -210,6 +213,12 @@ const showModulesModal = ref(false)
 const selectedTenant = ref(null)
 const editingModules = ref([])
 const savingModules = ref(false)
+
+const copyLoginLink = (tenantId) => {
+  const url = `${window.location.origin}/${tenantId}/login`
+  navigator.clipboard.writeText(url)
+  alert(`Login link copied: ${url}`)
+}
 
 // User Management State
 const showUsersModal = ref(false)

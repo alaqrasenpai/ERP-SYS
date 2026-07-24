@@ -28,7 +28,7 @@ export const useAuth = () => {
     const hasDashboardPerm = perms.includes('*') || perms.includes('pos:create') || perms.includes('hr:read') || perms.includes('hr:write') || perms.includes('accounting:read') || perms.includes('inventory:read')
     
     if (hasDashboardPerm) {
-      return navigateTo('/')
+      return navigateTo('/dashboard')
     } else {
       return navigateTo('/ess/profile')
     }
@@ -51,15 +51,19 @@ export const useAuth = () => {
   }
 
   const logout = () => {
+    const currentTenant = tenantId.value
     token.value = null
     tenantId.value = null
     user.value = null
     enabledModules.value = []
     if (process.client && token.value !== null) {
-      // Only optionally log something, but no annoying alert
       console.log('Session ended or token invalid.')
     }
-    return navigateTo('/login')
+    
+    if (currentTenant) {
+      return navigateTo(`/${currentTenant}/login`)
+    }
+    return navigateTo('/')
   }
 
   const isLoggedIn = computed(() => {
