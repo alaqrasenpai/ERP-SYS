@@ -51,7 +51,14 @@ export const useAuth = () => {
   }
 
   const logout = () => {
-    const currentTenant = tenantId.value
+    let currentTenant = tenantId.value
+    if (process.client) {
+      const route = useRoute()
+      if (route.params.tenantId) {
+        currentTenant = route.params.tenantId
+      }
+    }
+    
     token.value = null
     tenantId.value = null
     user.value = null

@@ -59,7 +59,7 @@ const tenantId = route.params.tenantId
 
 const { data: tenantInfo, pending } = await useAsyncData(`tenant-${tenantId}`, () => {
   return $api(`/public/tenant/${tenantId}`)
-}, { server: false }) // execute on client side since it's just login UI
+})
 
 const form = ref({
   email: '',

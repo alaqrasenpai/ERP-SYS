@@ -21,3 +21,20 @@ exports.getPublicMenu = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch public menu' });
     }
 };
+
+exports.getTenantInfo = async (req, res) => {
+    try {
+        const tenantId = req.params.tenantId;
+        if (!tenantId) return res.status(400).json({ error: 'Tenant ID required' });
+
+        const tenant = await Tenant.findOne({ tenantId, status: 'active' });
+        if (!tenant) {
+            return res.status(404).json({ error: 'Tenant not found or inactive' });
+        }
+
+        res.json({ name: tenant.name });
+    } catch (err) {
+        console.error('Error fetching tenant info:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
