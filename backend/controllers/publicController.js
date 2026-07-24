@@ -37,7 +37,12 @@ exports.getTenantInfo = async (req, res) => {
         const Setting = tenantConnection.model('Setting');
         const settings = await Setting.findOne();
 
-        res.json({ name: tenant.name, logoUrl: settings?.logoUrl || null });
+        res.json({ 
+            name: tenant.name, 
+            logoUrl: settings?.logoUrl || null,
+            primaryColor: settings?.primaryColor || '#4f46e5',
+            secondaryColor: settings?.secondaryColor || '#10b981'
+        });
     } catch (err) {
         console.error('Error fetching tenant info:', err);
         res.status(500).json({ error: 'Internal server error' });

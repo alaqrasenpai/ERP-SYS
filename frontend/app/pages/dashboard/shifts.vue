@@ -19,7 +19,7 @@
           
           <div class="p-6 space-y-6">
             <div v-if="loading" class="flex justify-center p-8">
-              <svg class="animate-spin h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+              <svg class="animate-spin h-8 w-8 text-secondary-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
             </div>
             
             <template v-else-if="currentOpenShift">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="flex justify-between items-center text-sm pt-2 pb-4 border-b border-gray-100">
                   <span class="text-gray-500 font-bold">{{ $t('cash_shifts_page.expected_in_safe', 'المتوقع في القاصة') }}</span>
-                  <span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-lg font-black text-sm">
+                  <span class="px-3 py-1 bg-secondary-50 text-secondary-600 border border-secondary-100 rounded-lg font-black text-sm">
                     {{ currentOpenShift.expectedBalance !== undefined ? currentOpenShift.expectedBalance?.toFixed(2) : currentOpenShift.openingBalance?.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}
                   </span>
                 </div>
@@ -67,7 +67,7 @@
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                       <span class="text-gray-400 font-bold">{{ useCookie('erp_currency').value || 'SAR' }}</span>
                     </div>
-                    <input type="number" v-model.number="actualCash" :placeholder="$t('cash_shifts_page.count_cash_placeholder', 'قم بعد النقدية وأدخل المبلغ هنا...')" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block pr-12 p-3.5 transition-colors">
+                    <input type="number" v-model.number="actualCash" :placeholder="$t('cash_shifts_page.count_cash_placeholder', 'قم بعد النقدية وأدخل المبلغ هنا...')" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold rounded-xl focus:ring-secondary-500 focus:border-secondary-500 block pr-12 p-3.5 transition-colors">
                   </div>
                 </div>
 
@@ -93,10 +93,10 @@
                       <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                         <span class="text-gray-400 font-bold">{{ useCookie('erp_currency').value || 'SAR' }}</span>
                       </div>
-                      <input type="number" v-model.number="openingCash" :placeholder="$t('cash_shifts_page.example_100', 'مثال: 100')" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block pr-12 p-3.5 transition-colors">
+                      <input type="number" v-model.number="openingCash" :placeholder="$t('cash_shifts_page.example_100', 'مثال: 100')" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold rounded-xl focus:ring-secondary-500 focus:border-secondary-500 block pr-12 p-3.5 transition-colors">
                     </div>
                   </div>
-                  <button @click="openShift" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-base font-black shadow-md transition-colors flex justify-center items-center">
+                  <button @click="openShift" class="w-full py-4 bg-secondary-500 hover:bg-secondary-600 text-white rounded-xl text-base font-black shadow-md transition-colors flex justify-center items-center">
                     {{ $t('cash_shifts_page.open_new_shift', 'فتح وردية جديدة') }}
                   </button>
                 </div>
@@ -132,13 +132,13 @@
                     {{ shift.closedAt ? new Date(shift.closedAt).toLocaleString() : '-' }}
                   </td>
                   <td class="px-6 py-4">
-                    <div v-if="shift.closingBalance !== undefined" class="font-black" :class="(shift.closingBalance >= (shift.expectedBalance || shift.openingBalance)) ? 'text-emerald-600' : 'text-rose-500'">
+                    <div v-if="shift.closingBalance !== undefined" class="font-black" :class="(shift.closingBalance >= (shift.expectedBalance || shift.openingBalance)) ? 'text-secondary-600' : 'text-rose-500'">
                       {{ (shift.closingBalance - (shift.expectedBalance || shift.openingBalance)).toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}
                     </div>
                     <div v-else class="text-gray-400 font-bold">-</div>
                   </td>
                   <td class="px-6 py-4">
-                    <button class="text-emerald-600 hover:text-emerald-700 font-bold bg-emerald-50 px-3 py-1.5 rounded-lg transition-colors text-xs">{{ $t('cash_shifts_page.view_report', 'عرض التقرير') }}</button>
+                    <button class="text-secondary-600 hover:text-secondary-700 font-bold bg-secondary-50 px-3 py-1.5 rounded-lg transition-colors text-xs">{{ $t('cash_shifts_page.view_report', 'عرض التقرير') }}</button>
                   </td>
                 </tr>
                 
@@ -159,7 +159,7 @@
             <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
               <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
-            <button class="w-8 h-8 rounded-full flex items-center justify-center text-emerald-600 font-black border border-emerald-500 bg-emerald-50">1</button>
+            <button class="w-8 h-8 rounded-full flex items-center justify-center text-secondary-600 font-black border border-secondary-500 bg-secondary-50">1</button>
             <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
               <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>

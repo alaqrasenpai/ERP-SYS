@@ -10,7 +10,7 @@
       </div>
 
       <div v-if="loading" class="flex justify-center p-12">
-        <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
 
       <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -31,7 +31,7 @@
                 {{ new Date(log.recordTime).toLocaleString() }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-end space-x-2 space-x-reverse">
-                <button @click="openLinkModal(log)" class="text-indigo-600 hover:text-indigo-900 font-bold text-sm bg-indigo-50 px-4 py-2 rounded-lg">{{ $t('hr.link_employee') }}</button>
+                <button @click="openLinkModal(log)" class="text-primary-600 hover:text-primary-900 font-bold text-sm bg-primary-50 px-4 py-2 rounded-lg">{{ $t('hr.link_employee') }}</button>
               </td>
             </tr>
             <tr v-if="logs.length === 0">
@@ -55,7 +55,7 @@
                 {{ $t('hr.link_desc').replace('{id}', selectedLog?.deviceEmployeeNumber) }}
               </p>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('hr.select_employee_label') }}</label>
-              <select v-model="selectedEmployeeId" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+              <select v-model="selectedEmployeeId" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
                 <option value="" disabled>{{ $t('hr.select_employee_default') }}</option>
                 <option v-for="emp in employees" :key="emp._id" :value="emp._id">
                   {{ emp.name }} ({{ emp.position || 'بدون منصب' }})
@@ -64,7 +64,7 @@
             </div>
             
             <div class="pt-4 flex justify-end gap-3 rtl:space-x-reverse" :dir="$i18n.locale === 'ar' ? 'ltr' : 'rtl'">
-              <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold">
+              <button type="submit" :disabled="saving" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold">
                 {{ saving ? $t('hr.linking') : $t('hr.confirm_link') }}
               </button>
               <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium text-gray-700">{{ $t('common.cancel') }}</button>

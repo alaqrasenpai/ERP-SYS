@@ -23,20 +23,20 @@
         <div class="flex border-b border-gray-100 px-6 pt-2">
           <button @click="activeTab = 'manage'" 
                   class="px-6 py-4 text-sm font-black transition-colors relative"
-                  :class="activeTab === 'manage' ? 'text-emerald-600' : 'text-gray-400 hover:text-gray-600'">
+                  :class="activeTab === 'manage' ? 'text-secondary-600' : 'text-gray-400 hover:text-gray-600'">
             {{ $t('installments.manage_tabs') }}
-            <div v-if="activeTab === 'manage'" class="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-500 rounded-t-full"></div>
+            <div v-if="activeTab === 'manage'" class="absolute bottom-0 left-0 w-full h-0.5 bg-secondary-500 rounded-t-full"></div>
           </button>
           <button @click="activeTab = 'history'" 
                   class="px-6 py-4 text-sm font-black transition-colors relative"
-                  :class="activeTab === 'history' ? 'text-emerald-600' : 'text-gray-400 hover:text-gray-600'">
+                  :class="activeTab === 'history' ? 'text-secondary-600' : 'text-gray-400 hover:text-gray-600'">
             {{ $t('installments.history_tab') }}
-            <div v-if="activeTab === 'history'" class="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-500 rounded-t-full"></div>
+            <div v-if="activeTab === 'history'" class="absolute bottom-0 left-0 w-full h-0.5 bg-secondary-500 rounded-t-full"></div>
           </button>
         </div>
 
         <div v-if="loading" class="flex justify-center p-12">
-          <svg class="animate-spin h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          <svg class="animate-spin h-8 w-8 text-secondary-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
         </div>
 
         <!-- Manage Tab -->
@@ -83,7 +83,7 @@
                 <td class="px-6 py-5">
                   <button @click="openPaymentModal(plan)" 
                           :disabled="plan.remainingAmount <= 0"
-                          class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black px-4 py-2 rounded-full transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                          class="bg-secondary-500 hover:bg-secondary-600 text-white text-xs font-black px-4 py-2 rounded-full transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
                     {{ $t('installments.pay_installment') }}
                   </button>
                 </td>
@@ -112,7 +112,7 @@
           <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           </button>
-          <button class="w-8 h-8 rounded-full flex items-center justify-center text-emerald-600 font-black border border-emerald-500 bg-emerald-50">1</button>
+          <button class="w-8 h-8 rounded-full flex items-center justify-center text-secondary-600 font-black border border-secondary-500 bg-secondary-50">1</button>
           <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
           </button>
@@ -137,17 +137,17 @@
         <div class="p-6 overflow-y-auto bg-gray-50/30 flex-1">
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <div v-for="(inst, idx) in selectedPlan.installments" :key="inst._id" 
-                 class="border-2 rounded-2xl p-4 relative transition-colors flex flex-col h-full bg-white shadow-sm hover:border-emerald-200"
+                 class="border-2 rounded-2xl p-4 relative transition-colors flex flex-col h-full bg-white shadow-sm hover:border-secondary-200"
                  :class="getInstClass(inst)">
               
               <div class="absolute -top-3 rtl:-right-3 ltr:-left-3 w-8 h-8 font-black text-sm rounded-full flex items-center justify-center border-2 border-white shadow-sm"
-                   :class="inst.status === 'Paid' ? 'bg-emerald-500 text-white' : 'bg-gray-100 text-gray-500'">
+                   :class="inst.status === 'Paid' ? 'bg-secondary-500 text-white' : 'bg-gray-100 text-gray-500'">
                 {{ idx + 1 }}
               </div>
               
               <div class="flex justify-between items-start mb-4">
                 <p class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md"
-                   :class="inst.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' : (isOverdue(inst.dueDate) ? 'bg-rose-100 text-rose-700' : 'bg-gray-100 text-gray-500')">
+                   :class="inst.status === 'Paid' ? 'bg-secondary-100 text-secondary-700' : (isOverdue(inst.dueDate) ? 'bg-rose-100 text-rose-700' : 'bg-gray-100 text-gray-500')">
                   {{ inst.status === 'Paid' ? $t('installments.status_paid') : (inst.status === 'Pending' ? $t('installments.status_pending') : inst.status) }}
                 </p>
               </div>
@@ -160,11 +160,11 @@
               
               <div class="mt-auto">
                 <button v-if="inst.status === 'Pending'" @click="payInstallment(selectedPlan._id, inst._id)" 
-                        class="w-full bg-white hover:bg-gray-50 border border-gray-200 hover:border-emerald-500 hover:text-emerald-600 transition-all text-gray-700 text-sm font-black py-2.5 rounded-xl flex justify-center items-center gap-2">
+                        class="w-full bg-white hover:bg-gray-50 border border-gray-200 hover:border-secondary-500 hover:text-secondary-600 transition-all text-gray-700 text-sm font-black py-2.5 rounded-xl flex justify-center items-center gap-2">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   {{ $t('installments.confirm_payment') }}
                 </button>
-                <p v-else class="text-xs text-emerald-600 bg-emerald-50 border border-emerald-100 rounded-xl font-bold py-2.5 text-center flex justify-center items-center gap-1.5">
+                <p v-else class="text-xs text-secondary-600 bg-secondary-50 border border-secondary-100 rounded-xl font-bold py-2.5 text-center flex justify-center items-center gap-1.5">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                   {{ $t('installments.paid_on') }} {{ new Date(inst.paidDate).toLocaleDateString() }}
                 </p>
@@ -238,7 +238,7 @@ const getNextDueDate = (plan) => {
 }
 
 const getInstClass = (inst) => {
-  if (inst.status === 'Paid') return 'border-emerald-100 bg-emerald-50/30'
+  if (inst.status === 'Paid') return 'border-secondary-100 bg-secondary-50/30'
   if (isOverdue(inst.dueDate)) return 'border-rose-200 bg-rose-50/50'
   return 'border-gray-100'
 }

@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const settingSchema = new mongoose.Schema({
     storeName: { type: String, default: 'My Store' },
     logoUrl: { type: String, default: '' },
+    primaryColor: { type: String, default: '#4f46e5' }, // Indigo 600
+    secondaryColor: { type: String, default: '#10b981' }, // Emerald 500
     currency: { type: String, default: '$' },
     taxRate: { type: Number, default: 15 }, // Percentage
     receiptHeader: { type: String, default: 'Welcome to our store!' },

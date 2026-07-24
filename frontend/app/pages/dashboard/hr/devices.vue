@@ -7,13 +7,13 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('devices.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('devices.description') }}</p>
         </div>
-        <button @click="showModal = true" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-bold shadow-lg shadow-indigo-200">
+        <button @click="showModal = true" class="px-5 py-2.5 bg-primary-600 text-white rounded-xl font-bold shadow-lg shadow-primary-200">
           {{ $t('devices.register_device') }}
         </button>
       </div>
 
       <div v-if="loading" class="flex justify-center p-12">
-        <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
 
       <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -34,7 +34,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">{{ dev.serialNumber }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">{{ dev.ipAddress || 'N/A' }}:{{ dev.port || 4370 }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span :class="{'bg-emerald-100 text-emerald-800': dev.status === 'Online', 'bg-red-100 text-red-800': dev.status === 'Offline'}" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
+                <span :class="{'bg-secondary-100 text-secondary-800': dev.status === 'Online', 'bg-red-100 text-red-800': dev.status === 'Offline'}" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
                   {{ dev.status === 'Online' ? $t('devices.online') : (dev.status === 'Offline' ? $t('devices.offline') : dev.status) }}
                 </span>
               </td>
@@ -42,7 +42,7 @@
                 {{ dev.lastPing ? new Date(dev.lastPing).toLocaleString() : $t('devices.never') }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-end space-x-2">
-                <button @click="fetchLogs(dev._id)" class="text-indigo-600 hover:text-indigo-900 font-bold text-sm bg-indigo-50 px-3 py-1 rounded-lg me-2">Fetch Data</button>
+                <button @click="fetchLogs(dev._id)" class="text-primary-600 hover:text-primary-900 font-bold text-sm bg-primary-50 px-3 py-1 rounded-lg me-2">Fetch Data</button>
                 <button @click="deleteDevice(dev._id)" class="text-red-600 hover:text-red-900 font-bold text-sm bg-red-50 px-3 py-1 rounded-lg">{{ $t('devices.delete') }}</button>
               </td>
             </tr>
@@ -65,24 +65,24 @@
           <form @submit.prevent="saveDevice" class="p-6 space-y-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('devices.device_name') }}</label>
-              <input type="text" v-model="form.deviceName" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500" :placeholder="$t('devices.name_placeholder')">
+              <input type="text" v-model="form.deviceName" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500" :placeholder="$t('devices.name_placeholder')">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('devices.serial_number') }}</label>
-              <input type="text" v-model="form.serialNumber" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono" :placeholder="$t('devices.sn_placeholder')">
+              <input type="text" v-model="form.serialNumber" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 font-mono" :placeholder="$t('devices.sn_placeholder')">
               <p class="text-xs text-gray-500 mt-1">{{ $t('devices.sn_hint') }}</p>
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">IP Address</label>
-              <input type="text" v-model="form.ipAddress" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="192.168.1.201">
+              <input type="text" v-model="form.ipAddress" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 font-mono" placeholder="192.168.1.201">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">Port</label>
-              <input type="number" v-model="form.port" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono" placeholder="4370">
+              <input type="number" v-model="form.port" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 font-mono" placeholder="4370">
             </div>
             <div class="pt-4 flex justify-end gap-3">
               <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('devices.cancel') }}</button>
-              <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold">
+              <button type="submit" :disabled="saving" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold">
                 {{ saving ? $t('devices.registering') : $t('devices.register_btn') }}
               </button>
             </div>

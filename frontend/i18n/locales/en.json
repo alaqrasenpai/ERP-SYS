@@ -124,6 +124,8 @@
     "logo_url": "Logo URL (Optional)",
     "primary_phone": "Primary Phone",
     "business_address": "Business Address",
+    "primary_color": "Primary Color",
+    "secondary_color": "Secondary Color",
     "currency_symbol": "Currency Symbol",
     "default_tax_rate": "Default Tax Rate (%)",
     "fiscal_year_start": "Fiscal Year Start (MM-DD)",

@@ -10,9 +10,9 @@
         <div class="flex items-center gap-4">
           <div class="text-end me-4">
             <p class="text-xs font-bold text-gray-500 uppercase">{{ $t('my_attendance.current_time') }}</p>
-            <p class="text-xl font-black text-indigo-600">{{ currentTime }}</p>
+            <p class="text-xl font-black text-primary-600">{{ currentTime }}</p>
           </div>
-          <button @click="punch('in')" :disabled="loadingPunch" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black shadow-lg shadow-emerald-200 transition-all disabled:opacity-50">{{ $t('my_attendance.clock_in') }}</button>
+          <button @click="punch('in')" :disabled="loadingPunch" class="px-5 py-2.5 bg-secondary-500 hover:bg-secondary-600 text-white rounded-xl font-black shadow-lg shadow-secondary-200 transition-all disabled:opacity-50">{{ $t('my_attendance.clock_in') }}</button>
           <button @click="punch('out')" :disabled="loadingPunch" class="px-5 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl font-black shadow-lg shadow-orange-200 transition-all disabled:opacity-50">{{ $t('my_attendance.clock_out') }}</button>
         </div>
       </div>
@@ -20,11 +20,11 @@
       <!-- Filters -->
       <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
         <label class="text-sm font-bold text-gray-700">{{ $t('my_attendance.filter_month') }}</label>
-        <input type="month" v-model="filterMonth" @change="fetchAttendance" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-sm">
+        <input type="month" v-model="filterMonth" @change="fetchAttendance" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 font-bold text-sm">
       </div>
 
       <div v-if="loading" class="flex justify-center p-12">
-        <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
       
       <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -43,7 +43,7 @@
             <tr v-for="row in attendance" :key="row._id" class="hover:bg-gray-50">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ row.date }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span :class="{'bg-emerald-100 text-emerald-800': row.status === 'Present', 'bg-red-100 text-red-800': row.status === 'Absent', 'bg-yellow-100 text-yellow-800': row.status === 'Late' || row.isAnomalous}" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
+                <span :class="{'bg-secondary-100 text-secondary-800': row.status === 'Present', 'bg-red-100 text-red-800': row.status === 'Absent', 'bg-yellow-100 text-yellow-800': row.status === 'Late' || row.isAnomalous}" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
                   {{ row.isAnomalous ? $t('my_attendance.anomaly') : (row.status === 'Present' ? $t('my_attendance.present') : (row.status === 'Late' ? $t('my_attendance.late') : (row.status === 'Absent' ? $t('my_attendance.absent') : row.status))) }}
                 </span>
               </td>
@@ -55,7 +55,7 @@
                 {{ formatTime(row.clockOut) }}
                 <div v-if="row.punchOutType" class="text-[10px] text-gray-500 uppercase">{{ row.punchOutType }}</div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600">{{ row.totalHours }}{{ $t('my_attendance.hrs_abbrev') }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-primary-600">{{ row.totalHours }}{{ $t('my_attendance.hrs_abbrev') }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-orange-600">
                 <span v-if="row.overtimeHours > 0">{{ row.overtimeHours }}{{ $t('my_attendance.hrs_abbrev') }} <span class="text-[10px] uppercase text-gray-500 ms-1">({{row.overtimeStatus}})</span></span>
                 <span v-else class="text-gray-400">-</span>

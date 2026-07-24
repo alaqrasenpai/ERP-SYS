@@ -14,7 +14,7 @@
         </div>
 
         <div v-if="loading" class="flex-1 flex items-center justify-center">
-          <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
         </div>
 
         <template v-else>
@@ -23,9 +23,9 @@
             
             <!-- Revenue -->
             <div v-if="enabledModules?.includes('pos') || enabledModules?.includes('restaurant')" class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-              <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-emerald-100/40 to-emerald-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
+              <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-secondary-100/40 to-secondary-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
               <div class="flex items-center gap-3 mb-4">
-                <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl shadow-sm border border-emerald-100/50">
+                <div class="p-2.5 bg-secondary-50 text-secondary-600 rounded-xl shadow-sm border border-secondary-100/50">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <h4 class="text-sm font-bold text-gray-500">{{ $t('dashboard.todays_revenue') }}</h4>
@@ -35,7 +35,7 @@
               </div>
               <div class="mt-4 pt-4 border-t border-gray-100/80 flex items-center justify-between">
                 <span class="text-xs font-bold text-gray-500">{{ $t('dashboard.month') }}</span>
-                <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">{{ metrics.monthRevenue.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
+                <span class="text-xs font-black text-secondary-600 bg-secondary-50 px-2.5 py-1 rounded-full">{{ metrics.monthRevenue.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
               </div>
             </div>
 
@@ -61,9 +61,9 @@
 
             <!-- HR Stats -->
             <div v-if="enabledModules?.includes('hr')" class="group bg-gradient-to-br from-white to-gray-50/50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-              <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-indigo-100/40 to-indigo-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
+              <div class="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-primary-100/40 to-primary-50/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
               <div class="flex items-center gap-3 mb-4">
-                <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl shadow-sm border border-indigo-100/50">
+                <div class="p-2.5 bg-primary-50 text-primary-600 rounded-xl shadow-sm border border-primary-100/50">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                 </div>
                 <h4 class="text-sm font-bold text-gray-500">{{ $t('dashboard.active_staff') }}</h4>
@@ -73,7 +73,7 @@
               </div>
               <div class="mt-4 pt-4 border-t border-gray-100/80 flex items-center justify-between">
                 <span class="text-xs font-bold text-gray-500">{{ $t('dashboard.mth_payroll') }}</span>
-                <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">{{ metrics.projectedPayroll.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
+                <span class="text-xs font-black text-primary-600 bg-primary-50 px-2.5 py-1 rounded-full">{{ metrics.projectedPayroll.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
               </div>
             </div>
 
@@ -117,8 +117,8 @@
                 <h4 class="font-bold text-gray-900">{{ $t('modules.inventory') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('hr') && (hasPermission('hr:read') || hasPermission('hr:write'))" to="/dashboard/hr/employees" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-emerald-500 hover:shadow-md transition-all text-center">
-                <div class="w-12 h-12 mx-auto bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
+              <NuxtLink v-if="enabledModules?.includes('hr') && (hasPermission('hr:read') || hasPermission('hr:write'))" to="/dashboard/hr/employees" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-secondary-500 hover:shadow-md transition-all text-center">
+                <div class="w-12 h-12 mx-auto bg-secondary-100 text-secondary-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.hr') }}</h4>
@@ -146,8 +146,8 @@
                 <h4 class="font-bold text-gray-900">{{ $t('modules.accounting') }}</h4>
               </NuxtLink>
 
-              <NuxtLink v-if="enabledModules?.includes('accounting') && (hasPermission('accounting:read') || hasPermission('accounting:write'))" to="/dashboard/checks" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-teal-500 hover:shadow-md transition-all text-center">
-                <div class="w-12 h-12 mx-auto bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
+              <NuxtLink v-if="enabledModules?.includes('accounting') && (hasPermission('accounting:read') || hasPermission('accounting:write'))" to="/dashboard/checks" class="group bg-white p-5 rounded-2xl border border-gray-100 hover:border-secondary-500 hover:shadow-md transition-all text-center">
+                <div class="w-12 h-12 mx-auto bg-teal-100 text-secondary-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform mb-3">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
                 </div>
                 <h4 class="font-bold text-gray-900">{{ $t('modules.checks') }}</h4>
@@ -213,7 +213,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex-1 flex flex-col">
           <div class="bg-gray-50 px-5 py-4 border-b border-gray-100">
             <h3 class="font-bold text-gray-900 flex items-center">
-              <svg class="w-5 h-5 text-indigo-500 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              <svg class="w-5 h-5 text-primary-500 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
               {{ $t('dashboard.recent_activity') }}
             </h3>
           </div>
@@ -223,8 +223,8 @@
               <!-- Map combined activities (sorted by date ideally, but here we group them for simplicity) -->
               
               <div v-for="order in activities.orders" :key="order._id" class="relative ps-6">
-                <span class="absolute -start-[11px] top-1 w-5 h-5 rounded-full bg-emerald-100 border-2 border-white flex items-center justify-center">
-                  <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                <span class="absolute -start-[11px] top-1 w-5 h-5 rounded-full bg-secondary-100 border-2 border-white flex items-center justify-center">
+                  <div class="w-2 h-2 rounded-full bg-secondary-500"></div>
                 </span>
                 <p class="text-sm font-bold text-gray-900">{{ $t('dashboard.pos_sale') }}: {{ order.orderNumber }}</p>
                 <p class="text-xs text-gray-500">{{ new Date(order.createdAt).toLocaleString() }} - {{ $t('dashboard.revenue') }}: {{ order.grandTotal.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</p>

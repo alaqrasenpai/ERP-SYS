@@ -10,7 +10,7 @@
           <button @click="showBalancesModal = true" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 rounded-xl font-bold flex items-center">
             تعديل الأرصدة
           </button>
-          <button @click="openRequestModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
+          <button @click="openRequestModal" class="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 transition-colors shadow-sm focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-primary-200 transition-all flex items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             {{ $t('leaves.submit_request') }}
           </button>
@@ -19,10 +19,10 @@
       <!-- Tabs -->
       <div class="mb-6 border-b border-gray-200">
         <nav class="-mb-px flex gap-8">
-          <button @click="activeTab = 'requests'" :class="activeTab === 'requests' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
+          <button @click="activeTab = 'requests'" :class="activeTab === 'requests' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
             {{ $t('leaves.requests_tab', 'طلبات الإجازات') }}
           </button>
-          <button @click="activeTab = 'types'" :class="activeTab === 'types' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
+          <button @click="activeTab = 'types'" :class="activeTab === 'types' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
             {{ $t('leaves.types_tab', 'إدارة أنواع الإجازات') }}
           </button>
         </nav>
@@ -63,7 +63,7 @@
                   <div class="text-xs text-gray-500">{{ leave.employeeId?.position }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-indigo-700 font-bold">
+                  <div class="text-sm text-primary-700 font-bold">
                     {{ leave.type === 'Hourly Departure' ? $t('leaves.translated_hourly_departure') : (leave.type === 'Annual' ? $t('leaves.annual_leave') : (leave.type === 'Sick' ? $t('leaves.sick_leave') : (leave.type === 'Unpaid' ? $t('leaves.unpaid_leave') : leave.type))) }}
                   </div>
                   <div class="text-xs text-gray-500" v-if="leave.type === 'Hourly Departure'">{{ leave.totalHours }} {{ $t('leaves.hours') }}</div>
@@ -88,7 +88,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
               <div class="flex items-center justify-end gap-2">
-                  <button v-if="leave.status === 'Pending'" @click="openApproveModal(leave)" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1.5 rounded-lg font-bold transition-colors">{{ $t('leaves.review') }}</button>
+                  <button v-if="leave.status === 'Pending'" @click="openApproveModal(leave)" class="text-primary-600 hover:text-primary-900 bg-primary-50 px-3 py-1.5 rounded-lg font-bold transition-colors">{{ $t('leaves.review') }}</button>
                   <span v-else class="text-xs text-gray-400">{{ leave.approvedBy?.name ? $t('leaves.resolved_by', {name: leave.approvedBy.name}) : $t('leaves.resolved_by_system') }}</span>
                 </div>
             </td>
@@ -117,13 +117,13 @@
               <div class="space-y-4">
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.employee_req') }}</label>
-                  <select v-model="form.employeeId" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <select v-model="form.employeeId" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                     <option v-for="emp in employees" :key="emp._id" :value="emp._id">{{ emp.name }}</option>
                   </select>
                 </div>
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.leave_type') }}</label>
-                  <select v-model="form.type" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <select v-model="form.type" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                     <option value="Annual">{{ $t('leaves.annual_leave') }}</option>
                     <option value="Sick">{{ $t('leaves.sick_leave') }}</option>
                     <option value="Unpaid">{{ $t('leaves.unpaid_leave') }}</option>
@@ -135,16 +135,16 @@
                 <div v-if="form.type === 'Hourly Departure'" class="space-y-4">
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.date_req') }}</label>
-                    <input v-model="form.startDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <input v-model="form.startDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                   </div>
                   <div class="grid grid-cols-2 gap-4">
                     <div>
                       <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.start_time') }}</label>
-                      <input v-model="form.startTime" type="time" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <input v-model="form.startTime" type="time" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                     </div>
                     <div>
                       <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.end_time') }}</label>
-                      <input v-model="form.endTime" type="time" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <input v-model="form.endTime" type="time" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                     </div>
                   </div>
                 </div>
@@ -152,22 +152,22 @@
                 <div v-else class="grid grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.start_date') }}</label>
-                    <input v-model="form.startDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <input v-model="form.startDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.end_date') }}</label>
-                    <input v-model="form.endDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <input v-model="form.endDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                   </div>
                 </div>
 
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.reason_notes') }}</label>
-                  <textarea v-model="form.reason" required rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                  <textarea v-model="form.reason" required rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"></textarea>
                 </div>
               </div>
             </div>
             <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
-              <button type="submit" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ms-3">{{ $t('leaves.submit_btn') }}</button>
+              <button type="submit" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-primary-600 text-sm font-bold text-white hover:bg-primary-700 ms-3">{{ $t('leaves.submit_btn') }}</button>
               <button type="button" @click="showRequestModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-4 py-2 shrink-0 whitespace-nowrap bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
             </div>
           </form>
@@ -192,7 +192,7 @@
 
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.manager_notes') }}</label>
-              <textarea v-model="reviewForm.managerNotes" rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" :placeholder="$t('leaves.manager_notes_placeholder')"></textarea>
+              <textarea v-model="reviewForm.managerNotes" rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm" :placeholder="$t('leaves.manager_notes_placeholder')"></textarea>
             </div>
           </div>
           <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">

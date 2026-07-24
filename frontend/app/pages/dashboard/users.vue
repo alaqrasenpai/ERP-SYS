@@ -8,7 +8,7 @@
         </div>
         <div class="flex gap-4">
           <NuxtLink to="/dashboard" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">Back to Dashboard</NuxtLink>
-          <button @click="showModal = true" class="px-5 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm transition-colors flex items-center">
+          <button @click="showModal = true" class="px-5 py-2.5 bg-primary-600 text-white rounded-lg text-sm font-bold hover:bg-primary-700 shadow-sm transition-colors flex items-center">
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             Add New User
           </button>
@@ -30,7 +30,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{{ user.name }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.email }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-medium">{{ user.role?.name || 'User' }}</span>
+                <span class="px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-medium">{{ user.role?.name || 'User' }}</span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm">
                 <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-green-50 text-green-700 border border-green-200" v-if="user.isActive">Active</span>
@@ -53,19 +53,19 @@
                 <div class="space-y-4">
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
-                    <input v-model="form.name" type="text" required class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-indigo-500">
+                    <input v-model="form.name" type="text" required class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-primary-500">
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">Email</label>
-                    <input v-model="form.email" type="email" required class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-indigo-500">
+                    <input v-model="form.email" type="email" required class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-primary-500">
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">Password</label>
-                    <input v-model="form.password" type="password" required class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-indigo-500">
+                    <input v-model="form.password" type="password" required class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-primary-500">
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">Role</label>
-                    <select v-model="form.roleName" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-indigo-500">
+                    <select v-model="form.roleName" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-primary-500">
                       <option value="User">User</option>
                       <option value="Manager">Manager</option>
                       <option value="Cashier">Cashier</option>
@@ -75,7 +75,7 @@
                 </div>
               </div>
               <div class="bg-gray-50 px-4 py-4 sm:flex sm:flex-row-reverse border-t border-gray-100">
-                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-white font-bold hover:bg-indigo-700 sm:ms-3 sm:w-auto text-sm">Save User</button>
+                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-primary-600 text-white font-bold hover:bg-primary-700 sm:ms-3 sm:w-auto text-sm">Save User</button>
                 <button type="button" @click="showModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-white text-gray-700 font-bold hover:bg-gray-50 sm:mt-0 sm:ms-3 sm:w-auto text-sm">Cancel</button>
               </div>
             </form>

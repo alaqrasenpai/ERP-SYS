@@ -6,14 +6,14 @@
         <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('users.title') }}</h2>
         <p class="text-sm text-gray-500 mt-1">{{ $t('users.description') }}</p>
       </div>
-      <button @click="openCreateModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
+      <button @click="openCreateModal" class="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 transition-colors shadow-sm focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-primary-200 transition-all flex items-center">
         <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
         {{ $t('users.new_staff') }}
       </button>
     </div>
 
     <div v-if="loading" class="flex justify-center p-12">
-      <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+      <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
     </div>
 
     <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -35,13 +35,13 @@
               <div class="text-xs text-gray-500 mt-1">{{ user.email }}</div>
             </td>
             <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
-              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-100 uppercase">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-primary-50 text-primary-700 border border-primary-100 uppercase">
                 {{ user.role?.name || $t('users.no_role') }}
               </span>
             </td>
             <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
               <span v-if="user.employeeId" class="text-sm font-bold text-gray-900 flex items-center">
-                <svg class="w-4 h-4 me-1.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <svg class="w-4 h-4 me-1.5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                 {{ user.employeeId.name }}
               </span>
               <span v-else class="text-sm text-gray-400 italic">
@@ -49,15 +49,15 @@
               </span>
             </td>
             <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
-              <span v-if="user.isActive" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">{{ $t('users.active') }}</span>
+              <span v-if="user.isActive" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-secondary-100 text-secondary-800 border border-secondary-200">{{ $t('users.active') }}</span>
               <span v-else class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-200">{{ $t('users.suspended') }}</span>
             </td>
             <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-end text-sm font-medium">
               <div class="flex items-center justify-end gap-2">
-              <button @click="openEditModal(user)" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors">
+              <button @click="openEditModal(user)" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-primary-50 text-primary-600 hover:bg-primary-100 transition-colors">
                 {{ $t('users.edit') }}
               </button>
-              <button @click="toggleStatus(user)" class="px-3 py-1.5 rounded-lg font-bold text-xs transition-colors" :class="user.isActive ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'">
+              <button @click="toggleStatus(user)" class="px-3 py-1.5 rounded-lg font-bold text-xs transition-colors" :class="user.isActive ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-secondary-50 text-secondary-600 hover:bg-secondary-100'">
                 {{ user.isActive ? $t('users.suspend') : $t('users.activate') }}
               </button>
             </div>
@@ -85,28 +85,28 @@
           <div class="p-6 space-y-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('users.full_name') }}</label>
-              <input v-model="form.name" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+              <input v-model="form.name" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('users.email_address') }}</label>
-              <input v-model="form.email" type="email" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+              <input v-model="form.email" type="email" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">
                 {{ $t('users.password') }} <span v-if="editingUser" class="text-xs text-gray-400 font-normal">{{ $t('users.leave_blank') }}</span>
               </label>
-              <input v-model="form.password" type="password" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" :required="!editingUser">
+              <input v-model="form.password" type="password" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500" :required="!editingUser">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('users.assigned_role') }}</label>
-              <select v-model="form.roleId" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+              <select v-model="form.roleId" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
                 <option value="" disabled>{{ $t('users.select_role') }}</option>
                 <option v-for="role in roles" :key="role._id" :value="role._id">{{ role.name }}</option>
               </select>
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('users.linked_employee') }}</label>
-              <select v-model="form.employeeId" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+              <select v-model="form.employeeId" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                 <option value="">-- {{ $t('users.unassigned') }} --</option>
                 <option v-for="employee in employees" :key="employee._id" :value="employee._id">{{ employee.name }} ({{ employee.position || $t('users.n_a') }})</option>
               </select>
@@ -115,7 +115,7 @@
           
           <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-3">
             <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors">{{ $t('users.cancel') }}</button>
-            <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50 transition-colors">
+            <button type="submit" :disabled="saving" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 disabled:opacity-50 transition-colors">
               {{ saving ? $t('users.saving') : $t('users.save_staff') }}
             </button>
           </div>

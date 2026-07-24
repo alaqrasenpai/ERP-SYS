@@ -8,18 +8,18 @@
           <p class="text-sm text-gray-500 mt-1">{{ $t('attendance_monitor.description') }}</p>
         </div>
         <div class="flex flex-wrap gap-3 mt-4 sm:mt-0 justify-end items-center">
-          <input type="text" v-model="searchName" @input="fetchGrid" :placeholder="$t('attendance_monitor.search_employee')" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-sm w-40 sm:w-48">
+          <input type="text" v-model="searchName" @input="fetchGrid" :placeholder="$t('attendance_monitor.search_employee')" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 font-bold text-sm w-40 sm:w-48">
           
-          <div class="flex items-center gap-2 bg-white px-3 py-1.5 border border-gray-300 rounded-xl focus-within:ring-2 focus-within:ring-indigo-500">
+          <div class="flex items-center gap-2 bg-white px-3 py-1.5 border border-gray-300 rounded-xl focus-within:ring-2 focus-within:ring-primary-500">
             <span class="text-xs font-bold text-gray-500">{{ $t('attendance_monitor.start_date') }}:</span>
             <input type="date" v-model="filterStartDate" @change="fetchGrid" class="border-none focus:ring-0 p-0 font-bold text-sm text-gray-700 bg-transparent outline-none">
           </div>
 
-          <div class="flex items-center gap-2 bg-white px-3 py-1.5 border border-gray-300 rounded-xl focus-within:ring-2 focus-within:ring-indigo-500">
+          <div class="flex items-center gap-2 bg-white px-3 py-1.5 border border-gray-300 rounded-xl focus-within:ring-2 focus-within:ring-primary-500">
             <span class="text-xs font-bold text-gray-500">{{ $t('attendance_monitor.end_date') }}:</span>
             <input type="date" v-model="filterEndDate" @change="fetchGrid" class="border-none focus:ring-0 p-0 font-bold text-sm text-gray-700 bg-transparent outline-none">
           </div>
-          <button @click="openAddModal" class="px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm hover:bg-indigo-700 transition font-bold flex items-center gap-2">
+          <button @click="openAddModal" class="px-4 py-2 bg-primary-600 text-white rounded-xl shadow-sm hover:bg-primary-700 transition font-bold flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             <span class="hidden sm:inline">{{ $t('attendance_monitor.add_attendance') }}</span>
           </button>
@@ -27,14 +27,14 @@
       </div>
 
       <div v-if="loading" class="flex justify-center p-12">
-        <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
 
       <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
         <!-- Tabs -->
         <div class="border-b border-gray-100 flex overflow-x-auto">
-          <button @click="activeTab = 'grid'" :class="['px-6 py-4 text-sm font-bold border-b-2 whitespace-nowrap', activeTab === 'grid' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700']">{{ $t('attendance_monitor.daily_grid') }}</button>
-          <button @click="activeTab = 'overtime'" :class="['px-6 py-4 text-sm font-bold border-b-2 whitespace-nowrap', activeTab === 'overtime' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700']">{{ $t('attendance_monitor.overtime_approval') }}</button>
+          <button @click="activeTab = 'grid'" :class="['px-6 py-4 text-sm font-bold border-b-2 whitespace-nowrap', activeTab === 'grid' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700']">{{ $t('attendance_monitor.daily_grid') }}</button>
+          <button @click="activeTab = 'overtime'" :class="['px-6 py-4 text-sm font-bold border-b-2 whitespace-nowrap', activeTab === 'overtime' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700']">{{ $t('attendance_monitor.overtime_approval') }}</button>
         </div>
 
         <!-- Grid Tab -->
@@ -68,7 +68,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex flex-col gap-1">
                     <span :class="{ 
-                      'bg-emerald-100 text-emerald-800': row.status === 'Present', 
+                      'bg-secondary-100 text-secondary-800': row.status === 'Present', 
                       'bg-red-100 text-red-800': row.status === 'Absent' || row.status === 'Absent Without Permission', 
                       'bg-yellow-100 text-yellow-800': row.status === 'Late' || row.isAnomalous,
                       'bg-blue-100 text-blue-800': row.status.startsWith('On Leave') 
@@ -91,11 +91,11 @@
                   {{ formatTime(row.clockOut) }}
                   <div v-if="row.punchOutType" class="text-[10px] text-gray-500 uppercase">{{ row.punchOutType }}</div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-primary-600">
                   {{ row.totalHours }}{{ $t('attendance_monitor.hrs_abbrev') }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm">
-                  <button @click="openOverride(row)" class="text-indigo-600 hover:text-indigo-900 font-bold bg-indigo-50 px-3 py-1 rounded-lg">{{ $t('attendance_monitor.override') }}</button>
+                  <button @click="openOverride(row)" class="text-primary-600 hover:text-primary-900 font-bold bg-primary-50 px-3 py-1 rounded-lg">{{ $t('attendance_monitor.override') }}</button>
                 </td>
               </tr>
             </tbody>
@@ -128,7 +128,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-end">
               <div class="flex items-center justify-end gap-2">
-                  <button @click="handleOvertime(row.attendanceId, 'Approved')" class="text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg font-bold hover:bg-emerald-100">{{ $t('attendance_monitor.approve') }}</button>
+                  <button @click="handleOvertime(row.attendanceId, 'Approved')" class="text-secondary-600 bg-secondary-50 px-3 py-1 rounded-lg font-bold hover:bg-secondary-100">{{ $t('attendance_monitor.approve') }}</button>
                   <button @click="handleOvertime(row.attendanceId, 'Rejected')" class="text-red-600 bg-red-50 px-3 py-1 rounded-lg font-bold hover:bg-red-100">{{ $t('attendance_monitor.reject') }}</button>
                 </div>
             </td>
@@ -152,26 +152,26 @@
           <form @submit.prevent="submitAddAttendance" class="p-6 space-y-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.select_employee') }}</label>
-              <select v-model="addForm.employeeId" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold">
+              <select v-model="addForm.employeeId" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 font-bold">
                 <option value="" disabled>{{ $t('attendance_monitor.select_employee') }}</option>
                 <option v-for="emp in employeesList" :key="emp._id" :value="emp._id">{{ emp.name }}</option>
               </select>
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.clock_in_time') }}</label>
-              <input type="datetime-local" v-model="addForm.clockIn" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+              <input type="datetime-local" v-model="addForm.clockIn" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.clock_out_time') }}</label>
-              <input type="datetime-local" v-model="addForm.clockOut" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+              <input type="datetime-local" v-model="addForm.clockOut" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.reason_required') }}</label>
-              <textarea v-model="addForm.reason" required rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500" :placeholder="$t('attendance_monitor.reason_placeholder')"></textarea>
+              <textarea v-model="addForm.reason" required rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500" :placeholder="$t('attendance_monitor.reason_placeholder')"></textarea>
             </div>
             <div class="pt-4 flex justify-end gap-3">
               <button type="button" @click="showAddModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('attendance_monitor.cancel') }}</button>
-              <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50">
+              <button type="submit" :disabled="saving" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 disabled:opacity-50">
                 {{ saving ? $t('attendance_monitor.saving') : $t('attendance_monitor.add_attendance') }}
               </button>
             </div>
@@ -191,19 +191,19 @@
           <form @submit.prevent="submitOverride" class="p-6 space-y-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.clock_in_time') }}</label>
-              <input type="datetime-local" v-model="overrideForm.newClockIn" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+              <input type="datetime-local" v-model="overrideForm.newClockIn" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.clock_out_time') }}</label>
-              <input type="datetime-local" v-model="overrideForm.newClockOut" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+              <input type="datetime-local" v-model="overrideForm.newClockOut" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance_monitor.reason_required') }}</label>
-              <textarea v-model="overrideForm.reason" required rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500" :placeholder="$t('attendance_monitor.reason_placeholder')"></textarea>
+              <textarea v-model="overrideForm.reason" required rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500" :placeholder="$t('attendance_monitor.reason_placeholder')"></textarea>
             </div>
             <div class="pt-4 flex justify-end gap-3">
               <button type="button" @click="showOverrideModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('attendance_monitor.cancel') }}</button>
-              <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50">
+              <button type="submit" :disabled="saving" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 disabled:opacity-50">
                 {{ saving ? $t('attendance_monitor.saving') : $t('attendance_monitor.save_override') }}
               </button>
             </div>

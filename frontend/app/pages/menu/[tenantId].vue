@@ -6,7 +6,7 @@
       <!-- Decorative background blur -->
       <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <div class="absolute -top-24 -right-24 w-64 h-64 bg-orange-500/20 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
       </div>
       
       <div class="relative z-10 max-w-2xl mx-auto px-6 pt-16 pb-12 flex flex-col items-center justify-center text-center">

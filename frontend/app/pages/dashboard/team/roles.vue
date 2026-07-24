@@ -6,14 +6,14 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('roles.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('roles.description') }}</p>
         </div>
-      <button @click="openCreateModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold flex items-center gap-2">
+      <button @click="openCreateModal" class="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 transition-colors shadow-sm focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 text-white rounded-xl font-bold flex items-center gap-2">
         <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
         {{ $t('roles.new_role') }}
       </button>
     </div>
 
     <div v-if="loading" class="flex justify-center p-12">
-      <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+      <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
     </div>
 
     <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -30,7 +30,7 @@
           <tr v-for="role in roles" :key="role._id" class="hover:bg-gray-50 transition-colors">
             <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold text-gray-900">
               {{ role.name }}
-              <span v-if="role.permissions.includes('*')" class="ms-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase">{{ $t('roles.super_admin') }}</span>
+              <span v-if="role.permissions.includes('*')" class="ms-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-secondary-100 text-secondary-800 uppercase">{{ $t('roles.super_admin') }}</span>
             </td>
             <td class="px-4 py-3 sm:px-6 sm:py-4">
               <div class="flex flex-wrap gap-1 max-w-lg">
@@ -43,7 +43,7 @@
             </td>
             <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-end text-sm font-medium">
               <div class="flex items-center justify-end gap-2">
-              <button @click="openEditModal(role)" :disabled="role.name === 'Admin' || role.name === 'Store Admin'" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-indigo-50 text-indigo-600 hover:bg-indigo-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+              <button @click="openEditModal(role)" :disabled="role.name === 'Admin' || role.name === 'Store Admin'" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-primary-50 text-primary-600 hover:bg-primary-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                 {{ $t('roles.edit') }}
               </button>
               <button @click="deleteRole(role)" :disabled="role.name === 'Admin' || role.name === 'Store Admin'" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
@@ -75,7 +75,7 @@
             <!-- Role Name -->
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('roles.role_name') }}</label>
-              <input v-model="form.name" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" :placeholder="$t('roles.role_name_placeholder')" required>
+              <input v-model="form.name" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500" :placeholder="$t('roles.role_name_placeholder')" required>
             </div>
 
             <!-- Permissions Grid -->
@@ -83,7 +83,7 @@
               <div class="flex justify-between items-end mb-3">
                 <label class="block text-sm font-bold text-gray-700">{{ $t('roles.granular_permissions') }}</label>
                 <div class="flex items-center gap-3">
-                  <button type="button" @click="selectAll" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">{{ $t('roles.select_all') }}</button>
+                  <button type="button" @click="selectAll" class="text-xs font-bold text-primary-600 hover:text-primary-800">{{ $t('roles.select_all') }}</button>
                   <button type="button" @click="form.permissions = []" class="text-xs font-bold text-gray-500 hover:text-gray-700">{{ $t('roles.clear_all') }}</button>
                 </div>
               </div>
@@ -94,8 +94,8 @@
                   </div>
                   <div class="p-3 space-y-2">
                     <label v-for="perm in group.perms" :key="perm.id" class="flex items-center cursor-pointer group">
-                      <input type="checkbox" :value="perm.id" v-model="form.permissions" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                      <span class="ms-3 text-sm font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">{{ $t(`roles.groups.${perm.label}`) }}</span>
+                      <input type="checkbox" :value="perm.id" v-model="form.permissions" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
+                      <span class="ms-3 text-sm font-medium text-gray-700 group-hover:text-primary-600 transition-colors">{{ $t(`roles.groups.${perm.label}`) }}</span>
                     </label>
                   </div>
                 </div>
@@ -105,7 +105,7 @@
           
           <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-3">
             <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors">{{ $t('roles.cancel') }}</button>
-            <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50 transition-colors">
+            <button type="submit" :disabled="saving" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 disabled:opacity-50 transition-colors">
               {{ saving ? $t('roles.saving') : $t('roles.save_role') }}
             </button>
           </div>

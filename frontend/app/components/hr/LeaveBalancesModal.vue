@@ -11,33 +11,33 @@
       <div class="p-6 flex-1 overflow-y-auto space-y-6">
         <div>
           <label class="block text-sm font-bold text-gray-700 mb-2">اختر الموظف</label>
-          <select v-model="selectedEmployeeId" @change="loadEmployeeData" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500">
+          <select v-model="selectedEmployeeId" @change="loadEmployeeData" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-primary-500 focus:border-primary-500">
             <option value="" disabled>-- الرجاء الاختيار --</option>
             <option v-for="emp in employees" :key="emp._id" :value="emp._id">{{ emp.name }} - {{ emp.position }}</option>
           </select>
         </div>
 
         <div v-if="selectedEmployeeId && form">
-          <h4 class="font-bold text-indigo-900 mb-4 border-b pb-2">الأرصدة الأساسية</h4>
+          <h4 class="font-bold text-primary-900 mb-4 border-b pb-2">الأرصدة الأساسية</h4>
           <div class="grid grid-cols-2 gap-4 mb-6">
             <div>
               <label class="block text-sm text-gray-600 mb-1">الرصيد السنوي (أيام)</label>
-              <input type="number" v-model.number="form.annualLeaveBalance" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-indigo-500">
+              <input type="number" v-model.number="form.annualLeaveBalance" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-primary-500">
             </div>
             <div>
               <label class="block text-sm text-gray-600 mb-1">رصيد الإجازات المرضية (أيام)</label>
-              <input type="number" v-model.number="form.sickLeaveBalance" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-indigo-500">
+              <input type="number" v-model.number="form.sickLeaveBalance" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-primary-500">
             </div>
           </div>
 
           <div class="flex justify-between items-center border-b pb-2 mb-4">
-            <h4 class="font-bold text-indigo-900">الأرصدة المخصصة</h4>
+            <h4 class="font-bold text-primary-900">الأرصدة المخصصة</h4>
             <div class="flex gap-2">
               <select v-model="newCustomType" class="text-sm border border-gray-300 rounded-lg px-2 py-1">
                 <option value="" disabled>اختر نوع الإجازة لإضافته</option>
                 <option v-for="lt in availableCustomTypes" :key="lt._id" :value="lt._id">{{ lt.name }}</option>
               </select>
-              <button @click="addCustomLeave" class="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-lg text-sm font-bold hover:bg-indigo-100" :disabled="!newCustomType">إضافة</button>
+              <button @click="addCustomLeave" class="bg-primary-50 text-primary-600 px-3 py-1 rounded-lg text-sm font-bold hover:bg-primary-100" :disabled="!newCustomType">إضافة</button>
             </div>
           </div>
 
@@ -63,7 +63,7 @@
       
       <div class="p-6 bg-gray-50 border-t border-gray-100 flex justify-end gap-3 flex-shrink-0">
         <button type="button" @click="$emit('close')" class="px-5 py-2.5 bg-white border border-gray-300 rounded-xl font-bold text-gray-700 hover:bg-gray-100">إلغاء</button>
-        <button @click="saveBalances" :disabled="!selectedEmployeeId || saving" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 flex items-center">
+        <button @click="saveBalances" :disabled="!selectedEmployeeId || saving" class="px-5 py-2.5 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 flex items-center">
           <span v-if="saving">جاري الحفظ...</span>
           <span v-else>حفظ التعديلات</span>
         </button>

@@ -11,7 +11,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
             {{ $t('restaurant.menu_categories') }}
           </NuxtLink>
-          <button @click="openModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm hover:bg-indigo-700 transition font-bold flex items-center gap-2">
+          <button @click="openModal()" class="px-4 py-2 bg-primary-600 text-white rounded-xl shadow-sm hover:bg-primary-700 transition font-bold flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             {{ $t('restaurant.add_dish') }}
           </button>
@@ -27,7 +27,7 @@
               <span class="icon-[heroicons--photo] w-12 h-12"></span>
             </div>
             <div class="absolute top-2 end-2 flex gap-1">
-              <button @click.stop="editDish(item)" class="bg-white text-indigo-600 hover:text-indigo-800 p-1.5 rounded-full shadow-sm flex items-center justify-center">
+              <button @click.stop="editDish(item)" class="bg-white text-primary-600 hover:text-primary-800 p-1.5 rounded-full shadow-sm flex items-center justify-center">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
               </button>
               <span class="text-xs px-2 py-1 font-bold rounded-full shadow-sm" :class="item.isAvailable ? 'bg-green-500 text-white' : 'bg-red-500 text-white'">
@@ -42,7 +42,7 @@
               {{ locale === 'ar' ? item.descriptionAr : item.descriptionEn }}
             </p>
             <div class="flex justify-between items-center border-t border-gray-50 pt-3">
-              <span class="font-black text-lg text-indigo-600">{{ item.price }}</span>
+              <span class="font-black text-lg text-primary-600">{{ item.price }}</span>
               <div class="flex items-center text-xs text-gray-400 font-medium">
                 <span class="icon-[heroicons--clock] w-4 h-4 me-1"></span>
                 {{ item.preparationTimeMinutes }}m

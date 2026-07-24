@@ -12,7 +12,7 @@
         
         <!-- Stats Badges -->
         <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
-          <div class="flex-none px-3 py-2 bg-emerald-50/80 text-emerald-600 border border-emerald-100 rounded-xl flex items-center justify-start gap-2 whitespace-nowrap">
+          <div class="flex-none px-3 py-2 bg-secondary-50/80 text-secondary-600 border border-secondary-100 rounded-xl flex items-center justify-start gap-2 whitespace-nowrap">
             <span class="text-[10px] font-black uppercase tracking-wider opacity-80">{{ $t('checks.collected_total', 'إجمالي المحصل') }}</span>
             <span class="text-base font-black">{{ collectedTotal.toFixed(2) }} ريال</span>
           </div>
@@ -31,7 +31,7 @@
       <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden flex flex-col">
         
         <div v-if="loading" class="flex justify-center p-12">
-          <svg class="animate-spin h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          <svg class="animate-spin h-8 w-8 text-secondary-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
         </div>
 
         <div v-else class="flex-1 overflow-x-auto">
@@ -53,7 +53,7 @@
                 <td class="px-6 py-5 font-black text-gray-900">
                   {{ check.customerId?.name || $t('checks.unknown_customer', 'عميل غير معروف') }}
                 </td>
-                <td class="px-6 py-5 font-black text-emerald-600">
+                <td class="px-6 py-5 font-black text-secondary-600">
                   {{ check.amount.toFixed(2) }} ريال
                 </td>
                 <td class="px-6 py-5 font-bold text-gray-600">
@@ -70,12 +70,12 @@
                 </td>
                 <td class="px-6 py-5">
                   <span v-if="check.status === 'Pending'" class="px-3 py-1 bg-amber-50 text-amber-600 border border-amber-100 text-[10px] font-black rounded-full uppercase tracking-wider">{{ $t('checks.pending', 'تحت التحصيل') }}</span>
-                  <span v-else-if="check.status === 'Collected'" class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-black rounded-full uppercase tracking-wider">{{ $t('checks.collected', 'مُحصل') }}</span>
+                  <span v-else-if="check.status === 'Collected'" class="px-3 py-1 bg-secondary-50 text-secondary-600 border border-secondary-100 text-[10px] font-black rounded-full uppercase tracking-wider">{{ $t('checks.collected', 'مُحصل') }}</span>
                   <span v-else class="px-3 py-1 bg-rose-50 text-rose-600 border border-rose-100 text-[10px] font-black rounded-full uppercase tracking-wider">{{ $t('checks.bounced', 'مرتجع') }}</span>
                 </td>
                 <td class="px-6 py-5">
                   <div class="flex items-center justify-center gap-2" v-if="check.status === 'Pending'">
-                    <button @click="updateStatus(check._id, 'Collected')" class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 text-xs font-black rounded-xl transition-colors shadow-sm">
+                    <button @click="updateStatus(check._id, 'Collected')" class="px-3 py-1.5 bg-secondary-50 hover:bg-secondary-100 text-secondary-600 border border-secondary-200 text-xs font-black rounded-xl transition-colors shadow-sm">
                       {{ $t('checks.mark_collected', 'تحصيل') }}
                     </button>
                     <button @click="updateStatus(check._id, 'Bounced')" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs font-black rounded-xl transition-colors shadow-sm">
@@ -103,7 +103,7 @@
           <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           </button>
-          <button class="w-8 h-8 rounded-full flex items-center justify-center text-emerald-600 font-black border border-emerald-500 bg-emerald-50">1</button>
+          <button class="w-8 h-8 rounded-full flex items-center justify-center text-secondary-600 font-black border border-secondary-500 bg-secondary-50">1</button>
           <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
           </button>

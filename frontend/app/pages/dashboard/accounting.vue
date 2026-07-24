@@ -14,11 +14,11 @@
     <!-- Chart of Accounts Grid -->
     <div>
       <h3 class="text-xl font-black text-gray-900 mb-5 tracking-tight flex items-center">
-        <svg class="w-6 h-6 me-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+        <svg class="w-6 h-6 me-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
         {{ $t('accounting.chart_of_accounts') }}
       </h3>
       <div v-if="loading" class="flex justify-center p-8">
-        <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div v-for="acc in accounts" :key="acc.code" class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-all relative group">
@@ -44,7 +44,7 @@
       <div class="px-6 py-5 border-b border-gray-100 bg-white flex justify-between items-center">
         <div>
           <h3 class="text-lg font-black text-gray-900 tracking-tight flex items-center">
-            <svg class="w-5 h-5 me-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <svg class="w-5 h-5 me-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             {{ $t('accounting.general_journal') }}
           </h3>
           <p class="text-sm text-gray-500 font-medium mt-1">{{ $t('accounting.journal_desc') }}</p>
@@ -64,10 +64,10 @@
           <tbody class="bg-white divide-y divide-gray-100">
             <template v-for="entry in journal" :key="entry._id">
               <!-- Entry Header Row -->
-              <tr class="bg-indigo-50/30 border-t-2 border-indigo-100/50">
+              <tr class="bg-primary-50/30 border-t-2 border-primary-100/50">
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm font-bold text-gray-900">{{ new Date(entry.date).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }) }}</div>
-                  <div class="text-xs font-bold text-indigo-600 mt-1">{{ entry.entryNumber }}</div>
+                  <div class="text-xs font-bold text-primary-600 mt-1">{{ entry.entryNumber }}</div>
                 </td>
                 <td colspan="3" class="px-6 py-4">
                   <span class="text-sm font-bold text-gray-800 bg-white px-3 py-1.5 rounded-lg border border-gray-100 shadow-sm">{{ entry.description }}</span>
@@ -86,7 +86,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-3 whitespace-nowrap text-end font-mono">
-                  <span v-if="line.debit > 0" class="inline-flex px-3 py-1 bg-emerald-50 text-emerald-700 font-bold text-sm rounded-lg border border-emerald-100">
+                  <span v-if="line.debit > 0" class="inline-flex px-3 py-1 bg-secondary-50 text-secondary-700 font-bold text-sm rounded-lg border border-secondary-100">
                     {{ line.debit.toLocaleString('en-US', {minimumFractionDigits: 2}) }} <span class="ms-1 text-xs opacity-75">{{ useCookie('erp_currency').value || 'SAR' }}</span>
                   </span>
                 </td>
@@ -145,9 +145,9 @@ const fetchData = async () => {
 
 const getAccountColor = (type, balance) => {
   if (balance === 0) return 'text-gray-900'
-  if (type === 'Asset') return balance > 0 ? 'text-emerald-600' : 'text-rose-600'
-  if (type === 'Liability') return balance > 0 ? 'text-orange-600' : 'text-emerald-600'
-  if (type === 'Revenue') return 'text-emerald-600'
+  if (type === 'Asset') return balance > 0 ? 'text-secondary-600' : 'text-rose-600'
+  if (type === 'Liability') return balance > 0 ? 'text-orange-600' : 'text-secondary-600'
+  if (type === 'Revenue') return 'text-secondary-600'
   if (type === 'Expense') return 'text-rose-600'
   return 'text-gray-900'
 }
@@ -155,7 +155,7 @@ const getAccountColor = (type, balance) => {
 const getTypeBadgeClass = (type) => {
   if (type === 'Asset') return 'bg-blue-50 text-blue-700 border border-blue-200'
   if (type === 'Liability') return 'bg-orange-50 text-orange-700 border border-orange-200'
-  if (type === 'Revenue') return 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+  if (type === 'Revenue') return 'bg-secondary-50 text-secondary-700 border border-secondary-200'
   if (type === 'Expense') return 'bg-rose-50 text-rose-700 border border-rose-200'
   return 'bg-gray-50 text-gray-700 border border-gray-100'
 }
@@ -163,7 +163,7 @@ const getTypeBadgeClass = (type) => {
 const getBorderColor = (type) => {
   if (type === 'Asset') return 'bg-blue-500'
   if (type === 'Liability') return 'bg-orange-500'
-  if (type === 'Revenue') return 'bg-emerald-500'
+  if (type === 'Revenue') return 'bg-secondary-500'
   if (type === 'Expense') return 'bg-rose-500'
   return 'bg-gray-300'
 }

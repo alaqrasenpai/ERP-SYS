@@ -7,7 +7,7 @@
           <p class="text-sm text-gray-500 mt-1">{{ $t('structure.description') }}</p>
         </div>
         <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
-          <button @click="openAddModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
+          <button @click="openAddModal()" class="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 transition-colors shadow-sm focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-primary-200 transition-all flex items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             {{ $t('structure.add_department') }}
           </button>
@@ -39,7 +39,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   <div class="flex items-center">
-                    <div class="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold me-3" v-if="dept.managerId">
+                    <div class="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold me-3" v-if="dept.managerId">
                       {{ dept.managerId.name.charAt(0) }}
                     </div>
                     <span v-if="dept.managerId">{{ dept.managerId.name }}</span>
@@ -48,7 +48,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
               <div class="flex items-center justify-end gap-2">
-                  <button @click="openEditModal(dept)" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1.5 rounded-lg font-bold transition-colors">{{ $t('structure.edit') }}</button>
+                  <button @click="openEditModal(dept)" class="text-primary-600 hover:text-primary-900 bg-primary-50 px-3 py-1.5 rounded-lg font-bold transition-colors">{{ $t('structure.edit') }}</button>
                   <button @click="deleteDepartment(dept._id)" class="text-red-600 hover:text-red-900 bg-red-50 px-3 py-1.5 rounded-lg font-bold transition-colors">{{ $t('structure.delete') }}</button>
                 </div>
             </td>
@@ -78,34 +78,34 @@
               <div class="space-y-4">
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('structure.department_name_req') }}</label>
-                  <input v-model="form.name" type="text" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <input v-model="form.name" type="text" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                 </div>
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('structure.code_req') }}</label>
-                  <input v-model="form.code" type="text" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-mono uppercase">
+                  <input v-model="form.code" type="text" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm font-mono uppercase">
                 </div>
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('structure.parent_department') }}</label>
-                  <select v-model="form.parentDepartmentId" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <select v-model="form.parentDepartmentId" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                     <option :value="null">{{ $t('structure.none_top_level') }}</option>
                     <option v-for="d in departments.filter(dep => dep._id !== editingId)" :key="d._id" :value="d._id">{{ d.name }}</option>
                   </select>
                 </div>
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('structure.manager') }}</label>
-                  <select v-model="form.managerId" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <select v-model="form.managerId" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                     <option :value="null">{{ $t('structure.unassigned') }}</option>
                     <option v-for="emp in employees" :key="emp._id" :value="emp._id">{{ emp.name }}</option>
                   </select>
                 </div>
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('structure.dept_description') }}</label>
-                  <textarea v-model="form.description" rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                  <textarea v-model="form.description" rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"></textarea>
                 </div>
               </div>
             </div>
             <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
-              <button type="submit" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ms-3">
+              <button type="submit" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-primary-600 text-sm font-bold text-white hover:bg-primary-700 ms-3">
                 {{ isEditing ? $t('structure.save_changes') : $t('structure.create') }}
               </button>
               <button type="button" @click="showModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-4 py-2 shrink-0 whitespace-nowrap bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">

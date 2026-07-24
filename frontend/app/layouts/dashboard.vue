@@ -8,11 +8,11 @@
     <aside :class="[
       mobileMenuOpen ? 'translate-x-0' : '-translate-x-full rtl:translate-x-full lg:translate-x-0 lg:rtl:translate-x-0',
       sidebarCollapsed ? 'lg:w-20' : 'lg:w-64',
-      'w-64 fixed inset-y-0 start-0 z-50 bg-indigo-900 text-white transition-all duration-300 lg:static flex flex-col h-[100dvh] shadow-2xl lg:shadow-none'
+      'w-64 fixed inset-y-0 start-0 z-50 bg-primary-900 text-white transition-all duration-300 lg:static flex flex-col h-[100dvh] shadow-2xl lg:shadow-none'
     ]">
       
       <!-- Logo -->
-      <div class="h-16 flex items-center px-4 border-b border-indigo-800 bg-indigo-950/50 flex-shrink-0" :class="sidebarCollapsed ? 'justify-center lg:px-0' : ''">
+      <div class="h-16 flex items-center px-4 border-b border-primary-800 bg-primary-950/50 flex-shrink-0" :class="sidebarCollapsed ? 'justify-center lg:px-0' : ''">
         <NuxtLink to="/dashboard" class="flex items-center hover:opacity-80 transition-opacity">
           <div class="w-8 h-8 bg-white bg-opacity-20 rounded-lg flex items-center justify-center shadow-sm" :class="sidebarCollapsed ? '' : 'me-3'">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
@@ -20,7 +20,7 @@
           <h1 v-if="!sidebarCollapsed" class="text-xl font-black tracking-tight whitespace-nowrap">Alaqra ERP <span class="font-normal opacity-70 ms-1 text-sm">v1.0</span></h1>
         </NuxtLink>
         <!-- Mobile close button -->
-        <button @click="mobileMenuOpen = false" class="ms-auto lg:hidden p-2 text-indigo-300 hover:text-white">
+        <button @click="mobileMenuOpen = false" class="ms-auto lg:hidden p-2 text-primary-300 hover:text-white">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
@@ -30,17 +30,17 @@
         <template v-for="group in navGroups" :key="group.name">
           
           <div v-if="group.visible && group.children" class="mb-6">
-             <div v-if="!sidebarCollapsed" @click="toggleGroup(group.name)" class="px-2 mb-2 text-xs font-bold text-indigo-300/70 uppercase tracking-wider whitespace-nowrap cursor-pointer flex items-center justify-between hover:text-indigo-200 transition-colors">
+             <div v-if="!sidebarCollapsed" @click="toggleGroup(group.name)" class="px-2 mb-2 text-xs font-bold text-primary-300/70 uppercase tracking-wider whitespace-nowrap cursor-pointer flex items-center justify-between hover:text-primary-200 transition-colors">
                {{ $t(group.name) }}
                <svg class="w-3.5 h-3.5 transition-transform" :class="openGroups.includes(group.name) ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
              </div>
-             <div v-else class="h-px bg-indigo-800/50 my-4 mx-2"></div>
+             <div v-else class="h-px bg-primary-800/50 my-4 mx-2"></div>
              
              <!-- Children -->
              <div v-show="openGroups.includes(group.name) || sidebarCollapsed" class="space-y-1">
                 <template v-for="child in group.children" :key="child.path">
                   <NuxtLink v-if="child.visible" :to="child.path" :title="sidebarCollapsed ? $t(child.name) : ''" class="flex items-center py-2 rounded-xl text-sm font-bold transition-all" :class="[
-                    $route.path === child.path ? 'bg-indigo-800 text-white shadow-sm' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white lg:hover:translate-x-1 lg:rtl:hover:-translate-x-1',
+                    $route.path === child.path ? 'bg-primary-800 text-white shadow-sm' : 'text-primary-100 hover:bg-primary-800 hover:text-white lg:hover:translate-x-1 lg:rtl:hover:-translate-x-1',
                     sidebarCollapsed ? 'justify-center px-0' : 'px-3'
                   ]">
                     <svg v-if="child.icon" class="w-5 h-5 opacity-75 flex-shrink-0" :class="sidebarCollapsed ? '' : 'me-2.5'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="child.icon"></path></svg>
@@ -51,9 +51,9 @@
           </div>
 
           <div v-else-if="group.visible && !group.children" class="mb-6">
-            <div v-if="sidebarCollapsed" class="h-px bg-indigo-800/50 my-4 mx-2"></div>
+            <div v-if="sidebarCollapsed" class="h-px bg-primary-800/50 my-4 mx-2"></div>
             <NuxtLink :to="group.path" :title="sidebarCollapsed ? $t(group.name) : ''" class="flex items-center py-2 rounded-xl text-sm font-bold transition-all" :class="[
-              $route.path === group.path ? 'bg-indigo-800 text-white shadow-sm' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white lg:hover:translate-x-1 lg:rtl:hover:-translate-x-1',
+              $route.path === group.path ? 'bg-primary-800 text-white shadow-sm' : 'text-primary-100 hover:bg-primary-800 hover:text-white lg:hover:translate-x-1 lg:rtl:hover:-translate-x-1',
               sidebarCollapsed ? 'justify-center px-0' : 'px-3'
             ]">
               <svg v-if="group.icon" class="w-5 h-5 opacity-75 flex-shrink-0" :class="sidebarCollapsed ? '' : 'me-2.5'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="group.icon"></path></svg>
@@ -64,14 +64,14 @@
       </div>
 
       <!-- User Profile (Bottom) -->
-      <div class="p-4 border-t border-indigo-800 bg-indigo-950/30 flex-shrink-0" :class="sidebarCollapsed ? 'flex justify-center' : ''">
+      <div class="p-4 border-t border-primary-800 bg-primary-950/30 flex-shrink-0" :class="sidebarCollapsed ? 'flex justify-center' : ''">
         <div class="flex items-center justify-between" :class="sidebarCollapsed ? 'justify-center' : ''">
            <div v-if="!sidebarCollapsed" class="flex flex-col truncate pe-2">
              <span class="text-sm font-bold leading-none truncate">{{ user?.name || 'User' }}</span>
-             <span class="text-xs text-indigo-300 mt-1 truncate">{{ user?.role?.name || user?.role || 'Staff' }}</span>
-             <span class="text-[10px] text-indigo-400 mt-1 font-mono uppercase truncate">T: {{ tenantId }}</span>
+             <span class="text-xs text-primary-300 mt-1 truncate">{{ user?.role?.name || user?.role || 'Staff' }}</span>
+             <span class="text-[10px] text-primary-400 mt-1 font-mono uppercase truncate">T: {{ tenantId }}</span>
            </div>
-           <button @click="handleLogout" :title="sidebarCollapsed ? 'Logout' : ''" class="p-2 text-indigo-200 hover:text-white hover:bg-rose-500 rounded-lg transition-colors flex-shrink-0" :class="sidebarCollapsed ? 'bg-rose-500/20 text-rose-300' : ''">
+           <button @click="handleLogout" :title="sidebarCollapsed ? 'Logout' : ''" class="p-2 text-primary-200 hover:text-white hover:bg-rose-500 rounded-lg transition-colors flex-shrink-0" :class="sidebarCollapsed ? 'bg-rose-500/20 text-rose-300' : ''">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
            </button>
          </div>
@@ -96,11 +96,17 @@
         </div>
         
         <div class="flex items-center gap-4 ms-auto">
-          <NuxtLink v-if="enabledModules?.includes('ess') && (hasPermission('ess:read') || hasPermission('*'))" to="/ess/profile" class="flex items-center gap-2 text-sm font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition-colors">
+          <NuxtLink v-if="enabledModules?.includes('ess') && (hasPermission('ess:read') || hasPermission('*'))" to="/ess/profile" class="flex items-center gap-2 text-sm font-bold text-primary-600 bg-primary-50 hover:bg-primary-100 px-3 py-1.5 rounded-lg transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             <span class="hidden sm:inline">{{ $t('ess.title') }}</span>
           </NuxtLink>
-          <select v-if="allowedLanguages.length > 1" v-model="currentLanguage" @change="handleLanguageChange" class="text-sm font-bold border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 py-1.5 ps-3 pe-8">
+          <button @click="$colorMode.preference = $colorMode.value === 'dark' ? 'light' : 'dark'" class="p-2 text-gray-500 hover:text-gray-900 focus:outline-none rounded-lg hover:bg-gray-100 transition-colors">
+            <!-- Sun icon for dark mode -->
+            <svg v-if="$colorMode.value === 'dark'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <!-- Moon icon for light mode -->
+            <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+          <select v-if="allowedLanguages.length > 1" v-model="currentLanguage" @change="handleLanguageChange" class="text-sm font-bold border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 py-1.5 ps-3 pe-8">
             <option v-for="lang in allowedLanguages" :key="lang" :value="lang">
               {{ lang === 'ar' ? 'العربية' : 'English' }}
             </option>

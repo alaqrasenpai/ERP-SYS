@@ -12,21 +12,21 @@
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.dish_name_ar') }}</label>
-              <input v-model="form.nameAr" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500" dir="rtl">
+              <input v-model="form.nameAr" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500" dir="rtl">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.dish_name_en') }}</label>
-              <input v-model="form.nameEn" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <input v-model="form.nameEn" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500">
             </div>
           </div>
           <div class="grid grid-cols-3 gap-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.price') }}</label>
-              <input v-model="form.price" type="number" min="0" step="0.01" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <input v-model="form.price" type="number" min="0" step="0.01" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.category_en') }}</label>
-              <select v-if="categories && categories.length > 0" v-model="form.categoryEn" @change="syncCategory" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <select v-if="categories && categories.length > 0" v-model="form.categoryEn" @change="syncCategory" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500">
                 <option value="" disabled>{{ $t('restaurant.category_en') }}</option>
                 <option v-for="cat in categories" :key="cat._id" :value="cat.nameEn">{{ cat.nameEn }}</option>
               </select>
@@ -43,11 +43,11 @@
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.dish_desc_ar') }}</label>
-              <textarea v-model="form.descriptionAr" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500" dir="rtl"></textarea>
+              <textarea v-model="form.descriptionAr" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500" dir="rtl"></textarea>
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.dish_desc_en') }}</label>
-              <textarea v-model="form.descriptionEn" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+              <textarea v-model="form.descriptionEn" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500"></textarea>
             </div>
           </div>
           <div>
@@ -58,12 +58,12 @@
             </div>
           </div>
           <div class="flex items-center gap-2 mt-2">
-            <input type="checkbox" v-model="form.isAvailable" id="isAvailable" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+            <input type="checkbox" v-model="form.isAvailable" id="isAvailable" class="rounded text-primary-600 focus:ring-primary-500 h-4 w-4">
             <label for="isAvailable" class="text-sm font-bold text-gray-700">{{ $t('restaurant.available') }}</label>
           </div>
           <div class="flex justify-end gap-3 pt-4 border-t mt-6">
             <button type="button" @click="$emit('close')" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">{{ $t('restaurant.cancel') }}</button>
-            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700" :disabled="saving">
+            <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700" :disabled="saving">
               {{ saving ? '...' : $t('restaurant.save') }}
             </button>
           </div>

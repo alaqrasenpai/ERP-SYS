@@ -12,7 +12,7 @@
             <svg class="w-4 h-4 me-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
             {{ $t('archive.new_folder') }}
           </button>
-          <button @click="showFileModal = true" class="px-5 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm transition-colors flex items-center">
+          <button @click="showFileModal = true" class="px-5 py-2.5 bg-primary-600 text-white rounded-lg text-sm font-bold hover:bg-primary-700 shadow-sm transition-colors flex items-center">
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
             {{ $t('archive.upload_file') }}
           </button>
@@ -28,15 +28,15 @@
         
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           <!-- Folders -->
-          <div v-for="folder in folders" :key="folder._id" class="group border border-gray-100 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-indigo-300 transition-all text-center">
+          <div v-for="folder in folders" :key="folder._id" class="group border border-gray-100 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-primary-300 transition-all text-center">
             <svg class="w-14 h-14 text-yellow-400 group-hover:scale-110 transition-transform mb-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
             <span class="text-sm font-semibold text-gray-800 truncate w-full">{{ folder.name }}</span>
             <span class="text-xs text-gray-400 mt-1">{{ $t('archive.folder') }}</span>
           </div>
 
           <!-- Files -->
-          <div v-for="file in files" :key="file._id" class="group border border-gray-100 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-indigo-300 transition-all text-center" :title="file.fileName">
-            <svg class="w-14 h-14 text-gray-300 group-hover:text-indigo-400 group-hover:scale-110 transition-all mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+          <div v-for="file in files" :key="file._id" class="group border border-gray-100 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-primary-300 transition-all text-center" :title="file.fileName">
+            <svg class="w-14 h-14 text-gray-300 group-hover:text-primary-400 group-hover:scale-110 transition-all mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
             <span class="text-sm font-semibold text-gray-800 truncate w-full">{{ file.fileName }}</span>
             <span class="text-xs text-gray-400 mt-1">{{ $t('archive.file') }}</span>
           </div>
@@ -65,11 +65,11 @@
                 </div>
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('archive.folder_name') }}</label>
-                  <input v-model="folderForm.name" type="text" required :placeholder="$t('archive.folder_name_placeholder')" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <input v-model="folderForm.name" type="text" required :placeholder="$t('archive.folder_name_placeholder')" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                 </div>
               </div>
               <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100 sm:">
-                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-base font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.create_folder') }}</button>
+                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-primary-600 text-base font-bold text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.create_folder') }}</button>
                 <button type="button" @click="showFolderModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.cancel') }}</button>
               </div>
             </form>
@@ -86,7 +86,7 @@
             <form @submit.prevent="uploadFile">
               <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="flex items-center mb-4">
-                  <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center me-3">
+                  <div class="w-10 h-10 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center me-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                   </div>
                   <h3 class="text-xl font-bold text-gray-900">{{ $t('archive.upload_document') }}</h3>
@@ -94,16 +94,16 @@
                 <div class="space-y-4">
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('archive.file_name') }}</label>
-                    <input v-model="fileForm.fileName" type="text" required :placeholder="$t('archive.file_name_placeholder')" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <input v-model="fileForm.fileName" type="text" required :placeholder="$t('archive.file_name_placeholder')" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('archive.file_url') }}</label>
-                    <input v-model="fileForm.fileUrl" type="url" required placeholder="https://..." class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-500">
+                    <input v-model="fileForm.fileUrl" type="url" required placeholder="https://..." class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm text-gray-500">
                   </div>
                 </div>
               </div>
               <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100 sm:">
-                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-base font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.upload_metadata') }}</button>
+                <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-primary-600 text-base font-bold text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.upload_metadata') }}</button>
                 <button type="button" @click="showFileModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 shrink-0 whitespace-nowrap bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ms-3 sm:w-auto sm:text-sm">{{ $t('archive.cancel') }}</button>
               </div>
             </form>

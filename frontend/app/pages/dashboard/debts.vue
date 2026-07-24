@@ -50,10 +50,10 @@
               </td>
               <td class="py-4 px-6 text-end">
                 <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button @click="openHistory(debtor)" class="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" :title="$t('debts.view_history')">
+                  <button @click="openHistory(debtor)" class="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors" :title="$t('debts.view_history')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   </button>
-                  <button @click="openPayment(debtor)" class="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors" :title="$t('debts.record_payment')">
+                  <button @click="openPayment(debtor)" class="p-2 text-secondary-600 hover:bg-secondary-50 rounded-lg transition-colors" :title="$t('debts.record_payment')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                   </button>
                 </div>
@@ -82,12 +82,12 @@
 
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1.5">{{ $t('debts.payment_amount') }}</label>
-            <input type="number" v-model="paymentForm.amount" step="0.01" min="0.01" :max="selectedDebtor?.totalDebt" required class="w-full border-gray-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+            <input type="number" v-model="paymentForm.amount" step="0.01" min="0.01" :max="selectedDebtor?.totalDebt" required class="w-full border-gray-300 rounded-xl focus:ring-secondary-500 focus:border-secondary-500">
           </div>
           
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1.5">{{ $t('debts.payment_method') }}</label>
-            <select v-model="paymentForm.paymentMethod" class="w-full border-gray-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+            <select v-model="paymentForm.paymentMethod" class="w-full border-gray-300 rounded-xl focus:ring-secondary-500 focus:border-secondary-500">
               <option value="Cash">Cash</option>
               <option value="Card">Card</option>
               <option value="Check">Check</option>
@@ -97,14 +97,14 @@
 
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1.5">{{ $t('debts.notes') }}</label>
-            <textarea v-model="paymentForm.notes" rows="2" class="w-full border-gray-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500"></textarea>
+            <textarea v-model="paymentForm.notes" rows="2" class="w-full border-gray-300 rounded-xl focus:ring-secondary-500 focus:border-secondary-500"></textarea>
           </div>
 
           <div class="pt-2 flex justify-end gap-3">
             <button type="button" @click="paymentModalOpen = false" class="px-5 py-2.5 text-sm font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">
               {{ $t('general.cancel') }}
             </button>
-            <button type="submit" :disabled="submitting" class="px-5 py-2.5 text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-colors disabled:opacity-50">
+            <button type="submit" :disabled="submitting" class="px-5 py-2.5 text-sm font-bold text-white bg-secondary-600 hover:bg-secondary-700 rounded-xl transition-colors disabled:opacity-50">
               {{ submitting ? '...' : $t('general.save') }}
             </button>
           </div>
@@ -130,9 +130,9 @@
            <div v-else-if="historyLogs.length === 0" class="text-center py-8 text-gray-400">No records found.</div>
            
            <div v-else class="space-y-4">
-              <div v-for="log in historyLogs" :key="log._id" class="p-4 rounded-xl border flex items-center justify-between" :class="log.type === 'payment' ? 'bg-emerald-50 border-emerald-100' : 'bg-red-50 border-red-100'">
+              <div v-for="log in historyLogs" :key="log._id" class="p-4 rounded-xl border flex items-center justify-between" :class="log.type === 'payment' ? 'bg-secondary-50 border-secondary-100' : 'bg-red-50 border-red-100'">
                  <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center" :class="log.type === 'payment' ? 'bg-emerald-100 text-emerald-600' : 'bg-red-100 text-red-600'">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" :class="log.type === 'payment' ? 'bg-secondary-100 text-secondary-600' : 'bg-red-100 text-red-600'">
                        <svg v-if="log.type === 'payment'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                        <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     </div>
@@ -140,11 +140,11 @@
                        <div class="font-bold text-gray-900">{{ log.type === 'payment' ? $t('debts.payment') : $t('debts.charge') }}</div>
                        <div class="text-xs text-gray-500 mt-0.5">{{ new Date(log.date).toLocaleString() }}</div>
                        <div v-if="log.notes" class="text-sm text-gray-600 mt-1 italic">{{ log.notes }}</div>
-                       <div v-if="log.orderId" class="text-sm text-indigo-600 mt-1 font-mono">Order: {{ log.orderId.orderNumber }}</div>
+                       <div v-if="log.orderId" class="text-sm text-primary-600 mt-1 font-mono">Order: {{ log.orderId.orderNumber }}</div>
                     </div>
                  </div>
                  <div class="text-end">
-                    <div class="font-black text-lg" :class="log.type === 'payment' ? 'text-emerald-600' : 'text-red-600'">
+                    <div class="font-black text-lg" :class="log.type === 'payment' ? 'text-secondary-600' : 'text-red-600'">
                        {{ log.type === 'payment' ? '-' : '+' }}${{ log.amount.toFixed(2) }}
                     </div>
                     <div class="text-xs text-gray-500 font-bold mt-1 uppercase">{{ log.paymentMethod }}</div>

@@ -21,12 +21,12 @@
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         <button v-for="table in tables" :key="table._id" @click="openTable(table)"
                 class="relative aspect-square rounded-3xl p-4 flex flex-col items-center justify-center transition-all transform hover:-translate-y-1 hover:shadow-lg border-2"
-                :class="table.status === 'Available' ? 'bg-white border-green-100 hover:border-green-300' : 'bg-indigo-50 border-indigo-200 hover:border-indigo-400'">
+                :class="table.status === 'Available' ? 'bg-white border-green-100 hover:border-green-300' : 'bg-primary-50 border-primary-200 hover:border-primary-400'">
           
           <div class="absolute top-3 end-3 w-3 h-3 rounded-full"
-               :class="table.status === 'Available' ? 'bg-green-500' : 'bg-indigo-600 animate-pulse'"></div>
+               :class="table.status === 'Available' ? 'bg-green-500' : 'bg-primary-600 animate-pulse'"></div>
           
-          <svg class="w-8 h-8 mb-2" :class="table.status === 'Available' ? 'text-gray-400' : 'text-indigo-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          <svg class="w-8 h-8 mb-2" :class="table.status === 'Available' ? 'text-gray-400' : 'text-primary-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
           
           <h3 class="text-2xl font-black text-gray-900">{{ table.tableNumber }}</h3>
           <p class="text-xs font-bold text-gray-500 mt-1">{{ table.capacity }} {{ $t('restaurant.capacity') }}</p>
@@ -35,7 +35,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
           </button>
           
-          <div class="mt-auto pt-2 text-xs font-bold w-full text-center" :class="table.status === 'Available' ? 'text-green-600' : 'text-indigo-600'">
+          <div class="mt-auto pt-2 text-xs font-bold w-full text-center" :class="table.status === 'Available' ? 'text-green-600' : 'text-primary-600'">
             {{ table.status === 'Available' ? $t('restaurant.available') : $t('restaurant.occupied') }}
           </div>
         </button>

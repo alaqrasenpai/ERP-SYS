@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div class="flex justify-between items-center">
       <h3 class="text-lg font-bold text-gray-900">إدارة أنواع الإجازات</h3>
-      <button @click="openModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-indigo-700">
+      <button @click="openModal()" class="bg-primary-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-primary-700">
         + نوع جديد
       </button>
     </div>
@@ -27,7 +27,7 @@
           <tr v-for="type in leaveTypes" :key="type._id" class="hover:bg-gray-50 transition-colors">
             <td class="py-3 px-4 font-bold text-gray-900">{{ type.name }}</td>
             <td class="py-3 px-4">
-              <span v-if="type.isPaid" class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-full">نعم</span>
+              <span v-if="type.isPaid" class="bg-secondary-100 text-secondary-800 text-xs px-2 py-1 rounded-full">نعم</span>
               <span v-else class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">لا</span>
             </td>
             <td class="py-3 px-4 text-gray-600">{{ type.defaultBalance || 0 }}</td>
@@ -50,19 +50,19 @@
         <form @submit.prevent="saveType" class="p-6 space-y-4">
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">اسم الإجازة</label>
-            <input v-model="form.name" required type="text" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+            <input v-model="form.name" required type="text" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500">
           </div>
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">الرصيد الافتراضي المسموح (أيام)</label>
-            <input v-model.number="form.defaultBalance" type="number" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+            <input v-model.number="form.defaultBalance" type="number" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500">
             <p class="text-xs text-gray-500 mt-1">يمكن تعيين الرصيد لكل موظف لاحقاً من صفحة الإجازات.</p>
           </div>
           <div class="flex items-center mt-2">
-            <input v-model="form.isPaid" type="checkbox" id="isPaid" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+            <input v-model="form.isPaid" type="checkbox" id="isPaid" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
             <label for="isPaid" class="ms-2 block text-sm font-medium text-gray-700">هذه الإجازة مدفوعة الراتب (تغطي الراتب)</label>
           </div>
           <div class="pt-4 flex gap-3">
-            <button type="submit" class="flex-1 bg-indigo-600 text-white py-2.5 rounded-xl font-bold hover:bg-indigo-700" :disabled="saving">
+            <button type="submit" class="flex-1 bg-primary-600 text-white py-2.5 rounded-xl font-bold hover:bg-primary-700" :disabled="saving">
               {{ saving ? 'جاري الحفظ...' : 'حفظ' }}
             </button>
             <button type="button" @click="closeModal" class="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-xl font-bold hover:bg-gray-200">إلغاء</button>

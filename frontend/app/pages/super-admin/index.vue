@@ -47,7 +47,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span v-if="tenant.status === 'active'" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                  <span v-if="tenant.status === 'active'" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-secondary-100 text-secondary-800 border border-secondary-200">
                     Active
                   </span>
                   <span v-else class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-200">
@@ -62,10 +62,10 @@
                   <button @click="openModulesModal(tenant)" class="px-4 py-1.5 rounded-lg font-bold text-xs border transition-colors shadow-sm bg-white border-blue-200 text-blue-600 hover:bg-blue-50">
                     Modules
                   </button>
-                  <button @click="copyLoginLink(tenant.tenantId)" class="px-4 py-1.5 rounded-lg font-bold text-xs border transition-colors shadow-sm bg-white border-indigo-200 text-indigo-600 hover:bg-indigo-50">
+                  <button @click="copyLoginLink(tenant.tenantId)" class="px-4 py-1.5 rounded-lg font-bold text-xs border transition-colors shadow-sm bg-white border-primary-200 text-primary-600 hover:bg-primary-50">
                     Copy Link
                   </button>
-                  <button @click="toggleStatus(tenant)" class="px-4 py-1.5 rounded-lg font-bold text-xs border transition-colors shadow-sm" :class="tenant.status === 'active' ? 'bg-white border-red-200 text-red-600 hover:bg-red-50' : 'bg-white border-emerald-200 text-emerald-600 hover:bg-emerald-50'">
+                  <button @click="toggleStatus(tenant)" class="px-4 py-1.5 rounded-lg font-bold text-xs border transition-colors shadow-sm" :class="tenant.status === 'active' ? 'bg-white border-red-200 text-red-600 hover:bg-red-50' : 'bg-white border-secondary-200 text-secondary-600 hover:bg-secondary-50'">
                     {{ tenant.status === 'active' ? 'Suspend' : 'Activate' }}
                   </button>
                 </div>
@@ -93,14 +93,14 @@
         </div>
         <div class="p-6">
           <div class="space-y-3">
-            <label v-for="mod in availableModules" :key="mod.id" class="flex items-center p-3 border rounded-xl hover:bg-gray-50 cursor-pointer transition-colors" :class="editingModules.includes(mod.id) ? 'border-indigo-500 bg-indigo-50/30' : 'border-gray-100'">
-              <input type="checkbox" :value="mod.id" v-model="editingModules" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+            <label v-for="mod in availableModules" :key="mod.id" class="flex items-center p-3 border rounded-xl hover:bg-gray-50 cursor-pointer transition-colors" :class="editingModules.includes(mod.id) ? 'border-primary-500 bg-primary-50/30' : 'border-gray-100'">
+              <input type="checkbox" :value="mod.id" v-model="editingModules" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
               <span class="ms-3 font-bold text-sm text-gray-700">{{ mod.label }}</span>
             </label>
           </div>
           <div class="mt-6 flex justify-end gap-3">
             <button @click="showModulesModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">Cancel</button>
-            <button @click="saveModules" :disabled="savingModules" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50">
+            <button @click="saveModules" :disabled="savingModules" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 disabled:opacity-50">
               {{ savingModules ? 'Saving...' : 'Save Modules' }}
             </button>
           </div>

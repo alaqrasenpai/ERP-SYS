@@ -11,19 +11,19 @@
       <!-- Sync / Simulate Biometric Punch -->
       <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-8">
         <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-          <svg class="w-5 h-5 me-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+          <svg class="w-5 h-5 me-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
           {{ $t('attendance.device_sync') }}
         </h3>
         <div class="flex flex-col md:flex-row gap-4 items-end">
           <div class="flex-1 w-full">
             <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance.employee_national_id') }}</label>
-            <input v-model="sim.nationalId" type="text" :placeholder="$t('attendance.enter_national_id')" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <input v-model="sim.nationalId" type="text" :placeholder="$t('attendance.enter_national_id')" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
           </div>
           <div class="flex-1 w-full">
             <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance.punch_time') }}</label>
-            <input v-model="sim.timestamp" type="datetime-local" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <input v-model="sim.timestamp" type="datetime-local" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
           </div>
-          <button @click="simulateBiometricPunch" class="px-6 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm w-full md:w-auto h-10">
+          <button @click="simulateBiometricPunch" class="px-6 py-2 bg-primary-600 text-white rounded-lg text-sm font-bold hover:bg-primary-700 shadow-sm w-full md:w-auto h-10">
             {{ $t('attendance.simulate_punch') }}
           </button>
         </div>
@@ -61,7 +61,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">
                   {{ log.clockIn ? new Date(log.clockIn).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--' }}
-                  <div v-if="log.lastAudit && log.lastAudit.modifiedBy" class="text-xs text-indigo-500 mt-1 cursor-pointer" :title="log.lastAudit.reason">
+                  <div v-if="log.lastAudit && log.lastAudit.modifiedBy" class="text-xs text-primary-500 mt-1 cursor-pointer" :title="log.lastAudit.reason">
                     * {{ $t('attendance.modified_by') }}: {{ log.lastAudit.modifiedBy }}
                   </div>
                 </td>
@@ -73,13 +73,13 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                   <span class="text-xs font-medium text-gray-500 flex items-center">
-                    <svg v-if="log.punchType === 'Biometric/Fingerprint'" class="w-4 h-4 me-1 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                    <svg v-if="log.punchType === 'Biometric/Fingerprint'" class="w-4 h-4 me-1 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
                     {{ log.punchType }}
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                   <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full mb-1"
-                        :class="[ log.status === 'Present' ? 'bg-green-100 text-green-800' : '', log.status === 'Late' ? 'bg-orange-100 text-orange-800' : '', log.status === 'Absent' ? 'bg-red-100 text-red-800' : '', log.status === 'Leave' ? 'bg-indigo-100 text-indigo-800' : '' ]">
+                        :class="[ log.status === 'Present' ? 'bg-green-100 text-green-800' : '', log.status === 'Late' ? 'bg-orange-100 text-orange-800' : '', log.status === 'Absent' ? 'bg-red-100 text-red-800' : '', log.status === 'Leave' ? 'bg-primary-100 text-primary-800' : '' ]">
                     {{ log.status === 'Present' ? $t('attendance.present') : (log.status === 'Late' ? $t('attendance.late') : (log.status === 'Absent' ? $t('attendance.absent') : (log.status === 'Leave' ? $t('attendance.leave') : log.status))) }}
                   </span>
                   <div v-if="log.isAutoClosed" class="text-xs text-orange-600 bg-orange-50 inline-block px-2 py-0.5 rounded border border-orange-200 mt-1 w-full text-center">

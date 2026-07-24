@@ -15,10 +15,10 @@
       <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-8 flex flex-col md:flex-row items-end justify-between gap-4">
         <div>
           <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('payroll.target_month') }}</label>
-          <input type="month" v-model="targetMonth" class="block w-full md:w-64 border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <input type="month" v-model="targetMonth" class="block w-full md:w-64 border border-gray-300 rounded-lg py-2 px-3 focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
         </div>
         <div class="flex gap-3 w-full md:w-auto">
-          <button @click="runPayroll" class="flex-1 md:flex-none px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm transition-colors flex justify-center items-center">
+          <button @click="runPayroll" class="flex-1 md:flex-none px-6 py-2.5 bg-primary-600 text-white rounded-lg text-sm font-bold hover:bg-primary-700 shadow-sm transition-colors flex justify-center items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             {{ $t('payroll.generate') }}
           </button>
@@ -62,7 +62,7 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-end font-medium text-red-600">- {{ run.deductions.toFixed(2) }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-end font-black text-gray-900 bg-gray-50">${{ run.netSalary.toFixed(2) }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm print:hidden">
-                  <button v-if="!run.isPaid" @click="markAsPaid(run._id)" class="px-3 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-bold rounded-md text-xs transition-colors">{{ $t('payroll.mark_paid') }}</button>
+                  <button v-if="!run.isPaid" @click="markAsPaid(run._id)" class="px-3 py-1 bg-primary-50 text-primary-700 hover:bg-primary-100 font-bold rounded-md text-xs transition-colors">{{ $t('payroll.mark_paid') }}</button>
                   <span v-else class="px-3 py-1 bg-green-100 text-green-800 font-bold rounded-md text-xs inline-flex items-center">
                     <svg class="w-3 h-3 me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     {{ $t('payroll.paid') }}
@@ -76,7 +76,7 @@
             <tfoot class="bg-gray-50 font-bold" v-if="filteredPayroll.length > 0">
               <tr>
                 <td colspan="6" class="px-6 py-4 text-end text-sm text-gray-900 uppercase">{{ $t('payroll.total_cost') }}</td>
-                <td class="px-6 py-4 text-end text-lg text-indigo-700">${{ totalNetPayroll.toFixed(2) }}</td>
+                <td class="px-6 py-4 text-end text-lg text-primary-700">${{ totalNetPayroll.toFixed(2) }}</td>
                 <td class="print:hidden"></td>
               </tr>
             </tfoot>

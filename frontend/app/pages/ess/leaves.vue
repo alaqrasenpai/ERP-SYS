@@ -7,13 +7,13 @@
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('my_leaves.title') }}</h2>
           <p class="text-sm text-gray-500 mt-1">{{ $t('my_leaves.description') }}</p>
         </div>
-        <button @click="showModal = true" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all">
+        <button @click="showModal = true" class="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 transition-colors shadow-sm focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-primary-200 transition-all">
           {{ $t('my_leaves.new_request') }}
         </button>
       </div>
 
       <div v-if="loading" class="flex justify-center p-12">
-        <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
 
       <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -41,7 +41,7 @@
               <td class="px-6 py-4 text-sm text-gray-600 max-w-xs truncate" :title="req.reason">{{ req.reason }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex flex-col items-start">
-                  <span :class="{ 'bg-emerald-100 text-emerald-800': req.status === 'Approved', 'bg-red-100 text-red-800': req.status === 'Rejected', 'bg-yellow-100 text-yellow-800': req.status === 'Pending' }" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
+                  <span :class="{ 'bg-secondary-100 text-secondary-800': req.status === 'Approved', 'bg-red-100 text-red-800': req.status === 'Rejected', 'bg-yellow-100 text-yellow-800': req.status === 'Pending' }" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
                     {{ req.status === 'Approved' ? $t('my_leaves.approved') : (req.status === 'Rejected' ? $t('my_leaves.rejected') : (req.status === 'Pending' ? $t('my_leaves.pending') : req.status)) }}
                   </span>
                   <p v-if="req.status === 'Rejected' && req.managerNotes" class="text-xs text-red-600 font-bold mt-1 max-w-[150px] truncate" :title="req.managerNotes">{{ $t('my_leaves.note') }} {{ req.managerNotes }}</p>
@@ -67,7 +67,7 @@
           <form @submit.prevent="submitRequest" class="p-6 space-y-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('my_leaves.request_type') }}</label>
-              <select v-model="form.type" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+              <select v-model="form.type" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
                 <option value="Annual">{{ $t('my_leaves.annual_leave') }}</option>
                 <option value="Sick">{{ $t('my_leaves.sick_leave') }}</option>
                 <option value="Unpaid">{{ $t('my_leaves.unpaid_leave') }}</option>
@@ -78,33 +78,33 @@
             <template v-if="form.type !== 'Hourly Departure'">
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('my_leaves.start_date') }}</label>
-                <input type="date" v-model="form.startDate" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+                <input type="date" v-model="form.startDate" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
               </div>
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('my_leaves.end_date') }}</label>
-                <input type="date" v-model="form.endDate" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+                <input type="date" v-model="form.endDate" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
               </div>
               <p class="text-xs text-gray-500 font-medium">{{ $t('my_leaves.business_days_hint') }}</p>
             </template>
             <template v-else>
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('my_leaves.date') }}</label>
-                <input type="date" v-model="form.startDate" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+                <input type="date" v-model="form.startDate" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
               </div>
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('my_leaves.start_time') }}</label>
-                  <input type="time" v-model="form.startTime" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+                  <input type="time" v-model="form.startTime" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
                 </div>
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('my_leaves.end_time') }}</label>
-                  <input type="time" v-model="form.endTime" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
+                  <input type="time" v-model="form.endTime" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500">
                 </div>
               </div>
             </template>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('my_leaves.reason') }}</label>
-              <textarea v-model="form.reason" required rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500"></textarea>
+              <textarea v-model="form.reason" required rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500"></textarea>
             </div>
 
             <div v-if="errorMsg" class="p-3 bg-red-50 text-red-600 rounded-lg text-sm font-bold">
@@ -113,7 +113,7 @@
 
             <div class="pt-4 flex justify-end gap-3">
               <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl font-medium">{{ $t('my_leaves.cancel') }}</button>
-              <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50">
+              <button type="submit" :disabled="saving" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 disabled:opacity-50">
                 {{ saving ? $t('my_leaves.submitting') : $t('my_leaves.submit_request') }}
               </button>
             </div>

@@ -6,7 +6,7 @@
           <h2 class="text-2xl font-black text-gray-900">{{ $t('restaurant.menu_categories') }}</h2>
           <p class="text-sm text-gray-500">{{ $t('restaurant.categories_description') }}</p>
         </div>
-        <button @click="openModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm hover:bg-indigo-700 transition font-bold flex items-center gap-2">
+        <button @click="openModal()" class="px-4 py-2 bg-primary-600 text-white rounded-xl shadow-sm hover:bg-primary-700 transition font-bold flex items-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           {{ $t('restaurant.add_category') }}
         </button>
@@ -33,7 +33,7 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                  <button @click="editCategory(cat)" class="text-indigo-600 hover:text-indigo-900 transition flex items-center justify-end w-full">
+                  <button @click="editCategory(cat)" class="text-primary-600 hover:text-primary-900 transition flex items-center justify-end w-full">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                   </button>
                 </td>
@@ -60,19 +60,19 @@
           <form @submit.prevent="saveCategory" class="space-y-4">
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.category_ar') }}</label>
-              <input v-model="form.nameAr" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500" dir="rtl">
+              <input v-model="form.nameAr" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500" dir="rtl">
             </div>
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.category_en') }}</label>
-              <input v-model="form.nameEn" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <input v-model="form.nameEn" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-primary-500 focus:border-primary-500">
             </div>
             <div class="flex items-center gap-2 mt-2">
-              <input type="checkbox" v-model="form.isActive" id="isActive" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+              <input type="checkbox" v-model="form.isActive" id="isActive" class="rounded text-primary-600 focus:ring-primary-500 h-4 w-4">
               <label for="isActive" class="text-sm font-bold text-gray-700">{{ $t('restaurant.active') }}</label>
             </div>
             <div class="flex justify-end gap-3 pt-4 border-t mt-6">
               <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">{{ $t('restaurant.cancel') }}</button>
-              <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700" :disabled="saving">
+              <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700" :disabled="saving">
                 {{ saving ? '...' : $t('restaurant.save') }}
               </button>
             </div>
