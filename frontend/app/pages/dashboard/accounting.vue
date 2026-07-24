@@ -31,7 +31,7 @@
             <h4 class="font-bold text-gray-500 text-sm mb-1 uppercase tracking-wider">{{ acc.name }}</h4>
             <div class="flex items-end mt-2">
               <p class="text-3xl font-black tracking-tight flex items-baseline" :class="getAccountColor(acc.type, acc.balance)">
-                {{ Math.abs(acc.balance).toLocaleString('en-US', {minimumFractionDigits: 2}) }} <span class="text-base font-bold text-gray-400 ms-1.5">{{ $t('common.currency') }}</span>
+                {{ Math.abs(acc.balance).toLocaleString('en-US', {minimumFractionDigits: 2}) }} <span class="text-base font-bold text-gray-400 ms-1.5">{{ useCookie('erp_currency').value || 'SAR' }}</span>
               </p>
             </div>
           </div>
@@ -87,12 +87,12 @@
                 </td>
                 <td class="px-6 py-3 whitespace-nowrap text-end font-mono">
                   <span v-if="line.debit > 0" class="inline-flex px-3 py-1 bg-emerald-50 text-emerald-700 font-bold text-sm rounded-lg border border-emerald-100">
-                    {{ line.debit.toLocaleString('en-US', {minimumFractionDigits: 2}) }} <span class="ms-1 text-xs opacity-75">{{ $t('common.currency') }}</span>
+                    {{ line.debit.toLocaleString('en-US', {minimumFractionDigits: 2}) }} <span class="ms-1 text-xs opacity-75">{{ useCookie('erp_currency').value || 'SAR' }}</span>
                   </span>
                 </td>
                 <td class="px-6 py-3 whitespace-nowrap text-end font-mono">
                   <span v-if="line.credit > 0" class="inline-flex px-3 py-1 bg-rose-50 text-rose-700 font-bold text-sm rounded-lg border border-rose-100">
-                    {{ line.credit.toLocaleString('en-US', {minimumFractionDigits: 2}) }} <span class="ms-1 text-xs opacity-75">{{ $t('common.currency') }}</span>
+                    {{ line.credit.toLocaleString('en-US', {minimumFractionDigits: 2}) }} <span class="ms-1 text-xs opacity-75">{{ useCookie('erp_currency').value || 'SAR' }}</span>
                   </span>
                 </td>
               </tr>

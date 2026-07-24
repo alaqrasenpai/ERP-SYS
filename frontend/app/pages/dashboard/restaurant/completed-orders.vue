@@ -34,7 +34,7 @@
       <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-500 mb-1">إجمالي المبيعات (حسب الفلتر)</p>
-          <p class="text-2xl font-black text-emerald-600">{{ totalFilteredAmount.toFixed(2) }} {{ $t('common.currency') }}</p>
+          <p class="text-2xl font-black text-emerald-600">{{ totalFilteredAmount.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</p>
         </div>
         <div class="bg-emerald-50 text-emerald-600 p-3 rounded-lg">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -92,7 +92,7 @@
                 {{ order.items.map(i => i.nameAr || i.nameEn).join(', ') }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-black text-gray-900">
-                {{ order.financials?.grandTotal?.toFixed(2) }} {{ $t('common.currency') }}
+                {{ order.financials?.grandTotal?.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}
               </td>
             </tr>
             <tr v-if="paginatedOrders.length === 0">

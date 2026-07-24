@@ -105,7 +105,7 @@
                 <div class="flex justify-between items-start mb-1.5 gap-2">
                   <h3 class="font-bold text-gray-900 leading-tight group-hover:text-orange-600 transition-colors">{{ $i18n.locale === 'ar' ? item.nameAr : item.nameEn }}</h3>
                   <div class="bg-gray-900 text-white text-sm font-black px-2.5 py-1 rounded-lg whitespace-nowrap shadow-sm group-hover:bg-orange-500 transition-colors">
-                    {{ item.price }} {{ $t('common.currency') }}
+                    {{ item.price }} {{ useCookie('erp_currency').value || 'SAR' }}
                   </div>
                 </div>
                 

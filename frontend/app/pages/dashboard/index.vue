@@ -31,11 +31,11 @@
                 <h4 class="text-sm font-bold text-gray-500">{{ $t('dashboard.todays_revenue') }}</h4>
               </div>
               <div class="mt-2 relative z-10">
-                <h3 class="text-4xl font-black text-gray-900 tracking-tight">{{ metrics.todayRevenue.toFixed(2) }} <span class="text-xl ms-1 text-gray-400">{{ $t('common.currency') }}</span></h3>
+                <h3 class="text-4xl font-black text-gray-900 tracking-tight">{{ metrics.todayRevenue.toFixed(2) }} <span class="text-xl ms-1 text-gray-400">{{ useCookie('erp_currency').value || 'SAR' }}</span></h3>
               </div>
               <div class="mt-4 pt-4 border-t border-gray-100/80 flex items-center justify-between">
                 <span class="text-xs font-bold text-gray-500">{{ $t('dashboard.month') }}</span>
-                <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">{{ metrics.monthRevenue.toFixed(2) }} {{ $t('common.currency') }}</span>
+                <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">{{ metrics.monthRevenue.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
               </div>
             </div>
 
@@ -73,7 +73,7 @@
               </div>
               <div class="mt-4 pt-4 border-t border-gray-100/80 flex items-center justify-between">
                 <span class="text-xs font-bold text-gray-500">{{ $t('dashboard.mth_payroll') }}</span>
-                <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">{{ metrics.projectedPayroll.toFixed(2) }} {{ $t('common.currency') }}</span>
+                <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">{{ metrics.projectedPayroll.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
               </div>
             </div>
 
@@ -227,7 +227,7 @@
                   <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
                 </span>
                 <p class="text-sm font-bold text-gray-900">{{ $t('dashboard.pos_sale') }}: {{ order.orderNumber }}</p>
-                <p class="text-xs text-gray-500">{{ new Date(order.createdAt).toLocaleString() }} - {{ $t('dashboard.revenue') }}: {{ order.grandTotal.toFixed(2) }} {{ $t('common.currency') }}</p>
+                <p class="text-xs text-gray-500">{{ new Date(order.createdAt).toLocaleString() }} - {{ $t('dashboard.revenue') }}: {{ order.grandTotal.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</p>
               </div>
 
               <div v-for="file in activities.files" :key="file._id" class="relative ps-6">

@@ -70,7 +70,7 @@
           <div class="flex justify-between items-start mb-2">
             <div>
               <h4 class="text-sm font-bold text-gray-900 leading-tight">{{ locale === 'ar' ? item.nameAr : item.nameEn }}</h4>
-              <div class="text-xs text-gray-400 mt-0.5">{{ item.price.toFixed(2) }} {{ t('common.currency') }}</div>
+              <div class="text-xs text-gray-400 mt-0.5">{{ item.price.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</div>
             </div>
             <button @click="$emit('update:qty', index, -1000)" class="text-gray-300 hover:text-rose-500 transition-colors p-1">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -86,7 +86,7 @@
               <button @click="$emit('update:qty', index, 1)" class="w-7 h-7 flex items-center justify-center bg-white rounded-md text-gray-500 font-bold shadow-sm hover:text-emerald-600">+</button>
             </div>
             <div class="font-black text-emerald-600 text-sm">
-              {{ (item.price * item.quantity).toFixed(2) }} {{ t('common.currency') }}
+              {{ (item.price * item.quantity).toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}
             </div>
           </div>
         </li>
@@ -98,7 +98,7 @@
       <div class="space-y-3 mb-6">
         <div class="flex justify-between items-center text-sm">
           <span class="text-gray-500 font-bold">{{ t('pos.subtotal') }}:</span>
-          <span class="font-bold text-gray-900">{{ subTotal.toFixed(2) }} {{ t('common.currency') }}</span>
+          <span class="font-bold text-gray-900">{{ subTotal.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
         </div>
         
         <div class="flex justify-between items-center text-sm">
@@ -107,18 +107,18 @@
           </span>
           <div class="w-24 relative">
             <input type="number" :value="discount" @input="$emit('update:discount', Number($event.target.value))" min="0" class="w-full text-end px-2 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-gray-900">
-            <span class="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 font-bold">{{ t('common.currency') }}</span>
+            <span class="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 font-bold">{{ useCookie('erp_currency').value || 'SAR' }}</span>
           </div>
         </div>
 
         <div class="flex justify-between items-center text-sm">
           <span class="text-gray-500 font-bold text-xs">{{ t('pos.tax') }} ({{ taxRate }}%):</span>
-          <span class="font-bold text-gray-500 text-xs">{{ tax.toFixed(2) }} {{ t('common.currency') }}</span>
+          <span class="font-bold text-gray-500 text-xs">{{ tax.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
         </div>
         
         <div class="pt-4 border-t border-gray-100 flex justify-between items-end">
           <span class="text-base font-black text-gray-900">{{ t('pos.total') }}</span>
-          <span class="text-2xl font-black text-emerald-500">{{ grandTotal.toFixed(2) }} <span class="text-sm text-emerald-600/60">{{ t('common.currency') }}</span></span>
+          <span class="text-2xl font-black text-emerald-500">{{ grandTotal.toFixed(2) }} <span class="text-sm text-emerald-600/60">{{ useCookie('erp_currency').value || 'SAR' }}</span></span>
         </div>
       </div>
 
