@@ -5,7 +5,7 @@
     <div class="absolute top-1/2 -right-24 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
 
     <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center relative z-10">
-      <img v-if="tenantInfo?.logoUrl" :src="tenantInfo.logoUrl" alt="Store Logo" class="h-24 w-auto object-contain mb-6 drop-shadow-md transition-transform hover:scale-105 duration-300" />
+      <img v-if="tenantInfo && tenantInfo.logoUrl" :src="tenantInfo.logoUrl" alt="Store Logo" class="max-h-32 w-auto max-w-[250px] object-contain mb-6 drop-shadow-md transition-transform hover:scale-105 duration-300" />
       <h2 class="mt-2 text-center text-3xl font-extrabold text-gray-900 tracking-tight">
         <template v-if="pending">...</template>
         <template v-else-if="tenantInfo">{{ tenantInfo.name }}</template>
@@ -49,7 +49,7 @@
     </div>
     
     <!-- Developer Footer -->
-    <div class="mt-auto py-6 text-center text-xs text-gray-400">
+    <div class="absolute bottom-6 left-0 w-full text-center text-xs text-gray-400">
       Developed by <a href="https://alaqra.dev" target="_blank" class="text-indigo-500 hover:text-indigo-600 font-medium">alaqra.dev</a>
     </div>
   </div>
