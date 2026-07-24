@@ -167,18 +167,15 @@ router.put('/tenants/:id/users/:userId', superAdminAuth, async (req, res) => {
         const tenantConnection = getTenantConnection(tenant.dbName);
         const User = tenantConnection.model('User');
 
-        const userToUpdate = await User.findById(req.params.userId);
-        if (!userToUpdate) {
-            return res.status(404).json({ message: 'User not found in tenant database' });
-        }
-
-        if (name) userToUpdate.name = name;
+        const updateData = {};
+        if (name) updateData.name = name;
         
         if (password) {
-            userToUpdate.password = password;
+            const salt = await bcrypt.genSalt(10);
+            updateData.password = await bcrypt.hash(password, salt);
         }
 
-        await userToUpdate.save();
+        await User.findByIdAndUpdate(req.params.userId, updateData);
 
         res.json({ message: 'User updated successfully' });
     } catch (error) {

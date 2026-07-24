@@ -341,7 +341,12 @@ const saveUser = async () => {
     // Update local state
     selectedUser.value.name = payload.name
     showEditUserModal.value = false
-    alert('User updated successfully')
+    
+    if (payload.password) {
+      alert('تم حفظ كلمة السر الجديدة بنجاح')
+    } else {
+      alert('User updated successfully')
+    }
   } catch (error) {
     alert('Failed to update user')
   } finally {
