@@ -1,13 +1,13 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-4 sm:p-6 lg:p-8">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('leaves.title') }}</h1>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('leaves.description') }}</p>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $t('leaves.title') }}</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('leaves.description') }}</p>
         </div>
         <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
-          <button @click="showBalancesModal = true" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 rounded-xl font-bold flex items-center">
+          <button @click="showBalancesModal = true" class="px-5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 transition-colors shadow-sm focus:ring-2 focus:ring-gray-200 dark:ring-gray-700 focus:ring-offset-2 rounded-xl font-bold flex items-center">
             تعديل الأرصدة
           </button>
           <button @click="openRequestModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
@@ -17,12 +17,12 @@
         </div>
       </div>
       <!-- Tabs -->
-      <div class="mb-6 border-b border-gray-200">
+      <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
         <nav class="-mb-px flex gap-8">
-          <button @click="activeTab = 'requests'" :class="activeTab === 'requests' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
+          <button @click="activeTab = 'requests'" :class="activeTab === 'requests' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
             {{ $t('leaves.requests_tab', 'طلبات الإجازات') }}
           </button>
-          <button @click="activeTab = 'types'" :class="activeTab === 'types' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
+          <button @click="activeTab = 'types'" :class="activeTab === 'types' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
             {{ $t('leaves.types_tab', 'إدارة أنواع الإجازات') }}
           </button>
         </nav>
@@ -31,9 +31,9 @@
       <div v-if="activeTab === 'requests'">
         <!-- Filters & Stats -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm flex justify-between items-center">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm flex justify-between items-center">
           <div>
-            <p class="text-sm font-medium text-gray-500">{{ $t('leaves.pending_requests') }}</p>
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $t('leaves.pending_requests') }}</p>
             <p class="text-2xl font-bold text-yellow-600">{{ pendingCount }}</p>
           </div>
           <div class="p-3 bg-yellow-50 text-yellow-600 rounded-lg">
@@ -43,33 +43,33 @@
       </div>
 
       <!-- Leaves Table -->
-      <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-100">
-            <thead class="bg-gray-50">
+          <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-900">
               <tr>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('leaves.employee') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('leaves.type_duration') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('leaves.dates') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('leaves.reason') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('leaves.status') }}</th>
-                <th class="px-6 py-4 text-end text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('leaves.actions') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('leaves.employee') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('leaves.type_duration') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('leaves.dates') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('leaves.reason') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('leaves.status') }}</th>
+                <th class="px-6 py-4 text-end text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('leaves.actions') }}</th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-100">
-              <tr v-for="leave in paginatedLeaves" :key="leave._id" class="hover:bg-gray-50">
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+              <tr v-for="leave in paginatedLeaves" :key="leave._id" class="hover:bg-gray-50 dark:bg-gray-900">
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-bold text-gray-900">{{ leave.employeeId?.name || $t('leaves.unknown') }}</div>
-                  <div class="text-xs text-gray-500">{{ leave.employeeId?.position }}</div>
+                  <div class="text-sm font-bold text-gray-900 dark:text-white">{{ leave.employeeId?.name || $t('leaves.unknown') }}</div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400">{{ leave.employeeId?.position }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-indigo-700 font-bold">
                     {{ leave.type === 'Hourly Departure' ? $t('leaves.translated_hourly_departure') : (leave.type === 'Annual' ? $t('leaves.annual_leave') : (leave.type === 'Sick' ? $t('leaves.sick_leave') : (leave.type === 'Unpaid' ? $t('leaves.unpaid_leave') : leave.type))) }}
                   </div>
-                  <div class="text-xs text-gray-500" v-if="leave.type === 'Hourly Departure'">{{ leave.totalHours }} {{ $t('leaves.hours') }}</div>
-                  <div class="text-xs text-gray-500" v-else>{{ leave.totalDays }} {{ $t('leaves.days') }}</div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400" v-if="leave.type === 'Hourly Departure'">{{ leave.totalHours }} {{ $t('leaves.hours') }}</div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400" v-else>{{ leave.totalDays }} {{ $t('leaves.days') }}</div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
                   <div v-if="leave.type === 'Hourly Departure'">
                     {{ formatDate(leave.startDate) }}<br>
                     <span class="text-xs text-gray-400">{{ leave.startTime }} - {{ leave.endTime }}</span>
@@ -78,7 +78,7 @@
                     {{ formatDate(leave.startDate) }} {{ $t('leaves.to') }}<br>{{ formatDate(leave.endDate) }}
                   </div>
                 </td>
-                <td class="px-6 py-4 text-sm text-gray-600 max-w-xs truncate" :title="leave.reason">
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400 max-w-xs truncate" :title="leave.reason">
                   {{ leave.reason }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -94,7 +94,7 @@
             </td>
               </tr>
               <tr v-if="leaves.length === 0">
-                <td colspan="6" class="px-6 py-12 text-center text-sm text-gray-500">{{ $t('leaves.no_leave_requests_found') }}</td>
+                <td colspan="6" class="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">{{ $t('leaves.no_leave_requests_found') }}</td>
               </tr>
             </tbody>
           </table>
@@ -109,21 +109,21 @@
       </div>
       <!-- Submit Request Modal -->
       <div v-if="showRequestModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 dark:border-gray-700 flex flex-col max-h-[90vh]">
           <form @submit.prevent="submitRequest" class="flex flex-col flex-1 overflow-hidden">
-            <div class="bg-white px-6 pt-6 pb-6 overflow-y-auto flex-1">
-              <h3 class="text-xl font-bold text-gray-900 mb-6">{{ $t('leaves.submit_request') }}</h3>
+            <div class="bg-white dark:bg-gray-800 px-6 pt-6 pb-6 overflow-y-auto flex-1">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">{{ $t('leaves.submit_request') }}</h3>
               
               <div class="space-y-4">
                 <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.employee_req') }}</label>
-                  <select v-model="form.employeeId" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.employee_req') }}</label>
+                  <select v-model="form.employeeId" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option v-for="emp in employees" :key="emp._id" :value="emp._id">{{ emp.name }}</option>
                   </select>
                 </div>
                 <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.leave_type') }}</label>
-                  <select v-model="form.type" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.leave_type') }}</label>
+                  <select v-model="form.type" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="Annual">{{ $t('leaves.annual_leave') }}</option>
                     <option value="Sick">{{ $t('leaves.sick_leave') }}</option>
                     <option value="Unpaid">{{ $t('leaves.unpaid_leave') }}</option>
@@ -134,41 +134,41 @@
 
                 <div v-if="form.type === 'Hourly Departure'" class="space-y-4">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.date_req') }}</label>
-                    <input v-model="form.startDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.date_req') }}</label>
+                    <input v-model="form.startDate" type="date" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div class="grid grid-cols-2 gap-4">
                     <div>
-                      <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.start_time') }}</label>
-                      <input v-model="form.startTime" type="time" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.start_time') }}</label>
+                      <input v-model="form.startTime" type="time" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
                     <div>
-                      <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.end_time') }}</label>
-                      <input v-model="form.endTime" type="time" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.end_time') }}</label>
+                      <input v-model="form.endTime" type="time" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
                   </div>
                 </div>
                 
                 <div v-else class="grid grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.start_date') }}</label>
-                    <input v-model="form.startDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.start_date') }}</label>
+                    <input v-model="form.startDate" type="date" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.end_date') }}</label>
-                    <input v-model="form.endDate" type="date" required class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.end_date') }}</label>
+                    <input v-model="form.endDate" type="date" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.reason_notes') }}</label>
-                  <textarea v-model="form.reason" required rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.reason_notes') }}</label>
+                  <textarea v-model="form.reason" required rows="3" class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                 </div>
               </div>
             </div>
-            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
+            <div class="bg-gray-50 dark:bg-gray-900 px-6 py-4 flex flex-row-reverse border-t border-gray-100 dark:border-gray-700 flex-shrink-0 gap-3">
               <button type="submit" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 ms-3">{{ $t('leaves.submit_btn') }}</button>
-              <button type="button" @click="showRequestModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-4 py-2 shrink-0 whitespace-nowrap bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
+              <button type="button" @click="showRequestModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 shrink-0 whitespace-nowrap bg-white dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900">{{ $t('leaves.cancel') }}</button>
             </div>
           </form>
         </div>
@@ -176,11 +176,11 @@
 
       <!-- Review/Approve Modal -->
       <div v-if="showReviewModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
-          <div class="bg-white px-6 pt-6 pb-6 overflow-y-auto flex-1">
-            <h3 class="text-xl font-bold text-gray-900 mb-6">{{ $t('leaves.review_leave_request') }}</h3>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 dark:border-gray-700 flex flex-col max-h-[90vh]">
+          <div class="bg-white dark:bg-gray-800 px-6 pt-6 pb-6 overflow-y-auto flex-1">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">{{ $t('leaves.review_leave_request') }}</h3>
             
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 mb-4 text-sm">
+            <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border border-gray-100 dark:border-gray-700 mb-4 text-sm">
               <p><strong>{{ $t('leaves.employee') }}:</strong> {{ selectedLeave.employeeId?.name }}</p>
               <p><strong>{{ $t('leaves.type') }}</strong> 
                 {{ selectedLeave.type === 'Hourly Departure' ? $t('leaves.translated_hourly_departure') : (selectedLeave.type === 'Annual' ? $t('leaves.annual_leave') : (selectedLeave.type === 'Sick' ? $t('leaves.sick_leave') : (selectedLeave.type === 'Unpaid' ? $t('leaves.unpaid_leave') : selectedLeave.type))) }}
@@ -191,14 +191,14 @@
             </div>
 
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('leaves.manager_notes') }}</label>
-              <textarea v-model="reviewForm.managerNotes" rows="3" class="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" :placeholder="$t('leaves.manager_notes_placeholder')"></textarea>
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('leaves.manager_notes') }}</label>
+              <textarea v-model="reviewForm.managerNotes" rows="3" class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" :placeholder="$t('leaves.manager_notes_placeholder')"></textarea>
             </div>
           </div>
-          <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
+          <div class="bg-gray-50 dark:bg-gray-900 px-6 py-4 flex flex-row-reverse border-t border-gray-100 dark:border-gray-700 flex-shrink-0 gap-3">
             <button @click="processLeave('Approved')" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-green-600 text-sm font-bold text-white hover:bg-green-700 ms-3">{{ $t('leaves.approve') }}</button>
             <button @click="processLeave('Rejected')" class="inline-flex justify-center rounded-lg px-4 py-2 shrink-0 whitespace-nowrap bg-red-600 text-sm font-bold text-white hover:bg-red-700 ms-3">{{ $t('leaves.reject') }}</button>
-            <button @click="showReviewModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-4 py-2 shrink-0 whitespace-nowrap bg-white text-sm font-bold text-gray-700 hover:bg-gray-50">{{ $t('leaves.cancel') }}</button>
+            <button @click="showReviewModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 shrink-0 whitespace-nowrap bg-white dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900">{{ $t('leaves.cancel') }}</button>
           </div>
         </div>
       </div>

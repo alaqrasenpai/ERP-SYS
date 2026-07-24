@@ -6,30 +6,30 @@
 
     <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center relative z-10">
       <img v-if="tenantInfo && tenantInfo.logoUrl" :src="tenantInfo.logoUrl" alt="Store Logo" class="max-h-32 w-auto max-w-[250px] object-contain mb-6 drop-shadow-md transition-transform hover:scale-105 duration-300" />
-      <h2 class="mt-2 text-center text-3xl font-extrabold text-gray-900 tracking-tight">
+      <h2 class="mt-2 text-center text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
         <template v-if="pending">...</template>
         <template v-else-if="tenantInfo">{{ tenantInfo.name }}</template>
         <template v-else>{{ $t('login.tenant_portal') }}</template>
       </h2>
-      <p class="mt-3 text-center text-sm text-gray-600 font-medium">
+      <p class="mt-3 text-center text-sm text-gray-600 dark:text-gray-400 font-medium">
         <template v-if="tenantInfo">{{ $t('login.welcome_store', { store: tenantInfo.name }) }}</template>
         <template v-else>{{ $t('login.sign_in_message') }}</template>
       </p>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-      <div class="bg-white/80 backdrop-blur-xl py-10 px-4 shadow-2xl shadow-indigo-900/10 sm:rounded-3xl sm:px-10 border border-white">
+      <div class="bg-white dark:bg-gray-800/80 backdrop-blur-xl py-10 px-4 shadow-2xl shadow-indigo-900/10 sm:rounded-3xl sm:px-10 border border-white">
         <form @submit.prevent="handleLogin" class="space-y-6">
           <!-- Workspace ID removed, inferred from URL -->
 
           <div>
-            <label class="block text-sm font-medium text-gray-700">{{ $t('login.email') }}</label>
-            <input v-model="form.email" type="email" required :placeholder="$t('login.email_placeholder')" class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ $t('login.email') }}</label>
+            <input v-model="form.email" type="email" required :placeholder="$t('login.email_placeholder')" class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700">{{ $t('login.password') }}</label>
-            <input v-model="form.password" type="password" required placeholder="••••••••" class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ $t('login.password') }}</label>
+            <input v-model="form.password" type="password" required placeholder="••••••••" class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors">
           </div>
 
           <button type="submit" :disabled="loading" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-indigo-500/30 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 hover:shadow-indigo-500/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300">

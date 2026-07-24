@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-4 sm:p-8">
     <div class="max-w-5xl mx-auto space-y-6">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 ">
         <div>
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('roles.title') }}</h2>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('roles.description') }}</p>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight truncate">{{ $t('roles.title') }}</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('roles.description') }}</p>
         </div>
       <button @click="openCreateModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold flex items-center gap-2">
         <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -16,25 +16,25 @@
       <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
     </div>
 
-    <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div v-else class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-100">
-          <thead class="bg-gray-50">
+        <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-900">
           <tr>
-            <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('roles.role_name') }}</th>
-            <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('roles.permissions') }}</th>
-            <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('roles.actions') }}</th>
+            <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('roles.role_name') }}</th>
+            <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('roles.permissions') }}</th>
+            <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('roles.actions') }}</th>
           </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-100">
-          <tr v-for="role in roles" :key="role._id" class="hover:bg-gray-50 transition-colors">
-            <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+          <tr v-for="role in roles" :key="role._id" class="hover:bg-gray-50 dark:bg-gray-900 transition-colors">
+            <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold text-gray-900 dark:text-white">
               {{ role.name }}
               <span v-if="role.permissions.includes('*')" class="ms-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase">{{ $t('roles.super_admin') }}</span>
             </td>
             <td class="px-4 py-3 sm:px-6 sm:py-4">
               <div class="flex flex-wrap gap-1 max-w-lg">
-                <span v-if="role.permissions.includes('*')" class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-800 uppercase">{{ $t('roles.all_access') }}</span>
+                <span v-if="role.permissions.includes('*')" class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 uppercase">{{ $t('roles.all_access') }}</span>
                 <span v-else v-for="perm in role.permissions" :key="perm" class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-100">
                   {{ perm }}
                 </span>
@@ -53,7 +53,7 @@
             </td>
           </tr>
           <tr v-if="roles.length === 0">
-            <td colspan="3" class="px-6 py-12 text-center text-gray-500 text-sm font-bold">{{ $t('roles.no_roles_found') }}</td>
+            <td colspan="3" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400 text-sm font-bold">{{ $t('roles.no_roles_found') }}</td>
           </tr>
         </tbody>
         </table>
@@ -62,10 +62,10 @@
 
     <!-- Create/Edit Role Modal -->
     <div v-if="showModal" class="fixed inset-0 bg-gray-900/50 flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh]">
-        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-          <h3 class="text-lg font-bold text-gray-900">{{ editingRole ? $t('roles.edit_role') : $t('roles.create_new_role') }}</h3>
-          <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ editingRole ? $t('roles.edit_role') : $t('roles.create_new_role') }}</h3>
+          <button @click="showModal = false" class="text-gray-400 hover:text-gray-600 dark:text-gray-400">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
@@ -74,28 +74,28 @@
           <div class="p-6 overflow-y-auto flex-1 space-y-6">
             <!-- Role Name -->
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('roles.role_name') }}</label>
-              <input v-model="form.name" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" :placeholder="$t('roles.role_name_placeholder')" required>
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('roles.role_name') }}</label>
+              <input v-model="form.name" type="text" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" :placeholder="$t('roles.role_name_placeholder')" required>
             </div>
 
             <!-- Permissions Grid -->
             <div>
               <div class="flex justify-between items-end mb-3">
-                <label class="block text-sm font-bold text-gray-700">{{ $t('roles.granular_permissions') }}</label>
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300">{{ $t('roles.granular_permissions') }}</label>
                 <div class="flex items-center gap-3">
                   <button type="button" @click="selectAll" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">{{ $t('roles.select_all') }}</button>
-                  <button type="button" @click="form.permissions = []" class="text-xs font-bold text-gray-500 hover:text-gray-700">{{ $t('roles.clear_all') }}</button>
+                  <button type="button" @click="form.permissions = []" class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300">{{ $t('roles.clear_all') }}</button>
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div v-for="group in permissionGroups" :key="group.group" class="border border-gray-100 rounded-xl overflow-hidden">
-                  <div class="bg-gray-50 px-3 py-2 border-b border-gray-100 font-bold text-xs text-gray-700 uppercase">
+                <div v-for="group in permissionGroups" :key="group.group" class="border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
+                  <div class="bg-gray-50 dark:bg-gray-900 px-3 py-2 border-b border-gray-100 dark:border-gray-700 font-bold text-xs text-gray-700 dark:text-gray-300 uppercase">
                     {{ $t(`roles.groups.${group.group}`) }}
                   </div>
                   <div class="p-3 space-y-2">
                     <label v-for="perm in group.perms" :key="perm.id" class="flex items-center cursor-pointer group">
-                      <input type="checkbox" :value="perm.id" v-model="form.permissions" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                      <span class="ms-3 text-sm font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">{{ $t(`roles.groups.${perm.label}`) }}</span>
+                      <input type="checkbox" :value="perm.id" v-model="form.permissions" class="w-4 h-4 text-indigo-600 border-gray-300 dark:border-gray-600 rounded focus:ring-indigo-500">
+                      <span class="ms-3 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-600 transition-colors">{{ $t(`roles.groups.${perm.label}`) }}</span>
                     </label>
                   </div>
                 </div>
@@ -103,8 +103,8 @@
             </div>
           </div>
           
-          <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-3">
-            <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors">{{ $t('roles.cancel') }}</button>
+          <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex justify-end gap-3">
+            <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:bg-gray-900 transition-colors">{{ $t('roles.cancel') }}</button>
             <button type="submit" :disabled="saving" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50 transition-colors">
               {{ saving ? $t('roles.saving') : $t('roles.save_role') }}
             </button>

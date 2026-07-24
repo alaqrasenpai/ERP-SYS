@@ -4,8 +4,8 @@
     <!-- Header -->
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 gap-4 mb-8">
       <div>
-        <h1 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('debts.title') }}</h1>
-        <p class="text-gray-500 mt-1 text-sm">{{ $t('debts.subtitle') }}</p>
+        <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">{{ $t('debts.title') }}</h1>
+        <p class="text-gray-500 dark:text-gray-400 mt-1 text-sm">{{ $t('debts.subtitle') }}</p>
       </div>
       <div class="flex items-center gap-3">
         <div class="bg-red-50 text-red-700 px-4 py-2 rounded-xl border border-red-100 flex items-center gap-2">
@@ -16,11 +16,11 @@
     </div>
 
     <!-- Data Table -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-start">
           <thead>
-            <tr class="bg-gray-50 border-b border-gray-100 text-xs text-gray-500 uppercase tracking-wider font-bold">
+            <tr class="bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-bold">
               <th class="py-4 px-6 text-start">{{ $t('debts.customer') }}</th>
               <th class="py-4 px-6 text-start">{{ $t('debts.phone') }}</th>
               <th class="py-4 px-6 text-start">{{ $t('debts.balance') }}</th>
@@ -28,24 +28,24 @@
               <th class="py-4 px-6 text-end">{{ $t('debts.actions') }}</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-100">
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
             <tr v-if="loading" class="animate-pulse">
               <td colspan="5" class="py-12 text-center text-gray-400">Loading...</td>
             </tr>
             <tr v-else-if="debtors.length === 0">
               <td colspan="5" class="py-12 text-center text-gray-400">{{ $t('debts.no_debts') }}</td>
             </tr>
-            <tr v-for="debtor in debtors" :key="debtor._id" class="hover:bg-gray-50/50 transition-colors group">
+            <tr v-for="debtor in debtors" :key="debtor._id" class="hover:bg-gray-50 dark:bg-gray-900/50 transition-colors group">
               <td class="py-4 px-6">
-                <div class="font-bold text-gray-900">{{ debtor.name }}</div>
+                <div class="font-bold text-gray-900 dark:text-white">{{ debtor.name }}</div>
               </td>
-              <td class="py-4 px-6 text-gray-600 font-mono text-sm">
+              <td class="py-4 px-6 text-gray-600 dark:text-gray-400 font-mono text-sm">
                 {{ debtor.phone || '-' }}
               </td>
               <td class="py-4 px-6">
                 <div class="font-bold text-red-600">${{ debtor.totalDebt.toFixed(2) }}</div>
               </td>
-              <td class="py-4 px-6 text-gray-500 text-sm">
+              <td class="py-4 px-6 text-gray-500 dark:text-gray-400 text-sm">
                 {{ new Date(debtor.updatedAt).toLocaleDateString() }}
               </td>
               <td class="py-4 px-6 text-end">
@@ -66,10 +66,10 @@
 
     <!-- Record Payment Modal -->
     <div v-if="paymentModalOpen" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden" @click.stop>
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden" @click.stop>
+        <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
           <h3 class="text-lg font-black">{{ $t('debts.record_payment') }} - {{ selectedDebtor?.name }}</h3>
-          <button @click="paymentModalOpen = false" class="text-gray-400 hover:text-gray-600">
+          <button @click="paymentModalOpen = false" class="text-gray-400 hover:text-gray-600 dark:text-gray-400">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
@@ -81,13 +81,13 @@
           </div>
 
           <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1.5">{{ $t('debts.payment_amount') }}</label>
-            <input type="number" v-model="paymentForm.amount" step="0.01" min="0.01" :max="selectedDebtor?.totalDebt" required class="w-full border-gray-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">{{ $t('debts.payment_amount') }}</label>
+            <input type="number" v-model="paymentForm.amount" step="0.01" min="0.01" :max="selectedDebtor?.totalDebt" required class="w-full border-gray-300 dark:border-gray-600 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
           </div>
           
           <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1.5">{{ $t('debts.payment_method') }}</label>
-            <select v-model="paymentForm.paymentMethod" class="w-full border-gray-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">{{ $t('debts.payment_method') }}</label>
+            <select v-model="paymentForm.paymentMethod" class="w-full border-gray-300 dark:border-gray-600 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
               <option value="Cash">Cash</option>
               <option value="Card">Card</option>
               <option value="Check">Check</option>
@@ -96,12 +96,12 @@
           </div>
 
           <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1.5">{{ $t('debts.notes') }}</label>
-            <textarea v-model="paymentForm.notes" rows="2" class="w-full border-gray-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500"></textarea>
+            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">{{ $t('debts.notes') }}</label>
+            <textarea v-model="paymentForm.notes" rows="2" class="w-full border-gray-300 dark:border-gray-600 rounded-xl focus:ring-emerald-500 focus:border-emerald-500"></textarea>
           </div>
 
           <div class="pt-2 flex justify-end gap-3">
-            <button type="button" @click="paymentModalOpen = false" class="px-5 py-2.5 text-sm font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">
+            <button type="button" @click="paymentModalOpen = false" class="px-5 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 rounded-xl transition-colors">
               {{ $t('general.cancel') }}
             </button>
             <button type="submit" :disabled="submitting" class="px-5 py-2.5 text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-colors disabled:opacity-50">
@@ -114,13 +114,13 @@
 
     <!-- History Modal -->
     <div v-if="historyModalOpen" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[85vh]" @click.stop>
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[85vh]" @click.stop>
+        <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
           <div>
              <h3 class="text-lg font-black">{{ $t('debts.history_title') }}</h3>
-             <p class="text-sm text-gray-500 mt-1">{{ selectedDebtor?.name }}</p>
+             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ selectedDebtor?.name }}</p>
           </div>
-          <button @click="historyModalOpen = false" class="p-2 bg-white text-gray-400 hover:text-gray-600 rounded-full shadow-sm">
+          <button @click="historyModalOpen = false" class="p-2 bg-white dark:bg-gray-800 text-gray-400 hover:text-gray-600 dark:text-gray-400 rounded-full shadow-sm">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
@@ -137,9 +137,9 @@
                        <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     </div>
                     <div>
-                       <div class="font-bold text-gray-900">{{ log.type === 'payment' ? $t('debts.payment') : $t('debts.charge') }}</div>
-                       <div class="text-xs text-gray-500 mt-0.5">{{ new Date(log.date).toLocaleString() }}</div>
-                       <div v-if="log.notes" class="text-sm text-gray-600 mt-1 italic">{{ log.notes }}</div>
+                       <div class="font-bold text-gray-900 dark:text-white">{{ log.type === 'payment' ? $t('debts.payment') : $t('debts.charge') }}</div>
+                       <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ new Date(log.date).toLocaleString() }}</div>
+                       <div v-if="log.notes" class="text-sm text-gray-600 dark:text-gray-400 mt-1 italic">{{ log.notes }}</div>
                        <div v-if="log.orderId" class="text-sm text-indigo-600 mt-1 font-mono">Order: {{ log.orderId.orderNumber }}</div>
                     </div>
                  </div>
@@ -147,7 +147,7 @@
                     <div class="font-black text-lg" :class="log.type === 'payment' ? 'text-emerald-600' : 'text-red-600'">
                        {{ log.type === 'payment' ? '-' : '+' }}${{ log.amount.toFixed(2) }}
                     </div>
-                    <div class="text-xs text-gray-500 font-bold mt-1 uppercase">{{ log.paymentMethod }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 font-bold mt-1 uppercase">{{ log.paymentMethod }}</div>
                  </div>
               </div>
            </div>

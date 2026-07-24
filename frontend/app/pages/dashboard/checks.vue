@@ -6,7 +6,7 @@
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         <!-- Title and Subtitle -->
         <div class="flex items-baseline gap-3 shrink-0 overflow-hidden">
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('checks.title', 'إدارة الشيكات') }}</h2>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight truncate">{{ $t('checks.title', 'إدارة الشيكات') }}</h2>
           <p class="text-xs font-bold text-gray-400 truncate hidden sm:block">{{ $t('checks.description', 'متابعة الشيكات المستحقة، المحصلة، والمرتجعة') }}</p>
         </div>
         
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Main Card with Table -->
-      <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden flex flex-col">
+      <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col">
         
         <div v-if="loading" class="flex justify-center p-12">
           <svg class="animate-spin h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
@@ -36,7 +36,7 @@
 
         <div v-else class="flex-1 overflow-x-auto">
           <table class="w-full text-sm text-center">
-            <thead class="text-xs text-gray-500 font-bold bg-gray-50/50 border-b border-gray-100">
+            <thead class="text-xs text-gray-500 dark:text-gray-400 font-bold bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
               <tr>
                 <th scope="col" class="px-6 py-5">{{ $t('checks.customer_name') }}</th>
                 <th scope="col" class="px-6 py-5">{{ $t('checks.total_amount') }}</th>
@@ -49,23 +49,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="check in checks" :key="check._id" class="border-b border-gray-50 hover:bg-gray-50/30 transition-colors">
-                <td class="px-6 py-5 font-black text-gray-900">
+              <tr v-for="check in checks" :key="check._id" class="border-b border-gray-50 hover:bg-gray-50 dark:bg-gray-900/30 transition-colors">
+                <td class="px-6 py-5 font-black text-gray-900 dark:text-white">
                   {{ check.customerId?.name || $t('checks.unknown_customer', 'عميل غير معروف') }}
                 </td>
                 <td class="px-6 py-5 font-black text-emerald-600">
                   {{ check.amount.toFixed(2) }} ريال
                 </td>
-                <td class="px-6 py-5 font-bold text-gray-600">
+                <td class="px-6 py-5 font-bold text-gray-600 dark:text-gray-400">
                   {{ check.checkNumber }}
                 </td>
-                <td class="px-6 py-5 font-bold text-gray-600">
+                <td class="px-6 py-5 font-bold text-gray-600 dark:text-gray-400">
                   {{ check.bankName }}
                 </td>
                 <td class="px-6 py-5 text-xs font-bold text-gray-400">
                   {{ check.orderId?.orderNumber || $t('checks.manual', 'يدوي') }}
                 </td>
-                <td class="px-6 py-5 font-bold" :class="isOverdue(check.dueDate) && check.status === 'Pending' ? 'text-rose-500' : 'text-gray-600'">
+                <td class="px-6 py-5 font-bold" :class="isOverdue(check.dueDate) && check.status === 'Pending' ? 'text-rose-500' : 'text-gray-600 dark:text-gray-400'">
                   {{ new Date(check.dueDate).toLocaleDateString() }}
                 </td>
                 <td class="px-6 py-5">
@@ -88,7 +88,7 @@
               
               <tr v-if="checks.length === 0">
                 <td colspan="8" class="px-6 py-16 text-center">
-                  <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100">
+                  <div class="w-16 h-16 bg-gray-50 dark:bg-gray-900 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100 dark:border-gray-700">
                     <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
                   </div>
                   <p class="font-black text-gray-400">{{ $t('checks.no_checks', 'لا توجد شيكات مسجلة') }}</p>
@@ -99,12 +99,12 @@
         </div>
 
         <!-- Pagination -->
-        <div class="p-4 border-t border-gray-50 flex items-center justify-start gap-2 bg-white">
-          <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
+        <div class="p-4 border-t border-gray-50 flex items-center justify-start gap-2 bg-white dark:bg-gray-800">
+          <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 transition-colors">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           </button>
           <button class="w-8 h-8 rounded-full flex items-center justify-center text-emerald-600 font-black border border-emerald-500 bg-emerald-50">1</button>
-          <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
+          <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 transition-colors">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
           </button>
         </div>

@@ -1,15 +1,15 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-4 sm:p-6 lg:p-8">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('inventory.title') }}</h1>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('inventory.description') }}</p>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $t('inventory.title') }}</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('inventory.description') }}</p>
         </div>
         <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
-          <NuxtLink to="/dashboard" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('general.dashboard') }}</NuxtLink>
+          <NuxtLink to="/dashboard" class="px-5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:bg-gray-900 shadow-sm transition-colors">{{ $t('general.dashboard') }}</NuxtLink>
           <div class="flex items-center gap-3" v-if="hasPermission('inventory:write')">
-            <button @click="showCategoryModal = true" class="px-4 py-2 bg-white border border-gray-100 hover:border-gray-300 text-gray-700 rounded-xl font-bold shadow-sm transition-all flex items-center">
+            <button @click="showCategoryModal = true" class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-bold shadow-sm transition-all flex items-center">
               <svg class="w-4 h-4 me-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
               {{ $t('inventory.categories') }}
             </button>
@@ -23,21 +23,21 @@
 
       <!-- WMS Summary Widget -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">{{ $t('inventory.total_products') }}</p>
-                 <p class="text-2xl font-bold text-gray-900">{{ products.length }}</p>
+                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $t('inventory.total_products') }}</p>
+                 <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ products.length }}</p>
               </div>
               <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg">
                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
               </div>
            </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">{{ $t('inventory.low_stock_items') }}</p>
+                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $t('inventory.low_stock_items') }}</p>
                  <p class="text-2xl font-bold" :class="lowStockCount > 0 ? 'text-red-600' : 'text-green-600'">{{ lowStockCount }}</p>
               </div>
               <div class="p-3 rounded-lg" :class="lowStockCount > 0 ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'">
@@ -45,11 +45,11 @@
               </div>
            </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">{{ $t('inventory.total_inventory_value') }}</p>
-                 <p class="text-2xl font-bold text-gray-900">${{ totalInventoryValue.toFixed(2) }}</p>
+                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $t('inventory.total_inventory_value') }}</p>
+                 <p class="text-2xl font-bold text-gray-900 dark:text-white">${{ totalInventoryValue.toFixed(2) }}</p>
               </div>
               <div class="p-3 bg-green-50 text-green-600 rounded-lg">
                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -59,46 +59,46 @@
       </div>
 
       <!-- Action Bar (Search & Filters) -->
-      <div class="bg-white p-4 rounded-t-xl border border-gray-100 border-b-0 flex justify-between items-center">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-t-xl border border-gray-100 dark:border-gray-700 border-b-0 flex justify-between items-center">
         <div class="relative w-full max-w-md">
           <div class="absolute inset-y-0 left-0 ps-3 flex items-center pointer-events-none">
             <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <input v-model="searchQuery" type="text" :placeholder="$t('inventory.search_placeholder')" class="block w-full ps-10 pe-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out">
+          <input v-model="searchQuery" type="text" :placeholder="$t('inventory.search_placeholder')" class="block w-full ps-10 pe-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg leading-5 bg-white dark:bg-gray-800 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out">
         </div>
-        <div class="text-sm text-gray-500 font-medium ms-4">
+        <div class="text-sm text-gray-500 dark:text-gray-400 font-medium ms-4">
           {{ $t('inventory.showing_products', { count: filteredProducts.length }) }}
         </div>
       </div>
 
       <!-- Products Table -->
-      <div class="bg-white shadow-sm border border-gray-100 rounded-b-xl overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 rounded-b-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-100">
-            <thead class="bg-gray-50">
+          <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-900">
               <tr>
-                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('inventory.product_info') }}</th>
-                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('inventory.sku_barcode') }}</th>
-                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('inventory.price_buy_sell') }}</th>
-                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('inventory.stock_uom') }}</th>
-                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('inventory.actions') }}</th>
+                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('inventory.product_info') }}</th>
+                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('inventory.sku_barcode') }}</th>
+                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('inventory.price_buy_sell') }}</th>
+                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('inventory.stock_uom') }}</th>
+                <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('inventory.actions') }}</th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-100">
-              <tr v-for="product in filteredProducts" :key="product._id" class="hover:bg-gray-50 transition-colors">
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+              <tr v-for="product in filteredProducts" :key="product._id" class="hover:bg-gray-50 dark:bg-gray-900 transition-colors">
                 <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
-                  <div class="text-sm font-semibold text-gray-900">{{ product.name }}</div>
+                  <div class="text-sm font-semibold text-gray-900 dark:text-white">{{ product.name }}</div>
                   <div class="text-xs text-indigo-600 font-medium">{{ product.category || $t('inventory.uncategorized') }}</div>
                 </td>
-                <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-500 font-mono">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono">
                   <div>SKU: {{ product.sku }}</div>
                   <div v-if="product.barcode" class="text-xs text-gray-400">BC: {{ product.barcode }}</div>
                 </td>
                 <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
-                  <div class="text-sm font-bold text-gray-900">${{ product.unitPrice.toFixed(2) }}</div>
-                  <div class="text-xs text-gray-500">{{ $t('inventory.buy') }} ${{ (product.purchasePrice || 0).toFixed(2) }}</div>
+                  <div class="text-sm font-bold text-gray-900 dark:text-white">${{ product.unitPrice.toFixed(2) }}</div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400">{{ $t('inventory.buy') }} ${{ (product.purchasePrice || 0).toFixed(2) }}</div>
                 </td>
                 <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm">
                   <div class="flex items-center">
@@ -122,13 +122,13 @@
             </td>
               </tr>
               <tr v-if="filteredProducts.length === 0 && !loading">
-                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">
+                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">
                   <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                   {{ $t('inventory.no_products_found') }} {{ searchQuery ? $t('inventory.try_adjusting_search') : $t('inventory.start_adding_product') }}
                 </td>
               </tr>
               <tr v-if="loading">
-                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">
+                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">
                   {{ $t('inventory.loading_inventory') }}
                 </td>
               </tr>
@@ -139,24 +139,24 @@
 
       <!-- Add/Edit Product Modal -->
       <div v-if="showAddModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-2xl border border-gray-100 flex flex-col max-h-[90vh]">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-2xl border border-gray-100 dark:border-gray-700 flex flex-col max-h-[90vh]">
           <form @submit.prevent="saveProduct" class="flex flex-col flex-1 overflow-hidden">
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 overflow-y-auto flex-1">
-              <h3 class="text-xl font-bold text-gray-900 mb-6" id="modal-title">{{ isEditing ? $t('inventory.edit_product') : $t('inventory.create_new_product') }}</h3>
+            <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 overflow-y-auto flex-1">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6" id="modal-title">{{ isEditing ? $t('inventory.edit_product') : $t('inventory.create_new_product') }}</h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.product_name') }}</label>
-                    <input v-model="form.name" type="text" required :placeholder="$t('inventory.e_g_wireless_mouse')" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.product_name') }}</label>
+                    <input v-model="form.name" type="text" required :placeholder="$t('inventory.e_g_wireless_mouse')" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.category') }}</label>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.category') }}</label>
                     <div class="flex gap-2">
-                      <select v-model="form.category" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <select v-model="form.category" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option value="">{{ $t('inventory.select_category') }}</option>
                         <option v-for="cat in categories" :key="cat._id" :value="cat.name">{{ cat.name }}</option>
                       </select>
-                      <button type="button" @click="showCategoryModal = true" class="px-3 py-2 bg-gray-100 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-200 transition-colors" :title="$t('inventory.manage_categories')">
+                      <button type="button" @click="showCategoryModal = true" class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 transition-colors" :title="$t('inventory.manage_categories')">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                       </button>
                     </div>
@@ -165,19 +165,19 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.sku_label') }}</label>
-                    <input v-model="form.sku" type="text" required :placeholder="$t('inventory.e_g_wm_01')" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-mono uppercase">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.sku_label') }}</label>
+                    <input v-model="form.sku" type="text" required :placeholder="$t('inventory.e_g_wm_01')" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-mono uppercase">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.barcode') }}</label>
-                    <input v-model="form.barcode" type="text" :placeholder="$t('inventory.scan_or_enter_barcode')" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-mono">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.barcode') }}</label>
+                    <input v-model="form.barcode" type="text" :placeholder="$t('inventory.scan_or_enter_barcode')" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-mono">
                   </div>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
                   <div class="col-span-2 md:col-span-1">
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.unit_of_measure') }}</label>
-                    <select v-model="form.uom" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.unit_of_measure') }}</label>
+                    <select v-model="form.uom" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                       <option value="Piece">{{ $t('inventory.piece') }}</option>
                       <option value="Box">{{ $t('inventory.box') }}</option>
                       <option value="KG">{{ $t('inventory.kg') }}</option>
@@ -185,32 +185,32 @@
                     </select>
                   </div>
                   <div class="col-span-2 md:col-span-1">
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.stock') }}</label>
-                    <input v-model="form.stockQuantity" type="number" required placeholder="0" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.stock') }}</label>
+                    <input v-model="form.stockQuantity" type="number" required placeholder="0" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div class="col-span-2 md:col-span-1">
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.alert_quantity') }}</label>
-                    <input v-model="form.alertQuantity" type="number" placeholder="10" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.alert_quantity') }}</label>
+                    <input v-model="form.alertQuantity" type="number" placeholder="10" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.purchase_price') }}</label>
-                    <input v-model="form.purchasePrice" type="number" step="0.01" placeholder="0.00" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.purchase_price') }}</label>
+                    <input v-model="form.purchasePrice" type="number" step="0.01" placeholder="0.00" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('inventory.selling_unit_price') }}</label>
-                    <input v-model="form.unitPrice" type="number" step="0.01" required placeholder="0.00" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('inventory.selling_unit_price') }}</label>
+                    <input v-model="form.unitPrice" type="number" step="0.01" required placeholder="0.00" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
 
               </div>
-              <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100">
+              <div class="bg-gray-50 dark:bg-gray-900 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100 dark:border-gray-700">
                 <button type="submit" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-5 py-2 bg-indigo-600 text-base font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ms-3 sm:w-auto sm:text-sm">
                   {{ isEditing ? $t('inventory.save_changes') : $t('inventory.save_product') }}
                 </button>
-                <button type="button" @click="showAddModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-5 py-2 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">
+                <button type="button" @click="showAddModal = false" class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm px-5 py-2 bg-white dark:bg-gray-800 text-base font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">
                   {{ $t('inventory.cancel') }}
                 </button>
               </div>
@@ -220,37 +220,37 @@
 
       <!-- Manage Categories Modal -->
       <div v-if="showCategoryModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 flex flex-col max-h-[90vh]">
-          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 overflow-y-auto flex-1">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-md border border-gray-100 dark:border-gray-700 flex flex-col max-h-[90vh]">
+          <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 overflow-y-auto flex-1">
             <div class="flex justify-between items-center mb-5">
-              <h3 class="text-xl font-bold text-gray-900" id="modal-title">{{ $t('inventory.manage_categories') }}</h3>
-                <button @click="showCategoryModal = false" class="text-gray-400 hover:text-gray-500">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white" id="modal-title">{{ $t('inventory.manage_categories') }}</h3>
+                <button @click="showCategoryModal = false" class="text-gray-400 hover:text-gray-500 dark:text-gray-400">
                   <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
               </div>
               
               <form @submit.prevent="addCategory" class="mb-6">
                 <div class="flex gap-2">
-                  <input v-model="categoryForm.name" type="text" required :placeholder="$t('inventory.new_category_name')" class="block w-full border border-gray-300 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <input v-model="categoryForm.name" type="text" required :placeholder="$t('inventory.new_category_name')" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   <button type="submit" class="inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     {{ $t('inventory.add') }}
                   </button>
                 </div>
               </form>
 
-              <div class="border border-gray-100 rounded-lg overflow-hidden max-h-64 overflow-y-auto">
-                <ul class="divide-y divide-gray-100">
-                  <li v-for="cat in categories" :key="cat._id" class="px-4 py-3 flex justify-between items-center hover:bg-gray-50">
-                    <span class="text-sm font-medium text-gray-900">{{ cat.name }}</span>
+              <div class="border border-gray-100 dark:border-gray-700 rounded-lg overflow-hidden max-h-64 overflow-y-auto">
+                <ul class="divide-y divide-gray-100 dark:divide-gray-700">
+                  <li v-for="cat in categories" :key="cat._id" class="px-4 py-3 flex justify-between items-center hover:bg-gray-50 dark:bg-gray-900">
+                    <span class="text-sm font-medium text-gray-900 dark:text-white">{{ cat.name }}</span>
                   </li>
-                  <li v-if="categories.length === 0" class="px-4 py-3 text-center text-sm text-gray-500">
+                  <li v-if="categories.length === 0" class="px-4 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
                     {{ $t('inventory.no_categories_found') }}
                   </li>
                 </ul>
               </div>
             </div>
-          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100 flex-shrink-0">
-            <button type="button" @click="showCategoryModal = false" class="w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-5 py-2 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm">
+          <div class="bg-gray-50 dark:bg-gray-900 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100 dark:border-gray-700 flex-shrink-0">
+            <button type="button" @click="showCategoryModal = false" class="w-full inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm px-5 py-2 bg-white dark:bg-gray-800 text-base font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm">
               {{ $t('inventory.done') }}
             </button>
           </div>

@@ -1,22 +1,22 @@
 <template>
   <div class="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-    <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 space-y-6">
+    <div class="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 space-y-6">
       <div class="text-center">
         <div class="w-16 h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
         </div>
-        <h2 class="text-3xl font-black text-gray-900 tracking-tight">Super Admin</h2>
-        <p class="text-sm text-gray-500 mt-2">Sign in to manage all SaaS tenants</p>
+        <h2 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Super Admin</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Sign in to manage all SaaS tenants</p>
       </div>
 
       <form @submit.prevent="handleLogin" class="space-y-4">
         <div>
-          <label class="block text-sm font-bold text-gray-700 mb-1">System Email</label>
-          <input v-model="form.email" type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-red-500 focus:border-red-500 text-gray-900 bg-gray-50 focus:bg-white transition-colors" placeholder="admin@erp.saas">
+          <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">System Email</label>
+          <input v-model="form.email" type="email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-red-500 focus:border-red-500 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 focus:bg-white dark:bg-gray-800 transition-colors" placeholder="admin@erp.saas">
         </div>
         <div>
-          <label class="block text-sm font-bold text-gray-700 mb-1">Master Password</label>
-          <input v-model="form.password" type="password" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-red-500 focus:border-red-500 text-gray-900 bg-gray-50 focus:bg-white transition-colors" placeholder="••••••••">
+          <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Master Password</label>
+          <input v-model="form.password" type="password" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-red-500 focus:border-red-500 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 focus:bg-white dark:bg-gray-800 transition-colors" placeholder="••••••••">
         </div>
 
         <button type="submit" :disabled="loading" class="w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-red-200 transition-all focus:outline-none focus:ring-4 focus:ring-red-500/50 disabled:bg-gray-400">

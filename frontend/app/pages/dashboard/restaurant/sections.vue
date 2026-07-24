@@ -3,8 +3,8 @@
     <div class="max-w-4xl mx-auto space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-2xl font-black text-gray-900">{{ $t('restaurant.sections_management') }}</h2>
-          <p class="text-sm text-gray-500">{{ $t('restaurant.sections_desc') }}</p>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white">{{ $t('restaurant.sections_management') }}</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">{{ $t('restaurant.sections_desc') }}</p>
         </div>
         <button @click="openAddModal" class="bg-gray-900 text-white px-6 py-2.5 rounded-xl font-bold shadow-sm hover:bg-gray-800 transition flex items-center">
           <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -12,21 +12,21 @@
         </button>
       </div>
 
-      <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
         <div v-if="loading" class="p-8 text-center text-gray-400">Loading...</div>
         
         <table v-else class="w-full text-left text-sm whitespace-nowrap">
-          <thead class="bg-gray-50/50 text-gray-500 font-bold">
+          <thead class="bg-gray-50 dark:bg-gray-900/50 text-gray-500 dark:text-gray-400 font-bold">
             <tr>
               <th class="px-6 py-4">{{ $t('restaurant.section_name') }}</th>
               <th class="px-6 py-4">{{ $t('restaurant.section_description') }}</th>
               <th class="px-6 py-4 text-end">{{ $t('general.actions') }}</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-100">
-            <tr v-for="section in sections" :key="section._id" class="hover:bg-gray-50/50 transition">
-              <td class="px-6 py-4 font-bold text-gray-900">{{ section.name }}</td>
-              <td class="px-6 py-4 text-gray-500 truncate max-w-xs">{{ section.description || '--' }}</td>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            <tr v-for="section in sections" :key="section._id" class="hover:bg-gray-50 dark:bg-gray-900/50 transition">
+              <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">{{ section.name }}</td>
+              <td class="px-6 py-4 text-gray-500 dark:text-gray-400 truncate max-w-xs">{{ section.description || '--' }}</td>
               <td class="px-6 py-4 text-end">
                 <button @click="openEditModal(section)" class="text-gray-400 hover:text-indigo-600 transition p-2">
                   <svg class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>

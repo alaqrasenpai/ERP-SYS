@@ -1,25 +1,25 @@
 <template>
-  <div class="min-h-screen bg-gray-50 p-4 sm:p-8">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-8">
     <div class="max-w-5xl mx-auto space-y-6">
       
       <!-- Header -->
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 ">
         <div>
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('my_attendance.title') }}</h2>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('my_attendance.description') }}</p>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight truncate">{{ $t('my_attendance.title') }}</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('my_attendance.description') }}</p>
         </div>
         <div class="text-end">
-          <p class="text-xs font-bold text-gray-500 uppercase">{{ $t('my_attendance.current_time') }}</p>
+          <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{{ $t('my_attendance.current_time') }}</p>
           <p class="text-xl font-black text-indigo-600">{{ currentTime }}</p>
         </div>
       </div>
 
       <!-- Web Punch Card -->
-      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 text-center max-w-md mx-auto">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8 text-center max-w-md mx-auto">
         <div class="w-20 h-20 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
           <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         </div>
-        <h3 class="text-lg font-bold text-gray-900 mb-6">{{ $t('my_attendance.web_punch') }}</h3>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-6">{{ $t('my_attendance.web_punch') }}</h3>
         
         <div class="flex flex-col space-y-4">
           <button @click="punch('in')" :disabled="loading" class="px-6 py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black shadow-lg shadow-emerald-200 transition-all disabled:opacity-50 flex items-center justify-center">

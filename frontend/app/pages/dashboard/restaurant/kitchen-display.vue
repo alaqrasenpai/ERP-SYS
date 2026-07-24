@@ -31,7 +31,7 @@
                 <div class="text-xs font-mono text-gray-400">{{ formatTime(order.createdAt) }}</div>
               </div>
               <p v-if="item.notes" class="text-sm bg-gray-800 p-2 rounded-lg text-gray-300 mb-3 italic">"{{ item.notes }}"</p>
-              <button @click="updateStatus(order._id, item._id, 'Preparing')" class="w-full py-2 bg-yellow-500/10 text-yellow-400 hover:bg-yellow-500 hover:text-gray-900 border border-yellow-500/50 transition rounded-lg font-bold text-sm">
+              <button @click="updateStatus(order._id, item._id, 'Preparing')" class="w-full py-2 bg-yellow-500/10 text-yellow-400 hover:bg-yellow-500 hover:text-gray-900 dark:text-white border border-yellow-500/50 transition rounded-lg font-bold text-sm">
                 Start Preparing
               </button>
             </div>
@@ -85,7 +85,7 @@
                   <p class="text-xs text-gray-400 mt-1">{{ order.orderType }} - {{ order.orderType === 'Dine-In' ? order.tableId?.tableNumber : order.deliveryDetails?.providerName }}</p>
                 </div>
               </div>
-              <button @click="updateStatus(order._id, item._id, 'Served')" class="w-full py-2 bg-green-500/10 text-green-400 hover:bg-green-500 hover:text-gray-900 border border-green-500/50 transition rounded-lg font-bold text-sm">
+              <button @click="updateStatus(order._id, item._id, 'Served')" class="w-full py-2 bg-green-500/10 text-green-400 hover:bg-green-500 hover:text-gray-900 dark:text-white border border-green-500/50 transition rounded-lg font-bold text-sm">
                 Served
               </button>
             </div>

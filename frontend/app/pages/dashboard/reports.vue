@@ -1,13 +1,13 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-4 sm:p-8">
     <div class="max-w-7xl mx-auto space-y-6">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
         <div>
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('reports.title') }}</h2>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('reports.description') }}</p>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight truncate">{{ $t('reports.title') }}</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('reports.description') }}</p>
         </div>
         <div class="flex gap-3 mt-4 sm:mt-0 print:hidden">
-          <button @click="printReport" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
+          <button @click="printReport" class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-bold hover:bg-gray-50 dark:bg-gray-900 shadow-sm transition-colors flex items-center">
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
             {{ $t('reports.print_pdf') }}
           </button>
@@ -15,7 +15,7 @@
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             {{ $t('reports.export_excel') }}
           </button>
-          <NuxtLink to="/dashboard" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
+          <NuxtLink to="/dashboard" class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-bold hover:bg-gray-50 dark:bg-gray-900 shadow-sm transition-colors flex items-center">
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             {{ $t('reports.dashboard') }}
           </NuxtLink>
@@ -23,17 +23,17 @@
       </div>
 
       <!-- Navigation Tabs -->
-      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6 print:hidden">
-        <nav class="flex divide-x divide-x-reverse divide-gray-100" aria-label="Tabs">
-          <button @click="activeReport = 'pnl'" :class="activeReport === 'pnl' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'" class="flex-1 group relative min-w-0 overflow-hidden py-4 px-4 text-center text-sm font-bold hover:bg-gray-50 focus:z-10 transition-colors">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mb-6 print:hidden">
+        <nav class="flex divide-x divide-x-reverse divide-gray-100 dark:divide-gray-700" aria-label="Tabs">
+          <button @click="activeReport = 'pnl'" :class="activeReport === 'pnl' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900'" class="flex-1 group relative min-w-0 overflow-hidden py-4 px-4 text-center text-sm font-bold hover:bg-gray-50 dark:bg-gray-900 focus:z-10 transition-colors">
             <span>{{ $t('reports.profit_and_loss') }}</span>
             <span aria-hidden="true" :class="activeReport === 'pnl' ? 'bg-indigo-500' : 'bg-transparent'" class="absolute inset-x-0 bottom-0 h-1"></span>
           </button>
-          <button @click="activeReport = 'debtors'" :class="activeReport === 'debtors' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'" class="flex-1 group relative min-w-0 overflow-hidden py-4 px-4 text-center text-sm font-bold hover:bg-gray-50 focus:z-10 transition-colors">
+          <button @click="activeReport = 'debtors'" :class="activeReport === 'debtors' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900'" class="flex-1 group relative min-w-0 overflow-hidden py-4 px-4 text-center text-sm font-bold hover:bg-gray-50 dark:bg-gray-900 focus:z-10 transition-colors">
             <span>{{ $t('reports.debtors_collections') }}</span>
             <span aria-hidden="true" :class="activeReport === 'debtors' ? 'bg-indigo-500' : 'bg-transparent'" class="absolute inset-x-0 bottom-0 h-1"></span>
           </button>
-          <button @click="activeReport = 'inventory'" :class="activeReport === 'inventory' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'" class="flex-1 group relative min-w-0 overflow-hidden py-4 px-4 text-center text-sm font-bold hover:bg-gray-50 focus:z-10 transition-colors">
+          <button @click="activeReport = 'inventory'" :class="activeReport === 'inventory' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900'" class="flex-1 group relative min-w-0 overflow-hidden py-4 px-4 text-center text-sm font-bold hover:bg-gray-50 dark:bg-gray-900 focus:z-10 transition-colors">
             <span>{{ $t('reports.inventory_valuation') }}</span>
             <span aria-hidden="true" :class="activeReport === 'inventory' ? 'bg-indigo-500' : 'bg-transparent'" class="absolute inset-x-0 bottom-0 h-1"></span>
           </button>
@@ -47,16 +47,16 @@
       <template v-else>
         <!-- Profit & Loss Report -->
         <div v-if="activeReport === 'pnl'" class="space-y-6">
-          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 print:hidden">
-            <h3 class="font-bold text-gray-900 mb-4">{{ $t('reports.date_filter') }}</h3>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 print:hidden">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-4">{{ $t('reports.date_filter') }}</h3>
             <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:gap-4 sm: items-end">
               <div class="flex-1">
-                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">{{ $t('reports.start_date') }}</label>
-                <input v-model="dateRange.start" type="date" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">{{ $t('reports.start_date') }}</label>
+                <input v-model="dateRange.start" type="date" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
               <div class="flex-1">
-                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">{{ $t('reports.end_date') }}</label>
-                <input v-model="dateRange.end" type="date" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">{{ $t('reports.end_date') }}</label>
+                <input v-model="dateRange.end" type="date" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
               <button @click="fetchPnL" class="bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white px-4 py-2 shrink-0 whitespace-nowrap rounded-xl font-bold transition-all shadow-sm">
                 {{ $t('reports.generate') }}
@@ -65,13 +65,13 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <p class="text-sm font-bold text-gray-500 uppercase">{{ $t('reports.total_revenue') }}</p>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+              <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">{{ $t('reports.total_revenue') }}</p>
               <p class="text-3xl font-black text-emerald-600 mt-2">{{ currency }}{{ (pnl.totalRevenue || 0).toLocaleString('en-US', {minimumFractionDigits: 2}) }}</p>
               <p class="text-xs text-gray-400 mt-1">{{ $t('reports.from_sales') }}</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <p class="text-sm font-bold text-gray-500 uppercase">{{ $t('reports.cogs_expenses') }}</p>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+              <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">{{ $t('reports.cogs_expenses') }}</p>
               <p class="text-3xl font-black text-rose-600 mt-2">{{ currency }}{{ (pnl.totalCostAndExpenses || 0).toLocaleString('en-US', {minimumFractionDigits: 2}) }}</p>
               <p class="text-xs text-gray-400 mt-1">{{ $t('reports.cogs_desc') }}</p>
             </div>
@@ -84,28 +84,28 @@
         </div>
 
         <!-- Debtors & Overdue Report -->
-        <div v-if="activeReport === 'debtors'" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+        <div v-if="activeReport === 'debtors'" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
             <div>
-              <h3 class="text-lg font-black text-gray-900 tracking-tight">{{ $t('reports.debtors_summary') }}</h3>
-              <p class="text-sm text-gray-500 mt-1">{{ $t('reports.debtors_desc') }}</p>
+              <h3 class="text-lg font-black text-gray-900 dark:text-white tracking-tight">{{ $t('reports.debtors_summary') }}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('reports.debtors_desc') }}</p>
             </div>
           </div>
           <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-100">
-              <thead class="bg-gray-50/50">
+            <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-900/50">
                 <tr>
-                  <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('reports.customer') }}</th>
-                  <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('reports.total_debt') }}</th>
-                  <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('reports.alerts') }}</th>
-                  <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('reports.action') }}</th>
+                  <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('reports.customer') }}</th>
+                  <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('reports.total_debt') }}</th>
+                  <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('reports.alerts') }}</th>
+                  <th scope="col" class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('reports.action') }}</th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-100">
-                <tr v-for="customer in debtors" :key="customer._id" class="hover:bg-gray-50/50 transition-colors">
+              <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+                <tr v-for="customer in debtors" :key="customer._id" class="hover:bg-gray-50 dark:bg-gray-900/50 transition-colors">
                   <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
-                    <div class="text-sm font-bold text-gray-900">{{ customer.name }}</div>
-                    <div class="text-xs text-gray-500">{{ customer.phone || $t('reports.no_phone') }}</div>
+                    <div class="text-sm font-bold text-gray-900 dark:text-white">{{ customer.name }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">{{ customer.phone || $t('reports.no_phone') }}</div>
                   </td>
                   <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
                     <span class="text-lg font-black text-rose-600">{{ currency }}{{ customer.totalDebt.toLocaleString('en-US', {minimumFractionDigits: 2}) }}</span>
@@ -124,7 +124,7 @@
                   </td>
                 </tr>
                 <tr v-if="debtors.length === 0">
-                  <td colspan="4" class="px-6 py-12 text-center text-gray-500">
+                  <td colspan="4" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                     <p class="text-sm font-bold">{{ $t('reports.no_debtors') }}</p>
                   </td>
                 </tr>
@@ -135,12 +135,12 @@
 
         <!-- Inventory Valuation Report -->
         <div v-if="activeReport === 'inventory'" class="space-y-6">
-          <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center max-w-lg mx-auto mt-12">
+          <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center max-w-lg mx-auto mt-12">
             <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
             </div>
-            <h3 class="text-lg font-black text-gray-900 mb-2">{{ $t('reports.total_inventory_capital') }}</h3>
-            <p class="text-sm text-gray-500 mb-6">{{ $t('reports.inventory_desc') }}</p>
+            <h3 class="text-lg font-black text-gray-900 dark:text-white mb-2">{{ $t('reports.total_inventory_capital') }}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">{{ $t('reports.inventory_desc') }}</p>
             <p class="text-5xl font-black text-blue-600 tracking-tight">{{ currency }}{{ (inventoryValuation || 0).toLocaleString('en-US', {minimumFractionDigits: 2}) }}</p>
           </div>
         </div>

@@ -1,27 +1,27 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-4 sm:p-6 lg:p-8">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('attendance.title') }}</h1>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('attendance.description') }}</p>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $t('attendance.title') }}</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('attendance.description') }}</p>
         </div>
       </div>
 
       <!-- Sync / Simulate Biometric Punch -->
-      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-8">
-        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm mb-8">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center">
           <svg class="w-5 h-5 me-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
           {{ $t('attendance.device_sync') }}
         </h3>
         <div class="flex flex-col md:flex-row gap-4 items-end">
           <div class="flex-1 w-full">
-            <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance.employee_national_id') }}</label>
-            <input v-model="sim.nationalId" type="text" :placeholder="$t('attendance.enter_national_id')" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('attendance.employee_national_id') }}</label>
+            <input v-model="sim.nationalId" type="text" :placeholder="$t('attendance.enter_national_id')" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
           </div>
           <div class="flex-1 w-full">
-            <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('attendance.punch_time') }}</label>
-            <input v-model="sim.timestamp" type="datetime-local" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('attendance.punch_time') }}</label>
+            <input v-model="sim.timestamp" type="datetime-local" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
           </div>
           <button @click="simulateBiometricPunch" class="px-6 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm w-full md:w-auto h-10">
             {{ $t('attendance.simulate_punch') }}
@@ -31,48 +31,48 @@
 
       <!-- Month Filter -->
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-900">{{ $t('attendance.live_attendance_log') }}</h2>
-        <input type="month" v-model="filterMonth" @change="fetchAttendance" class="border border-gray-300 rounded-lg py-1.5 px-3 text-sm font-bold text-gray-700">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ $t('attendance.live_attendance_log') }}</h2>
+        <input type="month" v-model="filterMonth" @change="fetchAttendance" class="border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 text-sm font-bold text-gray-700 dark:text-gray-300">
       </div>
 
       <!-- Attendance Table -->
-      <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-100">
-            <thead class="bg-gray-50">
+          <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-900">
               <tr>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('attendance.date') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('attendance.employee') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('attendance.clock_in') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('attendance.clock_out') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('attendance.total_hours') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('attendance.source') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('attendance.status') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('attendance.date') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('attendance.employee') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('attendance.clock_in') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('attendance.clock_out') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('attendance.total_hours') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('attendance.source') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('attendance.status') }}</th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-100">
-              <tr v-for="log in paginatedLogs" :key="log._id" class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+              <tr v-for="log in paginatedLogs" :key="log._id" class="hover:bg-gray-50 dark:bg-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 dark:text-white">
                   {{ log.date }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-bold text-gray-900">{{ log.employeeId?.name || $t('attendance.unknown') }}</div>
-                  <div class="text-xs text-gray-500">{{ log.employeeId?.nationalId || $t('attendance.no_id') }}</div>
+                  <div class="text-sm font-bold text-gray-900 dark:text-white">{{ log.employeeId?.name || $t('attendance.unknown') }}</div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400">{{ log.employeeId?.nationalId || $t('attendance.no_id') }}</div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono">
                   {{ log.clockIn ? new Date(log.clockIn).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--' }}
                   <div v-if="log.lastAudit && log.lastAudit.modifiedBy" class="text-xs text-indigo-500 mt-1 cursor-pointer" :title="log.lastAudit.reason">
                     * {{ $t('attendance.modified_by') }}: {{ log.lastAudit.modifiedBy }}
                   </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono">
                   {{ log.clockOut ? new Date(log.clockOut).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--' }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 dark:text-white">
                   {{ log.totalHours ? log.totalHours.toFixed(2) + ' ' + $t('attendance.hrs') : '-' }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                  <span class="text-xs font-medium text-gray-500 flex items-center">
+                  <span class="text-xs font-medium text-gray-500 dark:text-gray-400 flex items-center">
                     <svg v-if="log.punchType === 'Biometric/Fingerprint'" class="w-4 h-4 me-1 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
                     {{ log.punchType }}
                   </span>
@@ -88,7 +88,7 @@
                 </td>
               </tr>
               <tr v-if="attendanceLogs.length === 0">
-                <td colspan="7" class="px-6 py-12 text-center text-sm text-gray-500">{{ $t('attendance.no_records') }}</td>
+                <td colspan="7" class="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">{{ $t('attendance.no_records') }}</td>
               </tr>
             </tbody>
           </table>

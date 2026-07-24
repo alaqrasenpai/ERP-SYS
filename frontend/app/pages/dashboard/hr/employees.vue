@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-4 sm:p-6 lg:p-8">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('employees.title') }}</h1>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('employees.description') }}</p>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $t('employees.title') }}</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('employees.description') }}</p>
         </div>
         <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
           <button @click="openAddModal" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all flex items-center">
@@ -15,42 +15,42 @@
       </div>
 
       <!-- Employees Table -->
-      <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-100">
-            <thead class="bg-gray-50">
+          <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-900">
               <tr>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('employees.employee') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('employees.job_department') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('employees.shift') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('employees.leave_balances') }}</th>
-                <th class="px-6 py-4 text-end text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('employees.actions') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('employees.employee') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('employees.job_department') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('employees.shift') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('employees.leave_balances') }}</th>
+                <th class="px-6 py-4 text-end text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('employees.actions') }}</th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-100">
-              <tr v-for="emp in paginatedEmployees" :key="emp._id" class="hover:bg-gray-50 transition-colors">
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+              <tr v-for="emp in paginatedEmployees" :key="emp._id" class="hover:bg-gray-50 dark:bg-gray-900 transition-colors">
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold me-3">
                       {{ emp.name.charAt(0) }}
                     </div>
                     <div>
-                      <div class="text-sm font-bold text-gray-900">{{ emp.name }}</div>
-                      <div class="text-xs text-gray-500">{{ emp.nationalId || $t('employees.no_id') }} • #{{ emp.employeeNumber || 'N/A' }}</div>
+                      <div class="text-sm font-bold text-gray-900 dark:text-white">{{ emp.name }}</div>
+                      <div class="text-xs text-gray-500 dark:text-gray-400">{{ emp.nationalId || $t('employees.no_id') }} • #{{ emp.employeeNumber || 'N/A' }}</div>
                     </div>
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-900 font-bold">{{ emp.position }}</div>
+                  <div class="text-sm text-gray-900 dark:text-white font-bold">{{ emp.position }}</div>
                   <div class="text-xs text-indigo-600">{{ emp.departmentId?.name || $t('employees.unassigned_dept') }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-900">{{ emp.shiftId?.name || $t('employees.no_shift') }}</div>
-                  <div class="text-xs text-gray-500" v-if="emp.shiftId">{{ emp.shiftId.startTime }} - {{ emp.shiftId.endTime }}</div>
+                  <div class="text-sm text-gray-900 dark:text-white">{{ emp.shiftId?.name || $t('employees.no_shift') }}</div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400" v-if="emp.shiftId">{{ emp.shiftId.startTime }} - {{ emp.shiftId.endTime }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-xs text-gray-700">{{ $t('employees.annual') }} <span class="font-bold">{{ emp.annualLeaveBalance }}</span> {{ $t('employees.days') }}</div>
-                  <div class="text-xs text-gray-700">{{ $t('employees.sick') }} <span class="font-bold">{{ emp.sickLeaveBalance }}</span> {{ $t('employees.days') }}</div>
+                  <div class="text-xs text-gray-700 dark:text-gray-300">{{ $t('employees.annual') }} <span class="font-bold">{{ emp.annualLeaveBalance }}</span> {{ $t('employees.days') }}</div>
+                  <div class="text-xs text-gray-700 dark:text-gray-300">{{ $t('employees.sick') }} <span class="font-bold">{{ emp.sickLeaveBalance }}</span> {{ $t('employees.days') }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
               <div class="flex items-center justify-end gap-2">
@@ -60,7 +60,7 @@
             </td>
               </tr>
               <tr v-if="employees.length === 0">
-                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">{{ $t('employees.no_employees_found') }}</td>
+                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">{{ $t('employees.no_employees_found') }}</td>
               </tr>
             </tbody>
           </table>
@@ -76,73 +76,73 @@
 
       <!-- Add/Edit Employee Modal -->
       <div v-if="showModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-3xl border border-gray-100 flex flex-col max-h-[90vh]">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl w-full max-w-3xl border border-gray-100 dark:border-gray-700 flex flex-col max-h-[90vh]">
           
-          <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-            <h3 class="text-xl font-bold text-gray-900">{{ isEditing ? $t('employees.edit_hr_profile') : $t('employees.new_employee_profile') }}</h3>
-            <button @click="showModal = false" class="text-gray-400 hover:text-gray-500"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+          <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ isEditing ? $t('employees.edit_hr_profile') : $t('employees.new_employee_profile') }}</h3>
+            <button @click="showModal = false" class="text-gray-400 hover:text-gray-500 dark:text-gray-400"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
           </div>
 
           <!-- Tabs -->
-          <div class="border-b border-gray-100 px-6">
+          <div class="border-b border-gray-100 dark:border-gray-700 px-6">
             <nav class="-mb-px flex gap-8">
-              <button @click="activeModalTab = 'personal'" :class="[activeModalTab === 'personal' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.personal_info') }}</button>
-              <button @click="activeModalTab = 'job'" :class="[activeModalTab === 'job' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.job_shift') }}</button>
-              <button @click="activeModalTab = 'leaves'" :class="[activeModalTab === 'leaves' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.leave_balances') }}</button>
+              <button @click="activeModalTab = 'personal'" :class="[activeModalTab === 'personal' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.personal_info') }}</button>
+              <button @click="activeModalTab = 'job'" :class="[activeModalTab === 'job' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.job_shift') }}</button>
+              <button @click="activeModalTab = 'leaves'" :class="[activeModalTab === 'leaves' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600', 'whitespace-nowrap py-3 px-1 border-b-2 font-bold text-sm transition-colors']">{{ $t('employees.leave_balances') }}</button>
             </nav>
           </div>
 
           <form @submit.prevent="saveEmployee" class="flex flex-col flex-1 overflow-hidden">
-            <div class="bg-white px-6 py-6 overflow-y-auto flex-1">
+            <div class="bg-white dark:bg-gray-800 px-6 py-6 overflow-y-auto flex-1">
               
               <!-- Personal Tab -->
               <div v-if="activeModalTab === 'personal'" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.full_name') }}</label>
-                    <input v-model="form.name" type="text" required class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.full_name') }}</label>
+                    <input v-model="form.name" type="text" required class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.national_id') }}</label>
-                    <input v-model="form.nationalId" type="text" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.national_id') }}</label>
+                    <input v-model="form.nationalId" type="text" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.employee_number') }} (رقم البصمة)</label>
-                    <input v-model="form.employeeNumber" type="text" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.email') }}</label>
-                    <input v-model="form.email" type="email" required class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.phone') }}</label>
-                    <input v-model="form.phone" type="text" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.employee_number') }} (رقم البصمة)</label>
+                    <input v-model="form.employeeNumber" type="text" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.gender') }}</label>
-                    <select v-model="form.gender" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.email') }}</label>
+                    <input v-model="form.email" type="email" required class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.phone') }}</label>
+                    <input v-model="form.phone" type="text" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.gender') }}</label>
+                    <select v-model="form.gender" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                       <option value="Male">{{ $t('employees.male') }}</option>
                       <option value="Female">{{ $t('employees.female') }}</option>
                     </select>
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.birth_date') }}</label>
-                    <input v-model="form.birthDate" type="date" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.birth_date') }}</label>
+                    <input v-model="form.birthDate" type="date" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
                 <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.address') }}</label>
-                  <textarea v-model="form.address" rows="2" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.address') }}</label>
+                  <textarea v-model="form.address" rows="2" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                 </div>
-                <h4 class="text-sm font-bold text-gray-900 border-b pb-1 mt-4">{{ $t('employees.emergency_contact') }}</h4>
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-4">{{ $t('employees.emergency_contact') }}</h4>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  <input v-model="form.emergencyContact.name" type="text" :placeholder="$t('employees.name')" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm">
-                  <input v-model="form.emergencyContact.phone" type="text" :placeholder="$t('employees.phone')" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm">
-                  <input v-model="form.emergencyContact.relationship" type="text" :placeholder="$t('employees.relationship')" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm">
+                  <input v-model="form.emergencyContact.name" type="text" :placeholder="$t('employees.name')" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 text-sm">
+                  <input v-model="form.emergencyContact.phone" type="text" :placeholder="$t('employees.phone')" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 text-sm">
+                  <input v-model="form.emergencyContact.relationship" type="text" :placeholder="$t('employees.relationship')" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 text-sm">
                 </div>
               </div>
 
@@ -150,12 +150,12 @@
               <div v-if="activeModalTab === 'job'" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.job_position') }}</label>
-                    <input v-model="form.position" type="text" required class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.job_position') }}</label>
+                    <input v-model="form.position" type="text" required class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.department') }}</label>
-                    <select v-model="form.departmentId" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.department') }}</label>
+                    <select v-model="form.departmentId" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                       <option :value="null">{{ $t('employees.unassigned') }}</option>
                       <option v-for="d in departments" :key="d._id" :value="d._id">{{ d.name }}</option>
                     </select>
@@ -163,42 +163,42 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.working_shift') }}</label>
-                    <select v-model="form.shiftId" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.working_shift') }}</label>
+                    <select v-model="form.shiftId" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                       <option :value="null">{{ $t('employees.default_flexible') }}</option>
                       <option v-for="s in shifts" :key="s._id" :value="s._id">{{ s.name }} ({{ s.startTime }}-{{ s.endTime }})</option>
                     </select>
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.join_date') }}</label>
-                    <input v-model="form.joinedAt" type="date" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.join_date') }}</label>
+                    <input v-model="form.joinedAt" type="date" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
                 
-                <h4 class="text-sm font-bold text-gray-900 border-b pb-1 mt-6">{{ $t('employees.payroll_details') }}</h4>
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">{{ $t('employees.payroll_details') }}</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.basic_salary') }}</label>
-                    <input v-model="form.basicSalary" type="number" step="0.01" required class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.basic_salary') }}</label>
+                    <input v-model="form.basicSalary" type="number" step="0.01" required class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.monthly_allowance') }}</label>
-                    <input v-model="form.allowance" type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.monthly_allowance') }}</label>
+                    <input v-model="form.allowance" type="number" step="0.01" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
 
-                <h4 class="text-sm font-bold text-gray-900 border-b pb-1 mt-6">التفويض (Delegation)</h4>
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">التفويض (Delegation)</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">تفويض إلى الموظف</label>
-                    <select v-model="form.delegatedTo" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">تفويض إلى الموظف</label>
+                    <select v-model="form.delegatedTo" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                       <option :value="null">بدون تفويض</option>
                       <option v-for="emp in employees" :key="emp._id" :value="emp._id">{{ emp.name }}</option>
                     </select>
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">تاريخ انتهاء التفويض</label>
-                    <input v-model="form.delegationEnd" type="date" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">تاريخ انتهاء التفويض</label>
+                    <input v-model="form.delegationEnd" type="date" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
               </div>
@@ -212,22 +212,22 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.annual_leave_balance') }}</label>
-                    <input v-model="form.annualLeaveBalance" type="number" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-bold text-indigo-700 text-lg">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.annual_leave_balance') }}</label>
+                    <input v-model="form.annualLeaveBalance" type="number" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-bold text-indigo-700 text-lg">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('employees.sick_leave_balance') }}</label>
-                    <input v-model="form.sickLeaveBalance" type="number" class="w-full border border-gray-300 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-bold text-red-700 text-lg">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.sick_leave_balance') }}</label>
+                    <input v-model="form.sickLeaveBalance" type="number" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-bold text-red-700 text-lg">
                   </div>
                 </div>
               </div>
 
             </div>
-            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 flex-shrink-0 gap-3">
+            <div class="bg-gray-50 dark:bg-gray-900 px-6 py-4 flex flex-row-reverse border-t border-gray-100 dark:border-gray-700 flex-shrink-0 gap-3">
               <button type="submit" class="inline-flex justify-center rounded-lg px-6 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 shadow-sm ms-3">
                 {{ isEditing ? $t('employees.save_profile') : $t('employees.add_employee') }}
               </button>
-              <button type="button" @click="showModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 px-6 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50 shadow-sm">
+              <button type="button" @click="showModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 px-6 py-2.5 bg-white dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 shadow-sm">
                 {{ $t('employees.cancel') }}
               </button>
             </div>

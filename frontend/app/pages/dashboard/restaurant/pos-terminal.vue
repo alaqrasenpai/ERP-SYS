@@ -1,23 +1,23 @@
 <template>
-  <div class="h-[calc(100vh-2rem)] flex flex-col lg:flex-row overflow-hidden bg-gray-50">
+  <div class="h-[calc(100vh-2rem)] flex flex-col lg:flex-row overflow-hidden bg-gray-50 dark:bg-gray-900">
     
     <!-- Left: Menu & Tabs (in RTL this becomes right) -->
     <div class="flex-1 flex flex-col p-4 sm:p-6 lg:p-8 overflow-y-auto">
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-4">
-          <a href="/" class="w-10 h-10 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-gray-500 hover:text-emerald-600 hover:border-emerald-200 transition">
+          <a href="/" class="w-10 h-10 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-emerald-600 hover:border-emerald-200 transition">
             <svg class="w-6 h-6 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
           </a>
-          <h2 class="text-2xl font-black text-gray-900">{{ $t('restaurant.pos_terminal', 'شاشة البيع - المطعم') }}</h2>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white">{{ $t('restaurant.pos_terminal', 'شاشة البيع - المطعم') }}</h2>
         </div>
       </div>
 
       <!-- Order Types Tabs -->
-      <div class="flex space-x-2 rtl:space-x-reverse mb-6 bg-white p-2 rounded-2xl shadow-sm border border-gray-100">
+      <div class="flex space-x-2 rtl:space-x-reverse mb-6 bg-white dark:bg-gray-800 p-2 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
         <button v-for="type in ['Dine-In', 'Takeaway', 'Delivery']" :key="type"
                 @click="orderType = type"
                 class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all"
-                :class="orderType === type ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/20' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'">
+                :class="orderType === type ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/20' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-900 hover:text-gray-900 dark:text-white'">
           {{ $t(`restaurant.${type.toLowerCase().replace('-', '_')}`) }}
         </button>
       </div>

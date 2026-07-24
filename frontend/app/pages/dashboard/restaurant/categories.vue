@@ -3,8 +3,8 @@
     <div class="max-w-4xl mx-auto space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-2xl font-black text-gray-900">{{ $t('restaurant.menu_categories') }}</h2>
-          <p class="text-sm text-gray-500">{{ $t('restaurant.categories_description') }}</p>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white">{{ $t('restaurant.menu_categories') }}</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">{{ $t('restaurant.categories_description') }}</p>
         </div>
         <button @click="openModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm hover:bg-indigo-700 transition font-bold flex items-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -12,21 +12,21 @@
         </button>
       </div>
 
-      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-900">
               <tr>
-                <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('restaurant.category_en') }}</th>
-                <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('restaurant.category_ar') }}</th>
-                <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase tracking-wider">{{ $t('restaurant.status') }}</th>
-                <th scope="col" class="px-6 py-4 text-end text-xs font-black text-gray-500 uppercase tracking-wider"></th>
+                <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('restaurant.category_en') }}</th>
+                <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('restaurant.category_ar') }}</th>
+                <th scope="col" class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('restaurant.status') }}</th>
+                <th scope="col" class="px-6 py-4 text-end text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider"></th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <tr v-for="cat in categories" :key="cat._id" class="hover:bg-gray-50 transition">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ cat.nameEn }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600" dir="rtl">{{ cat.nameAr }}</td>
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tr v-for="cat in categories" :key="cat._id" class="hover:bg-gray-50 dark:bg-gray-900 transition">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 dark:text-white">{{ cat.nameEn }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600 dark:text-gray-400" dir="rtl">{{ cat.nameAr }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span class="px-2 inline-flex text-xs leading-5 font-bold rounded-full" :class="cat.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'">
                     {{ cat.isActive ? $t('restaurant.active') : $t('restaurant.inactive') }}
@@ -40,7 +40,7 @@
               </tr>
             </tbody>
           </table>
-          <div v-if="!categories.length && !loading" class="p-8 text-center text-gray-500 text-sm">
+          <div v-if="!categories.length && !loading" class="p-8 text-center text-gray-500 dark:text-gray-400 text-sm">
             {{ $t('restaurant.no_recent_activity') }}
           </div>
         </div>
@@ -49,29 +49,29 @@
 
     <!-- Add/Edit Category Modal -->
     <div v-if="showModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50 print:hidden">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-          <h3 class="text-lg font-bold text-gray-900">{{ form._id ? $t('restaurant.add_category') : $t('restaurant.add_category') }}</h3>
-          <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ form._id ? $t('restaurant.add_category') : $t('restaurant.add_category') }}</h3>
+          <button @click="showModal = false" class="text-gray-400 hover:text-gray-600 dark:text-gray-400">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
         <div class="p-6">
           <form @submit.prevent="saveCategory" class="space-y-4">
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.category_ar') }}</label>
-              <input v-model="form.nameAr" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500" dir="rtl">
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('restaurant.category_ar') }}</label>
+              <input v-model="form.nameAr" type="text" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500" dir="rtl">
             </div>
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('restaurant.category_en') }}</label>
-              <input v-model="form.nameEn" type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('restaurant.category_en') }}</label>
+              <input v-model="form.nameEn" type="text" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
             </div>
             <div class="flex items-center gap-2 mt-2">
               <input type="checkbox" v-model="form.isActive" id="isActive" class="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4">
-              <label for="isActive" class="text-sm font-bold text-gray-700">{{ $t('restaurant.active') }}</label>
+              <label for="isActive" class="text-sm font-bold text-gray-700 dark:text-gray-300">{{ $t('restaurant.active') }}</label>
             </div>
             <div class="flex justify-end gap-3 pt-4 border-t mt-6">
-              <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50">{{ $t('restaurant.cancel') }}</button>
+              <button type="button" @click="showModal = false" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:bg-gray-900">{{ $t('restaurant.cancel') }}</button>
               <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700" :disabled="saving">
                 {{ saving ? '...' : $t('restaurant.save') }}
               </button>

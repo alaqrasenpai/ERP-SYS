@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-4 sm:p-8">
     <div class="max-w-7xl mx-auto space-y-6">
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
-      <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('stock_movements.title') }}</h2>
+      <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight truncate">{{ $t('stock_movements.title') }}</h2>
       <div class="flex flex-wrap gap-3 mt-4 sm:mt-0 flex-row-reverse">
-        <NuxtLink to="/dashboard" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 shadow-sm transition-colors flex items-center">
+        <NuxtLink to="/dashboard" class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-bold hover:bg-gray-50 dark:bg-gray-900 shadow-sm transition-colors flex items-center">
           <svg class="w-4 h-4 me-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
           {{ $t('stock_movements.dashboard') }}
         </NuxtLink>
@@ -20,9 +20,9 @@
     </div>
 
     <!-- Movements Log -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-      <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-        <h3 class="font-bold text-gray-900">{{ $t('stock_movements.historical_log') }}</h3>
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex justify-between items-center">
+        <h3 class="font-bold text-gray-900 dark:text-white">{{ $t('stock_movements.historical_log') }}</h3>
       </div>
       
       <div v-if="loading" class="flex justify-center p-8">
@@ -30,38 +30,38 @@
       </div>
 
       <div v-else class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-100">
-          <thead class="bg-gray-50">
+        <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-900">
             <tr>
-              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('stock_movements.date') }}</th>
-              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('stock_movements.type') }}</th>
-              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('stock_movements.product') }}</th>
-              <th class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('stock_movements.quantity') }}</th>
-              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('stock_movements.reason_reference') }}</th>
-              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('stock_movements.performed_by') }}</th>
+              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('stock_movements.date') }}</th>
+              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('stock_movements.type') }}</th>
+              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('stock_movements.product') }}</th>
+              <th class="px-4 py-3 sm:px-6 sm:py-4 text-end text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('stock_movements.quantity') }}</th>
+              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('stock_movements.reason_reference') }}</th>
+              <th class="px-4 py-3 sm:px-6 sm:py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('stock_movements.performed_by') }}</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-100">
-            <tr v-for="m in movements" :key="m._id" class="hover:bg-gray-50 transition-colors">
-              <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{{ new Date(m.date).toLocaleString() }}</td>
+          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+            <tr v-for="m in movements" :key="m._id" class="hover:bg-gray-50 dark:bg-gray-900 transition-colors">
+              <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white font-medium">{{ new Date(m.date).toLocaleString() }}</td>
               <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
                 <span v-if="m.type === 'in'" class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full border border-emerald-200">{{ $t('stock_movements.in_restock') }}</span>
                 <span v-else-if="m.type === 'out'" class="px-2.5 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full border border-blue-200">{{ $t('stock_movements.out_sale') }}</span>
                 <span v-else class="px-2.5 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-full border border-red-200">{{ $t('stock_movements.adjust_loss') }}</span>
               </td>
-              <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-900">{{ m.productId?.name || $t('stock_movements.unknown') }}</td>
+              <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{{ m.productId?.name || $t('stock_movements.unknown') }}</td>
               <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-end font-bold" :class="{'text-emerald-600': m.type === 'in', 'text-red-600': m.type !== 'in'}">
                 {{ m.type === 'in' ? '+' : '-' }}{{ m.quantity }}
               </td>
-              <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-gray-500">
+              <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-gray-500 dark:text-gray-400">
                 <p>{{ m.reason || $t('stock_movements.n_a') }}</p>
                 <p v-if="m.supplierId" class="text-xs text-indigo-600 font-bold mt-1">{{ $t('stock_movements.supplier') }} {{ m.supplierId.name }}</p>
                 <p v-if="m.referenceNumber" class="text-xs">{{ $t('stock_movements.ref') }} {{ m.referenceNumber }}</p>
               </td>
-              <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-500">{{ m.performedBy?.name || $t('stock_movements.system') }}</td>
+              <td class="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ m.performedBy?.name || $t('stock_movements.system') }}</td>
             </tr>
             <tr v-if="movements.length === 0">
-              <td colspan="6" class="px-6 py-8 text-center text-gray-500">{{ $t('stock_movements.no_movements') }}</td>
+              <td colspan="6" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">{{ $t('stock_movements.no_movements') }}</td>
             </tr>
           </tbody>
         </table>
@@ -70,34 +70,34 @@
 
     <!-- Add Stock Modal -->
     <div v-if="showAddModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
-        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 flex-shrink-0">
-          <h3 class="text-lg font-bold text-gray-900">{{ $t('stock_movements.restock_product') }}</h3>
-          <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900 flex-shrink-0">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ $t('stock_movements.restock_product') }}</h3>
+          <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600 dark:text-gray-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         <div class="p-6 overflow-y-auto flex-1">
           <form @submit.prevent="submitAddStock" class="space-y-4">
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.select_product') }}</label>
-              <select v-model="addForm.productId" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.select_product') }}</label>
+              <select v-model="addForm.productId" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
                 <option v-for="p in products" :key="p._id" :value="p._id">{{ p.name }} ({{ $t('stock_movements.current') }} {{ p.stockQuantity }})</option>
               </select>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.quantity_added') }}</label>
-                <input v-model="addForm.quantity" type="number" min="1" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.quantity_added') }}</label>
+                <input v-model="addForm.quantity" type="number" min="1" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.unit_cost') }}</label>
-                <input v-model="addForm.unitCost" type="number" step="0.01" min="0" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.unit_cost') }}</label>
+                <input v-model="addForm.unitCost" type="number" step="0.01" min="0" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
             </div>
 
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.supplier_label') }}</label>
-              <select v-model="addForm.supplierId" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.supplier_label') }}</label>
+              <select v-model="addForm.supplierId" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
                 <option :value="null">{{ $t('stock_movements.none_direct_add') }}</option>
                 <option v-for="s in suppliers" :key="s._id" :value="s._id">{{ s.name }}</option>
               </select>
@@ -105,12 +105,12 @@
 
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.reference_invoice') }}</label>
-                <input v-model="addForm.referenceNumber" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.reference_invoice') }}</label>
+                <input v-model="addForm.referenceNumber" type="text" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
               </div>
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.payment_method') }}</label>
-                <select v-model="addForm.paymentMethod" class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.payment_method') }}</label>
+                <select v-model="addForm.paymentMethod" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
                   <option value="Cash">{{ $t('stock_movements.cash_immediate') }}</option>
                   <option value="Credit" :disabled="!addForm.supplierId">{{ $t('stock_movements.credit_accounts_payable') }}</option>
                 </select>
@@ -130,31 +130,31 @@
 
     <!-- Remove Stock Modal -->
     <div v-if="showRemoveModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col max-h-[90vh]">
-        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 flex-shrink-0">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900 flex-shrink-0">
           <h3 class="text-lg font-bold text-red-600">{{ $t('stock_movements.inventory_adjustment') }}</h3>
-          <button @click="showRemoveModal = false" class="text-gray-400 hover:text-gray-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+          <button @click="showRemoveModal = false" class="text-gray-400 hover:text-gray-600 dark:text-gray-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         <div class="p-6 overflow-y-auto flex-1">
-          <div class="mb-4 text-xs font-medium text-gray-500 bg-gray-100 p-3 rounded-lg">
+          <div class="mb-4 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
             {{ $t('stock_movements.write_off_notice') }}
           </div>
           <form @submit.prevent="submitRemoveStock" class="space-y-4">
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.select_product') }}</label>
-              <select v-model="removeForm.productId" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.select_product') }}</label>
+              <select v-model="removeForm.productId" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
                 <option v-for="p in products" :key="p._id" :value="p._id">{{ p.name }} ({{ $t('stock_movements.available') }} {{ p.stockQuantity }})</option>
               </select>
             </div>
             
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.quantity_lost') }}</label>
-              <input v-model="removeForm.quantity" type="number" min="1" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.quantity_lost') }}</label>
+              <input v-model="removeForm.quantity" type="number" min="1" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
             </div>
 
             <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">{{ $t('stock_movements.reason_write_off') }}</label>
-              <select v-model="removeForm.reason" required class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 mb-2">
+              <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('stock_movements.reason_write_off') }}</label>
+              <select v-model="removeForm.reason" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 mb-2">
                 <option value="Damaged Goods">{{ $t('stock_movements.damaged_goods') }}</option>
                 <option value="Expired Stock">{{ $t('stock_movements.expired_stock') }}</option>
                 <option value="Inventory Audit Loss">{{ $t('stock_movements.inventory_audit_loss') }}</option>

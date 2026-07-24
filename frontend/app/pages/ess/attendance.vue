@@ -1,15 +1,15 @@
 <template>
-  <div class="min-h-screen bg-gray-50 p-4 sm:p-8">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-8">
     <div class="max-w-6xl mx-auto space-y-6">
       
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
         <div>
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight">{{ $t('my_attendance.title') }}</h2>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('my_attendance.description') }}</p>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">{{ $t('my_attendance.title') }}</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('my_attendance.description') }}</p>
         </div>
         <div class="flex items-center gap-4">
           <div class="text-end me-4">
-            <p class="text-xs font-bold text-gray-500 uppercase">{{ $t('my_attendance.current_time') }}</p>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{{ $t('my_attendance.current_time') }}</p>
             <p class="text-xl font-black text-indigo-600">{{ currentTime }}</p>
           </div>
           <button @click="punch('in')" :disabled="loadingPunch" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black shadow-lg shadow-emerald-200 transition-all disabled:opacity-50">{{ $t('my_attendance.clock_in') }}</button>
@@ -18,51 +18,51 @@
       </div>
 
       <!-- Filters -->
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
-        <label class="text-sm font-bold text-gray-700">{{ $t('my_attendance.filter_month') }}</label>
-        <input type="month" v-model="filterMonth" @change="fetchAttendance" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-sm">
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4">
+        <label class="text-sm font-bold text-gray-700 dark:text-gray-300">{{ $t('my_attendance.filter_month') }}</label>
+        <input type="month" v-model="filterMonth" @change="fetchAttendance" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-sm">
       </div>
 
       <div v-if="loading" class="flex justify-center p-12">
         <svg class="animate-spin h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
       
-      <div v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-100">
-          <thead class="bg-gray-50">
+      <div v-else class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-900">
             <tr>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_attendance.date') }}</th>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_attendance.status') }}</th>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_attendance.clock_in') }}</th>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_attendance.clock_out') }}</th>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_attendance.total_hrs') }}</th>
-              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 uppercase">{{ $t('my_attendance.overtime') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase">{{ $t('my_attendance.date') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase">{{ $t('my_attendance.status') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase">{{ $t('my_attendance.clock_in') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase">{{ $t('my_attendance.clock_out') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase">{{ $t('my_attendance.total_hrs') }}</th>
+              <th class="px-6 py-4 text-start text-xs font-black text-gray-500 dark:text-gray-400 uppercase">{{ $t('my_attendance.overtime') }}</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-100">
-            <tr v-for="row in attendance" :key="row._id" class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ row.date }}</td>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            <tr v-for="row in attendance" :key="row._id" class="hover:bg-gray-50 dark:bg-gray-900">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 dark:text-white">{{ row.date }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span :class="{'bg-emerald-100 text-emerald-800': row.status === 'Present', 'bg-red-100 text-red-800': row.status === 'Absent', 'bg-yellow-100 text-yellow-800': row.status === 'Late' || row.isAnomalous}" class="px-2 py-1 text-[10px] font-bold uppercase rounded-md">
                   {{ row.isAnomalous ? $t('my_attendance.anomaly') : (row.status === 'Present' ? $t('my_attendance.present') : (row.status === 'Late' ? $t('my_attendance.late') : (row.status === 'Absent' ? $t('my_attendance.absent') : row.status))) }}
                 </span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-700">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-700 dark:text-gray-300">
                 {{ formatTime(row.clockIn) }}
-                <div v-if="row.punchInType" class="text-[10px] text-gray-500 uppercase">{{ row.punchInType }}</div>
+                <div v-if="row.punchInType" class="text-[10px] text-gray-500 dark:text-gray-400 uppercase">{{ row.punchInType }}</div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-700">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-700 dark:text-gray-300">
                 {{ formatTime(row.clockOut) }}
-                <div v-if="row.punchOutType" class="text-[10px] text-gray-500 uppercase">{{ row.punchOutType }}</div>
+                <div v-if="row.punchOutType" class="text-[10px] text-gray-500 dark:text-gray-400 uppercase">{{ row.punchOutType }}</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600">{{ row.totalHours }}{{ $t('my_attendance.hrs_abbrev') }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-orange-600">
-                <span v-if="row.overtimeHours > 0">{{ row.overtimeHours }}{{ $t('my_attendance.hrs_abbrev') }} <span class="text-[10px] uppercase text-gray-500 ms-1">({{row.overtimeStatus}})</span></span>
+                <span v-if="row.overtimeHours > 0">{{ row.overtimeHours }}{{ $t('my_attendance.hrs_abbrev') }} <span class="text-[10px] uppercase text-gray-500 dark:text-gray-400 ms-1">({{row.overtimeStatus}})</span></span>
                 <span v-else class="text-gray-400">-</span>
               </td>
             </tr>
             <tr v-if="attendance.length === 0">
-              <td colspan="6" class="px-6 py-12 text-center text-gray-500 font-bold">{{ $t('my_attendance.no_records') }}</td>
+              <td colspan="6" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400 font-bold">{{ $t('my_attendance.no_records') }}</td>
             </tr>
           </tbody>
         </table>

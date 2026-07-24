@@ -6,7 +6,7 @@
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         <!-- Title and Subtitle -->
         <div class="flex items-baseline gap-4">
-          <h2 class="text-2xl font-black text-gray-900 tracking-tight truncate">{{ $t('installments.title', 'إدارة الأقساط') }}</h2>
+          <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight truncate">{{ $t('installments.title', 'إدارة الأقساط') }}</h2>
           <p class="text-sm font-bold text-gray-400 truncate hidden sm:block">{{ $t('installments.description', 'متابعة مبيعات التقسيط والمبالغ المتبقية') }}</p>
         </div>
         
@@ -17,19 +17,19 @@
       </div>
 
       <!-- Main Card with Tabs and Table -->
-      <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden flex flex-col">
+      <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col">
         
         <!-- Tabs -->
-        <div class="flex border-b border-gray-100 px-6 pt-2">
+        <div class="flex border-b border-gray-100 dark:border-gray-700 px-6 pt-2">
           <button @click="activeTab = 'manage'" 
                   class="px-6 py-4 text-sm font-black transition-colors relative"
-                  :class="activeTab === 'manage' ? 'text-emerald-600' : 'text-gray-400 hover:text-gray-600'">
+                  :class="activeTab === 'manage' ? 'text-emerald-600' : 'text-gray-400 hover:text-gray-600 dark:text-gray-400'">
             {{ $t('installments.manage_tabs') }}
             <div v-if="activeTab === 'manage'" class="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-500 rounded-t-full"></div>
           </button>
           <button @click="activeTab = 'history'" 
                   class="px-6 py-4 text-sm font-black transition-colors relative"
-                  :class="activeTab === 'history' ? 'text-emerald-600' : 'text-gray-400 hover:text-gray-600'">
+                  :class="activeTab === 'history' ? 'text-emerald-600' : 'text-gray-400 hover:text-gray-600 dark:text-gray-400'">
             {{ $t('installments.history_tab') }}
             <div v-if="activeTab === 'history'" class="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-500 rounded-t-full"></div>
           </button>
@@ -42,7 +42,7 @@
         <!-- Manage Tab -->
         <div v-else-if="activeTab === 'manage'" class="flex-1 overflow-x-auto">
           <table class="w-full text-sm text-center">
-            <thead class="text-xs text-gray-500 font-bold bg-gray-50/50 border-b border-gray-100">
+            <thead class="text-xs text-gray-500 dark:text-gray-400 font-bold bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
               <tr>
                 <th scope="col" class="px-6 py-5">{{ $t('installments.customer_name') }}</th>
                 <th scope="col" class="px-6 py-5">{{ $t('installments.total_amount') }}</th>
@@ -54,20 +54,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="plan in plans" :key="plan._id" class="border-b border-gray-50 hover:bg-gray-50/30 transition-colors">
-                <td class="px-6 py-5 font-black text-gray-900">
+              <tr v-for="plan in plans" :key="plan._id" class="border-b border-gray-50 hover:bg-gray-50 dark:bg-gray-900/30 transition-colors">
+                <td class="px-6 py-5 font-black text-gray-900 dark:text-white">
                   {{ plan.customerId?.name || $t('installments.unknown_customer') }}
                 </td>
-                <td class="px-6 py-5 font-bold text-gray-600">
+                <td class="px-6 py-5 font-bold text-gray-600 dark:text-gray-400">
                   {{ plan.totalAmount.toFixed(2) }} ريال
                 </td>
-                <td class="px-6 py-5 font-bold text-gray-600">
+                <td class="px-6 py-5 font-bold text-gray-600 dark:text-gray-400">
                   {{ Math.max(0, plan.totalAmount - plan.remainingAmount).toFixed(2) }} ريال
                 </td>
-                <td class="px-6 py-5 font-bold text-gray-600">
+                <td class="px-6 py-5 font-bold text-gray-600 dark:text-gray-400">
                   {{ Math.max(0, plan.remainingAmount).toFixed(2) }} ريال
                 </td>
-                <td class="px-6 py-5 font-bold" :class="isOverdue(getNextDueDateRaw(plan)) ? 'text-rose-500' : 'text-gray-600'">
+                <td class="px-6 py-5 font-bold" :class="isOverdue(getNextDueDateRaw(plan)) ? 'text-rose-500' : 'text-gray-600 dark:text-gray-400'">
                   {{ getNextDueDate(plan) }}
                 </td>
                 <td class="px-6 py-5">
@@ -91,7 +91,7 @@
               
               <tr v-if="plans.length === 0">
                 <td colspan="6" class="px-6 py-16 text-center">
-                  <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100">
+                  <div class="w-16 h-16 bg-gray-50 dark:bg-gray-900 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100 dark:border-gray-700">
                     <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                   </div>
                   <p class="font-black text-gray-400">{{ $t('installments.no_plans') }}</p>
@@ -108,12 +108,12 @@
         </div>
 
         <!-- Pagination -->
-        <div class="p-4 border-t border-gray-50 flex items-center justify-start gap-2 bg-white">
-          <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
+        <div class="p-4 border-t border-gray-50 flex items-center justify-start gap-2 bg-white dark:bg-gray-800">
+          <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 transition-colors">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           </button>
           <button class="w-8 h-8 rounded-full flex items-center justify-center text-emerald-600 font-black border border-emerald-500 bg-emerald-50">1</button>
-          <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 border border-gray-200 transition-colors">
+          <button class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 transition-colors">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
           </button>
         </div>
@@ -122,37 +122,37 @@
 
     <!-- Payment Modal (Shows individual installments for the selected plan) -->
     <div v-if="showPaymentModal && selectedPlan" class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col max-h-[90vh]">
         
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50 shrink-0">
+        <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50 shrink-0">
           <div>
-            <h3 class="text-xl font-black text-gray-900">{{ $t('installments.record_payment') }}</h3>
-            <p class="text-sm font-bold text-gray-500 mt-1">{{ $t('installments.customer') }} {{ selectedPlan.customerId?.name }}</p>
+            <h3 class="text-xl font-black text-gray-900 dark:text-white">{{ $t('installments.record_payment') }}</h3>
+            <p class="text-sm font-bold text-gray-500 dark:text-gray-400 mt-1">{{ $t('installments.customer') }} {{ selectedPlan.customerId?.name }}</p>
           </div>
-          <button @click="closePaymentModal" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-400 hover:text-gray-900 border border-gray-200 shadow-sm transition-colors">
+          <button @click="closePaymentModal" class="w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 shadow-sm transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
 
-        <div class="p-6 overflow-y-auto bg-gray-50/30 flex-1">
+        <div class="p-6 overflow-y-auto bg-gray-50 dark:bg-gray-900/30 flex-1">
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <div v-for="(inst, idx) in selectedPlan.installments" :key="inst._id" 
-                 class="border-2 rounded-2xl p-4 relative transition-colors flex flex-col h-full bg-white shadow-sm hover:border-emerald-200"
+                 class="border-2 rounded-2xl p-4 relative transition-colors flex flex-col h-full bg-white dark:bg-gray-800 shadow-sm hover:border-emerald-200"
                  :class="getInstClass(inst)">
               
               <div class="absolute -top-3 rtl:-right-3 ltr:-left-3 w-8 h-8 font-black text-sm rounded-full flex items-center justify-center border-2 border-white shadow-sm"
-                   :class="inst.status === 'Paid' ? 'bg-emerald-500 text-white' : 'bg-gray-100 text-gray-500'">
+                   :class="inst.status === 'Paid' ? 'bg-emerald-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'">
                 {{ idx + 1 }}
               </div>
               
               <div class="flex justify-between items-start mb-4">
                 <p class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md"
-                   :class="inst.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' : (isOverdue(inst.dueDate) ? 'bg-rose-100 text-rose-700' : 'bg-gray-100 text-gray-500')">
+                   :class="inst.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' : (isOverdue(inst.dueDate) ? 'bg-rose-100 text-rose-700' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400')">
                   {{ inst.status === 'Paid' ? $t('installments.status_paid') : (inst.status === 'Pending' ? $t('installments.status_pending') : inst.status) }}
                 </p>
               </div>
               
-              <h4 class="text-xl font-black text-gray-900 mb-1">{{ inst.amount.toFixed(2) }}</h4>
+              <h4 class="text-xl font-black text-gray-900 dark:text-white mb-1">{{ inst.amount.toFixed(2) }}</h4>
               <p class="text-xs font-bold mt-1 mb-4 flex items-center gap-1.5" :class="isOverdue(inst.dueDate) && inst.status === 'Pending' ? 'text-rose-500' : 'text-gray-400'">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 {{ $t('installments.due_in') }} {{ new Date(inst.dueDate).toLocaleDateString() }}
@@ -160,7 +160,7 @@
               
               <div class="mt-auto">
                 <button v-if="inst.status === 'Pending'" @click="payInstallment(selectedPlan._id, inst._id)" 
-                        class="w-full bg-white hover:bg-gray-50 border border-gray-200 hover:border-emerald-500 hover:text-emerald-600 transition-all text-gray-700 text-sm font-black py-2.5 rounded-xl flex justify-center items-center gap-2">
+                        class="w-full bg-white dark:bg-gray-800 hover:bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-emerald-500 hover:text-emerald-600 transition-all text-gray-700 dark:text-gray-300 text-sm font-black py-2.5 rounded-xl flex justify-center items-center gap-2">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   {{ $t('installments.confirm_payment') }}
                 </button>
@@ -240,7 +240,7 @@ const getNextDueDate = (plan) => {
 const getInstClass = (inst) => {
   if (inst.status === 'Paid') return 'border-emerald-100 bg-emerald-50/30'
   if (isOverdue(inst.dueDate)) return 'border-rose-200 bg-rose-50/50'
-  return 'border-gray-100'
+  return 'border-gray-100 dark:border-gray-700'
 }
 
 const payInstallment = async (planId, instId) => {

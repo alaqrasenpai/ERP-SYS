@@ -1,9 +1,9 @@
 <template>
-  <div class="w-[420px] bg-white border-s border-gray-100 shadow-[-4px_0_24px_rgba(0,0,0,0.02)] flex flex-col z-10 shrink-0">
+  <div class="w-[420px] bg-white dark:bg-gray-800 border-s border-gray-100 dark:border-gray-700 shadow-[-4px_0_24px_rgba(0,0,0,0.02)] flex flex-col z-10 shrink-0">
     
     <!-- Cart Header -->
-    <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-      <h2 class="font-black text-gray-900 flex items-center text-lg">
+    <div class="p-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50">
+      <h2 class="font-black text-gray-900 dark:text-white flex items-center text-lg">
         <svg class="w-5 h-5 me-2 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
         {{ t('pos.cart') }}
       </h2>
@@ -13,11 +13,11 @@
     </div>
 
     <!-- Order Details Setup -->
-    <div class="p-4 border-b border-gray-100 space-y-4">
+    <div class="p-4 border-b border-gray-100 dark:border-gray-700 space-y-4">
       <div v-if="orderType === 'Delivery'" class="space-y-3">
         <div>
           <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">{{ t('restaurant.delivery_provider') }}</label>
-          <select :value="deliveryDetails.providerId" @input="$emit('update:provider', $event.target.value)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-bold text-gray-700 focus:ring-emerald-500 focus:border-emerald-500">
+          <select :value="deliveryDetails.providerId" @input="$emit('update:provider', $event.target.value)" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2.5 text-sm font-bold text-gray-700 dark:text-gray-300 focus:ring-emerald-500 focus:border-emerald-500">
             <option value="">{{ t('restaurant.select_provider') }}</option>
             <option v-for="p in providers" :key="p._id" :value="p._id">
               {{ locale === 'ar' ? p.nameAr : p.nameEn }} ({{ p.commissionRate }}%)
@@ -26,14 +26,14 @@
         </div>
         <div>
           <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">{{ t('restaurant.external_order_id') }}</label>
-          <input :value="deliveryDetails.externalOrderId" @input="$emit('update:externalId', $event.target.value)" :placeholder="t('restaurant.external_id_placeholder')" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-700 focus:ring-emerald-500 focus:border-emerald-500">
+          <input :value="deliveryDetails.externalOrderId" @input="$emit('update:externalId', $event.target.value)" :placeholder="t('restaurant.external_id_placeholder')" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm font-bold text-gray-700 dark:text-gray-300 focus:ring-emerald-500 focus:border-emerald-500">
         </div>
       </div>
 
       <div v-if="orderType === 'Dine-In'" class="space-y-3">
         <div>
           <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">{{ t('restaurant.table_number') }}</label>
-          <select :value="tableId" @input="$emit('update:table', $event.target.value)" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-bold text-gray-700 focus:ring-emerald-500 focus:border-emerald-500">
+          <select :value="tableId" @input="$emit('update:table', $event.target.value)" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2.5 text-sm font-bold text-gray-700 dark:text-gray-300 focus:ring-emerald-500 focus:border-emerald-500">
             <option value="">{{ t('restaurant.select_table') }}</option>
             <option v-for="t in tables" :key="t._id" :value="t._id">
               {{ t('restaurant.table') }} {{ t.tableNumber }} ({{ t.section }})
@@ -44,32 +44,32 @@
       <div v-if="orderType !== 'Delivery'" class="space-y-3">
         <div>
           <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">{{ t('restaurant.customer_name_optional') }}</label>
-          <input :value="customerName" @input="$emit('update:customerName', $event.target.value)" :placeholder="t('restaurant.customer_name_placeholder')" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm font-bold text-gray-700 focus:ring-emerald-500 focus:border-emerald-500">
+          <input :value="customerName" @input="$emit('update:customerName', $event.target.value)" :placeholder="t('restaurant.customer_name_placeholder')" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 text-sm font-bold text-gray-700 dark:text-gray-300 focus:ring-emerald-500 focus:border-emerald-500">
         </div>
       </div>
-      <div v-if="orderType === 'Takeaway'" class="text-xs text-center text-gray-500 font-bold py-2 bg-gray-50 rounded-lg">
+      <div v-if="orderType === 'Takeaway'" class="text-xs text-center text-gray-500 dark:text-gray-400 font-bold py-2 bg-gray-50 dark:bg-gray-900 rounded-lg">
         {{ t('restaurant.takeaway_order') }}
       </div>
     </div>
 
-    <div class="px-4 py-2 bg-gray-50/50 border-b border-gray-100 text-[10px] font-bold text-gray-400 text-center">
+    <div class="px-4 py-2 bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700 text-[10px] font-bold text-gray-400 text-center">
       {{ t('restaurant.items_list') }} ({{ cart.length }})
     </div>
 
     <!-- Cart Items list -->
-    <div class="flex-1 overflow-y-auto p-4 bg-gray-50/30">
+    <div class="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900/30">
       <div v-if="cart.length === 0" class="h-full flex flex-col items-center justify-center text-gray-300">
-        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4 border border-gray-200 border-dashed">
+        <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 border border-gray-200 dark:border-gray-700 border-dashed">
           <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
         </div>
         <p class="font-bold text-sm">{{ t('pos.cart_empty') }}</p>
       </div>
       
       <ul v-else class="space-y-3">
-        <li v-for="(item, index) in cart" :key="index" class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm flex flex-col">
+        <li v-for="(item, index) in cart" :key="index" class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <div>
-              <h4 class="text-sm font-bold text-gray-900 leading-tight">{{ locale === 'ar' ? item.nameAr : item.nameEn }}</h4>
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-tight">{{ locale === 'ar' ? item.nameAr : item.nameEn }}</h4>
               <div class="text-xs text-gray-400 mt-0.5">{{ item.price.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</div>
             </div>
             <button @click="$emit('update:qty', index, -1000)" class="text-gray-300 hover:text-rose-500 transition-colors p-1">
@@ -77,13 +77,13 @@
             </button>
           </div>
           
-          <input v-model="item.notes" type="text" :placeholder="t('restaurant.add_notes')" class="w-full text-xs px-3 py-1.5 bg-gray-50/50 border border-gray-100 rounded-lg focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 mb-2 text-gray-600">
+          <input v-model="item.notes" type="text" :placeholder="t('restaurant.add_notes')" class="w-full text-xs px-3 py-1.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-700 rounded-lg focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 mb-2 text-gray-600 dark:text-gray-400">
 
           <div class="flex justify-between items-center mt-auto pt-2 border-t border-gray-50">
-            <div class="flex items-center bg-gray-50 rounded-lg p-0.5 border border-gray-100">
-              <button @click="$emit('update:qty', index, -1)" class="w-7 h-7 flex items-center justify-center bg-white rounded-md text-gray-500 font-bold shadow-sm hover:text-emerald-600">-</button>
+            <div class="flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg p-0.5 border border-gray-100 dark:border-gray-700">
+              <button @click="$emit('update:qty', index, -1)" class="w-7 h-7 flex items-center justify-center bg-white dark:bg-gray-800 rounded-md text-gray-500 dark:text-gray-400 font-bold shadow-sm hover:text-emerald-600">-</button>
               <span class="w-10 text-center text-xs font-black">{{ item.quantity }}</span>
-              <button @click="$emit('update:qty', index, 1)" class="w-7 h-7 flex items-center justify-center bg-white rounded-md text-gray-500 font-bold shadow-sm hover:text-emerald-600">+</button>
+              <button @click="$emit('update:qty', index, 1)" class="w-7 h-7 flex items-center justify-center bg-white dark:bg-gray-800 rounded-md text-gray-500 dark:text-gray-400 font-bold shadow-sm hover:text-emerald-600">+</button>
             </div>
             <div class="font-black text-emerald-600 text-sm">
               {{ (item.price * item.quantity).toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}
@@ -94,30 +94,30 @@
     </div>
 
     <!-- Totals & Checkout -->
-    <div class="bg-white p-5 border-t border-gray-100 shadow-[0_-10px_30px_rgba(0,0,0,0.02)] shrink-0">
+    <div class="bg-white dark:bg-gray-800 p-5 border-t border-gray-100 dark:border-gray-700 shadow-[0_-10px_30px_rgba(0,0,0,0.02)] shrink-0">
       <div class="space-y-3 mb-6">
         <div class="flex justify-between items-center text-sm">
-          <span class="text-gray-500 font-bold">{{ t('pos.subtotal') }}:</span>
-          <span class="font-bold text-gray-900">{{ subTotal.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
+          <span class="text-gray-500 dark:text-gray-400 font-bold">{{ t('pos.subtotal') }}:</span>
+          <span class="font-bold text-gray-900 dark:text-white">{{ subTotal.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
         </div>
         
         <div class="flex justify-between items-center text-sm">
-          <span class="text-gray-500 font-bold flex items-center">
+          <span class="text-gray-500 dark:text-gray-400 font-bold flex items-center">
             {{ t('pos.discount') }}:
           </span>
           <div class="w-24 relative">
-            <input type="number" :value="discount" @input="$emit('update:discount', Number($event.target.value))" min="0" class="w-full text-end px-2 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-gray-900">
+            <input type="number" :value="discount" @input="$emit('update:discount', Number($event.target.value))" min="0" class="w-full text-end px-2 py-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-gray-900 dark:text-white">
             <span class="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 font-bold">{{ useCookie('erp_currency').value || 'SAR' }}</span>
           </div>
         </div>
 
         <div class="flex justify-between items-center text-sm">
-          <span class="text-gray-500 font-bold text-xs">{{ t('pos.tax') }} ({{ taxRate }}%):</span>
-          <span class="font-bold text-gray-500 text-xs">{{ tax.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
+          <span class="text-gray-500 dark:text-gray-400 font-bold text-xs">{{ t('pos.tax') }} ({{ taxRate }}%):</span>
+          <span class="font-bold text-gray-500 dark:text-gray-400 text-xs">{{ tax.toFixed(2) }} {{ useCookie('erp_currency').value || 'SAR' }}</span>
         </div>
         
-        <div class="pt-4 border-t border-gray-100 flex justify-between items-end">
-          <span class="text-base font-black text-gray-900">{{ t('pos.total') }}</span>
+        <div class="pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-end">
+          <span class="text-base font-black text-gray-900 dark:text-white">{{ t('pos.total') }}</span>
           <span class="text-2xl font-black text-emerald-500">{{ grandTotal.toFixed(2) }} <span class="text-sm text-emerald-600/60">{{ useCookie('erp_currency').value || 'SAR' }}</span></span>
         </div>
       </div>

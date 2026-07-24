@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-[100dvh] bg-gray-50 flex">
+  <div class="min-h-[100dvh] bg-gray-50 dark:bg-gray-900 flex">
     
     <!-- Mobile Sidebar Overlay -->
     <div v-if="mobileMenuOpen" class="fixed inset-0 bg-gray-900/50 z-40 lg:hidden backdrop-blur-sm transition-opacity" @click="mobileMenuOpen = false"></div>
@@ -14,7 +14,7 @@
       <!-- Logo -->
       <div class="h-16 flex items-center px-4 border-b border-indigo-800 bg-indigo-950/50 flex-shrink-0" :class="sidebarCollapsed ? 'justify-center lg:px-0' : ''">
         <NuxtLink to="/dashboard" class="flex items-center hover:opacity-80 transition-opacity">
-          <div class="w-8 h-8 bg-white bg-opacity-20 rounded-lg flex items-center justify-center shadow-sm" :class="sidebarCollapsed ? '' : 'me-3'">
+          <div class="w-8 h-8 bg-white dark:bg-gray-800 bg-opacity-20 rounded-lg flex items-center justify-center shadow-sm" :class="sidebarCollapsed ? '' : 'me-3'">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
           </div>
           <h1 v-if="!sidebarCollapsed" class="text-xl font-black tracking-tight whitespace-nowrap">Alaqra ERP <span class="font-normal opacity-70 ms-1 text-sm">v1.0</span></h1>
@@ -79,24 +79,30 @@
     </aside>
 
     <!-- Main Content Wrapper -->
-    <div class="flex-1 flex flex-col min-w-0 h-[100dvh] overflow-hidden bg-gray-50 transition-all duration-300">
+    <div class="flex-1 flex flex-col min-w-0 h-[100dvh] overflow-hidden bg-gray-50 dark:bg-gray-900 transition-all duration-300">
       
       <!-- Header -->
-      <header class="bg-white shadow-sm border-b border-gray-100 h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 z-30">
+      <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-100 dark:border-gray-700 h-16 flex items-center justify-between px-4 lg:px-8 flex-shrink-0 z-30">
         <div class="flex items-center">
-          <button @click="mobileMenuOpen = true" class="p-2 -ms-2 me-2 text-gray-600 hover:text-gray-900 focus:outline-none rounded-lg hover:bg-gray-100 transition-colors lg:hidden">
+          <button @click="mobileMenuOpen = true" class="p-2 -ms-2 me-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white focus:outline-none rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors lg:hidden">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
           </button>
           
-          <button @click="sidebarCollapsed = !sidebarCollapsed" class="hidden lg:block p-2 -ms-2 me-4 text-gray-600 hover:text-gray-900 focus:outline-none rounded-lg hover:bg-gray-100 transition-colors">
+          <button @click="sidebarCollapsed = !sidebarCollapsed" class="hidden lg:block p-2 -ms-2 me-4 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white focus:outline-none rounded-lg hover:bg-gray-100 dark:bg-gray-700 transition-colors">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
           </button>
 
-          <div class="font-black text-gray-900 tracking-tight text-lg lg:hidden">Alaqra ERP</div>
+          <div class="font-black text-gray-900 dark:text-white tracking-tight text-lg lg:hidden">Alaqra ERP</div>
         </div>
         
         <div class="flex items-center gap-4 ms-auto">
-          <select v-if="allowedLanguages.length > 1" v-model="currentLanguage" @change="handleLanguageChange" class="text-sm font-bold border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 py-1.5 ps-3 pe-8">
+          <button @click="$colorMode.preference = $colorMode.value === 'dark' ? 'light' : 'dark'" class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white dark:hover:text-white focus:outline-none rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 transition-colors">
+            <!-- Sun icon for dark mode -->
+            <svg v-if="$colorMode.value === 'dark'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <!-- Moon icon for light mode -->
+            <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+          <select v-if="allowedLanguages.length > 1" v-model="currentLanguage" @change="handleLanguageChange" class="text-sm font-bold border-gray-300 dark:border-gray-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 py-1.5 ps-3 pe-8">
             <option v-for="lang in allowedLanguages" :key="lang" :value="lang">
               {{ lang === 'ar' ? 'العربية' : 'English' }}
             </option>

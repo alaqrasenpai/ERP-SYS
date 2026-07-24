@@ -1,22 +1,22 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-8">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-8">
     <div class="max-w-7xl mx-auto">
       <div class="flex justify-between items-center mb-8">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ $t('sales_history.title') }}</h1>
-          <p class="text-sm text-gray-500 mt-1">{{ $t('sales_history.subtitle') }}</p>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $t('sales_history.title') }}</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('sales_history.subtitle') }}</p>
         </div>
         <div class="flex gap-3">
-          <NuxtLink to="/dashboard" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">{{ $t('sales_history.dashboard') }}</NuxtLink>
+          <NuxtLink to="/dashboard" class="px-5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:bg-gray-900 shadow-sm transition-colors">{{ $t('sales_history.dashboard') }}</NuxtLink>
         </div>
       </div>
 
       <!-- Stats -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_cash') }}</p>
+                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $t('sales_history.total_cash') }}</p>
                  <p class="text-2xl font-bold text-emerald-600">${{ totalCash.toFixed(2) }}</p>
               </div>
               <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg">
@@ -24,10 +24,10 @@
               </div>
            </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_card') }}</p>
+                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $t('sales_history.total_card') }}</p>
                  <p class="text-2xl font-bold text-blue-600">${{ totalCard.toFixed(2) }}</p>
               </div>
               <div class="p-3 bg-blue-50 text-blue-600 rounded-lg">
@@ -35,11 +35,11 @@
               </div>
            </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
            <div class="flex items-center justify-between">
               <div>
-                 <p class="text-sm font-medium text-gray-500">{{ $t('sales_history.total_orders') }}</p>
-                 <p class="text-2xl font-bold text-gray-900">{{ orders.length }}</p>
+                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $t('sales_history.total_orders') }}</p>
+                 <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ orders.length }}</p>
               </div>
               <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg">
                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
@@ -49,27 +49,27 @@
       </div>
 
       <!-- Orders Table -->
-      <div class="bg-white shadow-sm border border-gray-100 rounded-xl overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-100">
-            <thead class="bg-gray-50">
+          <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-900">
               <tr>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.date') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.order_no') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.items_count') }}</th>
-                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.payment_method') }}</th>
-                <th class="px-6 py-4 text-end text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $t('sales_history.total') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('sales_history.date') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('sales_history.order_no') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('sales_history.items_count') }}</th>
+                <th class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('sales_history.payment_method') }}</th>
+                <th class="px-6 py-4 text-end text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('sales_history.total') }}</th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-100">
-              <tr v-for="order in orders" :key="order._id" class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+              <tr v-for="order in orders" :key="order._id" class="hover:bg-gray-50 dark:bg-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                   {{ new Date(order.createdAt).toLocaleString() }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600">
                   {{ order.orderNumber }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                   {{ order.items.length }} {{ $t('sales_history.items') }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
@@ -78,12 +78,12 @@
                     {{ order.paymentMethod }}
                   </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-black text-end text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-black text-end text-gray-900 dark:text-white">
                   ${{ order.grandTotal.toFixed(2) }}
                 </td>
               </tr>
               <tr v-if="orders.length === 0">
-                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">{{ $t('sales_history.no_history') }}</td>
+                <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">{{ $t('sales_history.no_history') }}</td>
               </tr>
             </tbody>
           </table>
