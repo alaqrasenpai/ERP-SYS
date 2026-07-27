@@ -638,7 +638,8 @@
     "cancel": "Cancel",
     "delete_prompt": "Delete this employee profile?",
     "failed_save": "Failed to save employee",
-    "failed_delete": "Failed to delete employee"
+    "failed_delete": "Failed to delete employee",
+    "employee_number": "Employee Number"
   },
   "structure": {
     "title": "Organizational Structure",

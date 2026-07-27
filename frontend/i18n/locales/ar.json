@@ -495,7 +495,8 @@
     "cancel": "إلغاء",
     "delete_prompt": "حذف ملف هذا الموظف؟",
     "failed_save": "فشل في حفظ الموظف",
-    "failed_delete": "فشل في حذف الموظف"
+    "failed_delete": "فشل في حذف الموظف",
+    "employee_number": "الرقم الوظيفي"
   },
   "structure": {
     "title": "الهيكل التنظيمي",
