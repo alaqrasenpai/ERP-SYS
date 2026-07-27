@@ -4,10 +4,6 @@
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
       <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight truncate">{{ $t('stock_movements.title') }}</h2>
       <div class="flex flex-wrap gap-3 mt-4 sm:mt-0 flex-row-reverse">
-        <NuxtLink to="/dashboard" class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-bold hover:bg-gray-50 dark:bg-gray-900 shadow-sm transition-colors flex items-center">
-          <svg class="w-4 h-4 me-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          {{ $t('stock_movements.dashboard') }}
-        </NuxtLink>
         <button @click="openAddStockModal" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-bold transition-all shadow-sm flex items-center text-sm">
           <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           {{ $t('stock_movements.restock_in') }}

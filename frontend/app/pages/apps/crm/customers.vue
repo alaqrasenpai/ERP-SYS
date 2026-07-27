@@ -4,10 +4,6 @@
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
       <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight truncate">{{ $t('crm.title') }}</h2>
       <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
-        <NuxtLink to="/dashboard" class="px-5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-bold hover:bg-gray-50 dark:bg-gray-900 shadow-sm transition-colors flex items-center">
-          <svg class="w-4 h-4 me-2 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          {{ $t('crm.dashboard') }}
-        </NuxtLink>
         <button @click="openAddModal" class="bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white px-4 py-2 shrink-0 whitespace-nowrap rounded-xl font-bold transition-all shadow-sm flex items-center text-sm">
           <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           {{ $t('crm.add_customer') }}
