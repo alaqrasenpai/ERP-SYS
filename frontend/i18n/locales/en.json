@@ -771,7 +771,24 @@
     "submit_btn": "Submit Request",
     "error_submitting": "Error submitting request",
     "error_processing": "Error processing leave",
-    "translated_hourly_departure": "Hourly Departure"
+    "translated_hourly_departure": "Hourly Departure",
+    "modify_balances": "Modify Balances",
+    "requests_tab": "Leave Requests",
+    "types_tab": "Manage Leave Types",
+    "modify_leave_balances": "Modify Employee Leave Balances",
+    "select_employee": "Select Employee",
+    "please_select": "-- Please Select --",
+    "basic_balances": "Basic Balances",
+    "annual_balance_days": "Annual Leave Balance (Days)",
+    "sick_balance_days": "Sick Leave Balance (Days)",
+    "custom_balances": "Custom Balances",
+    "select_type_to_add": "Select Leave Type to Add",
+    "add": "Add",
+    "no_active_custom_leaves": "No active custom leaves for this employee",
+    "remaining_balance": "Remaining Balance:",
+    "saving": "Saving...",
+    "save_changes": "Save Changes",
+    "error_saving": "Error while saving"
   },
   "attendance": {
     "title": "Attendance & Biometrics",
@@ -843,7 +860,8 @@
     "select_employee": "Select Employee",
     "start_date": "Start Date",
     "end_date": "End Date",
-    "search_employee": "Search Employee"
+    "search_employee": "Search Employee",
+    "default_manual_reason": "Manually added by administration"
   },
   "devices": {
     "title": "Biometric Devices",

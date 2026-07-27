@@ -256,7 +256,7 @@ const addForm = ref({
   employeeId: '',
   clockIn: '',
   clockOut: '',
-  reason: 'تمت إضافته يدوياً من قبل الإدارة'
+  reason: ''
 })
 
 const formatTime = (isoString) => {
@@ -294,7 +294,7 @@ const openAddModal = () => {
     employeeId: '',
     clockIn: '',
     clockOut: '',
-    reason: 'تمت إضافته يدوياً من قبل الإدارة'
+    reason: useNuxtApp().$i18n.t('attendance_monitor.default_manual_reason')
   }
   showAddModal.value = true
 }

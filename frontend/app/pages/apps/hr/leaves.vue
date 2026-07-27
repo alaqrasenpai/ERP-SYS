@@ -8,7 +8,7 @@
         </div>
         <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
           <button @click="showBalancesModal = true" class="px-5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 transition-colors shadow-sm focus:ring-2 focus:ring-gray-200 dark:ring-gray-700 focus:ring-offset-2 rounded-xl font-bold flex items-center">
-            تعديل الأرصدة
+            {{ $t('leaves.modify_balances') }}
           </button>
           <button @click="openRequestModal" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -20,10 +20,10 @@
       <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
         <nav class="-mb-px flex gap-8">
           <button @click="activeTab = 'requests'" :class="activeTab === 'requests' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
-            {{ $t('leaves.requests_tab', 'طلبات الإجازات') }}
+            {{ $t('leaves.requests_tab') }}
           </button>
           <button @click="activeTab = 'types'" :class="activeTab === 'types' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:border-gray-600'" class="whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-colors">
-            {{ $t('leaves.types_tab', 'إدارة أنواع الإجازات') }}
+            {{ $t('leaves.types_tab') }}
           </button>
         </nav>
       </div>

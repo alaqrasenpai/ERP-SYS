@@ -628,7 +628,24 @@
     "submit_btn": "تقديم الطلب",
     "error_submitting": "خطأ في تقديم الطلب",
     "error_processing": "خطأ في معالجة الإجازة",
-    "translated_hourly_departure": "مغادرة بالساعات"
+    "translated_hourly_departure": "مغادرة بالساعات",
+    "modify_balances": "تعديل الأرصدة",
+    "requests_tab": "طلبات الإجازات",
+    "types_tab": "إدارة أنواع الإجازات",
+    "modify_leave_balances": "تعديل أرصدة الإجازات للموظفين",
+    "select_employee": "اختر الموظف",
+    "please_select": "-- الرجاء الاختيار --",
+    "basic_balances": "الأرصدة الأساسية",
+    "annual_balance_days": "الرصيد السنوي (أيام)",
+    "sick_balance_days": "رصيد الإجازات المرضية (أيام)",
+    "custom_balances": "الأرصدة المخصصة",
+    "select_type_to_add": "اختر نوع الإجازة لإضافته",
+    "add": "إضافة",
+    "no_active_custom_leaves": "لا توجد إجازات مخصصة مفعلة لهذا الموظف",
+    "remaining_balance": "الرصيد المتبقي:",
+    "saving": "جاري الحفظ...",
+    "save_changes": "حفظ التعديلات",
+    "error_saving": "حدث خطأ أثناء الحفظ"
   },
   "attendance": {
     "title": "الحضور والبصمة",
@@ -700,7 +717,8 @@
     "select_employee": "اختر موظف",
     "start_date": "تاريخ البدء",
     "end_date": "تاريخ الانتهاء",
-    "search_employee": "البحث عن موظف..."
+    "search_employee": "البحث عن موظف...",
+    "default_manual_reason": "تمت إضافته يدوياً من قبل الإدارة"
   },
   "devices": {
     "title": "أجهزة البصمة",

@@ -2,7 +2,7 @@
   <div class="fixed inset-0 bg-gray-900/50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
       <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900 flex-shrink-0">
-        <h3 class="font-bold text-gray-900 dark:text-white text-lg">تعديل أرصدة الإجازات للموظفين</h3>
+        <h3 class="font-bold text-gray-900 dark:text-white text-lg">{{ $t('leaves.modify_leave_balances') }}</h3>
         <button @click="$emit('close')" class="text-gray-400 hover:text-gray-600 dark:text-gray-400">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
@@ -10,45 +10,45 @@
       
       <div class="p-6 flex-1 overflow-y-auto space-y-6">
         <div>
-          <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">اختر الموظف</label>
+          <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">{{ $t('leaves.select_employee') }}</label>
           <select v-model="selectedEmployeeId" @change="loadEmployeeData" class="w-full border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500">
-            <option value="" disabled>-- الرجاء الاختيار --</option>
+            <option value="" disabled>{{ $t('leaves.please_select') }}</option>
             <option v-for="emp in employees" :key="emp._id" :value="emp._id">{{ emp.name }} - {{ emp.position }}</option>
           </select>
         </div>
 
         <div v-if="selectedEmployeeId && form">
-          <h4 class="font-bold text-indigo-900 mb-4 border-b pb-2">الأرصدة الأساسية</h4>
+          <h4 class="font-bold text-indigo-900 mb-4 border-b pb-2">{{ $t('leaves.basic_balances') }}</h4>
           <div class="grid grid-cols-2 gap-4 mb-6">
             <div>
-              <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">الرصيد السنوي (أيام)</label>
+              <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">{{ $t('leaves.annual_balance_days') }}</label>
               <input type="number" v-model.number="form.annualLeaveBalance" class="w-full border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-2 focus:ring-indigo-500">
             </div>
             <div>
-              <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">رصيد الإجازات المرضية (أيام)</label>
+              <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">{{ $t('leaves.sick_balance_days') }}</label>
               <input type="number" v-model.number="form.sickLeaveBalance" class="w-full border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-2 focus:ring-indigo-500">
             </div>
           </div>
 
           <div class="flex justify-between items-center border-b pb-2 mb-4">
-            <h4 class="font-bold text-indigo-900">الأرصدة المخصصة</h4>
+            <h4 class="font-bold text-indigo-900">{{ $t('leaves.custom_balances') }}</h4>
             <div class="flex gap-2">
               <select v-model="newCustomType" class="text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-2 py-1">
-                <option value="" disabled>اختر نوع الإجازة لإضافته</option>
+                <option value="" disabled>{{ $t('leaves.select_type_to_add') }}</option>
                 <option v-for="lt in availableCustomTypes" :key="lt._id" :value="lt._id">{{ lt.name }}</option>
               </select>
-              <button @click="addCustomLeave" class="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-lg text-sm font-bold hover:bg-indigo-100" :disabled="!newCustomType">إضافة</button>
+              <button @click="addCustomLeave" class="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-lg text-sm font-bold hover:bg-indigo-100" :disabled="!newCustomType">{{ $t('leaves.add') }}</button>
             </div>
           </div>
 
           <div v-if="form.activeLeaveBalances.length === 0" class="text-sm text-gray-500 dark:text-gray-400 text-center py-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-            لا توجد إجازات مخصصة مفعلة لهذا الموظف
+            {{ $t('leaves.no_active_custom_leaves') }}
           </div>
           <div v-else class="space-y-3">
             <div v-for="(leave, index) in form.activeLeaveBalances" :key="index" class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
               <div class="flex-1">
                 <span class="font-bold text-gray-700 dark:text-gray-300 block">{{ leave.name }}</span>
-                <span class="text-xs text-gray-500 dark:text-gray-400">الرصيد المتبقي:</span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">{{ $t('leaves.remaining_balance') }}</span>
               </div>
               <div class="w-32">
                 <input type="number" v-model.number="leave.balance" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1 text-center">
@@ -62,10 +62,10 @@
       </div>
       
       <div class="p-6 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700 flex justify-end gap-3 flex-shrink-0">
-        <button type="button" @click="$emit('close')" class="px-5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:bg-gray-700">إلغاء</button>
+        <button type="button" @click="$emit('close')" class="px-5 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:bg-gray-700">{{ $t('leaves.cancel') }}</button>
         <button @click="saveBalances" :disabled="!selectedEmployeeId || saving" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 flex items-center">
-          <span v-if="saving">جاري الحفظ...</span>
-          <span v-else>حفظ التعديلات</span>
+          <span v-if="saving">{{ $t('leaves.saving') }}</span>
+          <span v-else>{{ $t('leaves.save_changes') }}</span>
         </button>
       </div>
     </div>
@@ -132,7 +132,7 @@ const saveBalances = async () => {
     emit('saved')
   } catch (error) {
     console.error('Failed to save balances', error)
-    alert('حدث خطأ أثناء الحفظ')
+    alert(useNuxtApp().$i18n.t('leaves.error_saving'))
   } finally {
     saving.value = false
   }
