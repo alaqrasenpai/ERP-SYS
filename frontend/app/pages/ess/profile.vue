@@ -86,6 +86,7 @@
 useHead({ title: 'My Profile' })
 
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 definePageMeta({
   layout: 'ess',
@@ -93,14 +94,19 @@ definePageMeta({
 })
 
 const { $api } = useNuxtApp()
+const router = useRouter()
 const profile = ref(null)
 const loading = ref(true)
 
 const fetchProfile = async () => {
   try {
     profile.value = await $api('/ess/my-profile')
+    if (!profile.value) {
+      router.push('/hub')
+    }
   } catch (err) {
     console.error(err)
+    router.push('/hub')
   } finally {
     loading.value = false
   }
