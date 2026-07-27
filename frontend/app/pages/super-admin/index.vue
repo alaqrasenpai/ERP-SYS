@@ -228,6 +228,7 @@ const tenantUsers = ref([])
 const showEditUserModal = ref(false)
 const selectedUser = ref(null)
 const editUserForm = ref({ name: '', password: '' })
+const savingUser = ref(false)
 const superAdminToken = useCookie('super_admin_token')
 const API_BASE = process.env.NODE_ENV === 'production' ? 'https://erp-sys-71b6.onrender.com/api' : 'http://localhost:5000/api'
 
