@@ -42,7 +42,8 @@ const employeeSchema = new mongoose.Schema({
     }],
     delegatedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
     delegationEnd: { type: Date },
-    isActive: { type: Boolean, default: true }
+    isActive: { type: Boolean, default: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, { timestamps: true });
 
 // Ensure nationalId is unique if provided (sparse index to allow nulls and avoid conflicts on empty strings across tenants)

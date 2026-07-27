@@ -220,6 +220,15 @@
                     <input v-model="form.delegationEnd" type="date" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
+
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">مستخدم النظام (System User)</h4>
+                <div class="mt-2">
+                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">ربط بمستخدم النظام</label>
+                  <select v-model="form.userId" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option :value="null">لا يوجد مستخدم مرتبط</option>
+                    <option v-for="u in users" :key="u._id" :value="u._id">{{ u.name }} ({{ u.email }})</option>
+                  </select>
+                </div>
               </div>
 
               <!-- Leaves Tab -->
@@ -274,6 +283,7 @@ const { $api } = useNuxtApp()
 const employees = ref([])
 const departments = ref([])
 const shifts = ref([])
+const users = ref([])
 
 const currentPage = ref(1)
 const itemsPerPage = 15
@@ -306,7 +316,7 @@ const form = ref({
   basicSalary: '', allowance: 0, 
   annualLeaveBalance: 21, sickLeaveBalance: 14,
   delegatedTo: null, delegationEnd: '',
-  isActive: true
+  isActive: true, userId: null
 })
 
 const formatDate = (d) => d ? new Date(d).toISOString().split('T')[0] : ''
@@ -316,6 +326,7 @@ const fetchData = async () => {
     employees.value = await $api('/hr/employees')
     departments.value = await $api('/hr/departments')
     shifts.value = await $api('/hr/shifts')
+    users.value = await $api('/team/users')
   } catch (error) {
     console.error('Failed to fetch HR data', error)
   }
@@ -332,7 +343,7 @@ const openAddModal = () => {
     basicSalary: '', allowance: 0, 
     annualLeaveBalance: 21, sickLeaveBalance: 14,
     delegatedTo: null, delegationEnd: '',
-    isActive: true
+    isActive: true, userId: null
   }
   showModal.value = true
 }
@@ -354,9 +365,10 @@ const openEditModal = (emp) => {
     shiftId: emp.shiftId?._id || emp.shiftId || null, 
     joinedAt: formatDate(emp.joinedAt),
     basicSalary: emp.basicSalary || '', allowance: emp.allowance || 0,
-    annualLeaveBalance: emp.annualLeaveBalance ?? 21, sickLeaveBalance: emp.sickLeaveBalance ?? 14,
-    delegatedTo: emp.delegatedTo?._id || emp.delegatedTo || null, delegationEnd: formatDate(emp.delegationEnd),
-    isActive: emp.isActive !== false
+    annualLeaveBalance: emp.annualLeaveBalance || 21, sickLeaveBalance: emp.sickLeaveBalance || 14,
+    delegatedTo: emp.delegatedTo || null, delegationEnd: formatDate(emp.delegationEnd),
+    isActive: emp.isActive !== false,
+    userId: emp.userId ? (typeof emp.userId === 'object' ? emp.userId._id : emp.userId) : null
   }
   showModal.value = true
 }
