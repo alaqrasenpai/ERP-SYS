@@ -1153,7 +1153,8 @@
     "categories": "الأقسام الرئيسية",
     "sections": "مناطق المطعم",
     "completed_orders": "الطلبات المكتملة",
-    "departments": "الأقسام"
+    "departments": "الأقسام",
+    "dashboard": "لوحة القيادة"
   },
   "hub": {
     "welcome": "مرحباً بك في التطبيقات",

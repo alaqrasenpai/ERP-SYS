@@ -1221,7 +1221,8 @@
     "categories": "Categories",
     "sections": "Restaurant Sections",
     "completed_orders": "Completed Orders",
-    "departments": "Departments"
+    "departments": "Departments",
+    "dashboard": "Dashboard"
   },
   "hub": {
     "welcome": "Welcome to the Apps Hub",
