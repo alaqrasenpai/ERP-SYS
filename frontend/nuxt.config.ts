@@ -27,6 +27,8 @@ export default defineNuxtConfig({
     head: {
       titleTemplate: '%s - Alaqra ERP',
       title: 'Home'
-    }
+    },
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' }
   }
 })
