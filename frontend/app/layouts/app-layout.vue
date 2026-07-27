@@ -117,6 +117,7 @@ const appTitle = computed(() => {
   if (base.includes('/finance')) return 'Finance'
   if (base.includes('/crm')) return 'CRM & Sales'
   if (base.includes('/settings')) return 'Settings'
+  if (base.includes('/pos')) return 'Restaurant & POS'
   return 'App'
 })
 

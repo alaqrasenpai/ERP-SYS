@@ -1212,6 +1212,13 @@
     "sales_history": "Sales History",
     "reports": "Reports",
     "users": "Users",
-    "settings": "System Settings"
+    "settings": "System Settings",
+    "pos_terminal": "POS Terminal",
+    "tables": "Tables Management",
+    "kitchen": "Kitchen Display",
+    "menu_setup": "Menu Setup",
+    "categories": "Categories",
+    "sections": "Restaurant Sections",
+    "completed_orders": "Completed Orders"
   }
 }
