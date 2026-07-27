@@ -4,6 +4,12 @@ const router = express.Router();
 const accountController = require('../controllers/finance/accountController');
 const checkController = require('../controllers/finance/checkController');
 const installmentController = require('../controllers/finance/installmentController');
+const dashboardController = require('../controllers/finance/dashboardController');
+
+// ----------------------------------------
+// Dashboard Routes
+// ----------------------------------------
+router.get('/dashboard', dashboardController.getDashboardStats);
 
 // ----------------------------------------
 // Accounting Routes

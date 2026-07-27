@@ -6,6 +6,12 @@ const productController = require('../controllers/inventory/productController');
 const warehouseController = require('../controllers/inventory/warehouseController');
 const supplierController = require('../controllers/inventory/supplierController');
 const stockController = require('../controllers/inventory/stockController');
+const dashboardController = require('../controllers/inventory/dashboardController');
+
+// ----------------------------------------
+// Dashboard Routes
+// ----------------------------------------
+router.get('/dashboard', dashboardController.getDashboardStats);
 
 // ----------------------------------------
 // Categories Routes

@@ -3,6 +3,12 @@ const router = express.Router();
 
 const orderController = require('../controllers/pos/orderController');
 const shiftController = require('../controllers/pos/shiftController');
+const dashboardController = require('../controllers/pos/dashboardController');
+
+// ----------------------------------------
+// Dashboard Routes
+// ----------------------------------------
+router.get('/dashboard', dashboardController.getDashboardStats);
 
 // ----------------------------------------
 // POS Orders Routes

@@ -1,5 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const dashboardController = require('../controllers/crm/dashboardController');
+
+// ----------------------------------------
+// Dashboard Routes
+// ----------------------------------------
+router.get('/dashboard', dashboardController.getDashboardStats);
 
 // Get all customers
 router.get('/', async (req, res) => {
