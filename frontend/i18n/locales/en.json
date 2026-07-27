@@ -1219,7 +1219,8 @@
     "menu_setup": "Menu Setup",
     "categories": "Categories",
     "sections": "Restaurant Sections",
-    "completed_orders": "Completed Orders"
+    "completed_orders": "Completed Orders",
+    "departments": "Departments"
   },
   "hub": {
     "welcome": "Welcome to the Apps Hub",
@@ -1239,5 +1240,22 @@
     "password": "Password",
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "departments": {
+    "title": "Departments",
+    "description": "Manage company departments and managers",
+    "add": "Add Department",
+    "name": "Department Name",
+    "code": "Department Code",
+    "manager": "Manager",
+    "parent": "Parent Department",
+    "actions": "Actions",
+    "save": "Save",
+    "cancel": "Cancel",
+    "no_manager": "No Manager",
+    "no_parent": "No Parent",
+    "edit": "Edit",
+    "delete": "Delete",
+    "desc": "Description"
   }
 }
