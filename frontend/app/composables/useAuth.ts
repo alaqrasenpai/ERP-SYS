@@ -61,7 +61,7 @@ export const useAuth = () => {
     }
     
     token.value = null
-    tenantId.value = null
+    // We intentionally do not clear tenantId.value so the system remembers which tenant login page to redirect to
     user.value = null
     enabledModules.value = []
     if (process.client && token.value !== null) {
