@@ -19,8 +19,9 @@ export default defineNuxtConfig({
     strategy: 'no_prefix',
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: 'erp_i18n_redirected',
-      redirectOn: 'root',
+      cookieKey: 'erp_i18n_locale',
+      alwaysRedirect: true,
+      fallbackLocale: 'ar',
     }
   },
   app: {
