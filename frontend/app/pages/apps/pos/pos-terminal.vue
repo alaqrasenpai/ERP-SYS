@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[calc(100vh-2rem)] flex flex-col lg:flex-row overflow-hidden bg-gray-50 dark:bg-gray-900">
+  <div class="h-full w-full flex flex-col lg:flex-row overflow-hidden bg-gray-50 dark:bg-gray-900">
     
     <!-- Left: Menu & Tabs (in RTL this becomes right) -->
     <div class="flex-1 flex flex-col p-4 sm:p-6 lg:p-8 overflow-y-auto">

@@ -82,7 +82,7 @@
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col min-w-0 h-[100dvh] overflow-hidden bg-gray-50 dark:bg-gray-900">
-      <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+      <div class="flex-1 overflow-y-auto">
         <slot />
       </div>
     </main>

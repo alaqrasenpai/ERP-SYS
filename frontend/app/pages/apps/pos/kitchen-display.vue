@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen bg-gray-900 text-white p-4 sm:p-6 overflow-x-auto">
-    <div class="flex justify-between items-center mb-6">
+  <div class="h-full w-full bg-gray-900 text-white p-4 sm:p-6 flex flex-col">
+    <div class="flex justify-between items-center mb-6 shrink-0">
       <h2 class="text-2xl font-black">{{ $t('restaurant.kitchen_display') }}</h2>
       <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-bold">
         <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
@@ -9,7 +9,7 @@
     </div>
 
     <!-- Kanban Board -->
-    <div class="flex gap-6 h-[calc(100vh-8rem)]">
+    <div class="flex gap-6 flex-1 min-h-0 overflow-x-auto pb-4">
       
       <!-- Pending Column -->
       <div class="flex-1 min-w-[320px] bg-gray-800 rounded-2xl flex flex-col overflow-hidden border border-gray-700">
