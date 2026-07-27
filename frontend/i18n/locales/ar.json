@@ -496,7 +496,21 @@
     "delete_prompt": "حذف ملف هذا الموظف؟",
     "failed_save": "فشل في حفظ الموظف",
     "failed_delete": "فشل في حذف الموظف",
-    "employee_number": "الرقم الوظيفي"
+    "employee_number": "الرقم الوظيفي",
+    "all": "الكل",
+    "active": "على رأس عمله",
+    "inactive": "غير فعال",
+    "active_status": "نشط",
+    "inactive_status": "غير فعال",
+    "is_working": "على رأس عمله",
+    "is_working_note": "في حال التعطيل لن يظهر في دوام أو رواتب الأشهر الجديدة",
+    "delegation": "التفويض",
+    "delegate_to": "تفويض إلى الموظف",
+    "no_delegation": "بدون تفويض",
+    "delegation_end": "تاريخ انتهاء التفويض",
+    "system_user": "مستخدم النظام",
+    "link_system_user": "ربط بمستخدم النظام",
+    "no_linked_user": "لا يوجد مستخدم مرتبط"
   },
   "structure": {
     "title": "الهيكل التنظيمي",

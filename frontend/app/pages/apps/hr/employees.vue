@@ -8,9 +8,9 @@
         </div>
         <div class="flex flex-row flex-nowrap gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 shrink-0">
           <div class="flex rounded-xl bg-gray-200/50 dark:bg-gray-800 p-1 me-2 shrink-0">
-            <button @click="filterStatus = 'all'" :class="[filterStatus === 'all' ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300', 'px-3 py-1.5 rounded-lg text-sm font-bold transition-all']">الكل</button>
-            <button @click="filterStatus = 'active'" :class="[filterStatus === 'active' ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300', 'px-3 py-1.5 rounded-lg text-sm font-bold transition-all']">على رأس عمله</button>
-            <button @click="filterStatus = 'inactive'" :class="[filterStatus === 'inactive' ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300', 'px-3 py-1.5 rounded-lg text-sm font-bold transition-all']">غير فعال</button>
+            <button @click="filterStatus = 'all'" :class="[filterStatus === 'all' ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300', 'px-3 py-1.5 rounded-lg text-sm font-bold transition-all']">{{ $t('employees.all') }}</button>
+            <button @click="filterStatus = 'active'" :class="[filterStatus === 'active' ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300', 'px-3 py-1.5 rounded-lg text-sm font-bold transition-all']">{{ $t('employees.active') }}</button>
+            <button @click="filterStatus = 'inactive'" :class="[filterStatus === 'inactive' ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300', 'px-3 py-1.5 rounded-lg text-sm font-bold transition-all']">{{ $t('employees.inactive') }}</button>
           </div>
           <button @click="openAddModal" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all flex items-center">
             <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -42,8 +42,8 @@
                     <div>
                       <div class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
                         {{ emp.name }}
-                        <span v-if="emp.isActive !== false" class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">نشط</span>
-                        <span v-else class="px-2 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400">غير فعال</span>
+                        <span v-if="emp.isActive !== false" class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">{{ $t('employees.active_status') }}</span>
+                        <span v-else class="px-2 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400">{{ $t('employees.inactive_status') }}</span>
                       </div>
                       <div class="text-xs text-gray-500 dark:text-gray-400">{{ emp.nationalId || $t('employees.no_id') }} • #{{ emp.employeeNumber || 'N/A' }}</div>
                     </div>
@@ -159,8 +159,8 @@
               <div v-if="activeModalTab === 'job'" class="space-y-4">
                 <div class="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg border border-gray-100 dark:border-gray-600 mb-4">
                   <div>
-                    <h4 class="text-sm font-bold text-gray-900 dark:text-white">على رأس عمله</h4>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">في حال التعطيل لن يظهر في دوام أو رواتب الأشهر الجديدة</p>
+                    <h4 class="text-sm font-bold text-gray-900 dark:text-white">{{ $t('employees.is_working') }}</h4>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ $t('employees.is_working_note') }}</p>
                   </div>
                   <label class="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" v-model="form.isActive" class="sr-only peer">
@@ -206,26 +206,26 @@
                   </div>
                 </div>
 
-                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">التفويض (Delegation)</h4>
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">{{ $t('employees.delegation') }}</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">تفويض إلى الموظف</label>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.delegate_to') }}</label>
                     <select v-model="form.delegatedTo" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                      <option :value="null">بدون تفويض</option>
+                      <option :value="null">{{ $t('employees.no_delegation') }}</option>
                       <option v-for="emp in employees" :key="emp._id" :value="emp._id">{{ emp.name }}</option>
                     </select>
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">تاريخ انتهاء التفويض</label>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.delegation_end') }}</label>
                     <input v-model="form.delegationEnd" type="date" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                 </div>
 
-                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">مستخدم النظام (System User)</h4>
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">{{ $t('employees.system_user') }}</h4>
                 <div class="mt-2">
-                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">ربط بمستخدم النظام</label>
+                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.link_system_user') }}</label>
                   <select v-model="form.userId" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option :value="null">لا يوجد مستخدم مرتبط</option>
+                    <option :value="null">{{ $t('employees.no_linked_user') }}</option>
                     <option v-for="u in users" :key="u._id" :value="u._id">{{ u.name }} ({{ u.email }})</option>
                   </select>
                 </div>

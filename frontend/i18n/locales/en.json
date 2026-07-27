@@ -639,7 +639,21 @@
     "delete_prompt": "Delete this employee profile?",
     "failed_save": "Failed to save employee",
     "failed_delete": "Failed to delete employee",
-    "employee_number": "Employee Number"
+    "employee_number": "Employee Number",
+    "all": "All",
+    "active": "Active",
+    "inactive": "Inactive",
+    "active_status": "Active",
+    "inactive_status": "Inactive",
+    "is_working": "Is Working",
+    "is_working_note": "If disabled, they won't appear in the attendance or payroll for new months",
+    "delegation": "Delegation",
+    "delegate_to": "Delegate To",
+    "no_delegation": "No Delegation",
+    "delegation_end": "Delegation End Date",
+    "system_user": "System User",
+    "link_system_user": "Link to System User",
+    "no_linked_user": "No linked user"
   },
   "structure": {
     "title": "Organizational Structure",
