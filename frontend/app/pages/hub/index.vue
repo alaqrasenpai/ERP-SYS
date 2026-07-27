@@ -37,13 +37,15 @@
 <script setup>
 import { computed } from 'vue'
 import { useAuth } from '~/composables/useAuth'
+import { usePermissions } from '~/composables/usePermissions'
 
 definePageMeta({
   layout: 'hub',
   middleware: ['auth']
 })
 
-const { enabledModules, hasPermission } = useAuth()
+const { enabledModules } = useAuth()
+const { hasPermission } = usePermissions()
 
 // App Definitions
 const allApps = [

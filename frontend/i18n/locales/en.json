@@ -966,6 +966,7 @@
   "archive": {
     "title": "Document Archive",
     "description": "Manage and securely store your company files",
+    "back_to_hub": "Back to Hub",
     "back_to_dashboard": "Back to Dashboard",
     "new_folder": "New Folder",
     "upload_file": "Upload File",
@@ -1103,7 +1104,7 @@
   "login": {
     "tenant_portal": "Tenant Portal",
     "sign_in_message": "Sign in to access your company workspace",
-    "welcome_store": "Sign in to access {store}",
+    "welcome_store": "Welcome to {store} workspace",
     "workspace_id": "Workspace ID",
     "workspace_placeholder": "e.g. acme",
     "email": "Email address",
@@ -1116,8 +1117,7 @@
     "invalid_credentials": "Email or password is incorrect.",
     "account_deactivated": "Your account has been deactivated. Please contact your admin.",
     "default_error": "Connection error or invalid credentials.",
-    "go_super": "Go to Super Admin",
-    "welcome_store": "Welcome to {store} workspace"
+    "go_super": "Go to Super Admin"
   },
   "dashboard": {
     "subtitle": "Real-time ecosystem metrics and unified controls.",
@@ -1174,5 +1174,6 @@
     "modules_link": "Modules",
     "contact_link": "Contact",
     "prompt_msg": "Enter your Store ID / Workspace Name:"
-  }
+  },
+  "back_to_hub": "Back to Hub"
 }
