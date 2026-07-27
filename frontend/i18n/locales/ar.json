@@ -1122,7 +1122,9 @@
     "ess": "الخدمة الذاتية",
     "ess_desc": "ملفي الشخصي وحضوري",
     "settings": "الإعدادات",
-    "settings_desc": "إدارة النظام"
+    "settings_desc": "إدارة النظام",
+    "restaurant": "إدارة المطاعم",
+    "restaurant_desc": "الطاولات والمطبخ"
   },
   "sidebar": {
     "employees": "الموظفين",

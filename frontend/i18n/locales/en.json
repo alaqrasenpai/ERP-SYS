@@ -1190,7 +1190,9 @@
     "ess": "Self Service",
     "ess_desc": "My Profile & Attendance",
     "settings": "Settings",
-    "settings_desc": "System Configuration"
+    "settings_desc": "System Configuration",
+    "restaurant": "Restaurant Management",
+    "restaurant_desc": "Tables & Kitchen"
   },
   "sidebar": {
     "employees": "Employees",
