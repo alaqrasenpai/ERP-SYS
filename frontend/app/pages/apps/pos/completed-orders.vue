@@ -120,7 +120,7 @@ import { useNuxtApp } from '#app'
 import Pagination from '~/components/Pagination.vue'
 
 definePageMeta({
-  layout: 'pos-layout'
+  layout: 'app-layout'
 })
 
 const { $api } = useNuxtApp()

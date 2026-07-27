@@ -98,7 +98,7 @@ import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 definePageMeta({
-  layout: 'pos-layout'
+  layout: 'app-layout'
 })
 
 const { t, locale } = useI18n()

@@ -59,7 +59,7 @@
 import { ref, onMounted } from 'vue'
 
 definePageMeta({
-  layout: 'pos-layout'
+  layout: 'app-layout'
 })
 
 const { $api } = useNuxtApp()

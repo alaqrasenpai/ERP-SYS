@@ -7,7 +7,7 @@
           <p class="text-sm text-gray-500 dark:text-gray-400">{{ $t('restaurant.description') }}</p>
         </div>
         <div class="flex space-x-3 rtl:space-x-reverse">
-          <NuxtLink to="/dashboard/restaurant/sections" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 px-6 py-2.5 rounded-xl font-bold shadow-sm hover:bg-gray-50 dark:bg-gray-900 transition flex items-center">
+          <NuxtLink to="/apps/pos/sections" class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 px-6 py-2.5 rounded-xl font-bold shadow-sm hover:bg-gray-50 dark:bg-gray-900 transition flex items-center">
             <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
             {{ $t('restaurant.sections_management') }}
           </NuxtLink>
@@ -62,7 +62,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 definePageMeta({
-  layout: 'pos-layout'
+  layout: 'app-layout'
 })
 
 const { $api } = useNuxtApp()
@@ -86,7 +86,7 @@ const fetchTables = async () => {
 }
 
 const openTable = (table) => {
-  router.push({ path: '/dashboard/restaurant/pos-terminal', query: { tableId: table._id } })
+  router.push({ path: '/apps/pos/pos-terminal', query: { tableId: table._id } })
 }
 
 const openAddModal = () => {
