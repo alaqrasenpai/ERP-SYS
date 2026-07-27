@@ -1291,5 +1291,26 @@
     "edit": "Edit",
     "delete": "Delete",
     "desc": "Description"
+  },
+  "hr_dashboard": {
+    "overview": "Overview of your human resources and workforce.",
+    "today": "Today:",
+    "total_employees": "Total Employees",
+    "this_month": "this month",
+    "present_today": "Present Today",
+    "attendance_rate": "attendance rate",
+    "on_leave": "On Leave",
+    "pending_requests": "Pending Requests",
+    "active_shifts": "Active Shifts",
+    "running_today": "Running today",
+    "recent_leave_requests": "Recent Leave Requests",
+    "view_all": "View All",
+    "days": "Days",
+    "todays_attendance": "Today's Attendance",
+    "monitor": "Monitor",
+    "on_time": "On Time",
+    "late": "Late",
+    "absent": "Absent",
+    "pending": "Pending"
   }
 }

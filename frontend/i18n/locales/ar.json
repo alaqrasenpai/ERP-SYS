@@ -1223,5 +1223,26 @@
     "edit": "تعديل",
     "delete": "حذف",
     "desc": "الوصف"
+  },
+  "hr_dashboard": {
+    "overview": "نظرة عامة على الموارد البشرية والقوى العاملة الخاصة بك.",
+    "today": "اليوم:",
+    "total_employees": "إجمالي الموظفين",
+    "this_month": "هذا الشهر",
+    "present_today": "الحضور اليوم",
+    "attendance_rate": "معدل الحضور",
+    "on_leave": "في إجازة",
+    "pending_requests": "طلبات قيد الانتظار",
+    "active_shifts": "الورديات النشطة",
+    "running_today": "تعمل اليوم",
+    "recent_leave_requests": "طلبات الإجازة الأخيرة",
+    "view_all": "عرض الكل",
+    "days": "أيام",
+    "todays_attendance": "حضور اليوم",
+    "monitor": "مراقبة",
+    "on_time": "في الموعد",
+    "late": "متأخر",
+    "absent": "غائب",
+    "pending": "قيد الانتظار"
   }
 }

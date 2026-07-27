@@ -9,6 +9,12 @@ const attendanceController = require('../controllers/hr/attendanceController');
 const deviceController = require('../controllers/hr/deviceController');
 const leaveController = require('../controllers/hr/leaveController');
 const payrollController = require('../controllers/hr/payrollController');
+const dashboardController = require('../controllers/hr/dashboardController');
+
+// ----------------------------------------
+// Dashboard Routes
+// ----------------------------------------
+router.get('/dashboard', dashboardController.getDashboardStats);
 
 // ----------------------------------------
 // Employee Routes
