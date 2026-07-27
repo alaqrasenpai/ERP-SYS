@@ -41,7 +41,8 @@ const employeeSchema = new mongoose.Schema({
         balance: { type: Number, default: 0 }
     }],
     delegatedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
-    delegationEnd: { type: Date }
+    delegationEnd: { type: Date },
+    isActive: { type: Boolean, default: true }
 }, { timestamps: true });
 
 // Ensure nationalId is unique if provided (sparse index to allow nulls and avoid conflicts on empty strings across tenants)

@@ -26,6 +26,18 @@ exports.calculatePayroll = async (req, res) => {
                 date: { $regex: `^${month}` } 
             });
             
+            const { LeaveRequest } = getModels(req);
+            const leaves = await LeaveRequest.find({
+                employeeId: emp._id,
+                status: 'Approved',
+                startDate: { $regex: `^${month}` }
+            });
+            
+            // Active status check: skip inactive employees if they have no attendance and no leave in this month
+            if (emp.isActive === false && attendanceRecords.length === 0 && leaves.length === 0) {
+                continue;
+            }
+            
             let totalWorkedHours = 0;
             attendanceRecords.forEach(record => {
                 totalWorkedHours += (record.totalHours || 0);

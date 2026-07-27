@@ -155,6 +155,11 @@ exports.getDailyGrid = async (req, res) => {
                     new Date(lr.startDate).toISOString().split('T')[0] <= dateStr &&
                     new Date(lr.endDate).toISOString().split('T')[0] >= dateStr
                 );
+                
+                // Active status check: skip inactive employees if they have no attendance or leave on this date
+                if (emp.isActive === false && !att && !empLeave) {
+                    continue;
+                }
 
                 if (empLeave) {
                     hasApprovedLeave = true;
