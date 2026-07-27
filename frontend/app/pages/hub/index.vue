@@ -1,8 +1,8 @@
 <template>
   <div class="h-full flex flex-col justify-center">
     <div class="mb-10 text-center">
-      <h2 class="text-3xl font-black tracking-tight text-gray-900 dark:text-white">{{ $t('hub.welcome', 'مرحباً بك في التطبيقات') }}</h2>
-      <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm">{{ $t('hub.description', 'اختر التطبيق الذي تود العمل عليه') }}</p>
+      <h2 class="text-3xl font-black tracking-tight text-gray-900 dark:text-white">{{ $t('hub.welcome') }}</h2>
+      <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm">{{ $t('hub.subtitle') }}</p>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">

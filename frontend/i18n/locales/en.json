@@ -1220,5 +1220,9 @@
     "categories": "Categories",
     "sections": "Restaurant Sections",
     "completed_orders": "Completed Orders"
+  },
+  "hub": {
+    "welcome": "Welcome to the Apps Hub",
+    "subtitle": "Choose the application you want to work on"
   }
 }
