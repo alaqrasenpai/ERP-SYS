@@ -89,7 +89,7 @@
 <script setup>
 useHead({ title: 'Users' })
 
-definePageMeta({ middleware: ['auth'] })
+definePageMeta({ layout: 'app-layout', middleware: ['auth'] })
 
 const { $api } = useNuxtApp()
 const users = ref([])

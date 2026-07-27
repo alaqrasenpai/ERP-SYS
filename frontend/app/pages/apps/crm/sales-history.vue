@@ -99,7 +99,7 @@ useHead({ title: 'Sales History' })
 
 import { ref, computed, onMounted } from 'vue'
 
-definePageMeta({ middleware: ['auth'] })
+definePageMeta({ layout: 'app-layout', middleware: ['auth'] })
 
 const { $api } = useNuxtApp()
 const orders = ref([])
