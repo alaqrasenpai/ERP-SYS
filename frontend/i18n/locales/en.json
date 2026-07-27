@@ -1224,5 +1224,20 @@
   "hub": {
     "welcome": "Welcome to the Apps Hub",
     "subtitle": "Choose the application you want to work on"
+  },
+  "users_page": {
+    "title": "User Management",
+    "description": "Manage team members and roles",
+    "add_new_user": "Add New User",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "create_user": "Create User",
+    "password": "Password",
+    "cancel": "Cancel",
+    "save": "Save"
   }
 }
