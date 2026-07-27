@@ -14,6 +14,9 @@ export const useAuth = () => {
     user.value = newUser
     enabledModules.value = newModules || []
     if (newCurrency) currency.value = newCurrency
+    if (process.client && newTenantId) {
+      localStorage.setItem('erp_last_tenant', newTenantId)
+    }
   }
 
   const login = async (email, password, tenant) => {
@@ -54,9 +57,10 @@ export const useAuth = () => {
   const logout = () => {
     let currentTenant = tenantId.value
     if (process.client) {
+      currentTenant = currentTenant || localStorage.getItem('erp_last_tenant')
       const route = useRoute()
       if (route.params.tenantId) {
-        currentTenant = route.params.tenantId
+        currentTenant = route.params.tenantId as string
       }
     }
     
@@ -64,14 +68,19 @@ export const useAuth = () => {
     // We intentionally do not clear tenantId.value so the system remembers which tenant login page to redirect to
     user.value = null
     enabledModules.value = []
-    if (process.client && token.value !== null) {
-      console.log('Session ended or token invalid.')
-    }
     
-    if (currentTenant) {
-      return navigateTo(`/${currentTenant}/login`)
+    if (process.client) {
+      if (currentTenant) {
+        window.location.href = `/${currentTenant}/login`
+      } else {
+        window.location.href = '/'
+      }
+    } else {
+      if (currentTenant) {
+        return navigateTo(`/${currentTenant}/login`)
+      }
+      return navigateTo('/')
     }
-    return navigateTo('/')
   }
 
   const isLoggedIn = computed(() => {
