@@ -1175,5 +1175,41 @@
     "contact_link": "Contact",
     "prompt_msg": "Enter your Store ID / Workspace Name:"
   },
-  "back_to_hub": "Back to Hub"
+  "back_to_hub": "Back to Hub",
+  "apps": {
+    "pos": "Point of Sale",
+    "pos_desc": "Sales & Cashier",
+    "hr": "Human Resources",
+    "hr_desc": "Employees & Payroll",
+    "inventory": "Inventory",
+    "inventory_desc": "Products & Suppliers",
+    "finance": "Finance",
+    "finance_desc": "Accounting & Debts",
+    "crm": "CRM & Sales",
+    "crm_desc": "Customer Relationship",
+    "ess": "Self Service",
+    "ess_desc": "My Profile & Attendance",
+    "settings": "Settings",
+    "settings_desc": "System Configuration"
+  },
+  "sidebar": {
+    "employees": "Employees",
+    "shifts": "Shifts",
+    "leaves": "Leaves",
+    "attendance_monitor": "Attendance Monitor",
+    "payroll": "Payroll",
+    "devices": "Biometric Devices",
+    "inventory": "Products",
+    "stock_movements": "Stock Movements",
+    "suppliers": "Suppliers",
+    "accounting": "Accounting",
+    "debts": "Debts",
+    "installments": "Installments",
+    "checks": "Checks",
+    "customers": "Customers",
+    "sales_history": "Sales History",
+    "reports": "Reports",
+    "users": "Users",
+    "settings": "System Settings"
+  }
 }
