@@ -77,6 +77,10 @@
           <div class="text-xs font-bold text-gray-900 dark:text-white truncate">{{ user?.name }}</div>
           <div class="text-[10px] text-gray-500 truncate">{{ user?.role?.name || 'Staff' }}</div>
         </div>
+        
+        <button @click="handleLogout" class="p-1.5 text-gray-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors md:hidden lg:block shrink-0" :title="$t('common.logout_confirm') || 'Logout'">
+          <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+        </button>
       </div>
     </aside>
 
@@ -97,9 +101,15 @@ import { useAuth } from '~/composables/useAuth'
 import { navConfig } from '~/utils/navConfig'
 
 const route = useRoute()
-const { user } = useAuth()
-const { setLocale } = useI18n()
+const { user, logout } = useAuth()
+const { setLocale, t } = useI18n()
 const mobileMenuOpen = ref(false)
+
+const handleLogout = async () => {
+  if (confirm(t('common.logout_confirm') || 'Are you sure you want to log out?')) {
+    await logout()
+  }
+}
 
 // Determine which app we are in based on route
 const appBase = computed(() => {
