@@ -26,11 +26,9 @@ export const useAuth = () => {
     })
     setAuth(data.token, tenant, data.user, data.enabledModules, data.currency)
     
-    const perms = data.user?.role?.permissions || []
-    const hasDashboardPerm = perms.includes('*') || perms.includes('pos:create') || perms.includes('hr:read') || perms.includes('hr:write') || perms.includes('accounting:read') || perms.includes('inventory:read')
-    
-    if (hasDashboardPerm) {
-      return navigateTo('/dashboard')
+    // Redirect logic based on role
+    if (data.user.role === 'admin' || data.user.role === 'manager' || data.user.role === 'cashier') {
+      return navigateTo('/hub')
     } else {
       return navigateTo('/ess/profile')
     }

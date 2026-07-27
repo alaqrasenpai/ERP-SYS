@@ -11,8 +11,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
     return navigateTo('/')
   }
 
-  // If authenticated and trying to access a login page, redirect to dashboard
-  if (token.value && isLoginPage) {
-    return navigateTo('/dashboard')
-  }
+    // If user has token and is trying to access login page, redirect to app
+    if (token.value && to.path.endsWith('/login')) {
+        return navigateTo('/hub')
+    }
 })
