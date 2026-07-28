@@ -47,6 +47,5 @@ const router = useRouter()
 
 const handleLogout = async () => {
   await logout()
-  router.push('/login')
 }
 </script>
