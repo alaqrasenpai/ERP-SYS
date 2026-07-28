@@ -121,25 +121,56 @@ const editRoleId = ref(null)
 const form = ref({ name: '', permissions: [] })
 
 const availablePermissions = {
-  hr: [
-    { label: 'Read HR Data (Employees, Attendance, Payroll)', value: 'hr:read' },
-    { label: 'Manage HR Data (Add/Edit, Run Payroll)', value: 'hr:manage' }
+  'HR Dashboard': [
+    { label: 'View HR Dashboard', value: 'hr:dashboard:read' }
+  ],
+  'HR Employees': [
+    { label: 'View Employees', value: 'hr:employees:read' },
+    { label: 'Manage Employees', value: 'hr:employees:manage' }
+  ],
+  'HR Departments': [
+    { label: 'View Departments', value: 'hr:departments:read' },
+    { label: 'Manage Departments', value: 'hr:departments:manage' }
+  ],
+  'HR Attendance': [
+    { label: 'View Attendance', value: 'hr:attendance:read' },
+    { label: 'Manage Attendance & Overtime', value: 'hr:attendance:manage' }
+  ],
+  'HR Shifts & Leaves': [
+    { label: 'View Shifts & Holidays', value: 'hr:shifts:read' },
+    { label: 'Manage Shifts & Holidays', value: 'hr:shifts:manage' },
+    { label: 'View Leaves', value: 'hr:leaves:read' },
+    { label: 'Manage Leaves', value: 'hr:leaves:manage' }
+  ],
+  'HR Payroll & Finance': [
+    { label: 'View Payroll', value: 'hr:payroll:read' },
+    { label: 'Manage Payroll', value: 'hr:payroll:manage' },
+    { label: 'View Allowances', value: 'hr:allowances:read' },
+    { label: 'Manage Allowances', value: 'hr:allowances:manage' }
+  ],
+  'HR Devices': [
+    { label: 'View Devices & Logs', value: 'hr:devices:read' },
+    { label: 'Manage Devices', value: 'hr:devices:manage' }
   ],
   inventory: [
-    { label: 'Read Inventory (Items, Stock, Movements)', value: 'inventory:read' },
-    { label: 'Manage Inventory (Adjust Stock, Suppliers)', value: 'inventory:manage' }
+    { label: 'Read Inventory (Items, Stock)', value: 'inventory:read' },
+    { label: 'Manage Inventory', value: 'inventory:manage' }
   ],
   finance: [
-    { label: 'Read Finance (Accounts, Reports)', value: 'finance:read' },
-    { label: 'Manage Finance (Transactions, Debts)', value: 'finance:manage' }
+    { label: 'Read Finance (Accounts)', value: 'finance:read' },
+    { label: 'Manage Finance', value: 'finance:manage' }
   ],
-  'Restaurant & POS': [
-    { label: 'Use POS & Kitchen (Create Orders, Cashier, Kitchen Display)', value: 'pos:use' },
-    { label: 'Manage Restaurant (Refunds, Tables, Menu Setup)', value: 'pos:manage' }
+  store_pos: [
+    { label: 'Use Retail POS', value: 'store_pos:use' },
+    { label: 'Manage Retail POS (Categories, Setup)', value: 'store_pos:manage' }
+  ],
+  restaurant: [
+    { label: 'Use Restaurant (Orders, Tables, Kitchen)', value: 'restaurant:use' },
+    { label: 'Manage Restaurant (Sections, Menu Setup)', value: 'restaurant:manage' }
   ],
   crm: [
-    { label: 'Read CRM (Customers, Sales History)', value: 'crm:read' },
-    { label: 'Manage CRM (Add/Edit Customers)', value: 'crm:manage' }
+    { label: 'Read CRM', value: 'crm:read' },
+    { label: 'Manage CRM', value: 'crm:manage' }
   ],
   settings: [
     { label: 'Manage System Settings', value: 'settings:manage' }

@@ -1,7 +1,5 @@
 const express = require('express');
 const { requirePermission } = require('../middlewares/rbacGuard');
-const readPerm = requirePermission('pos:use');
-const managePerm = requirePermission('pos:manage');
 const router = express.Router();
 
 const orderController = require('../controllers/pos/orderController');
@@ -11,20 +9,20 @@ const dashboardController = require('../controllers/pos/dashboardController');
 // ----------------------------------------
 // Dashboard Routes
 // ----------------------------------------
-router.get('/dashboard', readPerm, dashboardController.getDashboardStats);
+router.get('/dashboard', requirePermission('store_pos:use'), dashboardController.getDashboardStats);
 
 // ----------------------------------------
 // POS Orders Routes
 // ----------------------------------------
-router.get('/orders', readPerm, orderController.getOrders);
-router.post('/orders', managePerm, orderController.createOrder);
+router.get('/orders', requirePermission('store_pos:use'), orderController.getOrders);
+router.post('/orders', requirePermission('store_pos:manage'), orderController.createOrder);
 
 // ----------------------------------------
 // Shifts Routes
 // ----------------------------------------
-router.get('/shifts', readPerm, shiftController.getShifts);
-router.get('/shifts/current', readPerm, shiftController.getCurrentShift);
-router.post('/shifts/open', managePerm, shiftController.openShift);
-router.post('/shifts/close/:id', managePerm, shiftController.closeShift);
+router.get('/shifts', requirePermission('store_pos:use'), shiftController.getShifts);
+router.get('/shifts/current', requirePermission('store_pos:use'), shiftController.getCurrentShift);
+router.post('/shifts/open', requirePermission('store_pos:manage'), shiftController.openShift);
+router.post('/shifts/close/:id', requirePermission('store_pos:manage'), shiftController.closeShift);
 
 module.exports = router;

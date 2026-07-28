@@ -1,3 +1,5 @@
+import { navConfig } from '../utils/navConfig'
+
 export default defineNuxtRouteMiddleware((to, from) => {
     // Only check permissions for /apps/* routes
     if (!to.path.startsWith('/apps/')) return
@@ -8,21 +10,30 @@ export default defineNuxtRouteMiddleware((to, from) => {
     
     let requiredPermission = null
     
-    // Determine required permission based on base path
-    if (to.path.startsWith('/apps/hr')) {
-        requiredPermission = 'hr:read'
-    } else if (to.path.startsWith('/apps/inventory')) {
-        requiredPermission = 'inventory:read'
-    } else if (to.path.startsWith('/apps/finance')) {
-        requiredPermission = 'finance:read'
-    } else if (to.path.startsWith('/apps/crm')) {
-        requiredPermission = 'crm:read'
-    } else if (to.path.startsWith('/apps/pos')) {
-        requiredPermission = 'pos:use'
-    } else if (to.path.startsWith('/apps/settings/users') || to.path.startsWith('/apps/settings/roles')) {
-        requiredPermission = 'team:manage'
-    } else if (to.path.startsWith('/apps/settings')) {
-        requiredPermission = 'settings:manage'
+    // Find the longest matching path in navConfig
+    let longestMatch = null
+    for (const item of navConfig) {
+        if (to.path === item.path || to.path.startsWith(item.path + '/')) {
+            if (!longestMatch || item.path.length > longestMatch.path.length) {
+                longestMatch = item
+            }
+        }
+    }
+    
+    if (longestMatch) {
+        requiredPermission = longestMatch.requiredPermission
+    }
+    
+    // Fallback module-level checks if not found in navConfig (e.g. for dynamic nested routes not under a specific sub-menu)
+    if (!requiredPermission) {
+        if (to.path.startsWith('/apps/hr')) requiredPermission = 'hr:dashboard:read'
+        else if (to.path.startsWith('/apps/inventory')) requiredPermission = 'inventory:read'
+        else if (to.path.startsWith('/apps/finance')) requiredPermission = 'finance:read'
+        else if (to.path.startsWith('/apps/crm')) requiredPermission = 'crm:read'
+        else if (to.path.startsWith('/apps/pos')) requiredPermission = 'store_pos:use'
+        else if (to.path.startsWith('/apps/restaurant')) requiredPermission = 'restaurant:use'
+        else if (to.path.startsWith('/apps/settings/users') || to.path.startsWith('/apps/settings/roles')) requiredPermission = 'team:manage'
+        else if (to.path.startsWith('/apps/settings')) requiredPermission = 'settings:manage'
     }
     
     // If the route explicitly defined one, it overrides the global one

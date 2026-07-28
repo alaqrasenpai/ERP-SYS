@@ -1,58 +1,58 @@
 export const navConfig = [
-  // HR & Payroll (requires hr:read or hr:manage)
+  // HR & Payroll
   {
     name: 'sidebar.dashboard',
     path: '/apps/hr',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>',
-    requiredPermission: 'hr:read'
+    requiredPermission: 'hr:dashboard:read'
   },
   {
     name: 'sidebar.departments',
     path: '/apps/hr/departments',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>',
-    requiredPermission: 'hr:read'
+    requiredPermission: 'hr:departments:read'
   },
   {
     name: 'sidebar.employees',
     path: '/apps/hr/employees',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>',
-    requiredPermission: 'hr:read'
+    requiredPermission: 'hr:employees:read'
   },
   {
     name: 'sidebar.shifts',
     path: '/apps/hr/shifts',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
-    requiredPermission: 'hr:read'
+    requiredPermission: 'hr:shifts:read'
   },
   {
     name: 'sidebar.leaves',
     path: '/apps/hr/leaves',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>',
-    requiredPermission: 'hr:read'
+    requiredPermission: 'hr:leaves:read'
   },
   {
     name: 'sidebar.attendance_monitor',
     path: '/apps/hr/attendance-monitor',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>',
-    requiredPermission: 'hr:read'
+    requiredPermission: 'hr:attendance:read'
   },
   {
     name: 'sidebar.payroll',
     path: '/apps/hr/payroll',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
-    requiredPermission: 'hr:read'
+    requiredPermission: 'hr:payroll:read'
   },
   {
     name: 'sidebar.devices',
     path: '/apps/hr/devices',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>',
-    requiredPermission: 'hr:read'
+    requiredPermission: 'hr:devices:read'
   },
   {
     name: 'allowances.title',
     path: '/apps/hr/allowances',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
-    requiredPermission: 'hr:manage'
+    requiredPermission: 'hr:allowances:manage'
   },
 
   // Inventory
@@ -113,54 +113,80 @@ export const navConfig = [
     requiredPermission: 'finance:read'
   },
 
-  // POS & Restaurant
+  // Store POS
   {
-    name: 'sidebar.dashboard',
+    name: 'Store Dashboard',
     path: '/apps/pos',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>',
-    requiredPermission: 'pos:use'
+    requiredPermission: 'store_pos:use'
   },
   {
-    name: 'sidebar.pos_terminal',
+    name: 'Retail Terminal',
     path: '/apps/pos/pos-terminal',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>',
-    requiredPermission: 'pos:use'
-  },
-  {
-    name: 'sidebar.tables',
-    path: '/apps/pos/tables-grid',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>',
-    requiredPermission: 'pos:use'
-  },
-  {
-    name: 'sidebar.kitchen',
-    path: '/apps/pos/kitchen-display',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>',
-    requiredPermission: 'pos:use'
-  },
-  {
-    name: 'sidebar.menu_setup',
-    path: '/apps/pos/menu-setup',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>',
-    requiredPermission: 'pos:manage'
+    requiredPermission: 'store_pos:use'
   },
   {
     name: 'sidebar.categories',
     path: '/apps/pos/categories',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>',
-    requiredPermission: 'pos:manage'
+    requiredPermission: 'store_pos:manage'
   },
   {
-    name: 'sidebar.sections',
-    path: '/apps/pos/sections',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>',
-    requiredPermission: 'pos:manage'
+    name: 'sidebar.menu_setup',
+    path: '/apps/pos/menu-setup',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>',
+    requiredPermission: 'store_pos:manage'
   },
   {
     name: 'sidebar.completed_orders',
     path: '/apps/pos/completed-orders',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>',
-    requiredPermission: 'pos:manage'
+    requiredPermission: 'store_pos:manage'
+  },
+
+  // Restaurant
+  {
+    name: 'Restaurant Dashboard',
+    path: '/apps/restaurant',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>',
+    requiredPermission: 'restaurant:use'
+  },
+  {
+    name: 'sidebar.tables',
+    path: '/apps/restaurant/tables-grid',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>',
+    requiredPermission: 'restaurant:use'
+  },
+  {
+    name: 'sidebar.kitchen',
+    path: '/apps/restaurant/kitchen-display',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>',
+    requiredPermission: 'restaurant:use'
+  },
+  {
+    name: 'sidebar.sections',
+    path: '/apps/restaurant/sections',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>',
+    requiredPermission: 'restaurant:manage'
+  },
+  {
+    name: 'sidebar.menu_setup',
+    path: '/apps/restaurant/menu-setup',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>',
+    requiredPermission: 'restaurant:manage'
+  },
+  {
+    name: 'sidebar.categories',
+    path: '/apps/restaurant/categories',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>',
+    requiredPermission: 'restaurant:manage'
+  },
+  {
+    name: 'sidebar.completed_orders',
+    path: '/apps/restaurant/completed-orders',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>',
+    requiredPermission: 'restaurant:manage'
   },
 
   // CRM

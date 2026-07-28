@@ -1,11 +1,9 @@
 const express = require('express');
 const { requirePermission } = require('../middlewares/rbacGuard');
-const readPerm = requirePermission('settings:manage');
-const managePerm = requirePermission('settings:manage');
 const router = express.Router();
 
 // GET /api/settings - Fetch global settings
-router.get('/', readPerm, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const Setting = req.tenantConnection.model('Setting');
         let settings = await Setting.findOne();
@@ -22,7 +20,7 @@ router.get('/', readPerm, async (req, res) => {
 });
 
 // PUT /api/settings - Update global settings
-router.put('/', managePerm, async (req, res) => {
+router.put('/', async (req, res) => {
     try {
         const Setting = req.tenantConnection.model('Setting');
         let settings = await Setting.findOne();
@@ -39,7 +37,7 @@ router.put('/', managePerm, async (req, res) => {
     }
 });
 // POST /api/settings/seed - Generate Dummy Data for testing
-router.post('/seed', managePerm, async (req, res) => {
+router.post('/seed', async (req, res) => {
     try {
         const Employee = req.tenantConnection.model('Employee');
         const Department = req.tenantConnection.model('Department');
@@ -184,7 +182,7 @@ router.post('/seed', managePerm, async (req, res) => {
 
 
 // GET /api/settings/leave-types
-router.get('/leave-types', readPerm, async (req, res) => {
+router.get('/leave-types', async (req, res) => {
     try {
         const LeaveType = req.tenantConnection.model('LeaveType');
         const types = await LeaveType.find().sort({ createdAt: -1 });
@@ -195,7 +193,7 @@ router.get('/leave-types', readPerm, async (req, res) => {
 });
 
 // POST /api/settings/leave-types
-router.post('/leave-types', managePerm, async (req, res) => {
+router.post('/leave-types', async (req, res) => {
     try {
         const LeaveType = req.tenantConnection.model('LeaveType');
         const newType = await LeaveType.create(req.body);
@@ -206,7 +204,7 @@ router.post('/leave-types', managePerm, async (req, res) => {
 });
 
 // PUT /api/settings/leave-types/:id
-router.put('/leave-types/:id', managePerm, async (req, res) => {
+router.put('/leave-types/:id', async (req, res) => {
     try {
         const LeaveType = req.tenantConnection.model('LeaveType');
         const updated = await LeaveType.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -218,7 +216,7 @@ router.put('/leave-types/:id', managePerm, async (req, res) => {
 });
 
 // DELETE /api/settings/leave-types/:id
-router.delete('/leave-types/:id', managePerm, async (req, res) => {
+router.delete('/leave-types/:id', async (req, res) => {
     try {
         const LeaveType = req.tenantConnection.model('LeaveType');
         await LeaveType.findByIdAndDelete(req.params.id);

@@ -1,7 +1,5 @@
 const express = require('express');
 const { requirePermission } = require('../middlewares/rbacGuard');
-const readPerm = requirePermission('pos:use');
-const managePerm = requirePermission('pos:manage');
 const router = express.Router();
 
 const tableController = require('../controllers/restaurant/tableController');
@@ -13,37 +11,37 @@ const orderController = require('../controllers/restaurant/orderController');
 const sectionController = require('../controllers/restaurant/sectionController');
 
 // --- Tables CRUD ---
-router.get('/tables', readPerm, tableController.getTables);
-router.post('/tables', managePerm, tableController.createTable);
-router.put('/tables/:id', managePerm, tableController.updateTable);
-router.delete('/tables/:id', managePerm, tableController.deleteTable);
+router.get('/tables', requirePermission('restaurant:use'), tableController.getTables);
+router.post('/tables', requirePermission('restaurant:manage'), tableController.createTable);
+router.put('/tables/:id', requirePermission('restaurant:manage'), tableController.updateTable);
+router.delete('/tables/:id', requirePermission('restaurant:manage'), tableController.deleteTable);
 
 // --- Table Sections CRUD ---
-router.get('/sections', readPerm, sectionController.getSections);
-router.post('/sections', managePerm, sectionController.createSection);
-router.put('/sections/:id', managePerm, sectionController.updateSection);
-router.delete('/sections/:id', managePerm, sectionController.deleteSection);
+router.get('/sections', requirePermission('restaurant:use'), sectionController.getSections);
+router.post('/sections', requirePermission('restaurant:manage'), sectionController.createSection);
+router.put('/sections/:id', requirePermission('restaurant:manage'), sectionController.updateSection);
+router.delete('/sections/:id', requirePermission('restaurant:manage'), sectionController.deleteSection);
 
 // --- Menu Categories CRUD ---
-router.get('/categories', readPerm, categoryController.getCategories);
-router.post('/categories', managePerm, categoryController.createCategory);
-router.put('/categories/:id', managePerm, categoryController.updateCategory);
+router.get('/categories', requirePermission('restaurant:use'), categoryController.getCategories);
+router.post('/categories', requirePermission('restaurant:manage'), categoryController.createCategory);
+router.put('/categories/:id', requirePermission('restaurant:manage'), categoryController.updateCategory);
 
 // --- Menu Items CRUD ---
-router.get('/menu', readPerm, menuController.getMenu);
-router.post('/menu', managePerm, menuController.createMenuItem);
-router.put('/menu/:id', managePerm, menuController.updateMenuItem);
+router.get('/menu', requirePermission('restaurant:use'), menuController.getMenu);
+router.post('/menu', requirePermission('restaurant:manage'), menuController.createMenuItem);
+router.put('/menu/:id', requirePermission('restaurant:manage'), menuController.updateMenuItem);
 
 // --- Delivery Providers CRUD ---
-router.get('/providers', readPerm, providerController.getProviders);
-router.post('/providers', managePerm, providerController.createProvider);
-router.put('/providers/:id', managePerm, providerController.updateProvider);
+router.get('/providers', requirePermission('restaurant:use'), providerController.getProviders);
+router.post('/providers', requirePermission('restaurant:manage'), providerController.createProvider);
+router.put('/providers/:id', requirePermission('restaurant:manage'), providerController.updateProvider);
 
 // --- Orders ---
-router.get('/orders/completed', readPerm, orderController.getCompletedOrders);
-router.get('/orders', readPerm, orderController.getOrders);
-router.post('/orders', managePerm, orderController.createOrder);
-router.put('/orders/:id/kitchen-status', managePerm, orderController.updateKitchenStatus);
-router.post('/orders/:id/checkout', managePerm, orderController.checkout);
+router.get('/orders/completed', requirePermission('restaurant:use'), orderController.getCompletedOrders);
+router.get('/orders', requirePermission('restaurant:use'), orderController.getOrders);
+router.post('/orders', requirePermission('restaurant:manage'), orderController.createOrder);
+router.put('/orders/:id/kitchen-status', requirePermission('restaurant:manage'), orderController.updateKitchenStatus);
+router.post('/orders/:id/checkout', requirePermission('restaurant:manage'), orderController.checkout);
 
 module.exports = router;

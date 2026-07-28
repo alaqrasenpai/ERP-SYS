@@ -1,17 +1,15 @@
 const express = require('express');
 const { requirePermission } = require('../middlewares/rbacGuard');
-const readPerm = requirePermission('crm:read');
-const managePerm = requirePermission('crm:manage');
 const router = express.Router();
 const dashboardController = require('../controllers/crm/dashboardController');
 
 // ----------------------------------------
 // Dashboard Routes
 // ----------------------------------------
-router.get('/dashboard', readPerm, dashboardController.getDashboardStats);
+router.get('/dashboard', requirePermission('crm:read'), dashboardController.getDashboardStats);
 
 // Get all customers
-router.get('/', readPerm, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const Customer = req.tenantConnection.model('Customer');
         const customers = await Customer.find().sort({ createdAt: -1 });
@@ -22,7 +20,7 @@ router.get('/', readPerm, async (req, res) => {
 });
 
 // Create a customer
-router.post('/', managePerm, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const Customer = req.tenantConnection.model('Customer');
         const customer = await Customer.create(req.body);
@@ -33,7 +31,7 @@ router.post('/', managePerm, async (req, res) => {
 });
 
 // Update a customer
-router.put('/:id', managePerm, async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const Customer = req.tenantConnection.model('Customer');
         const customer = await Customer.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -44,7 +42,7 @@ router.put('/:id', managePerm, async (req, res) => {
 });
 
 // Delete a customer
-router.delete('/:id', managePerm, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const Customer = req.tenantConnection.model('Customer');
         await Customer.findByIdAndDelete(req.params.id);
@@ -55,7 +53,7 @@ router.delete('/:id', managePerm, async (req, res) => {
 });
 
 // Get Debt Logs for a customer
-router.get('/:id/debt-logs', readPerm, async (req, res) => {
+router.get('/:id/debt-logs', async (req, res) => {
     try {
         const DebtLog = req.tenantConnection.model('DebtLog');
         const logs = await DebtLog.find({ customerId: req.params.id }).populate('orderId', 'orderNumber grandTotal').sort({ date: -1 });
@@ -66,7 +64,7 @@ router.get('/:id/debt-logs', readPerm, async (req, res) => {
 });
 
 // Manual Debt Adjustment (e.g. paying off a debt outside of an order)
-router.post('/debt-adjust', managePerm, async (req, res) => {
+router.post('/debt-adjust', async (req, res) => {
     try {
         const Customer = req.tenantConnection.model('Customer');
         const DebtLog = req.tenantConnection.model('DebtLog');
