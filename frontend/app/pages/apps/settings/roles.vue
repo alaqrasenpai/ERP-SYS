@@ -50,19 +50,19 @@
       <ClientOnly>
         <Teleport to="body">
           <div v-if="showModal" class="fixed z-[100] inset-0 overflow-y-auto">
-            <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-              <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" @click="showModal = false"></div>
-              <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-              <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full border border-gray-100 dark:border-gray-700 max-h-[90vh] flex flex-col">
-                <form @submit.prevent="saveRole" class="flex flex-col h-full overflow-hidden">
-                  <div class="bg-white dark:bg-gray-800 px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+              <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity" @click="showModal = false"></div>
+              
+              <div class="relative transform overflow-hidden rounded-2xl bg-white dark:bg-gray-800 text-start shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-3xl border border-gray-100 dark:border-gray-700">
+                <form @submit.prevent="saveRole" class="flex flex-col max-h-[90vh]">
+                  <div class="bg-white dark:bg-gray-800 px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center shrink-0">
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ isEditMode ? $t('roles.edit_role', 'Edit Role') : $t('roles.add_new_role', 'Add New Role') }}</h3>
                     <button type="button" @click="showModal = false" class="text-gray-400 hover:text-gray-500">
                       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                   </div>
                   
-                  <div class="px-6 py-6 overflow-y-auto flex-1 bg-gray-50 dark:bg-gray-800/50">
+                  <div class="px-6 py-6 overflow-y-auto bg-gray-50 dark:bg-gray-800/50 flex-1">
                     <div class="mb-6">
                       <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('roles.role_name', 'Role Name') }}</label>
                       <input v-model="form.name" type="text" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
