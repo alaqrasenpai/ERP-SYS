@@ -1,0 +1,198 @@
+<template>
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700 p-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex justify-between items-center mb-8">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $t('roles.title', 'Roles & Permissions') }}</h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $t('roles.description', 'Manage system roles and their access levels') }}</p>
+        </div>
+        <div class="flex gap-4">
+          <button @click="openAddModal" class="px-5 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm transition-colors flex items-center">
+            <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            {{ $t('roles.add_role', 'Add New Role') }}
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-900">
+            <tr>
+              <th scope="col" class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('roles.name', 'Role Name') }}</th>
+              <th scope="col" class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('roles.permissions', 'Permissions Count') }}</th>
+              <th scope="col" class="px-6 py-4 text-start text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ $t('roles.actions', 'Actions') }}</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+            <tr v-if="roles.length === 0">
+              <td colspan="3" class="px-6 py-8 text-center text-sm text-gray-500 dark:text-gray-400">No roles found.</td>
+            </tr>
+            <tr v-for="role in roles" :key="role._id" class="hover:bg-gray-50 dark:bg-gray-900">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ role.name }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                <span v-if="role.permissions.includes('*')" class="px-2 py-1 bg-rose-100 text-rose-700 rounded text-xs font-bold">Full Access (Super)</span>
+                <span v-else>{{ role.permissions.length }} permissions</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-start font-medium">
+                <button @click="openEditModal(role)" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 me-3 font-bold">
+                  {{ $t('roles.edit', 'Edit') }}
+                </button>
+                <button v-if="role.name !== 'Admin' && role.name !== 'Store Admin'" @click="deleteRole(role._id)" class="text-rose-600 hover:text-rose-900 dark:text-rose-400 dark:hover:text-rose-300 font-bold">
+                  {{ $t('roles.delete', 'Delete') }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Add/Edit Role Modal -->
+      <div v-if="showModal" class="fixed z-50 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" @click="showModal = false"></div>
+          <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
+          <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full border border-gray-100 dark:border-gray-700 max-h-[90vh] flex flex-col">
+            <form @submit.prevent="saveRole" class="flex flex-col h-full overflow-hidden">
+              <div class="bg-white dark:bg-gray-800 px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ isEditMode ? $t('roles.edit_role', 'Edit Role') : $t('roles.add_new_role', 'Add New Role') }}</h3>
+                <button type="button" @click="showModal = false" class="text-gray-400 hover:text-gray-500">
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+              </div>
+              
+              <div class="px-6 py-6 overflow-y-auto flex-1 bg-gray-50 dark:bg-gray-800/50">
+                <div class="mb-6">
+                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('roles.role_name', 'Role Name') }}</label>
+                  <input v-model="form.name" type="text" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+
+                <div v-if="form.name === 'Admin' || form.name === 'Store Admin'" class="bg-yellow-50 text-yellow-800 p-4 rounded-lg mb-6 text-sm font-medium">
+                  This is a system role. It automatically has full access to all features.
+                </div>
+                
+                <div v-else>
+                  <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Module Permissions</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div v-for="(perms, moduleName) in availablePermissions" :key="moduleName" class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                      <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-3 capitalize">{{ moduleName }} Module</h5>
+                      <div class="space-y-2">
+                        <label v-for="p in perms" :key="p.value" class="flex items-center">
+                          <input type="checkbox" :value="p.value" v-model="form.permissions" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                          <span class="ms-2 text-sm text-gray-700 dark:text-gray-300">{{ p.label }}</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-white dark:bg-gray-900 px-6 py-4 flex flex-row-reverse border-t border-gray-100 dark:border-gray-700 shrink-0">
+                <button type="submit" class="inline-flex justify-center rounded-lg px-6 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 shadow-sm ms-3">
+                  {{ $t('roles.save', 'Save Role') }}
+                </button>
+                <button type="button" @click="showModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 px-6 py-2.5 bg-white dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 shadow-sm">
+                  {{ $t('roles.cancel', 'Cancel') }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+useHead({ title: 'Roles & Permissions' })
+definePageMeta({ layout: 'app-layout', middleware: ['auth'] })
+
+import { ref, onMounted } from 'vue'
+
+const { $api } = useNuxtApp()
+const roles = ref([])
+const showModal = ref(false)
+const isEditMode = ref(false)
+const editRoleId = ref(null)
+
+const form = ref({ name: '', permissions: [] })
+
+const availablePermissions = {
+  hr: [
+    { label: 'Read HR Data (Employees, Attendance, Payroll)', value: 'hr:read' },
+    { label: 'Manage HR Data (Add/Edit, Run Payroll)', value: 'hr:manage' }
+  ],
+  inventory: [
+    { label: 'Read Inventory (Items, Stock, Movements)', value: 'inventory:read' },
+    { label: 'Manage Inventory (Adjust Stock, Suppliers)', value: 'inventory:manage' }
+  ],
+  finance: [
+    { label: 'Read Finance (Accounts, Reports)', value: 'finance:read' },
+    { label: 'Manage Finance (Transactions, Debts)', value: 'finance:manage' }
+  ],
+  pos: [
+    { label: 'Use POS (Create Orders, Cashier)', value: 'pos:use' },
+    { label: 'Manage POS (Refunds, Menu Setup)', value: 'pos:manage' }
+  ],
+  crm: [
+    { label: 'Read CRM (Customers, Sales History)', value: 'crm:read' },
+    { label: 'Manage CRM (Add/Edit Customers)', value: 'crm:manage' }
+  ],
+  settings: [
+    { label: 'Manage System Settings', value: 'settings:manage' }
+  ],
+  team: [
+    { label: 'Manage Users and Roles', value: 'team:manage' }
+  ]
+}
+
+const fetchRoles = async () => {
+  try {
+    roles.value = await $api('/team/roles')
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const openAddModal = () => {
+  isEditMode.value = false
+  editRoleId.value = null
+  form.value = { name: '', permissions: [] }
+  showModal.value = true
+}
+
+const openEditModal = (role) => {
+  isEditMode.value = true
+  editRoleId.value = role._id
+  form.value = {
+    name: role.name,
+    permissions: [...role.permissions]
+  }
+  showModal.value = true
+}
+
+const saveRole = async () => {
+  try {
+    if (isEditMode.value) {
+      await $api(`/team/roles/${editRoleId.value}`, { method: 'PUT', body: form.value })
+    } else {
+      await $api('/team/roles', { method: 'POST', body: form.value })
+    }
+    showModal.value = false
+    fetchRoles()
+  } catch (err) {
+    alert(err.data?.message || 'Error saving role')
+  }
+}
+
+const deleteRole = async (id) => {
+  if (!confirm('Are you sure you want to delete this role?')) return
+  try {
+    await $api(`/team/roles/${id}`, { method: 'DELETE' })
+    fetchRoles()
+  } catch (err) {
+    alert(err.data?.message || 'Error deleting role')
+  }
+}
+
+onMounted(() => fetchRoles())
+</script>

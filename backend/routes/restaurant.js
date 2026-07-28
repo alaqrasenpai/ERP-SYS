@@ -1,4 +1,7 @@
 const express = require('express');
+const { requirePermission } = require('../middlewares/rbacGuard');
+const readPerm = requirePermission('pos:use');
+const managePerm = requirePermission('pos:manage');
 const router = express.Router();
 
 const tableController = require('../controllers/restaurant/tableController');
@@ -10,37 +13,37 @@ const orderController = require('../controllers/restaurant/orderController');
 const sectionController = require('../controllers/restaurant/sectionController');
 
 // --- Tables CRUD ---
-router.get('/tables', tableController.getTables);
-router.post('/tables', tableController.createTable);
-router.put('/tables/:id', tableController.updateTable);
-router.delete('/tables/:id', tableController.deleteTable);
+router.get('/tables', readPerm, tableController.getTables);
+router.post('/tables', managePerm, tableController.createTable);
+router.put('/tables/:id', managePerm, tableController.updateTable);
+router.delete('/tables/:id', managePerm, tableController.deleteTable);
 
 // --- Table Sections CRUD ---
-router.get('/sections', sectionController.getSections);
-router.post('/sections', sectionController.createSection);
-router.put('/sections/:id', sectionController.updateSection);
-router.delete('/sections/:id', sectionController.deleteSection);
+router.get('/sections', readPerm, sectionController.getSections);
+router.post('/sections', managePerm, sectionController.createSection);
+router.put('/sections/:id', managePerm, sectionController.updateSection);
+router.delete('/sections/:id', managePerm, sectionController.deleteSection);
 
 // --- Menu Categories CRUD ---
-router.get('/categories', categoryController.getCategories);
-router.post('/categories', categoryController.createCategory);
-router.put('/categories/:id', categoryController.updateCategory);
+router.get('/categories', readPerm, categoryController.getCategories);
+router.post('/categories', managePerm, categoryController.createCategory);
+router.put('/categories/:id', managePerm, categoryController.updateCategory);
 
 // --- Menu Items CRUD ---
-router.get('/menu', menuController.getMenu);
-router.post('/menu', menuController.createMenuItem);
-router.put('/menu/:id', menuController.updateMenuItem);
+router.get('/menu', readPerm, menuController.getMenu);
+router.post('/menu', managePerm, menuController.createMenuItem);
+router.put('/menu/:id', managePerm, menuController.updateMenuItem);
 
 // --- Delivery Providers CRUD ---
-router.get('/providers', providerController.getProviders);
-router.post('/providers', providerController.createProvider);
-router.put('/providers/:id', providerController.updateProvider);
+router.get('/providers', readPerm, providerController.getProviders);
+router.post('/providers', managePerm, providerController.createProvider);
+router.put('/providers/:id', managePerm, providerController.updateProvider);
 
 // --- Orders ---
-router.get('/orders/completed', orderController.getCompletedOrders);
-router.get('/orders', orderController.getOrders);
-router.post('/orders', orderController.createOrder);
-router.put('/orders/:id/kitchen-status', orderController.updateKitchenStatus);
-router.post('/orders/:id/checkout', orderController.checkout);
+router.get('/orders/completed', readPerm, orderController.getCompletedOrders);
+router.get('/orders', readPerm, orderController.getOrders);
+router.post('/orders', managePerm, orderController.createOrder);
+router.put('/orders/:id/kitchen-status', managePerm, orderController.updateKitchenStatus);
+router.post('/orders/:id/checkout', managePerm, orderController.checkout);
 
 module.exports = router;

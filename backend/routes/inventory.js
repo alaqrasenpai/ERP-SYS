@@ -1,4 +1,7 @@
 const express = require('express');
+const { requirePermission } = require('../middlewares/rbacGuard');
+const readPerm = requirePermission('inventory:read');
+const managePerm = requirePermission('inventory:manage');
 const router = express.Router();
 
 const categoryController = require('../controllers/inventory/categoryController');
@@ -11,44 +14,44 @@ const dashboardController = require('../controllers/inventory/dashboardControlle
 // ----------------------------------------
 // Dashboard Routes
 // ----------------------------------------
-router.get('/dashboard', dashboardController.getDashboardStats);
+router.get('/dashboard', readPerm, dashboardController.getDashboardStats);
 
 // ----------------------------------------
 // Categories Routes
 // ----------------------------------------
-router.get('/categories', categoryController.getCategories);
-router.post('/categories', categoryController.createCategory);
+router.get('/categories', readPerm, categoryController.getCategories);
+router.post('/categories', managePerm, categoryController.createCategory);
 
 // ----------------------------------------
 // Products Routes
 // ----------------------------------------
-router.get('/products', productController.getProducts);
-router.post('/products', productController.createProduct);
-router.put('/products/:id', productController.updateProduct);
-router.delete('/products/:id', productController.deleteProduct);
+router.get('/products', readPerm, productController.getProducts);
+router.post('/products', managePerm, productController.createProduct);
+router.put('/products/:id', managePerm, productController.updateProduct);
+router.delete('/products/:id', managePerm, productController.deleteProduct);
 
 // ----------------------------------------
 // Warehouses Routes
 // ----------------------------------------
-router.get('/warehouses', warehouseController.getWarehouses);
-router.post('/warehouses', warehouseController.createWarehouse);
+router.get('/warehouses', readPerm, warehouseController.getWarehouses);
+router.post('/warehouses', managePerm, warehouseController.createWarehouse);
 
 // ----------------------------------------
 // Suppliers Routes
 // ----------------------------------------
-router.get('/suppliers', supplierController.getSuppliers);
-router.post('/suppliers', supplierController.createSupplier);
+router.get('/suppliers', readPerm, supplierController.getSuppliers);
+router.post('/suppliers', managePerm, supplierController.createSupplier);
 
 // ----------------------------------------
 // Stock Movements Routes
 // ----------------------------------------
-router.get('/movements', stockController.getMovements);
-router.post('/movements/add', stockController.addStock);
-router.post('/movements/remove', stockController.removeStock);
+router.get('/movements', readPerm, stockController.getMovements);
+router.post('/movements/add', managePerm, stockController.addStock);
+router.post('/movements/remove', managePerm, stockController.removeStock);
 
 // ----------------------------------------
 // WMS Routes
 // ----------------------------------------
-router.get('/low-stock', productController.getLowStock);
+router.get('/low-stock', readPerm, productController.getLowStock);
 
 module.exports = router;

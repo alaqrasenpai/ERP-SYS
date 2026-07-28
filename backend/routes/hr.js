@@ -1,4 +1,7 @@
 const express = require('express');
+const { requirePermission } = require('../middlewares/rbacGuard');
+const readPerm = requirePermission('hr:read');
+const managePerm = requirePermission('hr:manage');
 const router = express.Router();
 
 const employeeController = require('../controllers/hr/employeeController');
@@ -15,84 +18,84 @@ const allowancesController = require('../controllers/hr/allowancesController');
 // ----------------------------------------
 // Dashboard Routes
 // ----------------------------------------
-router.get('/dashboard', dashboardController.getDashboardStats);
+router.get('', readPerm, dashboardController.getDashboardStats);
 
 // ----------------------------------------
 // Employee Routes
 // ----------------------------------------
-router.get('/employees', employeeController.getEmployees);
-router.post('/employees', employeeController.createEmployee);
-router.put('/employees/:id', employeeController.updateEmployee);
-router.delete('/employees/:id', employeeController.deleteEmployee);
-router.put('/employees/:id/leave-balances', employeeController.updateLeaveBalances);
+router.get('', readPerm, employeeController.getEmployees);
+router.post('', managePerm, employeeController.createEmployee);
+router.put('', managePerm, employeeController.updateEmployee);
+router.delete('', managePerm, employeeController.deleteEmployee);
+router.put('', managePerm, employeeController.updateLeaveBalances);
 
 // ----------------------------------------
 // Department Routes
 // ----------------------------------------
-router.get('/departments', departmentController.getDepartments);
-router.post('/departments', departmentController.createDepartment);
-router.put('/departments/:id', departmentController.updateDepartment);
-router.delete('/departments/:id', departmentController.deleteDepartment);
+router.get('', readPerm, departmentController.getDepartments);
+router.post('', managePerm, departmentController.createDepartment);
+router.put('', managePerm, departmentController.updateDepartment);
+router.delete('', managePerm, departmentController.deleteDepartment);
 
 // ----------------------------------------
 // Shift Routes
 // ----------------------------------------
-router.get('/shifts', shiftController.getShifts);
-router.post('/shifts', shiftController.createShift);
-router.put('/shifts/:id', shiftController.updateShift);
-router.delete('/shifts/:id', shiftController.deleteShift);
+router.get('', readPerm, shiftController.getShifts);
+router.post('', managePerm, shiftController.createShift);
+router.put('', managePerm, shiftController.updateShift);
+router.delete('', managePerm, shiftController.deleteShift);
 
 // ----------------------------------------
 // Holiday Routes
 // ----------------------------------------
-router.get('/holidays', holidayController.getHolidays);
-router.post('/holidays', holidayController.createHoliday);
-router.put('/holidays/:id', holidayController.updateHoliday);
-router.delete('/holidays/:id', holidayController.deleteHoliday);
+router.get('', readPerm, holidayController.getHolidays);
+router.post('', managePerm, holidayController.createHoliday);
+router.put('', managePerm, holidayController.updateHoliday);
+router.delete('', managePerm, holidayController.deleteHoliday);
 
 // ----------------------------------------
 // Attendance Routes
 // ----------------------------------------
-router.get('/attendance/report', attendanceController.getReport);
-router.get('/attendance/daily-grid', attendanceController.getDailyGrid);
-router.post('/attendance/clock-in', attendanceController.clockIn);
-router.post('/attendance/clock-out', attendanceController.clockOut);
-router.post('/attendance/manual', attendanceController.createManualAttendance);
-router.put('/attendance/override/:id', attendanceController.overrideAttendance);
-router.put('/attendance/overtime/approve/:id', attendanceController.approveOvertime);
-router.post('/attendance/web-punch', attendanceController.webPunch);
-router.post('/attendance/biometric-punch', attendanceController.biometricPunch);
+router.get('', readPerm, attendanceController.getReport);
+router.get('', readPerm, attendanceController.getDailyGrid);
+router.post('', managePerm, attendanceController.clockIn);
+router.post('', managePerm, attendanceController.clockOut);
+router.post('', managePerm, attendanceController.createManualAttendance);
+router.put('', managePerm, attendanceController.overrideAttendance);
+router.put('', managePerm, attendanceController.approveOvertime);
+router.post('', managePerm, attendanceController.webPunch);
+router.post('', managePerm, attendanceController.biometricPunch);
 
 // ----------------------------------------
 // Biometric Devices & Logs Routes
 // ----------------------------------------
-router.get('/devices', deviceController.getDevices);
-router.post('/devices', deviceController.createDevice);
-router.delete('/devices/:id', deviceController.deleteDevice);
-router.post('/devices/:id/fetch', deviceController.fetchLogs);
-router.get('/devices/logs/pending', deviceController.getPendingLogs);
-router.post('/devices/logs/:id/link', deviceController.linkLog);
+router.get('', readPerm, deviceController.getDevices);
+router.post('', managePerm, deviceController.createDevice);
+router.delete('', managePerm, deviceController.deleteDevice);
+router.post('', managePerm, deviceController.fetchLogs);
+router.get('', readPerm, deviceController.getPendingLogs);
+router.post('', managePerm, deviceController.linkLog);
 
 // ----------------------------------------
 // Leave Requests Routes
 // ----------------------------------------
-router.get('/leaves', leaveController.getLeaves);
-router.post('/leaves/request', leaveController.requestLeave);
-router.put('/leaves/:id/approve', leaveController.approveLeave);
+router.get('', readPerm, leaveController.getLeaves);
+router.post('', managePerm, leaveController.requestLeave);
+router.put('', managePerm, leaveController.approveLeave);
 
 // ----------------------------------------
 // Payroll Routes
 // ----------------------------------------
-router.get('/payroll', payrollController.getPayrollRuns);
-router.post('/payroll/calculate', payrollController.calculatePayroll);
-router.put('/payroll/pay/:id', payrollController.payPayroll);
+router.get('', readPerm, payrollController.getPayrollRuns);
+router.post('', managePerm, payrollController.calculatePayroll);
+router.put('', managePerm, payrollController.payPayroll);
 
 // ----------------------------------------
 // Allowances Routes
 // ----------------------------------------
-router.get('/allowances', allowancesController.getAllowanceTypes);
-router.post('/allowances', allowancesController.createAllowanceType);
-router.put('/allowances/:id', allowancesController.updateAllowanceType);
-router.delete('/allowances/:id', allowancesController.deleteAllowanceType);
+router.get('', readPerm, allowancesController.getAllowanceTypes);
+router.post('', managePerm, allowancesController.createAllowanceType);
+router.put('', managePerm, allowancesController.updateAllowanceType);
+router.delete('', managePerm, allowancesController.deleteAllowanceType);
 
 module.exports = router;

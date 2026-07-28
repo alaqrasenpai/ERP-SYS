@@ -104,10 +104,12 @@
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuth } from '~/composables/useAuth'
+import { usePermissions } from '~/composables/usePermissions'
 import { navConfig } from '~/utils/navConfig'
 
 const route = useRoute()
 const { user, logout } = useAuth()
+const { hasPermission } = usePermissions()
 const { setLocale, t } = useI18n()
 const mobileMenuOpen = ref(false)
 
@@ -139,6 +141,10 @@ const appTitle = computed(() => {
 
 const appLinks = computed(() => {
   const base = appBase.value
-  return navConfig.filter(link => link.path.startsWith(base))
+  return navConfig.filter(link => {
+    if (!link.path.startsWith(base)) return false
+    if (link.requiredPermission && !hasPermission(link.requiredPermission)) return false
+    return true
+  })
 })
 </script>

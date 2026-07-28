@@ -70,11 +70,8 @@
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('users_page.role') }}</label>
-                    <select v-model="form.roleName" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-indigo-500">
-                      <option value="User">User</option>
-                      <option value="Manager">Manager</option>
-                      <option value="Cashier">Cashier</option>
-                      <option value="Admin">Admin</option>
+                    <select v-model="form.roleId" class="block w-full border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm ring-1 ring-gray-900/5 py-2.5 px-3 focus:ring-2 focus:ring-indigo-500">
+                      <option v-for="role in roles" :key="role._id" :value="role._id">{{ role.name }}</option>
                     </select>
                   </div>
                   <div v-if="isEditMode" class="flex items-center mt-4">
@@ -104,14 +101,16 @@ definePageMeta({ layout: 'app-layout', middleware: ['auth'] })
 
 const { $api } = useNuxtApp()
 const users = ref([])
+const roles = ref([])
 const showModal = ref(false)
 const isEditMode = ref(false)
 const editUserId = ref(null)
-const form = ref({ name: '', email: '', password: '', roleName: 'User', isActive: true })
+const form = ref({ name: '', email: '', password: '', roleId: null, isActive: true })
 
 const fetchUsers = async () => {
   try {
-    users.value = await $api('/users')
+    users.value = await $api('/team/users')
+    roles.value = await $api('/team/roles')
   } catch (err) {
     console.error(err)
   }
@@ -120,7 +119,7 @@ const fetchUsers = async () => {
 const openAddModal = () => {
   isEditMode.value = false
   editUserId.value = null
-  form.value = { name: '', email: '', password: '', roleName: 'User', isActive: true }
+  form.value = { name: '', email: '', password: '', roleId: roles.value.length ? roles.value[0]._id : null, isActive: true }
   showModal.value = true
 }
 
@@ -131,7 +130,7 @@ const openEditModal = (user) => {
     name: user.name,
     email: user.email,
     password: '',
-    roleName: user.role?.name || 'User',
+    roleId: user.role?._id || null,
     isActive: user.isActive !== false
   }
   showModal.value = true
@@ -140,18 +139,17 @@ const openEditModal = (user) => {
 const addUser = async () => {
   try {
     if (isEditMode.value) {
-      await $api(`/users/${editUserId.value}`, { method: 'PUT', body: form.value })
+      await $api(`/team/users/${editUserId.value}`, { method: 'PUT', body: form.value })
     } else {
-      await $api('/users', { method: 'POST', body: form.value })
+      await $api('/team/users', { method: 'POST', body: form.value })
     }
     showModal.value = false
     isEditMode.value = false
-    form.value = { name: '', email: '', password: '', roleName: 'User', isActive: true }
+    form.value = { name: '', email: '', password: '', roleId: null, isActive: true }
     fetchUsers()
   } catch (err) {
     alert(err.data?.message || 'Error saving user')
   }
 }
-
 onMounted(() => fetchUsers())
 </script>
