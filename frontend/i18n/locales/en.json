@@ -1273,7 +1273,9 @@
     "create_user": "Create User",
     "password": "Password",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "edit_user": "Edit User",
+    "actions": "Actions"
   },
   "departments": {
     "title": "Departments",

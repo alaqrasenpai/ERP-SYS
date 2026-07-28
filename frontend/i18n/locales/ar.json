@@ -1205,7 +1205,9 @@
     "create_user": "إنشاء مستخدم",
     "password": "كلمة المرور",
     "cancel": "إلغاء",
-    "save": "حفظ"
+    "save": "حفظ",
+    "edit_user": "تعديل المستخدم",
+    "actions": "الإجراءات"
   },
   "departments": {
     "title": "الأقسام",
