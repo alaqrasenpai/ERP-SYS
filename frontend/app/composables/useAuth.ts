@@ -70,12 +70,18 @@ export const useAuth = () => {
     enabledModules.value = []
     
     if (process.client) {
+      const currentPath = window.location.pathname
+      if (currentPath.endsWith('/login') || currentPath === '/') {
+        return // Already on login or home, prevent infinite loop
+      }
       if (currentTenant) {
         window.location.href = `/${currentTenant}/login`
       } else {
         window.location.href = '/'
       }
     } else {
+      const route = useRoute()
+      if (route.path.endsWith('/login') || route.path === '/') return
       if (currentTenant) {
         return navigateTo(`/${currentTenant}/login`)
       }

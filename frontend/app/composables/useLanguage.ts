@@ -11,6 +11,9 @@ export const useLanguage = () => {
   const fetchTenantLanguages = async () => {
     const route = useRoute()
     if (route.path.startsWith('/super-admin')) return // No tenant settings for super-admin
+    
+    const { isLoggedIn } = useAuth()
+    if (!isLoggedIn.value) return // Do not fetch private settings if not logged in
 
     try {
       const { $api } = useNuxtApp()
