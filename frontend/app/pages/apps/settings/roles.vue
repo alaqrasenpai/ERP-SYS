@@ -47,57 +47,59 @@
       </div>
 
       <!-- Add/Edit Role Modal -->
-      <div v-if="showModal" class="fixed z-50 inset-0 overflow-y-auto">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-          <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" @click="showModal = false"></div>
-          <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-          <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full border border-gray-100 dark:border-gray-700 max-h-[90vh] flex flex-col">
-            <form @submit.prevent="saveRole" class="flex flex-col h-full overflow-hidden">
-              <div class="bg-white dark:bg-gray-800 px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ isEditMode ? $t('roles.edit_role', 'Edit Role') : $t('roles.add_new_role', 'Add New Role') }}</h3>
-                <button type="button" @click="showModal = false" class="text-gray-400 hover:text-gray-500">
-                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
-              </div>
-              
-              <div class="px-6 py-6 overflow-y-auto flex-1 bg-gray-50 dark:bg-gray-800/50">
-                <div class="mb-6">
-                  <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('roles.role_name', 'Role Name') }}</label>
-                  <input v-model="form.name" type="text" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                </div>
-
-                <div v-if="form.name === 'Admin' || form.name === 'Store Admin'" class="bg-yellow-50 text-yellow-800 p-4 rounded-lg mb-6 text-sm font-medium">
-                  This is a system role. It automatically has full access to all features.
+      <Teleport to="body">
+        <div v-if="showModal" class="fixed z-[100] inset-0 overflow-y-auto">
+          <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" @click="showModal = false"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-start overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full border border-gray-100 dark:border-gray-700 max-h-[90vh] flex flex-col">
+              <form @submit.prevent="saveRole" class="flex flex-col h-full overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ isEditMode ? $t('roles.edit_role', 'Edit Role') : $t('roles.add_new_role', 'Add New Role') }}</h3>
+                  <button type="button" @click="showModal = false" class="text-gray-400 hover:text-gray-500">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
                 </div>
                 
-                <div v-else>
-                  <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Module Permissions</h4>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div v-for="(perms, moduleName) in availablePermissions" :key="moduleName" class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                      <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-3 capitalize">{{ moduleName }} Module</h5>
-                      <div class="space-y-2">
-                        <label v-for="p in perms" :key="p.value" class="flex items-center">
-                          <input type="checkbox" :value="p.value" v-model="form.permissions" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                          <span class="ms-2 text-sm text-gray-700 dark:text-gray-300">{{ p.label }}</span>
-                        </label>
+                <div class="px-6 py-6 overflow-y-auto flex-1 bg-gray-50 dark:bg-gray-800/50">
+                  <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('roles.role_name', 'Role Name') }}</label>
+                    <input v-model="form.name" type="text" required class="block w-full border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  </div>
+
+                  <div v-if="form.name === 'Admin' || form.name === 'Store Admin'" class="bg-yellow-50 text-yellow-800 p-4 rounded-lg mb-6 text-sm font-medium">
+                    This is a system role. It automatically has full access to all features.
+                  </div>
+                  
+                  <div v-else>
+                    <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Module Permissions</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div v-for="(perms, moduleName) in availablePermissions" :key="moduleName" class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                        <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-3 capitalize">{{ moduleName }} Module</h5>
+                        <div class="space-y-2">
+                          <label v-for="p in perms" :key="p.value" class="flex items-center">
+                            <input type="checkbox" :value="p.value" v-model="form.permissions" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <span class="ms-2 text-sm text-gray-700 dark:text-gray-300">{{ p.label }}</span>
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              
-              <div class="bg-white dark:bg-gray-900 px-6 py-4 flex flex-row-reverse border-t border-gray-100 dark:border-gray-700 shrink-0">
-                <button type="submit" class="inline-flex justify-center rounded-lg px-6 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 shadow-sm ms-3">
-                  {{ $t('roles.save', 'Save Role') }}
-                </button>
-                <button type="button" @click="showModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 px-6 py-2.5 bg-white dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 shadow-sm">
-                  {{ $t('roles.cancel', 'Cancel') }}
-                </button>
-              </div>
-            </form>
+                
+                <div class="bg-white dark:bg-gray-900 px-6 py-4 flex flex-row-reverse border-t border-gray-100 dark:border-gray-700 shrink-0">
+                  <button type="submit" class="inline-flex justify-center rounded-lg px-6 py-2.5 bg-indigo-600 text-sm font-bold text-white hover:bg-indigo-700 shadow-sm ms-3">
+                    {{ $t('roles.save', 'Save Role') }}
+                  </button>
+                  <button type="button" @click="showModal = false" class="inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 px-6 py-2.5 bg-white dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 shadow-sm">
+                    {{ $t('roles.cancel', 'Cancel') }}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      </Teleport>
     </div>
   </div>
 </template>
