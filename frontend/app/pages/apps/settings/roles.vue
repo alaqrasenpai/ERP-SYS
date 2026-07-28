@@ -69,18 +69,18 @@
                     </div>
 
                     <div v-if="form.name === 'Admin' || form.name === 'Store Admin'" class="bg-yellow-50 text-yellow-800 p-4 rounded-lg mb-6 text-sm font-medium">
-                      This is a system role. It automatically has full access to all features.
+                      {{ $t('roles.system_role_warning', 'This is a system role. It automatically has full access to all features.') }}
                     </div>
                     
                     <div v-else>
-                      <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Module Permissions</h4>
+                      <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4">{{ $t('roles.module_permissions', 'Module Permissions') }}</h4>
                       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div v-for="(perms, moduleName) in availablePermissions" :key="moduleName" class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                          <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-3 capitalize">{{ moduleName }} Module</h5>
+                          <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-3 capitalize">{{ $t(`permissions.module_${moduleName}`, moduleName.replace(/_/g, ' ')) }}</h5>
                           <div class="space-y-2">
                             <label v-for="p in perms" :key="p.value" class="flex items-center">
                               <input type="checkbox" :value="p.value" v-model="form.permissions" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                              <span class="ms-2 text-sm text-gray-700 dark:text-gray-300">{{ p.label }}</span>
+                              <span class="ms-2 text-sm text-gray-700 dark:text-gray-300">{{ $t(p.labelKey, p.fallback) }}</span>
                             </label>
                           </div>
                         </div>
@@ -121,62 +121,62 @@ const editRoleId = ref(null)
 const form = ref({ name: '', permissions: [] })
 
 const availablePermissions = {
-  'HR Dashboard': [
-    { label: 'View HR Dashboard', value: 'hr:dashboard:read' }
+  hr_dashboard: [
+    { labelKey: 'permissions.hr_dashboard_view', fallback: 'View HR Dashboard', value: 'hr:dashboard:read' }
   ],
-  'HR Employees': [
-    { label: 'View Employees', value: 'hr:employees:read' },
-    { label: 'Manage Employees', value: 'hr:employees:manage' }
+  hr_employees: [
+    { labelKey: 'permissions.hr_employees_view', fallback: 'View Employees', value: 'hr:employees:read' },
+    { labelKey: 'permissions.hr_employees_manage', fallback: 'Manage Employees', value: 'hr:employees:manage' }
   ],
-  'HR Departments': [
-    { label: 'View Departments', value: 'hr:departments:read' },
-    { label: 'Manage Departments', value: 'hr:departments:manage' }
+  hr_departments: [
+    { labelKey: 'permissions.hr_departments_view', fallback: 'View Departments', value: 'hr:departments:read' },
+    { labelKey: 'permissions.hr_departments_manage', fallback: 'Manage Departments', value: 'hr:departments:manage' }
   ],
-  'HR Attendance': [
-    { label: 'View Attendance', value: 'hr:attendance:read' },
-    { label: 'Manage Attendance & Overtime', value: 'hr:attendance:manage' }
+  hr_attendance: [
+    { labelKey: 'permissions.hr_attendance_view', fallback: 'View Attendance', value: 'hr:attendance:read' },
+    { labelKey: 'permissions.hr_attendance_manage', fallback: 'Manage Attendance & Overtime', value: 'hr:attendance:manage' }
   ],
-  'HR Shifts & Leaves': [
-    { label: 'View Shifts & Holidays', value: 'hr:shifts:read' },
-    { label: 'Manage Shifts & Holidays', value: 'hr:shifts:manage' },
-    { label: 'View Leaves', value: 'hr:leaves:read' },
-    { label: 'Manage Leaves', value: 'hr:leaves:manage' }
+  hr_shifts_leaves: [
+    { labelKey: 'permissions.hr_shifts_view', fallback: 'View Shifts & Holidays', value: 'hr:shifts:read' },
+    { labelKey: 'permissions.hr_shifts_manage', fallback: 'Manage Shifts & Holidays', value: 'hr:shifts:manage' },
+    { labelKey: 'permissions.hr_leaves_view', fallback: 'View Leaves', value: 'hr:leaves:read' },
+    { labelKey: 'permissions.hr_leaves_manage', fallback: 'Manage Leaves', value: 'hr:leaves:manage' }
   ],
-  'HR Payroll & Finance': [
-    { label: 'View Payroll', value: 'hr:payroll:read' },
-    { label: 'Manage Payroll', value: 'hr:payroll:manage' },
-    { label: 'View Allowances', value: 'hr:allowances:read' },
-    { label: 'Manage Allowances', value: 'hr:allowances:manage' }
+  hr_payroll_financials: [
+    { labelKey: 'permissions.hr_payroll_view', fallback: 'View Payroll', value: 'hr:payroll:read' },
+    { labelKey: 'permissions.hr_payroll_manage', fallback: 'Manage Payroll', value: 'hr:payroll:manage' },
+    { labelKey: 'permissions.hr_allowances_view', fallback: 'View Allowances', value: 'hr:allowances:read' },
+    { labelKey: 'permissions.hr_allowances_manage', fallback: 'Manage Allowances', value: 'hr:allowances:manage' }
   ],
-  'HR Devices': [
-    { label: 'View Devices & Logs', value: 'hr:devices:read' },
-    { label: 'Manage Devices', value: 'hr:devices:manage' }
+  hr_devices: [
+    { labelKey: 'permissions.hr_devices_view', fallback: 'View Devices & Logs', value: 'hr:devices:read' },
+    { labelKey: 'permissions.hr_devices_manage', fallback: 'Manage Devices', value: 'hr:devices:manage' }
   ],
   inventory: [
-    { label: 'Read Inventory (Items, Stock)', value: 'inventory:read' },
-    { label: 'Manage Inventory', value: 'inventory:manage' }
+    { labelKey: 'permissions.inventory_read', fallback: 'Read Inventory (Items, Stock)', value: 'inventory:read' },
+    { labelKey: 'permissions.inventory_manage', fallback: 'Manage Inventory', value: 'inventory:manage' }
   ],
   finance: [
-    { label: 'Read Finance (Accounts)', value: 'finance:read' },
-    { label: 'Manage Finance', value: 'finance:manage' }
+    { labelKey: 'permissions.finance_read', fallback: 'Read Finance (Accounts)', value: 'finance:read' },
+    { labelKey: 'permissions.finance_manage', fallback: 'Manage Finance', value: 'finance:manage' }
   ],
   store_pos: [
-    { label: 'Use Retail POS', value: 'store_pos:use' },
-    { label: 'Manage Retail POS (Categories, Setup)', value: 'store_pos:manage' }
+    { labelKey: 'permissions.store_pos_use', fallback: 'Use Retail POS', value: 'store_pos:use' },
+    { labelKey: 'permissions.store_pos_manage', fallback: 'Manage Retail POS (Categories, Setup)', value: 'store_pos:manage' }
   ],
   restaurant: [
-    { label: 'Use Restaurant (Orders, Tables, Kitchen)', value: 'restaurant:use' },
-    { label: 'Manage Restaurant (Sections, Menu Setup)', value: 'restaurant:manage' }
+    { labelKey: 'permissions.restaurant_use', fallback: 'Use Restaurant (Orders, Tables, Kitchen)', value: 'restaurant:use' },
+    { labelKey: 'permissions.restaurant_manage', fallback: 'Manage Restaurant (Sections, Menu Setup)', value: 'restaurant:manage' }
   ],
   crm: [
-    { label: 'Read CRM', value: 'crm:read' },
-    { label: 'Manage CRM', value: 'crm:manage' }
+    { labelKey: 'permissions.crm_read', fallback: 'Read CRM', value: 'crm:read' },
+    { labelKey: 'permissions.crm_manage', fallback: 'Manage CRM', value: 'crm:manage' }
   ],
   settings: [
-    { label: 'Manage System Settings', value: 'settings:manage' }
+    { labelKey: 'permissions.settings_manage', fallback: 'Manage System Settings', value: 'settings:manage' }
   ],
   team: [
-    { label: 'Manage Users and Roles', value: 'team:manage' }
+    { labelKey: 'permissions.team_manage', fallback: 'Manage Users and Roles', value: 'team:manage' }
   ]
 }
 
