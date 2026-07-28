@@ -133,9 +133,9 @@ const availablePermissions = {
     { label: 'Read Finance (Accounts, Reports)', value: 'finance:read' },
     { label: 'Manage Finance (Transactions, Debts)', value: 'finance:manage' }
   ],
-  pos: [
-    { label: 'Use POS (Create Orders, Cashier)', value: 'pos:use' },
-    { label: 'Manage POS (Refunds, Menu Setup)', value: 'pos:manage' }
+  'Restaurant & POS': [
+    { label: 'Use POS & Kitchen (Create Orders, Cashier, Kitchen Display)', value: 'pos:use' },
+    { label: 'Manage Restaurant (Refunds, Tables, Menu Setup)', value: 'pos:manage' }
   ],
   crm: [
     { label: 'Read CRM (Customers, Sales History)', value: 'crm:read' },
