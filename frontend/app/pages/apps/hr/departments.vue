@@ -26,14 +26,21 @@
             </tr>
           </thead>
           <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
-            <tr v-for="dept in departments" :key="dept._id" class="hover:bg-gray-50 dark:bg-gray-900 transition-colors">
+            <tr v-for="dept in hierarchicalDepartments" :key="dept._id" class="hover:bg-gray-50 dark:bg-gray-900 transition-colors">
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold me-3">
+                <div class="flex items-center" :style="{ 'padding-inline-start': dept.level > 0 ? `${dept.level * 2.5}rem` : '0' }">
+                  <!-- Branch Icon for Sub-departments -->
+                  <div v-if="dept.level > 0" class="text-gray-300 dark:text-gray-600 me-3 flex-shrink-0 flex items-center justify-center">
+                    <svg class="w-5 h-5 rtl:-scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </div>
+                  <div class="h-10 w-10 rounded-xl flex items-center justify-center font-bold me-3 shadow-inner" :class="dept.level === 0 ? 'bg-indigo-600 text-white' : 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400'">
                     {{ dept.name.charAt(0) }}
                   </div>
                   <div>
-                    <div class="text-sm font-bold text-gray-900 dark:text-white">{{ dept.name }}</div>
+                    <div class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                      {{ dept.name }}
+                      <span v-if="dept.level === 0" class="px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">Main</span>
+                    </div>
                     <div class="text-xs text-gray-500">{{ dept.description || '' }}</div>
                   </div>
                 </div>
@@ -152,6 +159,41 @@ const form = ref({
 const availableParentDepartments = computed(() => {
   if (!isEditing.value) return departments.value
   return departments.value.filter(d => d._id !== editingId.value && d.parentDepartmentId?._id !== editingId.value)
+})
+
+const hierarchicalDepartments = computed(() => {
+  if (!departments.value || departments.value.length === 0) return []
+  
+  const result = []
+  const visited = new Set()
+  
+  const traverse = (parentId, level) => {
+    const children = departments.value.filter(d => {
+      const pId = d.parentDepartmentId?._id || d.parentDepartmentId || null;
+      return pId === parentId;
+    })
+    
+    for (const child of children) {
+      if (visited.has(child._id)) continue;
+      visited.add(child._id)
+      result.push({ ...child, level })
+      traverse(child._id, level + 1)
+    }
+  }
+  
+  // start with roots (no parent)
+  traverse(null, 0)
+  
+  // catch any disconnected parts (if a parent was deleted but reference kept, or bad data)
+  const unvisited = departments.value.filter(d => !visited.has(d._id))
+  for (const child of unvisited) {
+    if (visited.has(child._id)) continue;
+    visited.add(child._id)
+    result.push({ ...child, level: 0 })
+    traverse(child._id, 1)
+  }
+  
+  return result
 })
 
 const fetchData = async () => {
