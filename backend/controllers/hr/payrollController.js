@@ -54,13 +54,19 @@ exports.calculatePayroll = async (req, res) => {
                 deductions = missedHours * hourlyRate;
             }
             
-            const netSalary = emp.basicSalary + (emp.allowance || 0) + overtimePay - deductions;
+            let totalAssignedAllowances = 0;
+            if (emp.assignedAllowances && emp.assignedAllowances.length > 0) {
+                totalAssignedAllowances = emp.assignedAllowances.reduce((sum, a) => sum + (a.amount || 0), 0);
+            }
+            const totalAllowances = (emp.allowance || 0) + totalAssignedAllowances;
+            
+            const netSalary = emp.basicSalary + totalAllowances + overtimePay - deductions;
             
             const payrollData = {
                 employeeId: emp._id,
                 month,
                 basicSalary: emp.basicSalary,
-                totalAllowances: emp.allowance || 0,
+                totalAllowances: totalAllowances,
                 totalOvertimeHours: Number(overtimeHours.toFixed(2)),
                 totalOvertimePay: Number(overtimePay.toFixed(2)),
                 deductions: Number(deductions.toFixed(2)),

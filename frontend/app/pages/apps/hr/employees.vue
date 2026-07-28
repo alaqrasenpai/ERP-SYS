@@ -201,9 +201,39 @@
                     <input v-model="form.basicSalary" type="number" step="0.01" required class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.monthly_allowance') }}</label>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.monthly_allowance') }} (Legacy)</label>
                     <input v-model="form.allowance" type="number" step="0.01" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   </div>
+                </div>
+
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">{{ $t('employees.bank_details') }}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.bank_name') }}</label>
+                    <input v-model="form.bankDetails.bankName" type="text" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.iban') }}</label>
+                    <input v-model="form.bankDetails.iban" type="text" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  </div>
+                </div>
+
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6 flex justify-between items-center">
+                  {{ $t('employees.allowances') }}
+                  <button type="button" @click="addAllowance" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">{{ $t('employees.add_allowance') }}</button>
+                </h4>
+                <div class="space-y-2 mt-3">
+                  <div v-for="(allowance, idx) in form.assignedAllowances" :key="idx" class="flex gap-2 items-center bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+                    <select v-model="allowance.allowanceTypeId" @change="updateAllowanceName(idx)" class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <option :value="null">{{ $t('employees.select_allowance') }}</option>
+                      <option v-for="type in allowanceTypes" :key="type._id" :value="type._id">{{ type.name }}</option>
+                    </select>
+                    <input v-model="allowance.amount" type="number" step="0.01" :placeholder="$t('employees.amount')" class="w-24 border border-gray-300 dark:border-gray-600 rounded-lg py-1.5 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <button type="button" @click="removeAllowance(idx)" class="text-red-500 hover:text-red-700 p-1">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                  </div>
+                  <div v-if="form.assignedAllowances.length === 0" class="text-xs text-gray-500 text-center py-2">No allowances assigned</div>
                 </div>
 
                 <h4 class="text-sm font-bold text-gray-900 dark:text-white border-b pb-1 mt-6">{{ $t('employees.delegation') }}</h4>
@@ -284,6 +314,7 @@ const employees = ref([])
 const departments = ref([])
 const shifts = ref([])
 const users = ref([])
+const allowanceTypes = ref([])
 
 const currentPage = ref(1)
 const itemsPerPage = 15
@@ -314,10 +345,26 @@ const form = ref({
   emergencyContact: { name: '', phone: '', relationship: '' },
   position: '', departmentId: null, shiftId: null, joinedAt: '',
   basicSalary: '', allowance: 0, 
+  bankDetails: { bankName: '', iban: '' },
+  assignedAllowances: [],
   annualLeaveBalance: 21, sickLeaveBalance: 14,
   delegatedTo: null, delegationEnd: '',
   isActive: true, userId: null
 })
+
+const addAllowance = () => {
+  form.value.assignedAllowances.push({ allowanceTypeId: null, name: '', amount: 0 })
+}
+const removeAllowance = (index) => {
+  form.value.assignedAllowances.splice(index, 1)
+}
+const updateAllowanceName = (index) => {
+  const typeId = form.value.assignedAllowances[index].allowanceTypeId
+  const type = allowanceTypes.value.find(t => t._id === typeId)
+  if (type) {
+    form.value.assignedAllowances[index].name = type.name
+  }
+}
 
 const formatDate = (d) => d ? new Date(d).toISOString().split('T')[0] : ''
 
@@ -327,6 +374,7 @@ const fetchData = async () => {
     departments.value = await $api('/hr/departments')
     shifts.value = await $api('/hr/shifts')
     users.value = await $api('/team/users')
+    allowanceTypes.value = await $api('/hr/allowances')
   } catch (error) {
     console.error('Failed to fetch HR data', error)
   }
@@ -341,6 +389,8 @@ const openAddModal = () => {
     emergencyContact: { name: '', phone: '', relationship: '' },
     position: '', departmentId: null, shiftId: null, joinedAt: formatDate(new Date()),
     basicSalary: '', allowance: 0, 
+    bankDetails: { bankName: '', iban: '' },
+    assignedAllowances: [],
     annualLeaveBalance: 21, sickLeaveBalance: 14,
     delegatedTo: null, delegationEnd: '',
     isActive: true, userId: null
@@ -365,6 +415,12 @@ const openEditModal = (emp) => {
     shiftId: emp.shiftId?._id || emp.shiftId || null, 
     joinedAt: formatDate(emp.joinedAt),
     basicSalary: emp.basicSalary || '', allowance: emp.allowance || 0,
+    bankDetails: { bankName: emp.bankDetails?.bankName || '', iban: emp.bankDetails?.iban || '' },
+    assignedAllowances: (emp.assignedAllowances || []).map(a => ({
+      allowanceTypeId: a.allowanceTypeId?._id || a.allowanceTypeId,
+      name: a.name || '',
+      amount: a.amount || 0
+    })),
     annualLeaveBalance: emp.annualLeaveBalance || 21, sickLeaveBalance: emp.sickLeaveBalance || 14,
     delegatedTo: emp.delegatedTo || null, delegationEnd: formatDate(emp.delegationEnd),
     isActive: emp.isActive !== false,

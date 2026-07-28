@@ -7,6 +7,7 @@ exports.getEmployees = async (req, res) => {
             .populate('departmentId')
             .populate('shiftId')
             .populate('userId', 'name email')
+            .populate('assignedAllowances.allowanceTypeId')
             .sort({ createdAt: -1 });
         res.json(employees);
     } catch (error) {

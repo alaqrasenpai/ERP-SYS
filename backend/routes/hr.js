@@ -10,6 +10,7 @@ const deviceController = require('../controllers/hr/deviceController');
 const leaveController = require('../controllers/hr/leaveController');
 const payrollController = require('../controllers/hr/payrollController');
 const dashboardController = require('../controllers/hr/dashboardController');
+const allowancesController = require('../controllers/hr/allowancesController');
 
 // ----------------------------------------
 // Dashboard Routes
@@ -85,5 +86,13 @@ router.put('/leaves/:id/approve', leaveController.approveLeave);
 router.get('/payroll', payrollController.getPayrollRuns);
 router.post('/payroll/calculate', payrollController.calculatePayroll);
 router.put('/payroll/pay/:id', payrollController.payPayroll);
+
+// ----------------------------------------
+// Allowances Routes
+// ----------------------------------------
+router.get('/allowances', allowancesController.getAllowanceTypes);
+router.post('/allowances', allowancesController.createAllowanceType);
+router.put('/allowances/:id', allowancesController.updateAllowanceType);
+router.delete('/allowances/:id', allowancesController.deleteAllowanceType);
 
 module.exports = router;

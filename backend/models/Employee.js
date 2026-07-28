@@ -43,7 +43,20 @@ const employeeSchema = new mongoose.Schema({
     delegatedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
     delegationEnd: { type: Date },
     isActive: { type: Boolean, default: true },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    
+    // Bank Details
+    bankDetails: {
+        bankName: { type: String },
+        iban: { type: String }
+    },
+    
+    // Custom Allowances
+    assignedAllowances: [{
+        allowanceTypeId: { type: mongoose.Schema.Types.ObjectId, ref: 'AllowanceType' },
+        name: { type: String },
+        amount: { type: Number, required: true, default: 0 }
+    }]
 }, { timestamps: true });
 
 // Ensure nationalId is unique if provided (sparse index to allow nulls and avoid conflicts on empty strings across tenants)

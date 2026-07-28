@@ -510,7 +510,14 @@
     "delegation_end": "تاريخ انتهاء التفويض",
     "system_user": "مستخدم النظام",
     "link_system_user": "ربط بمستخدم النظام",
-    "no_linked_user": "لا يوجد مستخدم مرتبط"
+    "no_linked_user": "لا يوجد مستخدم مرتبط",
+    "bank_details": "التفاصيل البنكية",
+    "bank_name": "اسم البنك",
+    "iban": "رقم الآيبان (IBAN)",
+    "allowances": "العلاوات المخصصة",
+    "add_allowance": "إضافة علاوة",
+    "select_allowance": "اختر العلاوة",
+    "amount": "القيمة"
   },
   "structure": {
     "title": "الهيكل التنظيمي",
@@ -1315,5 +1322,17 @@
     "recent_orders": "أحدث الطلبات",
     "view_all": "عرض الكل",
     "top_selling_items": "الأصناف الأكثر مبيعاً"
+  },
+  "allowances": {
+    "title": "أنواع العلاوات",
+    "description": "إدارة العلاوات المتاحة في الشركة",
+    "add": "إضافة علاوة",
+    "edit": "تعديل علاوة",
+    "delete": "حذف",
+    "name": "الاسم",
+    "desc": "الوصف",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "confirm_delete": "هل أنت متأكد من حذف هذه العلاوة؟"
   }
 }
