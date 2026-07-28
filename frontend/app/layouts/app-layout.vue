@@ -59,28 +59,34 @@
       </nav>
 
       <!-- Profile -->
-      <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex items-center md:justify-center lg:justify-start gap-3">
-        <div class="flex flex-col gap-2 md:hidden lg:flex w-full items-center">
-          <button @click="setLocale($i18n.locale === 'en' ? 'ar' : 'en')" class="text-xs font-bold text-gray-500 hover:text-indigo-600 w-full text-center py-1">
-            {{ $i18n.locale === 'en' ? 'عربي' : 'English' }}
-          </button>
-          <button @click="$colorMode.preference = $colorMode.value === 'dark' ? 'light' : 'dark'" class="text-xs text-gray-500 hover:text-indigo-600 w-full text-center py-1 flex justify-center">
-            <svg v-if="$colorMode.value === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-          </button>
+      <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex flex-col gap-3">
+        <!-- User Info Row -->
+        <div class="flex items-center md:justify-center lg:justify-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-700 dark:text-indigo-300 font-bold flex-shrink-0">
+            {{ user?.name?.charAt(0) || 'U' }}
+          </div>
+          <div class="flex-1 truncate md:hidden lg:block">
+            <div class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ user?.name }}</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ user?.role?.name || 'Staff' }}</div>
+          </div>
         </div>
         
-        <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 font-bold flex-shrink-0 mt-2 lg:mt-0">
-          {{ user?.name?.charAt(0) || 'U' }}
+        <!-- Actions Row (Hidden on slim sidebar) -->
+        <div class="flex items-center justify-between md:hidden lg:flex mt-1 pt-3 border-t border-gray-100 dark:border-gray-700/50">
+          <button @click="setLocale($i18n.locale === 'en' ? 'ar' : 'en')" class="text-xs font-bold text-gray-500 hover:text-indigo-600 transition-colors px-2 py-1 bg-gray-50 dark:bg-gray-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md">
+            {{ $i18n.locale === 'en' ? 'عربي' : 'EN' }}
+          </button>
+          
+          <div class="flex items-center gap-1">
+            <button @click="$colorMode.preference = $colorMode.value === 'dark' ? 'light' : 'dark'" class="p-1.5 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 bg-gray-50 dark:bg-gray-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors">
+              <svg v-if="$colorMode.value === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+              <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+            <button @click="handleLogout" class="p-1.5 text-gray-400 hover:text-rose-600 dark:hover:text-rose-400 bg-gray-50 dark:bg-gray-800 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors" :title="$t('common.logout_confirm') || 'Logout'">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+            </button>
+          </div>
         </div>
-        <div class="flex-1 truncate md:hidden lg:block">
-          <div class="text-xs font-bold text-gray-900 dark:text-white truncate">{{ user?.name }}</div>
-          <div class="text-[10px] text-gray-500 truncate">{{ user?.role?.name || 'Staff' }}</div>
-        </div>
-        
-        <button @click="handleLogout" class="p-1.5 text-gray-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors md:hidden lg:block shrink-0" :title="$t('common.logout_confirm') || 'Logout'">
-          <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-        </button>
       </div>
     </aside>
 
