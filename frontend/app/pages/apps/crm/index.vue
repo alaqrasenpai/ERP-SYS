@@ -143,8 +143,7 @@ useHead({ title: 'CRM Dashboard' })
 
 definePageMeta({ 
   layout: 'app-layout',
-  middleware: ['auth', 'module-guard'],
-  requiredModule: 'crm'
+  middleware: ['auth']
 })
 
 const { $api } = useNuxtApp()
