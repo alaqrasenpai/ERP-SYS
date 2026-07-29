@@ -15,9 +15,9 @@ const getDashboardStats = async (req, res) => {
         ] = await Promise.all([
             Product.countDocuments(),
             Category.countDocuments(),
-            Product.countDocuments({ $expr: { $lte: ['$stockQuantity', { $ifNull: ['$alertQuantity', 0] }] } }),
+            Product.countDocuments({ $expr: { $lte: [{ $ifNull: ['$stockQuantity', 0] }, { $ifNull: ['$alertQuantity', 0] }] } }),
             Product.aggregate([
-                { $group: { _id: null, total: { $sum: { $multiply: ['$stockQuantity', '$unitPrice'] } } } }
+                { $group: { _id: null, total: { $sum: { $multiply: [{ $ifNull: ['$stockQuantity', 0] }, { $ifNull: ['$unitPrice', 0] }] } } } }
             ]),
             StockMovement.find().populate('productId', 'name').sort({ createdAt: -1 }).limit(4),
             Product.aggregate([
