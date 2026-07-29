@@ -4,6 +4,7 @@ exports.getEmployees = async (req, res) => {
     try {
         const { Employee } = getModels(req);
         const employees = await Employee.find()
+            .populate('jobTitleId')
             .populate('departmentId')
             .populate('shiftId')
             .populate('userId', 'name email')

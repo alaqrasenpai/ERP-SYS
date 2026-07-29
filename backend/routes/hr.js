@@ -12,6 +12,7 @@ const leaveController = require('../controllers/hr/leaveController');
 const payrollController = require('../controllers/hr/payrollController');
 const dashboardController = require('../controllers/hr/dashboardController');
 const allowancesController = require('../controllers/hr/allowancesController');
+const jobTitleController = require('../controllers/hr/jobTitleController');
 
 // ----------------------------------------
 // Dashboard Routes
@@ -26,6 +27,14 @@ router.post('/employees', requirePermission('hr:employees:manage'), employeeCont
 router.put('/employees/:id', requirePermission('hr:employees:manage'), employeeController.updateEmployee);
 router.delete('/employees/:id', requirePermission('hr:employees:manage'), employeeController.deleteEmployee);
 router.put('/employees/:id/leave-balances', requirePermission('hr:employees:manage'), employeeController.updateLeaveBalances);
+
+// ----------------------------------------
+// Job Titles Routes
+// ----------------------------------------
+router.get('/job-titles', jobTitleController.getJobTitles);
+router.post('/job-titles', jobTitleController.createJobTitle);
+router.put('/job-titles/:id', jobTitleController.updateJobTitle);
+router.delete('/job-titles/:id', jobTitleController.deleteJobTitle);
 
 // ----------------------------------------
 // Department Routes

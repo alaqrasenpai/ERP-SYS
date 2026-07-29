@@ -4,7 +4,8 @@ const employeeSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String },
-    position: { type: String, required: true },
+    position: { type: String }, // Legacy/fallback
+    jobTitleId: { type: mongoose.Schema.Types.ObjectId, ref: 'JobTitle' },
     basicSalary: { type: Number, required: true, default: 0 },
     allowance: { type: Number, default: 0 },
     overtimeRatePerHour: { type: Number, default: 0 },

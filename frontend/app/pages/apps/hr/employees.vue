@@ -37,7 +37,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold me-3">
-                      {{ emp.name.charAt(0) }}
+                      {{ emp.name ? emp.name.charAt(0) : '?' }}
                     </div>
                     <div>
                       <div class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
@@ -50,7 +50,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-900 dark:text-white font-bold">{{ emp.position }}</div>
+                  <div class="text-sm text-gray-900 dark:text-white font-bold">{{ emp.jobTitleId?.name || emp.position || $t('employees.unassigned_job') }}</div>
                   <div class="text-xs text-indigo-600">{{ emp.departmentId?.name || $t('employees.unassigned_dept') }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -170,7 +170,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.job_position') }}</label>
-                    <input v-model="form.position" type="text" required class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <select v-model="form.jobTitleId" required class="w-full border border-gray-300 dark:border-gray-600 rounded-lg py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <option :value="null">{{ $t('employees.unassigned') }}</option>
+                      <option v-for="j in jobTitles" :key="j._id" :value="j._id">{{ j.name }}</option>
+                    </select>
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">{{ $t('employees.department') }}</label>
@@ -315,6 +318,7 @@ const departments = ref([])
 const shifts = ref([])
 const users = ref([])
 const allowanceTypes = ref([])
+const jobTitles = ref([])
 
 const currentPage = ref(1)
 const itemsPerPage = 15
@@ -343,7 +347,7 @@ const editingId = ref(null)
 const form = ref({
   name: '', email: '', phone: '', nationalId: '', employeeNumber: '', gender: 'Male', birthDate: '', address: '',
   emergencyContact: { name: '', phone: '', relationship: '' },
-  position: '', departmentId: null, shiftId: null, joinedAt: '',
+  jobTitleId: null, position: '', departmentId: null, shiftId: null, joinedAt: '',
   basicSalary: '', allowance: 0, 
   bankDetails: { bankName: '', iban: '' },
   assignedAllowances: [],
@@ -375,8 +379,10 @@ const fetchData = async () => {
     shifts.value = await $api('/hr/shifts')
     users.value = await $api('/team/users')
     allowanceTypes.value = await $api('/hr/allowances')
+    jobTitles.value = await $api('/hr/job-titles')
   } catch (error) {
     console.error('Failed to fetch HR data', error)
+    alert('Failed to load some data: ' + (error.data?.message || error.message))
   }
 }
 
@@ -387,7 +393,7 @@ const openAddModal = () => {
   form.value = {
     name: '', email: '', phone: '', nationalId: '', employeeNumber: '', gender: 'Male', birthDate: '', address: '',
     emergencyContact: { name: '', phone: '', relationship: '' },
-    position: '', departmentId: null, shiftId: null, joinedAt: formatDate(new Date()),
+    jobTitleId: null, position: '', departmentId: null, shiftId: null, joinedAt: formatDate(new Date()),
     basicSalary: '', allowance: 0, 
     bankDetails: { bankName: '', iban: '' },
     assignedAllowances: [],
@@ -410,7 +416,8 @@ const openEditModal = (emp) => {
       phone: emp.emergencyContact?.phone || '', 
       relationship: emp.emergencyContact?.relationship || '' 
     },
-    position: emp.position, 
+    jobTitleId: emp.jobTitleId?._id || emp.jobTitleId || null, 
+    position: emp.position || '', 
     departmentId: emp.departmentId?._id || emp.departmentId || null, 
     shiftId: emp.shiftId?._id || emp.shiftId || null, 
     joinedAt: formatDate(emp.joinedAt),
@@ -434,6 +441,7 @@ const saveEmployee = async () => {
     const payload = { ...form.value }
     if (!payload.departmentId) delete payload.departmentId
     if (!payload.shiftId) delete payload.shiftId
+    if (!payload.jobTitleId) delete payload.jobTitleId
     if (!payload.nationalId) delete payload.nationalId
     if (!payload.employeeNumber) delete payload.employeeNumber
     if (!payload.birthDate) delete payload.birthDate

@@ -9,6 +9,7 @@ const fileSchema = require('../models/File');
 const folderSchema = require('../models/Folder');
 const stockAdjustmentSchema = require('../models/StockAdjustment');
 const categorySchema = require('../models/Category');
+const jobTitleSchema = require('../models/JobTitle');
 const employeeSchema = require('../models/Employee');
 const attendanceSchema = require('../models/Attendance');
 const attendanceAuditSchema = require('../models/AttendanceAudit');
@@ -78,6 +79,7 @@ const getTenantConnection = (dbName) => {
     connection.model('Folder', folderSchema);
     
     // HR & Payroll
+    connection.model('JobTitle', jobTitleSchema);
     connection.model('Employee', employeeSchema);
     connection.model('Attendance', attendanceSchema);
     connection.model('AttendanceAudit', attendanceAuditSchema);
