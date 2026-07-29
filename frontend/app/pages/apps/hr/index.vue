@@ -169,8 +169,8 @@ const stats = ref({})
 const fetchStats = async () => {
   try {
     loading.value = true
-    const response = await $api.get('/api/hr/dashboard')
-    stats.value = response.data
+    const response = await $api('/hr/dashboard')
+    stats.value = response
   } catch (error) {
     console.error('Failed to fetch HR dashboard stats:', error)
   } finally {

@@ -190,9 +190,9 @@ onMounted(() => {
 const fetchDebtors = async () => {
   loading.value = true
   try {
-    const res = await $api.get('/customers')
+    const res = await $api('/customers')
     // Filter out customers with 0 or negative debt
-    debtors.value = res.data.filter(c => (c.totalDebt || 0) > 0)
+    debtors.value = res.filter(c => (c.totalDebt || 0) > 0)
   } catch (error) {
     console.error('Error fetching debtors:', error)
   } finally {
@@ -240,8 +240,8 @@ const openHistory = async (debtor) => {
   historyModalOpen.value = true
   historyLoading.value = true
   try {
-    const res = await $api.get(`/customers/${debtor._id}/debt-logs`)
-    historyLogs.value = res.data
+    const res = await $api(`/customers/${debtor._id}/debt-logs`)
+    historyLogs.value = res
   } catch (error) {
     console.error('Error fetching history:', error)
   } finally {

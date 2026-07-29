@@ -156,8 +156,8 @@ const stats = ref({})
 const fetchStats = async () => {
   try {
     loading.value = true
-    const response = await $api.get('/api/inventory/dashboard')
-    stats.value = response.data
+    const response = await $api('/inventory/dashboard')
+    stats.value = response
   } catch (error) {
     console.error('Failed to fetch Inventory dashboard stats:', error)
   } finally {

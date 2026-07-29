@@ -153,8 +153,8 @@ const stats = ref({})
 const fetchStats = async () => {
   try {
     loading.value = true
-    const response = await $api.get('/api/customers/dashboard')
-    stats.value = response.data
+    const response = await $api('/customers/dashboard')
+    stats.value = response
   } catch (error) {
     console.error('Failed to fetch CRM dashboard stats:', error)
   } finally {
