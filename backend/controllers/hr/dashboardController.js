@@ -77,9 +77,9 @@ const getDashboardStats = async (req, res) => {
                 days: lr.durationDays
             })),
             attendanceStats: {
-                onTimePercent: onTimePercent || 85, // fallback for empty db
-                latePercent: latePercent || 10,
-                absentPercent: absentPercent || 5
+                onTimePercent: onTimePercent,
+                latePercent: latePercent,
+                absentPercent: absentPercent
             }
         });
     } catch (error) {
