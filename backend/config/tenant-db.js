@@ -19,6 +19,7 @@ const shiftSchema = require('../models/Shift');
 const holidaySchema = require('../models/Holiday');
 const leaveRequestSchema = require('../models/LeaveRequest');
 const leaveTypeSchema = require('../models/LeaveType');
+const allowanceTypeSchema = require('../models/AllowanceType');
 const orderSchema = require('../models/Order');
 const shiftLogSchema = require('../models/ShiftLog');
 const customerSchema = require('../models/Customer');
@@ -89,6 +90,7 @@ const getTenantConnection = (dbName) => {
     connection.model('Holiday', holidaySchema);
     connection.model('LeaveRequest', leaveRequestSchema);
     connection.model('LeaveType', leaveTypeSchema);
+    connection.model('AllowanceType', allowanceTypeSchema);
 
     // POS
     connection.model('Order', orderSchema);
