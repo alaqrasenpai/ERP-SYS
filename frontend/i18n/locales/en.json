@@ -1449,5 +1449,24 @@
     "crm_manage": "Manage CRM",
     "settings_manage": "Manage System Settings",
     "team_manage": "Manage Users and Roles"
+  },
+  "jobs": {
+    "title": "Job Titles",
+    "description": "Manage employee job positions and titles",
+    "add_job": "Add Job Title",
+    "name": "Job Title",
+    "status": "Status",
+    "actions": "Actions",
+    "active": "Active",
+    "inactive": "Inactive",
+    "edit": "Edit",
+    "delete": "Delete",
+    "no_data": "No job titles found",
+    "edit_job": "Edit Job Title",
+    "new_job": "New Job Title",
+    "desc_label": "Description",
+    "active_status": "Active",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }
