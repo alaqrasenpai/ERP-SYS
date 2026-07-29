@@ -335,7 +335,7 @@ import { useRoute } from 'vue-router'
 // REMOVED layout: false so it embeds in dashboard
 definePageMeta({ 
   middleware: ['auth', 'module-guard'],
-  requiredModule: 'restaurant'
+  requiredModule: 'pos'
 })
 
 const { $api } = useNuxtApp()
