@@ -17,11 +17,14 @@ const getDashboardStats = async (req, res) => {
             Category.countDocuments(),
             Product.countDocuments({ $expr: { $lte: ['$stockQuantity', { $ifNull: ['$alertQuantity', 0] }] } }),
             Product.aggregate([
-                { $group: { _id: null, total: { $sum: { $multiply: ['$stockQuantity', '$price'] } } } }
+                { $group: { _id: null, total: { $sum: { $multiply: ['$stockQuantity', '$unitPrice'] } } } }
             ]),
             StockMovement.find().populate('productId', 'name').sort({ createdAt: -1 }).limit(4),
-            // Mocking top categories by taking the first 4 for now
-            Category.find().limit(4)
+            Product.aggregate([
+                { $group: { _id: '$category', count: { $sum: 1 } } },
+                { $sort: { count: -1 } },
+                { $limit: 4 }
+            ])
         ]);
 
         const inventoryValue = inventoryValueAgg.length > 0 ? inventoryValueAgg[0].total : 0;
@@ -44,8 +47,8 @@ const getDashboardStats = async (req, res) => {
                 quantity: m.quantity
             })),
             topCategories: topCategoriesAgg.map(c => ({
-                name: c.name,
-                percentage: 25 // mock percentage
+                name: c._id || 'Uncategorized',
+                percentage: totalItems > 0 ? Math.round((c.count / totalItems) * 100) : 0
             }))
         });
     } catch (error) {
