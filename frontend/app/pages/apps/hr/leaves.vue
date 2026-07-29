@@ -205,7 +205,7 @@
       </div>
 
       <div v-if="activeTab === 'types'">
-        <HrLeaveTypesManager />
+        <HrLeaveTypesManager @changed="fetchData" />
       </div>
 
       <!-- Leave Balances Modal -->

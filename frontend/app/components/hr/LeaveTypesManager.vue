@@ -76,6 +76,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 const { $api } = useNuxtApp()
+const emit = defineEmits(['changed'])
 
 const leaveTypes = ref([])
 const loading = ref(true)
@@ -131,6 +132,7 @@ const saveType = async () => {
       })
     }
     await fetchTypes()
+    emit('changed')
     closeModal()
   } catch (error) {
     console.error('Failed to save', error)
@@ -145,6 +147,7 @@ const deleteType = async (id) => {
   try {
     await $api(`/settings/leave-types/${id}`, { method: 'DELETE' })
     await fetchTypes()
+    emit('changed')
   } catch (error) {
     console.error('Failed to delete', error)
     alert('حدث خطأ أثناء الحذف')
