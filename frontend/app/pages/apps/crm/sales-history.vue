@@ -78,7 +78,7 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-black text-end text-gray-900 dark:text-white">
-                  ${{ order.grandTotal.toFixed(2) }}
+                  ${{ (order.grandTotal || 0).toFixed(2) }}
                 </td>
               </tr>
               <tr v-if="orders.length === 0">

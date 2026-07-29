@@ -31,7 +31,7 @@
         <div class="flex justify-between items-start mb-4">
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold text-xl uppercase">
-              {{ customer.name.charAt(0) }}
+              {{ customer.name ? customer.name.charAt(0) : '?' }}
             </div>
             <div>
               <h3 class="font-bold text-gray-900 dark:text-white text-lg leading-tight">{{ customer.name }}</h3>
@@ -51,7 +51,7 @@
         <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 border border-gray-100 dark:border-gray-700 flex justify-between items-center">
           <div>
             <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{{ $t('crm.outstanding_debt') }}</p>
-            <p class="text-xl font-black" :class="customer.totalDebt > 0 ? 'text-red-600' : 'text-emerald-600'">${{ customer.totalDebt.toFixed(2) }}</p>
+            <p class="text-xl font-black" :class="(customer.totalDebt || 0) > 0 ? 'text-red-600' : 'text-emerald-600'">${{ (customer.totalDebt || 0).toFixed(2) }}</p>
           </div>
           <button @click="openDebtModal(customer)" class="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-900 transition-colors shadow-sm">
             {{ $t('crm.settle') }}
@@ -104,7 +104,7 @@
         <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
           <div>
             <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ $t('crm.manage_debt') }} {{ activeCustomer?.name }}</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{ $t('crm.current_balance') }} <span class="font-bold text-red-600">${{ activeCustomer?.totalDebt.toFixed(2) }}</span></p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{ $t('crm.current_balance') }} <span class="font-bold text-red-600">${{ (activeCustomer?.totalDebt || 0).toFixed(2) }}</span></p>
           </div>
           <button @click="showDebtModal = false" class="text-gray-400 hover:text-gray-600 dark:text-gray-400">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
